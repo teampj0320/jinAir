@@ -1,0 +1,311 @@
+
+.r-common {
+
+
+    /* r-common reset */
+    box-sizing: border-box;
+
+    scroll-behavior: smooth;
+    word-break: keep-all;
+    text-size-adjust: 100%;
+
+    html,
+    body,
+    div,
+    span,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    abbr,
+    address,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    samp,
+    small,
+    sub,
+    sup,
+    var,
+    b,
+    i,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        vertical-align: baseline;
+    }
+
+
+    section {
+        display: block;
+    }
+
+    nav ul {
+        list-style: none;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    blockquote,
+    q {
+        quotes: none;
+    }
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
+
+    a {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+        text-decoration: none;
+        color: #222;
+    }
+
+    ins {
+        background-color: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background-color: #ff9;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    del {
+        text-decoration: line-through;
+    }
+
+    abbr[title],
+    dfn[title] {
+        border-bottom: 1px dotted;
+        cursor: help;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #dddddd;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    input,
+    select {
+        vertical-align: middle;
+        background: transparent;
+        border: 1px solid #ddd;
+    }
+
+    br {
+        font-size: 0;
+        line-height: 0;
+    }
+
+    img {
+        vertical-align: top;
+    }
+
+    button {
+        cursor: pointer;
+        border: 0;
+        background-color: #fff;
+    }
+
+    button>* {
+        position: relative;
+        display: block;
+    }
+
+    ::-webkit-file-upload-button {
+        cursor: pointer;
+    }
+
+
+
+
+
+
+    /************************************
+            상품 관련 common 
+********************************************/
+
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        font-weight: 300 400 500 600 700 800 900;
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-style: normal;
+    }
+
+
+    li,
+    p,
+    button,
+    div,
+    span,
+    input {
+        font-family: 'Pretendard-Regular';
+        letter-spacing: -0.5px;
+    }
+
+    :root {
+        --dark-gray: #69696980;
+        /* CSS 전역 변수 선언 */
+        --light-gray: rgba(0, 0, 0, 0.55)
+            /* CSS 전역 변수 선언 */
+    }
+
+
+    .f11 {
+        font-size: 11px !important;
+    }
+    .f12 {
+        font-size: 12px !important;
+    }
+
+    .f13 {
+        font-size: 13px !important;
+    }
+
+    .f14 {
+        font-size: 14px !important;
+    }
+
+    .f15 {
+        font-size: 15px !important;
+    }
+
+    .f16 {
+        font-size: 16px !important;
+    }
+
+    .f18 {
+        font-size: 18px !important;
+        // font-weight: 600;
+    }
+
+    .f20 {
+        font-size: 20px !important;
+    }
+
+    .f22 {
+        font-size: 22px !important;
+    }
+
+    .f24 {
+        font-size: 24px !important;
+    }
+
+    .w500 {
+        font-weight: 500 !important;
+    }
+
+    .w600 {
+        font-weight: 600 !important;
+    }
+
+    .pt10 {
+        padding-top: 10px;
+    }
+
+    .flex {
+        display: flex !important;
+    }
+
+    .gap5 {
+        gap: 5px;
+    }
+
+    .space-between {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .ver-center {
+        vertical-align: center;
+    }
+
+    .align-center {
+        align-items: center;
+    }
+
+    .list-none {
+        list-style: none;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+
+/* 페이지 */
+
+
+}
