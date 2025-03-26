@@ -3,23 +3,21 @@ use JinAirDB;
 show tables;
 
 -- 테이블 전체 데이터 조회
-select * from cart;
-select * from category;
+select * from admin;
+select * from country;
 select * from customer;
-select * from orders; -- order는 mysql에 내장된 예약어라 백틱(``)사용
-select * from product;
+select * from flight;
+select * from main_menu_category;
 select * from qna;
-select * from review;
+select * from reservation;
 select * from sub_category;
-select * from wish;
 
 -- 테이블 데이터 타입 조희
-desc cart;
-desc category;
+desc admin;
+desc country;
 desc customer;
-desc orders;
-desc product;
+desc flight;
+desc main_menu_category;
 desc qna;
-desc review;
+desc reservation;
 desc sub_category;
-desc wish;
