@@ -3,39 +3,52 @@ CREATE DATABASE  IF NOT EXISTS `JinAirDB` /*!40100 DEFAULT CHARACTER SET utf8mb4
 USE `JinAirDB`;
 
 -- ########################################
--- Dumping data for table `main_menu_category` 1.카테고리 테이블
--- ########################################
+-- Dumping data for table `main_menu_category` n.메인메뉴 카테고리 테이블
+-- ######################################## 
+
+DROP TABLE IF EXISTS `main_menu_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `main_menu_category` (
-  `mid`           char(3)         	PRIMARY KEY ,
-  `title`         varchar(20)       NOT NULL
+  `mid`          char(3)         PRIMARY KEY ,
+  `title`         varchar(20)      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-insert into main_menu_category(mid, title)
-values(101,'예약'),(102,'프로모션/제휴'),(103,'부가서비스'),(104,'운항정보');  
 
+insert into main_menu_category(mid, title)
+values(101,'예약'),(102,'프로모션/제휴'),(103,'부가서비스'),(104,'운항정보') ; 
 -- ########################################
--- Dumping data for table `main_sub_category` 2.서브카테고리 테이블
+-- Dumping data for table `main_sub_category` n.서브카테고리 테이블
 -- ########################################
 DROP TABLE IF EXISTS `sub_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sub_category` (
-  `sid`          	char(3)          NOT NULL,
-  `title`         	varchar(20)      NOT NULL,
-  `mid`             char(3)          NOT NULL,
-  `icon`         	varchar(50)		 NULL,       
+  `sid`          char(3)          NOT NULL,
+  `title`         varchar(20)      NOT NULL,
+  `mid`            char(3)         NOT NULL,
+  `image`         varchar(50),    
    PRIMARY KEY (`mid`, `sid`), 
-   CONSTRAINT `SUB_CATEGORY_FK_CID` FOREIGN KEY (`mid`) REFERENCES `main_menu_category` (`mid`)
+   CONSTRAINT `SUB_CATEGORY_FK_SID` FOREIGN KEY (`mid`) REFERENCES `main_menu_category` (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-insert into sub_category(sid, title, cid)
-values('001','예약안내',101, '이미지'),('002','항공권 예약',101),
-('003','예약/결제안내',101),('004','예약변경/취소/환불',101),
-('001','추천 항공권',102, '이미지'),('002','최저가항공권',102), ('003','맞춤항공권',102),
-('001','운임 및 수수료',103, '이미지'),('002','국내선',103), ('003','국제선',103),
-('001','운임 및 수수료',103, '이미지'),('002','국내선',103), ('003','국제선',103);
+
+INSERT INTO sub_category(sid, title, mid, image)
+VALUES
+('aa1', '예약안내', 101, '이미지'),
+('aa2', '항공권 예약', 101, NULL),
+('aa3', '예약/결제안내', 101, NULL),
+('aa4', '예약변경/취소/환불', 101, NULL),
+('bb1', '추천 항공권', 102, '이미지'),
+('bb2', '최저가항공권', 102, NULL),
+('bb3', '맞춤항공권', 102, NULL),
+('cc1', '운임 및 수수료', 103, '이미지'),
+('cc2', '국내선', 103, NULL),
+('cc3', '국제선', 103, NULL),
+('cc4', '운임 및 수수료', 103, '이미지'),
+('cc5', '국내선', 103, NULL),
+('cc6', '국제선', 103, NULL);
+
 
 -- ########################################
 -- Dumping data for table `customer` 3.고객 테이블
@@ -57,7 +70,7 @@ CREATE TABLE `customer` (
   `zipcode` 		int(5) 		NULL,
   `address` 		varchar(80) NULL,
   `detail_address`  varchar(80) NULL,
-  `nationality `  	varchar(10) NULL, 	 -- 국적(여권) 
+  `nationality`  	varchar(10) NULL, 	 -- 국적(여권) 
   `country`  		varchar(10) NULL,    -- 거주 국가
   `profile_img` 	json NULL,  -- 프사
   `miles` 			int  NULL default 0, -- 마일리지 / 결제금액의 10%
@@ -97,7 +110,7 @@ VALUES ('ADMIN1', '1111', '관리자1', '010-0000-0000', 'ADMIN1@GOOGLE.COM',NOW
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flight` (
-ANUM					varchar(20)	NOT NULL, -- 항공편 번호 PK
+fNUM					varchar(20)	NOT NULL, -- 항공편 번호 PK
 pnum					varchar(20) NOT NULL, -- 비행기 번호
 Departure_location		varchar(20)	NOT NULL,
 Arrive_location			varchar(20)	NOT NULL,
@@ -108,7 +121,7 @@ basic_seat 				INT 		NULL,
 premium_seat 			INT 		NULL,
 basic_price 			INT 		NULL,
 premium_price			INT 		NULL,
-PRIMARY KEY (`ANUM`)
+PRIMARY KEY (`fnum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -133,9 +146,11 @@ DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE `reservation` (
 NO 			int  			NOT NULL, 
 ID  		varchar(20)     NOT NULL,
+fNUM		varchar(20)	NOT NULL, -- 항공편 번호 PK
 RES_NUM     varchar(20)     NOT NULL,
 RES_DATE	DATETIME   		NOT NULL,
-CONSTRAINT `SUB_RESERVATION_FK_ID` FOREIGN KEY (`id`) REFERENCES `AIRPLANE` (`id`)
+CONSTRAINT `SUB_RESERVATION_FK_fnum` FOREIGN KEY (`fnum`) REFERENCES `flight` (`fnum`),
+CONSTRAINT `SUB_RESERVATION_FK_id` FOREIGN KEY (`ID`) REFERENCES `customer` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -145,7 +160,7 @@ CONSTRAINT `SUB_RESERVATION_FK_ID` FOREIGN KEY (`id`) REFERENCES `AIRPLANE` (`id
 -- ########################################
 DROP TABLE IF EXISTS `QNA`;
 CREATE TABLE `QNA` (
-NO   	int 			auto_increment,
+  NO        int AUTO_INCREMENT PRIMARY KEY,
 TYPE	char(1)  		NOT NULL,
 TITLE 	varchar(30)		NOT NULL,
 CONTENT varchar(100)	NOT NULL,
