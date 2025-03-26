@@ -113,7 +113,9 @@ CREATE TABLE `flight` (
 fNUM					varchar(20)	NOT NULL, -- 항공편 번호 PK
 pnum					varchar(20) NOT NULL, -- 비행기 번호
 Departure_location		varchar(20)	NOT NULL,
+D_acode					varchar(5) NOT NULL, -- 도착지 공항 코드
 Arrive_location			varchar(20)	NOT NULL,
+A_acode					varchar(5) NOT NULL, -- 출발지 공항 코드
 Departure_date			DATETIME    NOT NULL,
 Arrive_date				DATETIME    NOT NULL,
 total_Passengers		INT 		NOT NULL,
