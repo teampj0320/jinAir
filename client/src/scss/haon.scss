@@ -1,0 +1,46 @@
+.main-top-box{
+    width: 100%;
+    border: 1px solid red;
+    .main-top-bg-img{
+        border: 1px solid blue;
+        img {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .main-bottom-depart-check{
+        background-color: rgb(25, 37, 71);
+        color: white;
+        padding: 0 100px;
+        .main-bottom-depart-check-middle{
+            margin: 0 auto;
+            width: 1000px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+        div {
+            margin-right: 50px;
+        }
+        div > h4{
+            color: rgb(211, 233, 46);
+            font-size: 22px;
+            margin: 0;
+            padding: 0;
+            font-weight: 600;
+        }
+        div > h5{
+            margin: 0;
+            padding: 0;
+            font-weight: 300;
+        }
+        ul{
+            display: flex;
+            list-style-type: none;
+            gap: 20px;
+        }
+        ul>li{
+            text-decoration: underline;
+        }
+    }
+}
