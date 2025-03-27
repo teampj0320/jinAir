@@ -1,226 +1,251 @@
+.mp-container {
+    background-color: rgba(250, 250, 250);
+    padding: 0 0 30px 0;
+    margin: 0;
+    
+}
 
 .r-common {
 
 
-    /* r-common reset */
-    box-sizing: border-box;
-
-    scroll-behavior: smooth;
-    word-break: keep-all;
-    text-size-adjust: 100%;
-
-    html,
-    body,
-    div,
-    span,
-    object,
-    iframe,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    blockquote,
-    pre,
-    abbr,
-    address,
-    cite,
-    code,
-    del,
-    dfn,
-    em,
-    img,
-    ins,
-    kbd,
-    q,
-    samp,
-    small,
-    sub,
-    sup,
-    var,
-    b,
-    i,
-    dl,
-    dt,
-    dd,
-    ol,
-    ul,
-    li,
-    fieldset,
-    form,
-    label,
-    legend,
-    table,
-    caption,
-    tbody,
-    tfoot,
-    thead,
-    tr,
-    th,
-    td,
-    article,
-    aside,
-    canvas,
-    details,
-    figcaption,
-    figure,
-    footer,
-    header,
-    hgroup,
-    menu,
-    nav,
-    section,
-    summary,
-    time,
-    mark,
-    audio,
-    video {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        vertical-align: baseline;
-    }
-
-
-    section {
-        display: block;
-    }
-
-    nav ul {
-        list-style: none;
-    }
-
-    li {
-        list-style: none;
-    }
-
-    blockquote,
-    q {
-        quotes: none;
-    }
-
-    blockquote:before,
-    blockquote:after,
-    q:before,
-    q:after {
-        content: '';
-        content: none;
-    }
-
-    a {
-        margin: 0;
-        padding: 0;
-        font-size: 100%;
-        vertical-align: baseline;
-        background: transparent;
-        text-decoration: none;
-        color: #222;
-    }
-
-    ins {
-        background-color: #ff9;
-        color: #000;
-        text-decoration: none;
-    }
-
-    mark {
-        background-color: #ff9;
-        color: #000;
-        font-style: italic;
-        font-weight: bold;
-    }
-
-    del {
-        text-decoration: line-through;
-    }
-
-    abbr[title],
-    dfn[title] {
-        border-bottom: 1px dotted;
-        cursor: help;
-    }
-
-    table {
-        border-collapse: separate;
-        border-spacing: 0;
-        table-layout: fixed
-    }
-
-    hr {
-        display: block;
-        height: 1px;
-        border: 0;
-        border-top: 1px solid #dddddd;
-        margin: 1em 0;
-        padding: 0;
-    }
-
-    input,
-    select {
-        vertical-align: middle;
-        background: transparent;
-        border: 1px solid #ddd;
-    }
-
-    br {
-        font-size: 0;
-        line-height: 0;
-    }
-
-    img {
-        vertical-align: top;
-    }
-
-    button {
-        cursor: pointer;
-        border: 0;
-        background-color: #fff;
-    }
-
-    button>* {
-        position: relative;
-        display: block;
-    }
-
-    ::-webkit-file-upload-button {
-        cursor: pointer;
-    }
-
-
-
-
-
-
-    /************************************
-            상품 관련 common 
-********************************************/
 
     @font-face {
-        font-family: 'Pretendard-Regular';
-        font-weight: 300 400 500 600 700 800 900;
-        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-family: "Pretendard-Regular";
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+          format("woff");
+        font-weight: 400 500 600;
         font-style: normal;
-    }
+      }
+      @font-face {
+        font-family: "Pretendard-SemiBold";
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff")
+          format("woff");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Pretendard-Bold";
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+          format("woff");
+        font-weight: 700;
+        font-style: normal;
+      }
 
 
-    li,
-    p,
-    button,
-    div,
-    span,
-    input {
-        font-family: 'Pretendard-Regular';
-        letter-spacing: -0.5px;
+      @font-face {
+        font-family: "Pretendard";
+        font-weight: 300;
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff") format('woff');
+    }
+    @font-face {
+        font-family: "Pretendard";
+        font-weight: 200;
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraLight.woff") format('woff');
+    }
+    @font-face {
+        font-family: "Pretendard";
+        font-weight: 100;
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1//Pretendard-Thin.woff") format('woff');
     }
 
-    :root {
-        --dark-gray: #69696980;
-        /* CSS 전역 변수 선언 */
-        --light-gray: rgba(0, 0, 0, 0.55)
-            /* CSS 전역 변수 선언 */
-    }
+    
+
+li,
+p,
+button,
+div,
+span,
+input {
+    font-family: 'Pretendard-Regular';
+}
+
+.thin300 {
+    font-family: "Pretendard" ;
+    font-weight: 300;
+  }
+
+  html,
+  body,
+  div,
+  span,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  abbr,
+  address,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  samp,
+  small,
+  sub,
+  sup,
+  var,
+  b,
+  i,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      vertical-align: baseline;
+  }
+
+
+  section {
+      display: block;
+  }
+
+  nav ul {
+      list-style: none;
+  }
+
+  li {
+      list-style: none;
+  }
+
+  blockquote,
+  q {
+      quotes: none;
+  }
+
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
+      content: '';
+      content: none;
+  }
+
+  a {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+      background: transparent;
+      text-decoration: none;
+      color: #222;
+  }
+
+  ins {
+      background-color: #ff9;
+      color: #000;
+      text-decoration: none;
+  }
+
+  mark {
+      background-color: #ff9;
+      color: #000;
+      font-style: italic;
+      font-weight: bold;
+  }
+
+  del {
+      text-decoration: line-through;
+  }
+
+  abbr[title],
+  dfn[title] {
+      border-bottom: 1px dotted;
+      cursor: help;
+  }
+
+  table {
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed
+  }
+
+  hr {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid #dddddd;
+      margin: 1em 0;
+      padding: 0;
+  }
+
+  input,
+  select {
+      vertical-align: middle;
+      background: transparent;
+      border: 1px solid #ddd;
+  }
+
+  br {
+      font-size: 0;
+      line-height: 0;
+  }
+
+  img {
+      vertical-align: top;
+  }
+
+  button {
+      cursor: pointer;
+      border: 0;
+      background-color: #fff;
+  }
+
+  button>* {
+      position: relative;
+      display: block;
+  }
+
+  ::-webkit-file-upload-button {
+      cursor: pointer;
+  }
+
+
+
+    
 
 
     .f11 {
@@ -263,6 +288,13 @@
         font-size: 24px !important;
     }
 
+    .f30 {
+        font-size: 30px !important;
+    }
+
+    .w300 {
+        font-weight: 300 !important;
+    }
     .w500 {
         font-weight: 500 !important;
     }
@@ -305,7 +337,112 @@
     }
 
 
-/* 페이지 */
+    .box-style {
+        border-radius: 10px 10px 0 0;
+        background: #ffffff;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+    }
+
+
+/* ********* 마이 페이지 ********* */
+
+   .mp-content{ 
+    margin: 0 auto;
+    width: 1200px;}
+
+    .mypage-subtitle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 120px;
+    padding: 0 40px;
+    z-index: 80;
+    gap: 32px;
+    border-radius: 10px;
+    justify-content: space-between;
+
+    }
+
+    .mypage-subtitle:after {
+        content: "";
+        display: block;
+        width: 54px;
+        height: 54px;
+        background-image: url("../assets/svg/mypage_top.svg");
+        background-size: 54px !important;
+    }
+
+
+    .mypage-index {
+        padding-top: 60px;
+        
+      }
+
+      .mp-left{
+        border-radius: 10px 10px 0 0;
+        background: #ffffff;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+        width: 270px;
+        padding: 10px 10px 10px 10px;
+        height: auto;
+        overflow: hidden;
+        }
+
+      .user-info{
+        background-color: white;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        text-align: center;
+        padding: 45px 0;
+
+            img {
+                border-radius: 100%;
+                width: 80px;
+                height: 80px;
+            }
+
+
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                padding: 20px 0;
+                li {
+                    font-size: 12px;}}
+
+
+            .modify-info {
+                position: relative;
+                padding-right: 20px;
+              }
+
+            .modify-info::after {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%) rotate(-90deg);
+                background-image: url("../assets/svg/toggle.svg") ;
+                background-repeat: no-repeat;
+            
+            }
+
+      }
+
+
+      .user-interest{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        border-top: 1px dashed #b4b4b4;
+        height: 232px;
+      }
 
 
 }
