@@ -5,10 +5,13 @@ import { Outlet } from 'react-router-dom';
 
 export default function Layout() {
     return (
-        <div>
-            <Header />
-            <Outlet />
+        <div>  
+            <Header />   
+            <div style={{marginTop:"100px"}}>
+            <Outlet />  
+            </div>
             <Footer />
+
         </div>
     );
 }

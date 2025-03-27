@@ -166,7 +166,7 @@ CREATE TABLE `main_menu_category` (
 
 LOCK TABLES `main_menu_category` WRITE;
 /*!40000 ALTER TABLE `main_menu_category` DISABLE KEYS */;
-INSERT INTO `main_menu_category` VALUES ('101','예약'),('102','프로모션/제휴'),('103','부가서비스'),('104','운항정보');
+INSERT INTO `main_menu_category` VALUES ('101','예약'),('102','프로모션/제휴'),('103','부가서비스'),('104','운항정보'),('105', '전체메뉴);
 /*!40000 ALTER TABLE `main_menu_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,23 @@ CREATE TABLE `sub_category` (
 
 LOCK TABLES `sub_category` WRITE;
 /*!40000 ALTER TABLE `sub_category` DISABLE KEYS */;
-INSERT INTO `sub_category` VALUES ('aa1','예약안내','101','이미지'),('aa2','항공권 예약','101',NULL),('aa3','예약/결제안내','101',NULL),('aa4','예약변경/취소/환불','101',NULL),('bb1','추천 항공권','102','이미지'),('bb2','최저가항공권','102',NULL),('bb3','맞춤항공권','102',NULL),('cc1','운임 및 수수료','103','이미지'),('cc2','국내선','103',NULL),('cc3','국제선','103',NULL),('cc4','운임 및 수수료','103','이미지'),('cc5','국내선','103',NULL),('cc6','국제선','103',NULL);
+INSERT INTO `sub_category` VALUES ('aa1','예약안내','101','<IoMdAirplane />'),('aa2','항공권 예약','101',NULL),('aa3','예약/결제안내','101',NULL),('aa4','예약변경/취소/환불','101',NULL),
+('bb1','추천 항공권','101','<MdAirplaneTicket />'),('bb2','최저가항공권','101',NULL),('bb3','맞춤항공권','101',NULL),
+('cc1','운임 및 수수료','101','<IoIosPricetags />'),('cc2','국내선','101',NULL),('cc3','국제선','101',NULL),
+('dd1','할인','101','<RiDiscountPercentFill />'),('dd2','할인코드','101',NULL),('dd4','프로모션코드','101',NULL),('dd5','신분할인제도','101',NULL),('dd6','상용우대 프로그램','101',NULL),
+('ee1','이벤트','102','<PiCalendarStarFill />'),('ee2','진행중','102',NULL),('ee3','종료','102',NULL),('ee4','당첨자 발표','102',NULL),
+('ff1','제휴','102','<LuHeartHandshake />'),('ff2','차량','102',NULL),('ff3','호텔','102',NULL),('ff4','여행보험','102',NULL),('ff5','현지투어/통신','102',NULL),('ff6','카드/환전','102',NULL),('ff7','지니 보딩패스','102',NULL),
+('gg1','부가서비스 안내','103','<LuPackagePlus />'),
+('hh1','묶음 할인','103','<IoIosGift />'),
+('ii1','좌석','103','<PiSeatFill />'),
+('jj1','수하물','103','<BsSuitcase2Fill />'),
+('kk1','기내식','103','<FaUtensils />'),
+('ll1','여행보험','103','<AiFillSafetyCertificate />'),
+('mm1','JINI PET','103','<MdOutlinePets />'),
+('nn1','출도착 안내','104','<PiAirplaneInFlightFill />'),('nn2','구간 조회','104',NULL),('nn3','편명 조회','104',NULL),
+('oo1','스케줄 조회','104','<FaCalendarCheck />'),('oo2','왕복','104',NULL),('oo3','편도','104',NULL),
+('pp1','취항 노선 안내','104','<FaEarthAsia />'),('pp2','국내선','104',NULL),('pp3','국제선','104',NULL);
+
 /*!40000 ALTER TABLE `sub_category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

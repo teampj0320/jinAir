@@ -8,12 +8,11 @@
     --color-153: rgb(153, 153, 153);
     --color-181: rgb(181, 181, 181);
     --color-242: rgb(242, 242, 242);
-
     --borderlight: #dfe4eb;
     --fontblack: #333333;
     --darkblack: #222222;
-
     --jinairgreen: #d3e92e;
+    --jinairgray: #999999;
     --jinairnav: #192547;
 }
 
@@ -61,7 +60,7 @@
 .medium {
     font-family: 'NotoSans-M';
 }
-
+.header_outline,
 .content_outline,
 .footer_outline {
     width: 100%;
@@ -69,75 +68,97 @@
 
 .content_outline,
 .content {
-    position: relative; 
+    position: relative;
 }
 
 .header,
 .content,
-.footer {
+.footer { 
     width: 1280px;
     margin: 0px auto;
-}
-
+} 
 /**************************************
 ** HEADER- TOP 
 **************************************/
-.header { 
-
-    .header_top {
-        height: 100px;
-
-        .header_top_menu {
-            display: flex;
-            justify-content: end;
-            align-items: center;
-            font-size: 12px;
-            color: var(--color-nav-main);
-            padding: 10px 0;
-
-            button {
-
-                border: 0;
-                background-color: transparent;
-            }
-
-            .header_top_menu_item {
-                position: relative;
-            }
-
-        }
-
-        .header_bottom_menu {
-            display: flex;
+.header_outline{ 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    .header {
+        // border: 3px solid blue;
+        width: 100vw;
+        display: flex;
+        justify-content: center; 
+        background-color: #fff;
+        box-shadow: 1px 1px 8px 3px #d8d8d8;  
+        .header_content{ 
             width: 1200px;
-            justify-content: space-between;
-            z-index: 300;
-            letter-spacing: -0.3px;
-            align-items: center;
-
-            .menu_list {
-                ul {
-                    list-style: none;
+            .header_top {
+                height: 100px;
+                max-width: 1200px;
+        
+                .header_top_menu {
                     display: flex;
-
-                    li {
-                        min-width: 150px;
-                        max-width: 180px;
-                        font-weight: 400;
-                        font-size: 18px;
-                        text-align: center;
-                        color: #192547;
+                    justify-content: end;
+                    align-items: center;
+                    font-size: 12px;
+                    color: var(--color-nav-main);
+                    padding: 10px 0;
+        
+                    button {
+                        border: 0;
+                        background-color: transparent;
+                    }
+        
+                    .header_top_menu_item {
+                        position: relative;
+                    }
+                }
+        
+                .header_bottom_menu {
+                    display: flex;
+                    max-width: 1200px;
+                    justify-content: space-between;
+                    z-index: 300;
+                    letter-spacing: -0.3px;
+                    align-items: center;
+        
+                    .menu_list {
+                        ul {
+                            list-style: none;
+                            display: flex;
+        
+                            li {
+                                min-width: 150px;
+                                max-width: 180px;
+                                font-weight: 400;
+                                font-size: 18px;
+                                text-align: center;
+                                color: #192547;
+                            }
+                        }
                     }
                 }
             }
-
+            .header_bottom {
+                height: 1px;
+                background-color: var(--color-242);
+            }
         }
     }
 }
-.header_bottom{
-    height: 1px;
-    background-color: var(--color-242);
+
+
+/**************************************
+** main
+**************************************/
+.home_main_logo {
+    width: 137px;
+    cursor: pointer;
 }
+
+
 
 /**************************************
 ** Footer 
@@ -149,24 +170,28 @@
 
     .footer {
         background-color: var(--color-242);
-        .footer_top{
+
+        .footer_top {
             color: var(--color-nav-main);
             display: flex;
             justify-content: space-between;
-            .footer_left{
-                .footer_menu{
+
+            .footer_left {
+                .footer_menu {
                     width: 600px;
-                    display: flex; 
+                    display: flex;
                     justify-content: space-between;
-                    ul{ 
+
+                    ul {
                         list-style: none;
                     }
-                } 
+                }
             }
         }
+
         .footer_bottom {
             width: 100%;
-            padding: 20px 0 30px;   
+            padding: 20px 0 30px;
             display: flex;
             justify-content: space-between;
         }
