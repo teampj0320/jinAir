@@ -30,7 +30,7 @@ export default function Footer() {
                     </div> 
                 </div>
                 <div className='footer_bottom'>
-                    <div>
+                    <div className='home_main_logo'>
                         <img src="https://images.jinair.com/newHom/images/web/common/logo2.svg" alt="" />
                         (주) 진에어
                     </div>

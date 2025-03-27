@@ -1,0 +1,18 @@
+.main_home {
+    .main_home_content {
+        .main_home_content_top {
+            margin-top: 60px; 
+            .main_boon { 
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 590px;
+                height: 150px; 
+                font-size: 20px;
+                font-weight: bold;
+                border-radius: 10px;
+                border: 1px solid magenta;
+            }
+        }
+    }
+}
