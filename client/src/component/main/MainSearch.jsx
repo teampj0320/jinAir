@@ -11,73 +11,147 @@ import { TbArrowsExchange } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
+import { BsQuestionCircleFill } from "react-icons/bs";
 import '../../scss/haon.scss';
 
 export default function MainSearch() {
     const [tab, setTab] = useState('main');
+    const [searchTab, setSearchTab] = useState('roundTrip');
 
     return (
+        <div style={{width: "1500px"}}>
         <div className='main-top-box'>
-            <img src="/images/main.jpg" alt="벚꽃이미지" />
-            <div className='가운데조회부분'>
-                <div>
-                    <button onClick={() => { setTab('main') }}><ImAirplane /><span>예약</span></button>
-                    <button onClick={() => { setTab('checkIn') }}><IoTicketSharp /><span>체크인</span></button>
-                    <button onClick={() => { setTab('reservationCheck') }}><IoSearchOutline /><span>예약조회</span></button>
+            <div className='main-top-img'>
+                <img src="/images/main.jpg" alt="벚꽃이미지" />
+            </div>
+            <div className='main-top-search-all'>
+                <div className='main-top-search-btns'>
+                    <button
+                        onClick={() => { setTab('main') }}
+                        className={tab === 'main' ? 'main-top-search-btns-active' : 'main-top-search-btns-none'}>
+                        <ImAirplane className='main-top-search-icons1' /><span>예약</span>
+                    </button>
+                    <button
+                        onClick={() => { setTab('checkIn') }}
+                        className={tab === 'checkIn' ? 'main-top-search-btns-active' : 'main-top-search-btns-none'}>
+                        <IoTicketSharp className='main-top-search-icons2' /><span>체크인</span>
+                    </button>
+                    <button
+                        onClick={() => { setTab('reservationCheck') }}
+                        className={tab === 'reservationCheck' ? 'main-top-search-btns-active' : 'main-top-search-btns-none'}>
+                        <IoSearchOutline className='main-top-search-icons3' /><span>예약조회</span>
+                    </button>
                 </div>
                 {tab === 'main' &&
-                    <div className='예약일때'>
-                        <div className='상단'>
+                    <div className='main-top-search-bottom1'>
+                        <div className='main-top-search-bottom-main-top'>
                             <ul>
-                                <li>왕복</li>
-                                <li>편도</li>
-                                <li>다구간</li>
+                                <li onClick={() => { setSearchTab('roundTrip') }}
+                                    className={searchTab === 'roundTrip' ? 'main-top-search-bottom-tab-active' : 'main-top-search-bottom-tab-none'}>
+                                    왕복</li>
+                                <li onClick={() => { setSearchTab('oneWay') }}
+                                    className={searchTab === 'oneWay' ? 'main-top-search-bottom-tab-active' : 'main-top-search-bottom-tab-none'}>
+                                    편도</li>
+                                <li onClick={() => { setSearchTab('multiCity') }}
+                                    className={searchTab === 'multiCity' ? 'main-top-search-bottom-tab-active' : 'main-top-search-bottom-tab-none'}>
+                                    다구간</li>
                             </ul>
-                            <input type="text" />
+                            <div>
+                                <input type="text" placeholder='프로모션 코드를 입력해주세요.' />
+                                <BsQuestionCircleFill />
+                            </div>
                         </div>
-                        <div className='출발지 도착지 선택'>
-                            <div className='출발지선택'>
+                       { searchTab === 'roundTrip' &&
+                       <>
+                        <div className='main-top-search-bottom-main-middle'>
+                            <div>
                                 <h5>출발지 선택</h5>
                                 <div>
                                     <h3>출발</h3>
-                                    <IoIosArrowDown />
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                                 </div>
                             </div>
-                            <TbArrowsExchange />
-                            <div className='도착지선택'>
+                            <TbArrowsExchange className='main-top-search-bottom-main-middle-icon2' />
+                            <div>
                                 <h5>도착지 선택</h5>
                                 <div>
                                     <h3>도착</h3>
-                                    <IoIosArrowDown />
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                                 </div>
                             </div>
-                            <div className='여행기간'>
+                            <div>
                                 <h5>여행 기간</h5>
                                 <div>
                                     <span>
                                         <FaCalendarCheck />
                                         <h3>가는날 ~ 오는날</h3>
                                     </span>
-                                    <IoIosArrowDown />
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                                 </div>
                             </div>
                         </div>
-                        <div className='하단'>
-                            <div className=''>
+                        <div className='main-top-search-bottom-main-bottom'>
+                            <div>
                                 <h5>탑승 승객 인원</h5>
                                 <div>
                                     <span>
                                         <IoPersonSharp />
                                         <h3>성인 1</h3>
                                     </span>
-                                    <IoIosArrowDown />
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                                 </div>
                             </div>
                             <button>항공권 조회</button>
                         </div>
+                       </>
+                        }
+                         { searchTab === 'oneWay' &&
+                       <>
+                        <div className='main-top-search-bottom-main-middle2'>
+                            <div>
+                                <h5>출발지 선택</h5>
+                                <div>
+                                    <h3>출발</h3>
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
+                                </div>
+                            </div>
+                            <TbArrowsExchange className='main-top-search-bottom-main-middle-icon2' />
+                            <div>
+                                <h5>도착지 선택</h5>
+                                <div>
+                                    <h3>도착</h3>
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
+                                </div>
+                            </div>
+                            <div>
+                                <h5>일정 선택</h5>
+                                <div>
+                                    <span>
+                                        <FaCalendarCheck />
+                                        <h3>가는날</h3>
+                                    </span>
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
+                                </div>
+                            </div>
+                            <div>
+                                <h5>탑승 승객 인원</h5>
+                                <div>
+                                    <span>
+                                        <IoPersonSharp />
+                                        <h3>성인 1</h3>
+                                    </span>
+                                    <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
+                                </div>
+                            </div>
+                        </div>
+                        <div className='main-top-search-bottom-main-bottom2'>
+                            <button>항공권 조회</button>
+                        </div>
+                       </>
+                        }
                     </div>}
                 {tab === 'checkIn' &&
-                    <div className='체크인일때'>
+                    <div className='main-top-search-bottom2'>
                         <ul>
                             <li>
                                 <label htmlFor="">진에어 예약번호</label>
@@ -110,7 +184,7 @@ export default function MainSearch() {
                         </div>
                     </div>}
                 {tab === 'reservationCheck' &&
-                    <div className='예약조회일때'>
+                    <div className='main-top-search-bottom3'>
                         <ul>
                             <li>
                                 <label htmlFor="">진에어 예약번호</label>
@@ -126,8 +200,9 @@ export default function MainSearch() {
                             </li>
                             <li>
                                 <label htmlFor="">출발일</label>
-                                <span>달력나오게</span>
-                                <FaCalendarCheck />
+                                <div>
+                                    <FaCalendarCheck className='main-top-search-bottom3-icon'/>
+                                </div>
                             </li>
                         </ul>
                         <div>
@@ -138,8 +213,6 @@ export default function MainSearch() {
                             <button>조회</button>
                         </div>
                     </div>}
-            </div>
-            <div className='main-bottom-depart-check'>
                 <div className='main-bottom-depart-check-middle'>
                     <div>
                         <h4>출발 전 체크!</h4>
@@ -147,28 +220,40 @@ export default function MainSearch() {
                     </div>
                     <ul>
                         <li>
-                            <FaGift />
-                            <span>묶음할인</span>
+                            <span>
+                                <FaGift />
+                                <span>묶음할인</span>
+                            </span>
                             <BiSolidRightArrow />
                         </li>
                         <li>
-                            <GiCarSeat />
-                            <span>사전좌석</span>
+                            <span>
+                                <GiCarSeat />
+                                <span>사전좌석</span>
+                            </span>
                             <BiSolidRightArrow />
                         </li>
                         <li>
-                            <GiForkKnifeSpoon />
-                            <span>기내식</span>
+                            <span>
+                                <GiForkKnifeSpoon />
+                                <span>기내식</span>
+                            </span>
                             <BiSolidRightArrow />
                         </li>
                         <li>
-                            <BsFillSuitcase2Fill />
-                            <span>수하물</span>
+                            <span>
+                                <BsFillSuitcase2Fill />
+                                <span>수하물</span>
+                            </span>
                             <BiSolidRightArrow />
                         </li>
                     </ul>
                 </div>
             </div>
+            <div className='main-bottom-depart-check'>
+            </div>
+        </div>
+
         </div>
     );
 }
