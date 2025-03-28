@@ -1058,6 +1058,7 @@ video {
         height: 400px;
         // margin: 0 auto;
         text-align: center;
+        padding: 0 10px;
         // padding: 0 70px;
         // width: 900px;
     }
@@ -1066,46 +1067,74 @@ video {
         // border: 1px solid red;
         display: block;
         text-align: right;
-        padding: 0 70px;
+        padding: 0 90px;
         font-size: 12px;
         font-weight: 600;
         margin-bottom: 50px;
     }
 }
 
-
+// *******************************************
 // 달력 커스텀
+// *******************************************
+.react-datepicker {
+    border: 1px solid white !important;
+}
 .react-datepicker__month-container {
-    width: 549px;
+    width: 539px !important;
 }
-
 .react-datepicker__header {
-    padding: 25px 0;
-    background-color: white;
-    width: 100%;
+    padding: 25px 0 8px !important;
+    background-color: white !important;
+    width: 100% !important;
+    border-bottom: 1px solid white !important;
 }
-
 .react-datepicker__current-month {
     font-size: 19px;
     color: var(--color-nav-main);
 }
-.react-datepicker__day-names{
-    // border: 1px solid red;
-}
-.react-datepicker__day-name{
-    padding:  10px 10px 0 10px;
+.react-datepicker__day-name {
+    padding: 10px 13px 0;
     line-height: 1.7rem;
     text-align: center;
     margin: 0.166rem;
     font-size: 15px;
 }
-
 .react-datepicker__day,
 .react-datepicker__time-name {
-  padding: 5px 10px;
-  line-height: 1.7rem;
-  text-align: center;
-  margin: 0.166rem;
-  font-size: 15px;
-//   border: 1px solid red;
+    padding: 8px 13px;
+    line-height: 1.7rem;
+    text-align: center;
+    margin: 0.166rem;
+    font-size: 15px;
+}
+h2.react-datepicker__current-month {
+    font-size: 20px;
+    color: var(--color-nav-main);
+}
+.react-datepicker__day-names {
+    >.react-datepicker__day-name:first-child {
+        color: rgb(245, 132, 96);
+    }
+    >.react-datepicker__day-name {
+        color: var(--color-153);
+    }
+    >.react-datepicker__day-name:last-child {
+        color: rgb(69, 151, 255);
+    }
+}
+
+.react-datepicker__week {
+    >.react-datepicker__day:nth-child(1) {
+        color: rgb(245, 132, 96);
+    }
+    >.react-datepicker__day:last-child {
+        color: rgb(69, 151, 255);
+    }
+}
+
+.react-datepicker__navigation {
+    top: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
 }
