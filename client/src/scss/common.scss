@@ -8,13 +8,87 @@
     --color-153: rgb(153, 153, 153);
     --color-181: rgb(181, 181, 181);
     --color-242: rgb(242, 242, 242);
+
     --borderlight: #dfe4eb;
     --fontblack: #333333;
     --darkblack: #222222;
+
     --jinairgreen: #d3e92e;
-    --jinairgray: #999999;
     --jinairnav: #192547;
 }
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+}
+
 
 @font-face {
     font-family: 'NotoSans-T';
@@ -69,6 +143,7 @@
 .content_outline,
 .content {
     position: relative;
+    background-color: #fff;
 }
 
 .header,
