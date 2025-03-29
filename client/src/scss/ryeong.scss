@@ -63,10 +63,7 @@
         font-family: 'Pretendard-Regular';
     }
 
-    .w300 {
-        font-family: "Pretendard";
-        font-weight: 300;
-    }
+
 
     html,
     body,
@@ -297,9 +294,10 @@
         font-size: 30px !important;
     }
 
-    .w300 {
-        font-weight: 300 !important;
+    .f32 {
+        font-size: 32px !important;
     }
+
 
     .w500 {
         font-weight: 500 !important;
@@ -307,6 +305,16 @@
 
     .w600 {
         font-weight: 600 !important;
+    }
+
+    .w300 {
+        font-family: "Pretendard";
+        font-weight: 300;
+    }
+
+    .w700 {
+        font-family: "Pretendard-Bold";
+        font-weight: 700;
     }
 
     .pt10 {
@@ -350,7 +358,7 @@
         width: 100%;
     }
 
-    /* ********* 마이 페이지 ********* */
+    /* ********* 마이 페이지 index ********* */
 
     .mp-content {
         margin: 0 auto;
@@ -370,6 +378,7 @@
         border-radius: 10px;
         background: #ffffff;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+
     }
 
     .mypage-subtitle:after {
@@ -711,9 +720,8 @@
         padding: 10px 20px;
     }
 
-    .mp-right-col-center
-    {
-        
+    .mp-right-col-center {
+
         .mp-company-content {
             display: flex;
             align-items: center;
@@ -723,12 +731,12 @@
                 width: 98px;
                 flex-shrink: 0;
             }
-            
+
             ul {
                 width: 100%;
                 padding: 20px 0 20px 45px;
                 border-left: 1px dashed #b4b4b4;
-                font-size : 14px;
+                font-size: 14px;
                 position: relative;
             }
 
@@ -755,9 +763,8 @@
         }
     }
 
-    .mp-right-bottom
-    {
-        
+    .mp-right-bottom {
+
         .mp-company-content {
             display: flex;
             align-items: center;
@@ -767,12 +774,12 @@
                 width: 98px;
                 flex-shrink: 0;
             }
-            
+
             ul {
                 width: 100%;
                 padding: 10px 0 10px 25px;
                 border-left: 1px dashed #b4b4b4;
-                font-size : 14px;
+                font-size: 14px;
                 position: relative;
                 line-height: 25px;
             }
@@ -790,8 +797,80 @@
         }
     }
 
+    /* 나의 예약 */
 
-    
+    .menu-btn {
+        position: relative;
+        padding: 12px 68px 12px 24px;
+        border: 1px solid #192547;
+        border-radius: 6px;
+        position: absolute;
+        top: 36px;
+        left: 210px;
+        font-size: 16px;
+    }
+
+    .menu-btn::after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: 50%;
+        right: 20px;
+        transform: rotate(-90deg);
+        background: url('/assets/svg/thintoggle.svg') no-repeat center / 12px auto;
+        transform: translateY(-50%);
+    }
+
+
+    .menu-btn[aria-expanded="true"]::after {
+        transform: rotate(180deg) translateY(50%);
+    }
+
+    .myRes-content {
+        margin-top: 60px;
+    }
+
+    .myRes-title {
+        margin-top: 60px;
+        font-size: 24px;
+        position: relative;
+        z-index: 100;
+    }
+
+    .myRes-title::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 8%;
+        margin-top: 0;
+        width: 100%;
+        height: 7px;
+        border-radius: 2px;
+        z-index: -1;
+        background: linear-gradient(to right, rgba(189, 214, 0, 0.7) 0%, rgba(211, 233, 46, 0) 100%);
+    }
+
+    .res-filter-btn {
+        display: inline-flex;
+        gap: 4px;
+        padding: 6px 4px;
+        border-radius: 6px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+        background: #ffffff;
+        margin-top: 20px;
+        
+        button {
+            padding: 6px 20px;
+            font-size: 16px;
+        }
+
+        button[aria-selected=true] {
+            background: #192547;
+            border-radius: 6px;
+            color: #ffffff;
+        }
+    }
+
 
 }
-
