@@ -59,7 +59,8 @@
     span,
     input,
     b,
-    strong {
+    strong,
+    select {
         font-family: 'Pretendard-Regular';
     }
 
@@ -217,7 +218,6 @@
     select {
         vertical-align: middle;
         background: transparent;
-        border: 1px solid #ddd;
     }
 
     br {
@@ -827,6 +827,41 @@
         transform: rotate(180deg) translateY(50%);
     }
 
+
+    .mp-menu-drop-down {
+        position: absolute;
+        top: 86px;
+        left: 210px;
+        padding: 18px 16px;
+        background: #ffffff;
+        box-shadow: 0 3px 30px rgba(0, 0, 0, 0.16);
+        border-radius: 10px;
+        z-index: 10;
+
+        li {
+            display: block;
+            padding: 6px 20px 6px 32px;
+            font-size: 16px;
+            line-height: 20px;
+            border-radius: 6px;
+            border: 1px solid #ffffff;
+            position: relative;
+        }
+
+        li::before {
+            background: #bdd600;
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+    }
+
+
     .myRes-content {
         margin-top: 60px;
     }
@@ -858,8 +893,7 @@
         border-radius: 6px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
         background: #ffffff;
-        margin-top: 20px;
-        
+
         button {
             padding: 6px 20px;
             font-size: 16px;
@@ -872,5 +906,80 @@
         }
     }
 
+    .myRes-top {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+        vertical-align: center;
+        align-items: center;
+
+    }
+
+    .res-table-wrap {
+        border-top: 2px solid #192547;
+    }
+
+    .sort {
+        padding: 0;
+        margin: 0;
+        border: none;
+        // appearance: none; 
+        padding: 4px 8px;
+        font-size: 14px;
+        line-height: 1;
+        height: 36px;
+        vertical-align: middle;
+        outline: none;
+        color: var(--color-nav-main);
+        font-size: 14px;
+    }
+
+    .myRes-thead {
+        display: flex;
+        padding: 32px 0 24px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .res-list-none {
+        text-align: center;
+        display: felx;
+        flex-flow: column;
+        padding: 80px 0;
+    }
+
+    .res-list-none span {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 10px;
+        background: transparent;
+        border: 1px solid #192547;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .res-list-none span::before,
+    .res-list-none span::after {
+        left: 50%;
+        top: 50%;
+        margin-left: -6px;
+        margin-top: -1px;
+        width: 12px;
+        height: 2px;
+        background: #192547;
+        content: '';
+        position: absolute;
+    }
+
+
+    .res-list-none span::before {
+        transform: rotate(45deg);
+    }
+
+    .res-list-none span::after {
+        transform: rotate(-45deg);
+    }
 
 }
