@@ -24,6 +24,8 @@ export default function App() {
         <Route path='/mypage/checkIn' element={<CheckIn />} />
         <Route path='/mypage/myInterest' element={<MyInterest />} />
         <Route path='/mypage/myQna' element={<MyQna />} />
+        <Route path='/booking/availabilityList' element={<BookingAvailabilityList />} />
+        <Route path='/booking/passenger' element={<BookingPassenger />} />
         {/* <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/payment' element={<Payment />} />
