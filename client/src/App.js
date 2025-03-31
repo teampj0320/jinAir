@@ -2,8 +2,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './scss/common.scss';
 import Layout from './pages/Layout.jsx';
 import Home from './pages/Home.jsx';
-import Mypage from './pages/Mypage.jsx';
-import MyReservation from './pages/MyReservation.jsx';
+//mypage
+import MypageIndex from './pages/MypageIndex.jsx';
+import MyReservation from './pages/Mypage/MyReservation.jsx';
+import CheckIn from './pages/Mypage/CheckIn.jsx';
+import MyInterest from './pages/Mypage/MyInterest.jsx';
+import MyQna from './pages/Mypage/MyQna.jsx';
+
 import BookingAvailabilityList from './pages/booking/BookingAvailabilityList.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
 
@@ -13,10 +18,12 @@ export default function App() {
     <Routes>
       <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />
-        <Route path='/mypage/index' element={<Mypage />} />
+        {/* mypage */}
+        <Route path='/mypage/index' element={<MypageIndex />} />
         <Route path='/mypage/getReservation' element={<MyReservation />} />
-        <Route path='/booking/availabilityList' element={<BookingAvailabilityList />} />
-        <Route path='/booking/passenger' element={<BookingPassenger />} />
+        <Route path='/mypage/checkIn' element={<CheckIn />} />
+        <Route path='/mypage/myInterest' element={<MyInterest />} />
+        <Route path='/mypage/myQna' element={<MyQna />} />
         {/* <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/payment' element={<Payment />} />

@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 export default function MypageNavigation() {
 
     const [menuOpen, setMenuOpen] = useState(false);
-    // const [menuType, setMenuType] = useState('default')
 
     return (
         <div>

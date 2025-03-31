@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import MypageNavigation from '../component/mypage/MypageNavigation.jsx';
-import '../scss/ryeong.scss';
+import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
+import '../../scss/ryeong.scss';
 
 export default function MyReservation() {
 
@@ -12,8 +12,8 @@ export default function MyReservation() {
         <div className='r-common mp-container'>
             <div className='mp-content'>
                 <MypageNavigation />
-                <section className='myRes-content'>
-                    <span className='myRes-title w700'>나의 예약</span>
+                <section className='mp-common-content'>
+                    <span className='mp-common-title w700'>나의 예약</span>
                     <div className='myRes-top'>
                         <ul className='res-filter-btn'>
                             <li><button aria-selected={filterBtn === '예약내역'}
@@ -27,7 +27,7 @@ export default function MyReservation() {
                             <option>예약일순</option>
                         </select>
                     </div>
-                    <div className='res-table-wrap'>
+                    <div className='mp-table-wrap'>
                         <ul className='myRes-thead'>
                             <li style={{ flex: '2' }}>예약번호</li>
                             <li style={{ flex: '7' }}>여정</li>
