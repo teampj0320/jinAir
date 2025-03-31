@@ -24,7 +24,7 @@ export default function Header() {
             <div className='header_content'>
                 <div className='header_top'>
                     <div className='header_top_menu'>
-                        <button><span> 로그인·회원가입</span></button>
+                        <button onClick={()=>navigate('/login')}><span> 로그인·회원가입</span></button>
                         <button><span>고객센터</span></button>
                         <button><span><FaEarthAmericas /></span><span style={{paddingLeft:"5px"}}>한국(한국어)/KRW</span></button>
                     </div>
