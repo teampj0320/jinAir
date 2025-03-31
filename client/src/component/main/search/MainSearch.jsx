@@ -1,4 +1,4 @@
-import React, { useState ,useRef} from 'react';
+import React, { useState} from 'react';
 import { FaGift } from "react-icons/fa6";
 import { GiCarSeat } from "react-icons/gi";
 import { GiForkKnifeSpoon } from "react-icons/gi";
@@ -7,16 +7,13 @@ import { BiSolidRightArrow } from "react-icons/bi";
 import { IoSearchOutline } from "react-icons/io5";
 import { ImAirplane } from "react-icons/im";
 import { IoTicketSharp } from "react-icons/io5";
-import '../../scss/haon.scss';
+import '../../../scss/haon.scss';
 import MainSearchReservation from './MainSearchReservation.jsx';
 import MainSearchCheckIn from './MainSearchCheckIn.jsx';
 import MainSearchReservationCheck from './MainSearchReservationCheck.jsx';
-import MainSearchCountryModal from './MainSearchCountryModal.jsx';
 
 export default function MainSearch() {
     const [tab, setTab] = useState('main');
-
-
     const tabList = [
         {
             tabNm: 'main',
