@@ -1,0 +1,166 @@
+@import url(./common.scss);
+
+/** 공통 **/
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/************************************
+ *
+ * 예매 페이지 삳단 탭
+ *
+************************************/
+.booking-step-wrap {
+    border: 1px solid red;
+    width: 1280px;
+    margin: 0 auto;
+    padding: 20px 0;
+    color: var(--darkblack);
+
+    .booking-step-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        padding-bottom: 20px;
+
+        div:first-child {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 6px;
+
+            >span:first-child {
+                border: 1px solid green;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                font-size: 12px;
+                height: 22px;
+                width: 23px;
+                padding: 0 8px;
+                font-weight: 700;
+                background-color: var(--color-main);
+            }
+
+            div {
+                display: flex;
+                gap: 8px;
+                font-weight: bold;
+
+                span:nth-child(2) {
+                    padding-top: 2px;
+                }
+
+                span:not(:nth-child(2))>span {
+                    font-weight: bold;
+                }
+            }
+
+            >span:last-child {
+                color: rgb(130, 130, 130);
+            }
+        }
+
+        div:last-child {
+            display: flex;
+            align-items: center;
+
+            span {
+                margin-right: 10px;
+                font-weight: bold;
+            }
+
+            button {
+                font-size: 12px;
+                border: 1px var(--color-153) solid;
+                border-radius: 4px;
+                padding: 0 8px;
+                background-color: #fff;
+                height: 22px;
+                color: var(--color-153);
+            }
+        }
+    }
+
+    .booking-step-avaliability-bottom {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        // height: auto;
+
+        .booking-step-menu {
+            display: flex;
+            background-color: rgb(239, 239, 239);
+            border-radius: 5px;
+            margin: 0;
+
+            >li {
+                width: 200px;
+                height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--jinairnav);
+                font-weight: 700;
+                position: relative;
+            }
+            
+            >li:not(:first-child)::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 0;
+                height: 0;
+                margin-top: -5px;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-left: 7px solid rgb(196, 196, 196);
+            }
+            
+            >li:first-child {
+                border-radius: 5px;
+                background-color: var(--color-nav-main);
+                color: #fff;
+            }
+        }
+        
+        .booking-step-total {
+            position: absolute;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            p {
+                margin: 0;
+            }
+            p, span {
+                line-height: 20px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+            b {
+                font-size: 22px;
+                margin: 0;
+            }
+            button {
+                width: 28px;
+                height: 28px;
+                text-align: center;
+                border: none;
+                border-radius: 50%;
+                background-color: var(--color-main);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                // font-size: 22px;
+            }
+        }
+    }
+}
+
+// booking-step-wrap
+// border: 1px solid red;
+// border: 1px solid blue;
