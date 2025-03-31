@@ -76,9 +76,7 @@ export default function MainSearch() {
                     </div>
                     {tab === 'main' && <MainSearchReservation />}
                     {tab === 'checkIn' && <MainSearchCheckIn />}
-                    {tab === 'reservationCheck' && <MainSearchReservationCheck />}
-                    
-
+                    {tab === 'reservationCheck' && <MainSearchReservationCheck />}                   
                     <div className='main-bottom-depart-check-middle'>
                         <div>
                             <h4>출발 전 체크!</h4>
