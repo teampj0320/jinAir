@@ -16,10 +16,10 @@ const loadState = () => {
 
 export const store = configureStore({
     reducer: {
-        login: authSlice,
-        cart: cartSlice,
-        order: orderSlice,
-        product: productSlice
+        // login: authSlice,
+        // cart: cartSlice,
+        // order: orderSlice,
+        // product: productSlice
     },
     preloadedState: loadState(),
 })
