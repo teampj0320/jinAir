@@ -286,6 +286,12 @@ video {
         border-radius: 0 0 10px 10px;
         padding: 30px 80px;
 
+        .active-departure-country,.active-arrive-country{
+            color: var(--color-nav-main);
+            overflow: hidden;
+            text-overflow : ellipsis;
+            white-space : nowrap ;
+        }
         .main-top-search-bottom-main-bottom {
             display: flex;
             align-items: center;
@@ -322,7 +328,7 @@ video {
                         h3 {
                             margin-left: 10px;
                             font-weight: 600;
-                            font-size: 14px;
+                            font-size: 15px;
                         }
                     }
 
@@ -478,8 +484,8 @@ video {
 
             >div:nth-child(5) {
                 h3 {
-                    font-size: 16px;
-                    font-weight: 100;
+                    font-size: 15px;
+                    font-weight: 600;
                     // color: var(--color-153);
                     margin-left: 10px;
                 }
@@ -551,7 +557,7 @@ video {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
+           
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -880,6 +886,10 @@ video {
                 padding: 7px 30px;
                 font-size: 12px;
                 font-weight: 100;
+            }
+            .test{
+                color: var(--color-181);
+                pointer-events: none;  /* 클릭 비활성화 */
             }
 
             li:hover {

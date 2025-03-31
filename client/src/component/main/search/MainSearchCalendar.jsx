@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import Calendar from './Calendar.jsx';
 
-export default function MainSearchCalendar() {
+export default function MainSearchCalendar({setCalendar}) {
 
     return (
         <div className='main-search-modal-content'>
@@ -11,13 +11,13 @@ export default function MainSearchCalendar() {
                 <div>
                     <div>
                         <span>일정 선택</span>
-                        <IoMdClose />
+                        <IoMdClose onClick={() => {setCalendar(false) }}/>
                     </div>
                     <span><AiOutlineExclamationCircle className='main-search-calendar-icon'/>
                     <span>유류할증료, 세금 포함한 편도 총액운임이며, 조회 시점에 따라 요금은 상이 할 수 있습니다.</span>
                     </span>
                 </div>
-                <div className='달력2개'>
+                <div>
                     <Calendar />
                 </div>
                 <span>통화 :KRW</span>
