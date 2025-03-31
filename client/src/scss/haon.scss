@@ -558,6 +558,9 @@ video {
             align-items: center;
             justify-content: space-between;
            
+            .active-calendar-date{
+                color: var(--color-nav-main);
+            }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;

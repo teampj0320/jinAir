@@ -5,8 +5,13 @@ import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 
 
-export default function RoundTrip({adultNum, pediatricNum,babyNum, setModalOpen,departure,arrive,setType,exchangeCountry,setCalendar,setPeopleModal }) {
-    return (
+export default function RoundTrip({
+    adultNum, pediatricNum,babyNum, setModalOpen,departure,arrive,setType,exchangeCountry,setCalendar,setPeopleModal,
+    startDate,endDate }) {
+    
+        
+    
+        return (
         <>
             <div className='main-top-search-bottom-main-middle'>
                 <div onClick={() => { setModalOpen(true); setType('y') }}>
@@ -33,7 +38,8 @@ export default function RoundTrip({adultNum, pediatricNum,babyNum, setModalOpen,
                     <div onClick={() => { setCalendar(true) }}>
                         <span>
                             <FaCalendarCheck />
-                            <h3>가는날 ~ 오는날</h3>
+                            {startDate !=='' && endDate !=='' ?<h3 className='active-calendar-date'>{startDate} ~ {endDate}</h3> 
+                            : <h3>가는날 ~ 오는날</h3> }
                         </span>
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>

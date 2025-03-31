@@ -3,7 +3,16 @@ import { IoMdClose } from "react-icons/io";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import Calendar from './Calendar.jsx';
 
-export default function MainSearchCalendar({setCalendar}) {
+export default function MainSearchCalendar({setCalendar,startCalendar,endCalendar}) {
+    const startMom = (data) => {
+        // console.log('momdata',data);
+        startCalendar(data);
+        
+    }
+    const endMom = (data) => {
+        // console.log('endMom',data);
+        endCalendar(data);
+    }
 
     return (
         <div className='main-search-modal-content'>
@@ -18,7 +27,7 @@ export default function MainSearchCalendar({setCalendar}) {
                     </span>
                 </div>
                 <div>
-                    <Calendar />
+                    <Calendar mom ={startMom} endMom={endMom}/>
                 </div>
                 <span>통화 :KRW</span>
             </div>

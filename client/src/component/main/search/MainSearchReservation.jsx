@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { BsQuestionCircleFill } from "react-icons/bs";
 import MainSearchCountryModal from './MainSearchCountryModal.jsx';
 import MainSearchPeopleModal from './MainSearchPeopleModal.jsx';
@@ -22,7 +22,8 @@ export default function MainSearchReservation() {
     const [pediatricNum ,setPediatricNum] = useState(0);  //소아//💥전역관리 
     const [babyNum ,setBabyNum] = useState(0); //유아//💥전역관리 
     const [total , setTotal] = useState(0);//💥전역관리 
-
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     
     const mom = (item) => {
         type === 'y' && setDeparture(item);
@@ -42,13 +43,21 @@ export default function MainSearchReservation() {
         {   'tabNm':'multiCity','Nm':'다구간'}          
     ];
 
+    const startCalendar = (data) => {
+        setStartDate(data);
+        
+    }
+   const endCalendar = (data) => {
+    setEndDate(data);
+    }
+
     return (
         <div className='main-top-search-bottom1'>
             {modalOpen && <MainSearchCountryModal mom2={mom2} mom={mom} type={type} setModalOpen={setModalOpen} departure={departure} />}
             {peopleModal && <MainSearchPeopleModal setPeopleModal={setPeopleModal} setAdultNum={setAdultNum} setPediatricNum={setPediatricNum} setBabyNum={setBabyNum} setTotal={setTotal}
             adultNum={adultNum} pediatricNum={pediatricNum} babyNum={babyNum} total={total}
             />}
-            {calendar && <MainSearchCalendar setCalendar={setCalendar} />}
+            {calendar && <MainSearchCalendar setCalendar={setCalendar} startCalendar={startCalendar} endCalendar={endCalendar}/>}
             <div className='main-top-search-bottom-main-top'>
                 <ul>
                     {
@@ -70,7 +79,9 @@ export default function MainSearchReservation() {
             {searchTab === 'roundTrip' &&
                 <RoundTrip setModalOpen={setModalOpen} departure={departure} arrive={arrive}
                 setType={setType} exchangeCountry={exchangeCountry} setCalendar={setCalendar}
-                setPeopleModal={setPeopleModal} adultNum ={adultNum} pediatricNum={pediatricNum}babyNum={babyNum}/>
+                setPeopleModal={setPeopleModal} adultNum ={adultNum} pediatricNum={pediatricNum}babyNum={babyNum}
+                startDate={startDate} endDate={endDate}
+                />
             }
             {searchTab === 'oneWay' &&
                 <OneWay setModalOpen={setModalOpen} departure={departure} arrive={arrive}
