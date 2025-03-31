@@ -43,13 +43,13 @@ export default function Mypage() {
                         <article className='mp-center-top'>
                             <div>
                                 <b>나의 예약</b>
-                                <p className='w300'>예약하신 항공권을<br/>
-                                확인해보세요.</p>
+                                <p className='w300'>예약하신 항공권을<br />
+                                    확인해보세요.</p>
                             </div>
                             <div>
-                            <b>탑승권</b>
-                                <p className='w300'>미리 온라인 체크인하고 <br/>
-                                편하게 여행하세요.</p>
+                                <b>탑승권</b>
+                                <p className='w300'>미리 온라인 체크인하고 <br />
+                                    편하게 여행하세요.</p>
                             </div>
                         </article>
                         <article className='mp-center-bottom'>
@@ -87,12 +87,28 @@ export default function Mypage() {
                             <div className='jinair-pay-info f14 w300'>
                                 <p>지금 간편 결제 등록하고</p>
                                 <p>빠르게 예약하세요!</p>
-                                
-                                
+
+
                             </div>
                         </article>
-                        <article className='mp-right-col-center'></article>
-                        <article className='mp-right-bottom'></article>
+                        <article className='mp-right-col-center'>
+                            <div className='mp-company-content'>
+                                <b className='f20'>상용 우대<br />기업 인증</b>
+                                    <ul>
+                                        <li>기업인증</li>
+                                    </ul>
+                            </div>
+                        </article>
+                        <article className='mp-right-bottom'>
+                            <div className='mp-company-content'>
+                                <b className='f20'>고객 문의</b>
+                                <ul>
+                                        <li>나의 문의 확인</li>
+                                        <li>고객의 말씀(Q&A)</li>
+                                        <li>자주 묻는 질문(FAQ)</li>
+                                    </ul>
+                            </div>
+                        </article>
                     </section>
                 </div>
 
