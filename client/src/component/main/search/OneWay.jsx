@@ -4,7 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 
-export default function OneWay({ adultNum, pediatricNum,babyNum,setModalOpen, departure, arrive, setType, exchangeCountry, setCalendar, setPeopleModal }) {
+export default function OneWay({ startDate,adultNum, pediatricNum,babyNum,setModalOpen, departure, arrive, setType, exchangeCountry, setCalendar, setPeopleModal }) {
     return (
         <>
             <div className='main-top-search-bottom-main-middle2'>
@@ -31,7 +31,8 @@ export default function OneWay({ adultNum, pediatricNum,babyNum,setModalOpen, de
                     <div onClick={() => { setCalendar(true) }}>
                         <span>
                             <FaCalendarCheck />
-                            <h3>가는날</h3>
+                            {startDate !=='' ? <h3 className='active-calendar-date'>{startDate}</h3> 
+                            : <h3>가는날</h3> }
                         </span>
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>
