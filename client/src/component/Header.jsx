@@ -42,9 +42,9 @@ export default function Header() {
                                 <li><HiOutlineBars3 /> 전체메뉴</li>
                             </ul>
                         </div>
-                        <div><CiUser /></div>
-                        <div><CiUser /></div>
-                        <div><CiUser /></div>
+                        <div onClick={()=> handleNav('/mypage/index')} style={{cursor:"pointer"}}><CiUser /></div>
+                        <div onClick={()=> handleNav('/mypage/index')} style={{cursor:"pointer"}}><CiUser /></div>
+                        <div onClick={()=> handleNav('/mypage/index')} style={{cursor:"pointer"}}><CiUser /></div> 
 
                     </div> 
                 </div>
