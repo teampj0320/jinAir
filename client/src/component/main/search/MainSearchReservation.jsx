@@ -8,13 +8,15 @@ import MultiSearchCalendar from './MultiSearchCalendar.jsx';
 import RoundTrip from './RoundTrip.jsx';
 import OneWay from './OneWay.jsx';
 import MultiCity from './MultiCity.jsx';
+import {useSelector, useDispatch} from 'react-redux';
 
 export default function MainSearchReservation() {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [peopleModal, setPeopleModal] = useState(false);
-    const [calendar, setCalendar] = useState(false);
-    const [calendar2, setCalendar2] = useState(false);  // 다구간용
+    const modalOpen = useSelector(state => state.search.modalOpen);
+    const peopleModal = useSelector(state => state.search.modalOpen);
+    const calendar = useSelector(state => state.search.modalOpen);
+    const calendar2 = useSelector(state => state.search.modalOpen);
     const [searchTab, setSearchTab] = useState('roundTrip');
+
     const [type, setType] = useState('n');
     const [departure, setDeparture] = useState(''); //출발지
     const [arrive, setArrive] = useState(''); //도착지
@@ -28,7 +30,8 @@ export default function MainSearchReservation() {
     const [startDate2, setStartDate2] = useState('');  // 다구간용
     const [endDate, setEndDate] = useState('');
     
-    const mom = (item) => {
+
+    const mom = (item) => {  // 얘네를 api 에 넣어야대나?
         type === 'y' && setDeparture(item);
         type === 'n' && setArrive(item);        
     }
@@ -39,14 +42,7 @@ export default function MainSearchReservation() {
     const exchangeCountry = () => {
         setDeparture(arrive);
         setArrive(departure);
-    }
-    const list = [
-        {   'tabNm':'roundTrip','Nm':'왕복'}   ,      
-        {   'tabNm':'oneWay','Nm':'편도'}   ,      
-        {   'tabNm':'multiCity','Nm':'다구간'}          
-    ];
-
-
+    }    
     const startCalendar2= (data) => {
         setStartDate2(data);
     }
@@ -54,18 +50,27 @@ export default function MainSearchReservation() {
     const startCalendar = (data) => {
         setStartDate(data);
     }
-   const endCalendar = (data) => {
-    setEndDate(data);
-    }
+    const endCalendar = (data) => {
+        setEndDate(data);
+    } // 얘네를 api 에 넣어야대나?
+    
 
+    const list = [
+        {   'tabNm':'roundTrip','Nm':'왕복'}   ,      
+        {   'tabNm':'oneWay','Nm':'편도'}   ,      
+        {   'tabNm':'multiCity','Nm':'다구간'}          
+    ];
     return (
         <div className='main-top-search-bottom1'>
-            {modalOpen && <MainSearchCountryModal mom2={mom2} mom={mom} type={type} setModalOpen={setModalOpen} departure={departure} />}
-            {peopleModal && <MainSearchPeopleModal setPeopleModal={setPeopleModal} setAdultNum={setAdultNum} setPediatricNum={setPediatricNum} setBabyNum={setBabyNum} setTotal={setTotal}
+            {modalOpen && <MainSearchCountryModal mom2={mom2} mom={mom} type={type}             
+             departure={departure} />}
+            {peopleModal && <MainSearchPeopleModal setAdultNum={setAdultNum} setPediatricNum={setPediatricNum} 
+                setBabyNum={setBabyNum} setTotal={setTotal}
             adultNum={adultNum} pediatricNum={pediatricNum} babyNum={babyNum} total={total}
             />}
-            {calendar && <MainSearchCalendar setCalendar={setCalendar} startCalendar={startCalendar} endCalendar={endCalendar}/>}
-            {calendar2 && <MultiSearchCalendar setCalendar2={setCalendar2} startCalendar2={startCalendar2}/>}
+            {calendar && <MainSearchCalendar  startCalendar={startCalendar} 
+                endCalendar={endCalendar}/>}
+            {calendar2 && <MultiSearchCalendar  startCalendar2={startCalendar2}/>}
             <div className='main-top-search-bottom-main-top'>
                 <ul>
                     {
@@ -85,24 +90,24 @@ export default function MainSearchReservation() {
                 </div>
             </div>
             {searchTab === 'roundTrip' &&
-                <RoundTrip setModalOpen={setModalOpen} departure={departure} arrive={arrive}
-                setType={setType} exchangeCountry={exchangeCountry} setCalendar={setCalendar}
-                setPeopleModal={setPeopleModal} adultNum ={adultNum} pediatricNum={pediatricNum}babyNum={babyNum}
+                <RoundTrip 
+                departure={departure} arrive={arrive}
+                setType={setType} exchangeCountry={exchangeCountry}
+                 adultNum ={adultNum} pediatricNum={pediatricNum}babyNum={babyNum}
                 startDate={startDate} endDate={endDate}
                 />
             }
             {searchTab === 'oneWay' &&
-                <OneWay setModalOpen={setModalOpen} departure={departure} arrive={arrive}
-                setType={setType} exchangeCountry={exchangeCountry} setCalendar={setCalendar}
-                setPeopleModal={setPeopleModal}
+                <OneWay departure={departure} arrive={arrive}
+                setType={setType} exchangeCountry={exchangeCountry}               
                 adultNum ={adultNum} pediatricNum={pediatricNum}babyNum={babyNum} startDate={startDate}/>
             }
             {searchTab === 'multiCity' &&
-                <MultiCity setModalOpen={setModalOpen} departure={departure} arrive={arrive}
-                setType={setType} exchangeCountry={exchangeCountry} setCalendar={setCalendar}
-                setPeopleModal={setPeopleModal} multiDepart={multiDepart} multiArr={multiArr}
+                <MultiCity  departure={departure} arrive={arrive}
+                setType={setType} exchangeCountry={exchangeCountry}
+                 multiDepart={multiDepart} multiArr={multiArr}
                 adultNum ={adultNum} pediatricNum={pediatricNum}babyNum={babyNum} startDate={startDate}
-                startDate2={startDate2} setCalendar2={setCalendar2}/>
+                startDate2={startDate2}/>
             }
         </div>
     );

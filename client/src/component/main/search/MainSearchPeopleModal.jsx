@@ -4,11 +4,13 @@ import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
+import {useSelector, useDispatch} from 'react-redux';
+import { getPeopleModal}  from '../../../service/searchApi.js';
 
-
-export default function MainSearchPeopleModal({setPeopleModal,setAdultNum,setPediatricNum,setBabyNum, 
+export default function MainSearchPeopleModal({setAdultNum,setPediatricNum,setBabyNum, 
     setTotal,adultNum,pediatricNum,babyNum,total}) {
-
+    const dispatch = useDispatch();
+        
 
 
     useEffect(()=>{
@@ -50,7 +52,7 @@ export default function MainSearchPeopleModal({setPeopleModal,setAdultNum,setPed
     }
 
     const handlePeople = () => {
-        setPeopleModal(false);
+        dispatch(getPeopleModal(false));
     }
 
 
@@ -60,7 +62,7 @@ export default function MainSearchPeopleModal({setPeopleModal,setAdultNum,setPed
             <div className='main-search-people-modal-all'>
                 <div>
                     <span>탑승객 선택</span>
-                    <IoMdClose onClick={() => setPeopleModal(false)}/>
+                    <IoMdClose onClick={() => dispatch(getPeopleModal(false))}/>
                 </div>
                 <span>* 로그인 후 '나의 그룹' 선택 시, 그룹에 반영된 성인,소아,유아 수가 자동으로 선택됩니다.</span>
                 <div>
