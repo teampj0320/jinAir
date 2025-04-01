@@ -1,7 +1,11 @@
 import React from 'react';
 import '../scss/ryeong.scss';
+import { useNavigate } from 'react-router-dom';
 
 export default function Mypage() {
+
+    const navigate = useNavigate();
+
     return (
         <div className='r-common mp-container'>
             <div className='mp-content'>
@@ -33,7 +37,7 @@ export default function Mypage() {
                                     <li>#일본</li>
                                 </ul>
                             </div>
-                            <div className='interest-btn'>
+                            <div className='interest-btn'  onClick={()=>{navigate('../mypage/myInterest')}}>
                                 관심 지역 테마 수정하기
                             </div>
 
@@ -41,12 +45,12 @@ export default function Mypage() {
                     </section>
                     <section className='mp-center'>
                         <article className='mp-center-top'>
-                            <div>
+                            <div onClick={()=>{navigate('../mypage/getReservation')}}>
                                 <b>나의 예약</b>
                                 <p className='w300'>예약하신 항공권을<br />
                                     확인해보세요.</p>
                             </div>
-                            <div>
+                            <div onClick={()=>{navigate('../mypage/checkIn')}}>
                                 <b>탑승권</b>
                                 <p className='w300'>미리 온라인 체크인하고 <br />
                                     편하게 여행하세요.</p>
@@ -103,7 +107,7 @@ export default function Mypage() {
                             <div className='mp-company-content'>
                                 <b className='f20'>고객 문의</b>
                                 <ul>
-                                        <li>나의 문의 확인</li>
+                                        <li onClick={()=>{navigate('../mypage/myQna')}}>나의 문의 확인</li>
                                         <li>고객의 말씀(Q&A)</li>
                                         <li>자주 묻는 질문(FAQ)</li>
                                     </ul>

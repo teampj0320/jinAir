@@ -676,6 +676,8 @@
             height: 30px;
             border-radius: 50%;
             background: #192547 url('/assets/svg/plus.svg') no-repeat center / 14px 14px;
+            top: 0;
+            left: 130px;
         }
 
         b {
@@ -725,6 +727,7 @@
         .mp-company-content {
             display: flex;
             min-height: 104px;
+            align-items: center;
 
             b {
                 width: 98px;
@@ -737,6 +740,7 @@
                 border-left: 1px dashed #b4b4b4;
                 font-size: 14px;
                 position: relative;
+
             }
 
 
@@ -747,6 +751,7 @@
                 height: 14px;
                 left: 25px;
                 background: url("/assets/svg/ico_mypage_company.png") no-repeat 0 center;
+
 
             }
 
@@ -767,6 +772,7 @@
         .mp-company-content {
             display: flex;
             min-height: 104px;
+            align-items: center;
 
             b {
                 width: 98px;
@@ -1130,6 +1136,36 @@
             background-size: 10px auto;
             font-weight: bold;
             color: #ffffff;
+        }
+    }
+
+    .small-wrap {
+        padding-top: 90px;
+        max-width: 530px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .sub-desc {
+        font-size: 14px;
+        line-height: 24px;
+        margin: 30px 0;
+    }
+
+    .profile-wrap {
+        display: flex
+        ;
+            flex-flow: column;
+            gap: 5px;
+    }
+
+    .profile-img {
+        display: flex;
+        gap: 24px;
+        
+        img {
+            width: 137px;
+            height: 137px;
         }
     }
 

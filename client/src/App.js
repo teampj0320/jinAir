@@ -8,6 +8,7 @@ import MyReservation from './pages/Mypage/MyReservation.jsx';
 import CheckIn from './pages/Mypage/CheckIn.jsx';
 import MyInterest from './pages/Mypage/MyInterest.jsx';
 import MyQna from './pages/Mypage/MyQna.jsx';
+import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
 
 import BookingAvailabilityList from './pages/booking/BookingAvailabilityList.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/mypage/checkIn' element={<CheckIn />} />
         <Route path='/mypage/myInterest' element={<MyInterest />} />
         <Route path='/mypage/myQna' element={<MyQna />} />
+        <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
         <Route path='/booking/availabilityList' element={<BookingAvailabilityList />} />
         <Route path='/booking/passenger' element={<BookingPassenger />} />
         {/* <Route path='/login' element={<Login />} />

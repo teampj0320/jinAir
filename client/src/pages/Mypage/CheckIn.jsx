@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
 import '../../scss/ryeong.scss';
 
-export default function MyReservation() {
+export default function CheckIn() {
 
 
 
