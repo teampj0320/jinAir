@@ -3,12 +3,15 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { IoAirplane } from "react-icons/io5";
-import {useSelector, useDispatch} from 'react-redux';
-import { getModalOpen, getPeopleModal, getCalendar,getCalendar2}  from '../../../service/searchApi.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { getModalOpen, getPeopleModal, getCalendar, getCalendar2 } from '../../../service/searchApi.js';
 
-export default function MultiCity({ startDate2, startDate, adultNum, pediatricNum, babyNum, multiArr,
-      departure, arrive, setType, multiDepart }) {
-        const dispatch = useDispatch();
+export default function MultiCity({ startDate2, startDate, multiArr,
+    departure, arrive, setType, multiDepart }) {
+    const dispatch = useDispatch();
+    const adultNum = useSelector(state => state.search.adultNum);
+    const pediatricNum = useSelector(state => state.search.pediatricNum);
+    const babyNum = useSelector(state => state.search.babyNum);
 
     const depart = useRef(null);
     const arr = useRef(null);
@@ -31,7 +34,7 @@ export default function MultiCity({ startDate2, startDate, adultNum, pediatricNu
         multiArr !== '' && arr2.current.style.setProperty('border-bottom', '1px solid var(--color-153)');
         startDate2 !== '' && date2.current.style.setProperty('border', 'none');
         startDate2 !== '' && date2.current.style.setProperty('border-bottom', '1px solid var(--color-153)');
-    }, [departure, arrive, startDate,multiDepart,multiArr,startDate2])
+    }, [departure, arrive, startDate, multiDepart, multiArr, startDate2])
 
     const validate = () => {
         let isValid = true;
@@ -63,7 +66,7 @@ export default function MultiCity({ startDate2, startDate, adultNum, pediatricNu
         return isValid;
     }
     const handleCheck = () => {
-        if(validate()){
+        if (validate()) {
             alert('조회하기');
         }
     }
