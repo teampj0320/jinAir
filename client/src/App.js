@@ -2,12 +2,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './scss/common.scss';
 import Layout from './pages/Layout.jsx';
 import Home from './pages/Home.jsx';
-import Mypage from './pages/Mypage.jsx';
 import MobileLayout from './pages/MobileLayout.jsx';
 import Login from './pages/Login.jsx';
 import FingUserInfo from '../src/component/member/FingUserInfo.jsx';
 import Signup from './pages/Signup.jsx';
-import MyReservation from './pages/MyReservation.jsx';
 //mypage
 import MypageIndex from './pages/MypageIndex.jsx';
 import MyReservation from './pages/Mypage/MyReservation.jsx';
@@ -15,7 +13,6 @@ import CheckIn from './pages/Mypage/CheckIn.jsx';
 import MyInterest from './pages/Mypage/MyInterest.jsx';
 import MyQna from './pages/Mypage/MyQna.jsx';
 import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
-
 import BookingAvailabilityList from './pages/booking/BookingAvailabilityList.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
 
@@ -25,9 +22,6 @@ export default function App() {
     <Routes>
       <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />
-        <Route path='/mypage' element={<Mypage />} />
-        <Route path='/mypage/index' element={<Mypage />} />
-        <Route path='/mypage/getReservation' element={<MyReservation />} />
         {/* mypage */}
         <Route path='/mypage/index' element={<MypageIndex />} />
         <Route path='/mypage/getReservation' element={<MyReservation />} />
