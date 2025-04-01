@@ -5,9 +5,10 @@
     --color-main: rgb(211, 233, 46);
     --color-nav-main: rgb(25, 37, 71);
     --color-bk-main: #000;
-    --color-153: rgb(153, 153, 153);
+    --color-102: rgb(102, 102, 102); //헤더푸터에 사용하는 회색 폰트컬러
+    --color-153: rgb(153, 153, 153); // 로고, 배경
     --color-181: rgb(181, 181, 181);
-    --color-242: rgb(242, 242, 242);
+    --color-242: rgb(242, 242, 242); //헤더 바텀
 
     --borderlight: #dfe4eb;
     --fontblack: #333333;
@@ -128,7 +129,7 @@ video {
 }
 
 .light {
-    font-family: 'NotoSans-B';
+    font-family: 'NotoSans-L';
 }
 
 .medium {
@@ -229,7 +230,7 @@ video {
 ** main
 **************************************/
 .home_main_logo {
-    width: 137px;
+    width: 150px;
     cursor: pointer;
 }
 
@@ -247,11 +248,11 @@ video {
         background-color: var(--color-242);
 
         .footer_top {
-            color: var(--color-nav-main);
-            display: flex;
+            color: var(--color-nav-main); 
+            display: flex; 
             justify-content: space-between;
 
-            .footer_left {
+            .footer_left {  
                 .footer_menu {
                     width: 600px;
                     display: flex;
@@ -259,6 +260,50 @@ video {
 
                     ul {
                         list-style: none;
+                        span{
+                            font-family: NotoSans-B;
+                        }
+                        li{
+                            font-family: NotoSans-L;
+                            margin: 10px 0 10px 0;
+                            .footer_menu_root{
+                                margin-top: 40px; 
+                            }
+                        }
+                    }
+                }
+            }
+            .footer_right{
+                .footer_right_warp{ 
+                    margin-bottom: 30px; 
+                    padding-right: 20px;
+                    .footer_right_service{ 
+                        margin-bottom: 10px;  
+                        span:last-child{
+                            margin-left: 10px;
+                        }
+                    }
+                    .footer_right_time{
+                        span:last-child{
+                            margin-left: 10px;
+                        }
+                    }
+
+                }
+                .footer_sns{
+                    .footer_sns_icon{
+                        width: 200px; 
+                        display: flex;
+                        justify-content: space-around;
+                        div{
+                            width: 50px;
+                            height: 50px;
+                            background-color: #fff;
+                            border-radius: 100px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
                     }
                 }
             }
@@ -269,6 +314,41 @@ video {
             padding: 20px 0 30px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            .footer_bottom_left{   
+            width: 100%; 
+            span, p{
+                font-family: NotoSans-L;
+                color: var(--color-102)
+            }
+            .home_main_company{
+                display: flex;
+                .home_main_logo{  
+                    height: 21px;
+                    display: flex;
+                    margin-right: 20px;
+                }
+            }
+            }
+            .footer_bottom_right{ 
+                .footer_bottom_partner_img{
+                    width: 300px;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    img{
+                        width: 70px;
+                    }  
+                    img:last-child{
+                        width: 90px;
+                    }  
+                }
+                span{
+                    font-family: NotoSans-L;
+                    color: var(--color-153);
+                    margin: 20px 0 0 10px;
+                }
+            }
         }
     }
 }
