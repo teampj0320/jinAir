@@ -5,7 +5,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import { IoAirplane } from "react-icons/io5";
 
 
-export default function MultiCity({ adultNum, pediatricNum,babyNum,multiArr,setModalOpen, departure, arrive, setType, multiDepart, setCalendar, setPeopleModal }) {
+export default function MultiCity({setCalendar2,startDate2, startDate,adultNum, pediatricNum,babyNum,multiArr,setModalOpen, departure, arrive, setType, multiDepart, setCalendar, setPeopleModal }) {
     return (
         <>
             <div className='main-top-search-bottom-main-middle3'>
@@ -31,7 +31,8 @@ export default function MultiCity({ adultNum, pediatricNum,babyNum,multiArr,setM
                     <div onClick={() => { setCalendar(true) }}>
                         <span>
                             <FaCalendarCheck />
-                            <h3>가는날</h3>
+                            {startDate !=='' ? <h3 className='active-calendar-date'>{startDate}</h3> 
+                            : <h3>가는날</h3> }
                         </span>
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>
@@ -58,10 +59,11 @@ export default function MultiCity({ adultNum, pediatricNum,babyNum,multiArr,setM
                 </div>
                 <div>
                     <h5>일정 선택</h5>
-                    <div onClick={() => { setCalendar(true) }}>
+                    <div onClick={() => { setCalendar2(true) }}>
                         <span>
                             <FaCalendarCheck />
-                            <h3>가는날</h3>
+                            {startDate2 !=='' ? <h3 className='active-calendar-date'>{startDate2}</h3> 
+                            : <h3>가는날</h3> }
                         </span>
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>

@@ -162,10 +162,29 @@ video {
                 input:focus {
                     border: 2px solid #d3e92e;
                 }
+              
             }
         }
-
-        div {
+        div:nth-child(2) {
+            // background-color: red;
+            display: flex;
+             p{
+                color: red;
+                padding: 0 5px;
+                font-weight: 100;
+                font-size: 14px;
+            }
+            p:nth-child(2){
+                margin-left: 105px;
+            }
+            p:nth-child(3){
+                margin-left: 30px;
+            }
+            p:nth-child(4){
+                margin-left: 30px;
+            }
+        }
+        div:last-child {
             margin-top: 35px;
             display: flex;
             align-items: center;
@@ -362,7 +381,12 @@ video {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-
+            .active-calendar-date{
+                color: var(--color-nav-main);
+                font-size: 16px;
+                font-weight: 100;
+                margin-left: 10px;
+            }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -387,7 +411,7 @@ video {
             >div:nth-child(4) {
 
                 // border: 1px solid red;
-                h3 {
+                h3:not(.active-calendar-date) {
                     font-size: 16px;
                     font-weight: 100;
                     color: var(--color-153);
@@ -453,7 +477,12 @@ video {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
+            .active-calendar-date{
+                color: var(--color-nav-main);
+                font-size: 16px;
+                font-weight: 100;
+                margin-left: 10px;
+            }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -462,7 +491,6 @@ video {
             .main-top-search-bottom-main-middle-icon2:hover {
                 cursor: pointer;
             }
-
             >div:first-child {
                 color: var(--color-153);
             }
@@ -472,9 +500,7 @@ video {
             }
 
             >div:nth-child(4) {
-
-                // border: 1px solid red;
-                h3 {
+                h3:not(.active-calendar-date) {
                     font-size: 16px;
                     font-weight: 100;
                     color: var(--color-153);
@@ -560,6 +586,8 @@ video {
            
             .active-calendar-date{
                 color: var(--color-nav-main);
+                font-size: 15px;
+                margin-left: 10px;
             }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
@@ -590,10 +618,10 @@ video {
                     display: flex;
                     align-items: center;
 
-                    h3 {
+                    h3:not(.active-calendar-date) {
                         font-size: 15px;
-                        color: var(--color-153);
                         margin-left: 10px;
+                        color: var(--color-153);
                     }
                 }
             }

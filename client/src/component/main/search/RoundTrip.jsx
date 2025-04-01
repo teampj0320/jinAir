@@ -5,10 +5,9 @@ import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 
 
-export default function RoundTrip({
-    adultNum, pediatricNum,babyNum, setModalOpen,departure,arrive,setType,exchangeCountry,setCalendar,setPeopleModal,
-    startDate,endDate }) {
-    
+export default function RoundTrip({adultNum, pediatricNum,babyNum, setModalOpen,departure,
+    arrive,setType,exchangeCountry,setCalendar,setPeopleModal,startDate,endDate }) 
+    {  
         
     
         return (

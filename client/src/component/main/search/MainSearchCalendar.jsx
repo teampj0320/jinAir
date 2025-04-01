@@ -5,12 +5,10 @@ import Calendar from './Calendar.jsx';
 
 export default function MainSearchCalendar({setCalendar,startCalendar,endCalendar}) {
     const startMom = (data) => {
-        // console.log('momdata',data);
         startCalendar(data);
         
     }
     const endMom = (data) => {
-        // console.log('endMom',data);
         endCalendar(data);
     }
 

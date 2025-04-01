@@ -55,7 +55,7 @@ export default function MainSearch() {
     ];
 
     return (
-        <div style={{ width: "1500px" }}>
+        <div  style={{ width: "1500px" }}>
             <div className='main-top-box'>
                 <div className={tab === 'main' ? 'main-top-img' : 'main-top-img2'}>
                     <img src="/images/main.jpg" alt="벚꽃이미지" />
@@ -72,7 +72,7 @@ export default function MainSearch() {
                         }
                     </div>
                     {tab === 'main' && <MainSearchReservation />}
-                    {tab === 'checkIn' && <MainSearchCheckIn />}
+                    {tab === 'checkIn' && <MainSearchCheckIn/>}
                     {tab === 'reservationCheck' && <MainSearchReservationCheck />}                   
                     <div className='main-bottom-depart-check-middle'>
                         <div>
