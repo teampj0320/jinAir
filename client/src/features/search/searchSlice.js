@@ -4,9 +4,9 @@ const initialState = {
      modalOpen : false,
      peopleModal : false,
      calendar : false,
-     calendar2 : false,
+     calendar2 : false ,
      type : 'n',
-     departure : '',
+     departure : '' ,
      arrive : '',
      multiDepart : '',
      multiArr : '',
@@ -45,17 +45,14 @@ export const searchSlice = createSlice({
         },setTotal(state, action){
             state.total = action.payload;
         },
-        setType(state, action){
-            state.total = action.payload;
+        setType(){
+
         },
-        setDeparture(state, action){
-            state.departure = action.payload;
-            console.log('de',action.payload);
-            
+        setDeparture(){
+
         },
-        setArrive(state, action){
-            state.arrive = action.payload;
-            console.log('ar',action.payload);
+        setArrive(){
+
         },
         setMultiDepart(){
 
@@ -74,6 +71,6 @@ export const searchSlice = createSlice({
 })
 
 export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setType, setDeparture, setArrive
+    setAdultNum,  setPediatricNum,  setBabyNum, setTotal
  } = searchSlice.actions
 export default searchSlice.reducer

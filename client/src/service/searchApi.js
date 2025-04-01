@@ -1,5 +1,5 @@
 import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal, setType,setDeparture, setArrive
+    setAdultNum,  setPediatricNum,  setBabyNum, setTotal
   } from "../features/search/searchSlice.js";
 
 export const getModalOpen = (data) => (dispatch) => {
@@ -30,15 +30,4 @@ export const getBabyNum = (num) => (dispatch) => {
 }
 export const getTotal = (num) => (dispatch) => {
     dispatch(setTotal(num));
-}
-
-export const getType = (num) => (dispatch) => {
-    dispatch(setType(num));
-}
-
-export const getDeparture = (data) => (dispatch) => {
-    dispatch(setDeparture(data));
-}
-export const getArrive = (data) => (dispatch) => {
-    dispatch(setArrive(data));
 }

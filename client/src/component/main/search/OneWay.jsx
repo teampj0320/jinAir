@@ -4,14 +4,13 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getModalOpen, getPeopleModal, getCalendar, getType } from '../../../service/searchApi.js';
-export default function OneWay({ startDate, exchangeCountry }) {
+import { getModalOpen, getPeopleModal, getCalendar } from '../../../service/searchApi.js';
+export default function OneWay({ startDate, departure, arrive, setType,
+    exchangeCountry }) {
     const dispatch = useDispatch();
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
     const babyNum = useSelector(state => state.search.babyNum);
-    const departure = useSelector(state => state.search.departure);
-    const arrive = useSelector(state => state.search.arrive);
     const depart = useRef(null);
     const arr = useRef(null);
     const date = useRef(null);
@@ -51,7 +50,7 @@ export default function OneWay({ startDate, exchangeCountry }) {
     return (
         <>
             <div className='main-top-search-bottom-main-middle2'>
-                <div onClick={() => { dispatch(getModalOpen(true)); dispatch(getType('y')) }} ref={depart}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('y') }} ref={depart}>
                     <h5>출발지 선택</h5>
                     <div>
                         {departure === '' ? <h3>출발</h3>
@@ -61,7 +60,7 @@ export default function OneWay({ startDate, exchangeCountry }) {
                 </div>
                 <TbArrowsExchange className='main-top-search-bottom-main-middle-icon2'
                     onClick={exchangeCountry} />
-                <div onClick={() => { dispatch(getModalOpen(true)); dispatch(getType('n')) }} ref={arr}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('n') }} ref={arr}>
                     <h5>도착지 선택</h5>
                     <div>
                         {arrive === '' ? <h3>도착</h3>
