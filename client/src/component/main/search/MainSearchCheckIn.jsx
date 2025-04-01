@@ -9,17 +9,17 @@ export default function MainSearchCheckIn() {
         firstNmRef: useRef(null),
         departDayRef: useRef(null),
     }
+    const rnumErr = useRef(null);
+    const lastErr = useRef(null);
+    const firstErr = useRef(null);
+    const departErr = useRef(null);
+
     const validate = () => {
         if (refs.rnumRef.current.value === '') {
-            setErr({ ...err, rnum: '예약번호를 입력해주세요.' })
+            setErr({ ...err, rnum: '예약번호를 입력해주세요.' });
             refs.rnumRef.current.focus();
             return false;
-        } 
-        // else if(refs.rnumRef.current.value !== ''){
-        //     setErr({ ...err, rnum: '' })
-        //     refs.lastNmRef.current.focus();
-        //     return false;
-        // }
+        }
         else if (refs.lastNmRef.current.value === '') {
             setErr({ ...err, lastNm: '예약 시 입력한 승객명을 입력해주세요.' })
             refs.lastNmRef.current.focus();
@@ -44,6 +44,20 @@ export default function MainSearchCheckIn() {
         }
     }
 
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    const TodayFull = year + '.' + month + '.' + day;
+
+    const tomorrowDate = new Date();
+    tomorrowDate.setDate(today.getDate() + 1);
+    const tomorrow = `${tomorrowDate.getFullYear()}.${('0' + (tomorrowDate.getMonth() + 1)).slice(-2)}.${('0' + tomorrowDate.getDate()).slice(-2)}`;
+
+    const dayAfterDate = new Date();
+    dayAfterDate.setDate(today.getDate() + 2);
+    const dayAfter = `${dayAfterDate.getFullYear()}.${('0' + (dayAfterDate.getMonth() + 1)).slice(-2)}.${('0' + dayAfterDate.getDate()).slice(-2)}`;
+
     return (
         <form onSubmit={handleCheckIn}>
             <div className='main-top-search-bottom2'>
@@ -51,31 +65,29 @@ export default function MainSearchCheckIn() {
                     <li>
                         <label htmlFor="">진에어 예약번호</label>
                         <input type="text" name='rnum' ref={refs.rnumRef} placeholder='숫자와 영문으로 조합된 6자리' />
+                        {err.rnum ? <p style={{ color: 'red' }} ref={rnumErr}>{err.rnum}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">성(LAST NAME)</label>
                         <input type="text" name='lastNm' ref={refs.lastNmRef} />
+                        {err.lastNm ? <p style={{ color: 'red' }} ref={lastErr}>{err.lastNm}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">이름(FIRST NAME)</label>
                         <input type="text" name='firstNm' ref={refs.firstNmRef} />
+                        {err.firstNm ? <p style={{ color: 'red' }} ref={firstErr}>{err.firstNm}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">출발일</label>
                         <select name="departDay" ref={refs.departDayRef}>
                             <option value="default">선택</option>
-                            <option value="">당일날짜</option>
-                            <option value="">내일</option>
-                            <option value="">모레</option>
+                            <option value={TodayFull}>{TodayFull}</option>
+                            <option value={tomorrow}>{tomorrow}</option>
+                            <option value={dayAfter}>{dayAfter}</option>
                         </select>
+                        {err.departDay ? <p style={{ color: 'red' }} ref={departErr}>{err.departDay}</p> : <p>흠</p>}
                     </li>
                 </ul>
-                <div>
-                    <p>{err.rnum}</p>
-                    <p>{err.lastNm}</p>
-                    <p>{err.firstNm}</p>
-                    <p>{err.departDay}</p>
-                </div>
                 <div>
                     <ul>
                         <li>* 예약 시 입력한 승객명을 입력해주세요. (국내선 국문 예약은 국문 성/이름, 국제선은 영문 성/이름)</li>
