@@ -22,9 +22,6 @@ export default function App() {
     <Routes>
       <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />
-        <Route path='/mypage' element={<Mypage />} />
-        <Route path='/mypage/index' element={<Mypage />} />
-        <Route path='/mypage/getReservation' element={<MyReservation />} />
         {/* mypage */}
         <Route path='/mypage/index' element={<MypageIndex />} />
         <Route path='/mypage/getReservation' element={<MyReservation />} />
