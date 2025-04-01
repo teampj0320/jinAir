@@ -3,11 +3,14 @@ import { TbArrowsExchange } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
-import {useSelector, useDispatch} from 'react-redux';
-import { getModalOpen, getPeopleModal, getCalendar}  from '../../../service/searchApi.js';
-export default function OneWay({ startDate, adultNum, pediatricNum, babyNum, departure, arrive, setType, 
-        exchangeCountry }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { getModalOpen, getPeopleModal, getCalendar } from '../../../service/searchApi.js';
+export default function OneWay({ startDate, departure, arrive, setType,
+    exchangeCountry }) {
     const dispatch = useDispatch();
+    const adultNum = useSelector(state => state.search.adultNum);
+    const pediatricNum = useSelector(state => state.search.pediatricNum);
+    const babyNum = useSelector(state => state.search.babyNum);
     const depart = useRef(null);
     const arr = useRef(null);
     const date = useRef(null);
@@ -18,12 +21,12 @@ export default function OneWay({ startDate, adultNum, pediatricNum, babyNum, dep
         arrive !== '' && arr.current.style.setProperty('border', 'none');
         arrive !== '' && arr.current.style.setProperty('border-bottom', '1px solid var(--color-153)');
         startDate !== '' && date.current.style.setProperty('border', 'none');
-        startDate !== '' &&  date.current.style.setProperty('border-bottom', '1px solid var(--color-153)');      
+        startDate !== '' && date.current.style.setProperty('border-bottom', '1px solid var(--color-153)');
     }, [departure, arrive, startDate])
 
-    const validate = () =>{
+    const validate = () => {
         let isValid = true;
-    
+
         if (departure === '') {
             depart.current.style.setProperty('border', '2px solid red');
             isValid = false;
@@ -39,7 +42,7 @@ export default function OneWay({ startDate, adultNum, pediatricNum, babyNum, dep
         return isValid;
     }
     const handleCheck = () => {
-        if(validate()){
+        if (validate()) {
             alert('조회하기');
         }
     }
@@ -47,7 +50,7 @@ export default function OneWay({ startDate, adultNum, pediatricNum, babyNum, dep
     return (
         <>
             <div className='main-top-search-bottom-main-middle2'>
-                <div onClick={() => { dispatch(getModalOpen(true)); setType('y') }}ref={depart}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('y') }} ref={depart}>
                     <h5>출발지 선택</h5>
                     <div>
                         {departure === '' ? <h3>출발</h3>

@@ -5,12 +5,14 @@ import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getModalOpen,getPeopleModal,getCalendar } from '../../../service/searchApi.js';
+import { getModalOpen, getPeopleModal, getCalendar, getAdultNum, getPediatricNum, getBabyNum, getTotal } from '../../../service/searchApi.js';
 
-export default function RoundTrip({ adultNum, pediatricNum, babyNum, departure,
+export default function RoundTrip({ departure,
     arrive, setType, exchangeCountry, startDate, endDate }) {
     const dispatch = useDispatch();
-    
+    const adultNum = useSelector(state => state.search.adultNum);
+    const pediatricNum = useSelector(state => state.search.pediatricNum);
+    const babyNum = useSelector(state => state.search.babyNum);
 
     const depart = useRef(null);
     const arr = useRef(null);
@@ -25,8 +27,7 @@ export default function RoundTrip({ adultNum, pediatricNum, babyNum, departure,
         startDate !== '' && date.current.style.setProperty('border-bottom', '1px solid var(--color-153)');
     }, [departure, arrive, startDate])
 
-    const handleCheck = (e) => {
-        e.preventDefault();
+    const handleCheck = () => {
         let isValid = true;
 
         if (departure === '') {
@@ -42,10 +43,10 @@ export default function RoundTrip({ adultNum, pediatricNum, babyNum, departure,
             isValid = false;
         }
         return isValid;
-    }
+    };
 
     return (
-        <form onSubmit={handleCheck}>
+        <>
             <div className='main-top-search-bottom-main-middle'>
                 <div onClick={() => { dispatch(getModalOpen(true)); setType('y') }} ref={depart}>
                     <h5>출발지 선택</h5>
@@ -94,9 +95,9 @@ export default function RoundTrip({ adultNum, pediatricNum, babyNum, departure,
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>
                 </div>
-                <button type='submit'>항공권 조회</button>
+                <button onClick={handleCheck}>항공권 조회</button>
             </div>
-        </form>
+        </>
     );
 }
 
