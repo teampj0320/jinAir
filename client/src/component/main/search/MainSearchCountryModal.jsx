@@ -3,8 +3,12 @@ import { IoMdClose } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import { getModalOpen}  from '../../../service/searchApi.js';
 
-export default function MainSearchCountryModal({ type, setModalOpen, mom, mom2, departure }) {
+export default function MainSearchCountryModal({ type, mom, mom2, departure }) {
+        const dispatch = useDispatch();
+
     const data = [
         {
             'country': '한국',
@@ -86,7 +90,7 @@ export default function MainSearchCountryModal({ type, setModalOpen, mom, mom2, 
         } else {
             mom(sliceEng);
         }
-        setModalOpen(false);
+        dispatch(getModalOpen(false));
     }
 
 
@@ -96,7 +100,7 @@ export default function MainSearchCountryModal({ type, setModalOpen, mom, mom2, 
                 <div className='main-search-country-all'>
                     <div>
                         <span>{type === 'y' ? '출발지 선택' : '도착지 선택'}</span>
-                        <IoMdClose onClick={() => setModalOpen(false)} className='main-search-country-icon2' />
+                        <IoMdClose onClick={() => dispatch(getModalOpen(false))} className='main-search-country-icon2' />
                     </div>
                     <div>
                         <IoSearch />

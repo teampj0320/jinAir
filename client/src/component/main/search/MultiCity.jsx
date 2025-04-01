@@ -3,10 +3,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { IoAirplane } from "react-icons/io5";
+import {useSelector, useDispatch} from 'react-redux';
+import { getModalOpen, getPeopleModal, getCalendar,getCalendar2}  from '../../../service/searchApi.js';
 
-
-export default function MultiCity({ setCalendar2, startDate2, startDate, adultNum, pediatricNum, babyNum, multiArr,
-     setModalOpen, departure, arrive, setType, multiDepart, setCalendar, setPeopleModal }) {
+export default function MultiCity({ startDate2, startDate, adultNum, pediatricNum, babyNum, multiArr,
+      departure, arrive, setType, multiDepart }) {
+        const dispatch = useDispatch();
 
     const depart = useRef(null);
     const arr = useRef(null);
@@ -69,7 +71,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
     return (
         <>
             <div className='main-top-search-bottom-main-middle3'>
-                <div onClick={() => { setModalOpen(true); setType('y') }} ref={depart}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('y') }} ref={depart}>
                     <h5>출발지 선택</h5>
                     <div>
                         {departure === '' ? <h3>출발</h3>
@@ -78,7 +80,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
                     </div>
                 </div>
                 <IoAirplane className='main-top-search-bottom-main-middle-icon2' />
-                <div onClick={() => { setModalOpen(true); setType('n') }} ref={arr}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('n') }} ref={arr}>
                     <h5>도착지 선택</h5>
                     <div>
                         {arrive === '' ? <h3>도착</h3>
@@ -88,7 +90,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
                 </div>
                 <div ref={date}>
                     <h5>일정 선택</h5>
-                    <div onClick={() => { setCalendar(true) }}>
+                    <div onClick={() => { dispatch(getCalendar(true)) }}>
                         <span>
                             <FaCalendarCheck />
                             {startDate !== '' ? <h3 className='active-calendar-date'>{startDate}</h3>
@@ -100,7 +102,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
             </div>
 
             <div className='main-top-search-bottom-main-middle2'>
-                <div onClick={() => { setModalOpen(true); setType('o'); }} ref={depart2}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('o'); }} ref={depart2}>
                     <h5>출발지 선택</h5>
                     <div>
                         {multiDepart === '' ? <h3>출발</h3>
@@ -109,7 +111,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
                     </div>
                 </div>
                 <IoAirplane className='main-top-search-bottom-main-middle-icon2' />
-                <div onClick={() => { setModalOpen(true); setType('x'); }} ref={arr2}>
+                <div onClick={() => { dispatch(getModalOpen(true)); setType('x'); }} ref={arr2}>
                     <h5>도착지 선택</h5>
                     <div>
                         {multiArr === '' ? <h3>도착</h3>
@@ -119,7 +121,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
                 </div>
                 <div ref={date2}>
                     <h5>일정 선택</h5>
-                    <div onClick={() => { setCalendar2(true) }}>
+                    <div onClick={() => { dispatch(getCalendar2(true)) }}>
                         <span>
                             <FaCalendarCheck />
                             {startDate2 !== '' ? <h3 className='active-calendar-date'>{startDate2}</h3>
@@ -128,7 +130,7 @@ export default function MultiCity({ setCalendar2, startDate2, startDate, adultNu
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>
                 </div>
-                <div onClick={() => { setPeopleModal(true) }}>
+                <div onClick={() => { dispatch(getPeopleModal(true)) }}>
                     <h5>탑승 승객 인원</h5>
                     <div>
                         <span>
