@@ -78,9 +78,9 @@ export default function MainSearchCountryModal({ type, setModalOpen, mom, mom2, 
 
     ];
 
-    const handleCountry = (item,item1) => {
+    const handleCountry = (item, item1) => {
         const engFind = item.indexOf('(');
-        const sliceEng = item.slice(0, engFind);       
+        const sliceEng = item.slice(0, engFind);
         if (type === 'x' || type === 'o') {
             mom2(sliceEng);
         } else {
@@ -90,42 +90,43 @@ export default function MainSearchCountryModal({ type, setModalOpen, mom, mom2, 
     }
 
 
+
     return (
-        <div className='main-search-modal-content'>
-            <div className='main-search-country-all'>
-                <div>
-                    <span>{type === 'y' ? '출발지 선택' : '도착지 선택'}</span>
-                    <IoMdClose onClick={() => setModalOpen(false)} className='main-search-country-icon2' />
-                </div>
-                <div>
-                    <IoSearch />
-                    <input type="text" placeholder='도시 또는 공항을 입력해주세요.' />
-                    <IoMdCloseCircle className='main-search-country-icon' />
-                </div>
-                <div>
-                    {
-                        data.map((item1) => (
-                            <div>
-                                <span>{item1.country}</span>
-                                <ul>
-                                    {item1.list.map((item) => (
-                                        <li
-                                            key={item}
-                                            onClick={() => {handleCountry(item,item1) }}                                           
-                                            className={departure === '서울/인천' && item1.country === '한국' ? 'test' :
-                                                departure === '서울/김포' && item1.country !== '한국' ? 'test' : null
-                                            }
-                                        >
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div >
-        </div>
+            <div className='main-search-modal-content'>
+                <div className='main-search-country-all'>
+                    <div>
+                        <span>{type === 'y' ? '출발지 선택' : '도착지 선택'}</span>
+                        <IoMdClose onClick={() => setModalOpen(false)} className='main-search-country-icon2' />
+                    </div>
+                    <div>
+                        <IoSearch />
+                        <input type="text" placeholder='도시 또는 공항을 입력해주세요.' />
+                        <IoMdCloseCircle className='main-search-country-icon' />
+                    </div>
+                    <div>
+                        {
+                            data.map((item1) => (
+                                <div>
+                                    <span>{item1.country}</span>
+                                    <ul>
+                                        {item1.list.map((item) => (
+                                            <li
+                                                key={item}
+                                                onClick={() => { handleCountry(item, item1) }}
+                                                className={departure === '서울/인천' && item1.country === '한국' ? 'test' :
+                                                    departure === '서울/김포' && item1.country !== '한국' ? 'test' : null
+                                                }
+                                            >
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div >
+            </div>
     );
 }
 
