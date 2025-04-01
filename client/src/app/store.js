@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit'
 // slice import
 
 
-
 //로컬 스토리지에 저장된 리덕스 상태값 읽어보기
 const loadState = () => {
     try {
@@ -16,10 +15,10 @@ const loadState = () => {
 
 export const store = configureStore({
     reducer: {
-        login: authSlice,
-        cart: cartSlice,
-        order: orderSlice,
-        product: productSlice
+        // login: authSlice,
+        // cart: cartSlice,
+        // order: orderSlice,
+        // product: productSlice
     },
     preloadedState: loadState(),
 })

@@ -14,22 +14,46 @@
   padding: 0 1rem 3rem 1rem;
   background-color: rgb(255, 255, 255);
 }
-// *****************************
-
-.login-content{
+/********************************
+ 로그인 화면
+********************************/
+.login-content,
+.find-content,
+.signup-content{
   border: 1px solid red;
-  padding: 0 5px;
-  // position: relative;
+  padding: 0 20px;
 }
-.login-header{
-  border: 1px solid red;
-  width: 100%;
+.login-header,
+.find-header,
+.signup-header{
   height: 50px;
-  // position: absolute;
-  z-index: 2px;
+  margin-top: 20px;
+  position: relative;
 }
-.header-ico{
+.header-icon{
+  position: absolute;
+  font-size: 25px;
+  font-weight: 200;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.login-header span,
+.find-header span,
+.signup-header span{
+  position: absolute;
   font-size: 20px;
+  font-weight: bold;
+  top: -3px;
+  left: 30px;
+}
+.find-header,
+.signup-header{
+  display: flex;
+  justify-content: space-between;
+}
+.header-icon2{
+  font-size: 25px;
+  font-weight: 200;
 }
 .login-logo {
   display: flex;
@@ -51,7 +75,7 @@
 }
 .login-info>span:first-child>input,
 .login-info>span:nth-child(2)>input{
-  width: 750px;
+  width: 93%;
   border: 1px solid #e7e7e7;
   outline: none;
   padding: 18px 20px;
@@ -67,7 +91,9 @@
 .login-info>span:nth-child(2)>input:focus{
   border: 1.5px solid var(--color-main);
 }  
-.login-btn{
+.login-btn,
+.find-submit-btn,
+.agree-btn{
   width: 100%;
   background-color: #f0f0f0;
   border: none;
@@ -75,6 +101,7 @@
   padding: 15px 120px;
   margin: 20px 0;
   color: #b4b4b4;
+  cursor: pointer;
 }
 .id_save{
   display: flex;
@@ -82,9 +109,19 @@
   font-size: 13px;
   color: #3b3b3b;
 }
-.id_save>div:first-child >input{
-  margin-right: 10px;
-  border-radius: 50%;
+.id_save>div:first-child >input,
+.agreement-list>li>input{
+  display: none;
+}
+.id_save>div:first-child>span::before,
+.agreement-list>li>span::before{
+  content: "";
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -2px 10px 0 0 ;
+  vertical-align: middle;
+  background: url('../assets/svg/login_checkbox.png') no-repeat 0 0 / 1.5rem ;
   cursor: pointer;
 }
 .id_save>div:nth-child(2)>span:nth-child(2){
@@ -95,6 +132,13 @@
   background: #e7e7e7;
   margin: 0 10px;
 }
+.find-id{
+  cursor: pointer;
+}
+.find-pwd{
+  cursor: pointer;
+  
+}
 .sns-login{
   margin: 30px 0 ;
   display: flex;
@@ -102,6 +146,15 @@
 }
 .sns-login>div:first-child>span{
   font-size: 13px;
+  color: #3b3b3b;
+}
+.signup-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+}
+.signup-text>span{
   color: #3b3b3b;
 }
 .sns--login-btn {
@@ -133,8 +186,153 @@
   border: 1px solid #e7e7e7;
   border-radius: 30px;
   padding: 15px 120px;
-  margin: 20px 0;
-  color:  rgb(12, 124, 46);
-  font-weight: 500;
+  margin: 15px 0 20px;
+  color:  #4583f5;
+  font-weight: bold;
   font-size: 15px;
+  cursor: pointer;
 }
+/********************************
+ 아이디/비밀번호 찾기 화면
+********************************/
+.find-content input{
+  box-sizing: border-box;
+}
+.find-title{
+  overflow: hidden;
+  list-style: none;
+  display: flex;
+  // justify-content: space-between;
+  position: relative;
+}
+.find-title>li{
+  display: flex;
+  flex: 1 1 auto;
+  position: relative;
+  width: 5rem;
+  border-top: none;
+}
+.find-title>li>span{
+  color: #9c9c9c;
+  font-weight: 500;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 4rem;
+  font-size: 14px;
+  letter-spacing: -0.9px;
+  border-bottom: 3px solid #e7e7e7;
+}
+.user-info{
+  list-style: none;
+  margin-bottom: 50px;
+}
+.find-basic-info-title{
+  font-size: 13px;
+  color:  #3a3a3a;
+  margin: 60px 0 10px 0;
+}
+.find-basic-info{
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+.user-info .id,
+.user-info .name,
+.user-info .birth,
+.user-info .email,
+.user-info .auth-code{
+  width: 650px;
+  padding: 15px;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 15px;
+}
+.user-info .id,
+.user-info .birth,
+.user-info .email,
+.user-info .auth-code{
+  width: 100%;
+}
+.find-basic-info .info-gender .gender{
+  background-color: #fff;
+  padding: 15px 18px;
+  border: 1px solid  #e7e7e7;
+}
+.find-basic-info .info-gender button:first-child{
+  border-radius: 8px 0 0 8px;
+}  
+.find-basic-info .info-gender button:nth-child(2){
+  border-radius: 0 8px 8px 0;
+}  
+.user-info .auth-input{
+  position: relative;
+}
+.auth-input .auth-btn{
+  top: 12px;
+  right: 15px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+}
+
+/********************************
+ 회원가입 약관 동의 화면
+********************************/
+.areement{
+  margin: 16px 0 20px;
+  font-size: 23px;
+  font-weight: 200;
+  line-height: 30px;
+  letter-spacing: 0.5px;
+}
+.agreement-list{
+  list-style: none;
+}
+.agreement-list>li:first-child{
+  padding: 15px 15px;
+  border-radius: 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin-bottom: 25px;
+}
+.agreement-list>li{
+  font-size: 13px;
+  padding: 5px 15px;
+}
+.agreement-list>li:last-child{
+  margin-bottom: 30px;
+}
+.agree-btn{
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--color-main);
+}
+.term-info {
+  color: #4583f5;
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.signup-terms .ant-modal-body{
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.signup-terms .ant-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.signup-terms .ant-modal-body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.signup-terms .ant-modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+/********************************
+ 회원가입  화면
+********************************/
