@@ -59,7 +59,8 @@
     span,
     input,
     b,
-    strong {
+    strong,
+    select {
         font-family: 'Pretendard-Regular';
     }
 
@@ -217,7 +218,6 @@
     select {
         vertical-align: middle;
         background: transparent;
-        border: 1px solid #ddd;
     }
 
     br {
@@ -321,6 +321,10 @@
         padding-top: 10px;
     }
 
+    .mt-top40 {
+        margin-top: 40px;
+    }
+
     .flex {
         display: flex !important;
     }
@@ -339,7 +343,7 @@
     }
 
     .align-center {
-        align-items: center;
+        text-align: center;
     }
 
     .list-none {
@@ -368,7 +372,6 @@
     .mypage-subtitle {
         position: relative;
         display: flex;
-        align-items: center;
         height: 120px;
         padding: 0 40px;
         z-index: 80;
@@ -378,6 +381,7 @@
         border-radius: 10px;
         background: #ffffff;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+        align-items: center;
 
     }
 
@@ -433,7 +437,6 @@
     .user-info {
         display: flex;
         flex-flow: column;
-        align-items: center;
         text-align: center;
         padding: 45px 0;
 
@@ -568,7 +571,6 @@
     .mp-coupon-point-wrap {
         display: flex;
         height: 130px;
-        align-items: center;
         justify-content: center;
         background: #efefef;
         border-radius: 10px;
@@ -607,7 +609,6 @@
         >div {
             flex: 1;
             display: flex;
-            align-items: center;
             justify-content: center;
             flex-direction: column;
             height: 140px;
@@ -660,7 +661,6 @@
             text-align: center;
             width: 100%;
             padding: 24px 0 30px;
-            align-items: center;
             border-radius: 10px;
             border: 1px dashed #192547;
             border-bottom: none; // 밑줄 제거
@@ -676,6 +676,8 @@
             height: 30px;
             border-radius: 50%;
             background: #192547 url('/assets/svg/plus.svg') no-repeat center / 14px 14px;
+            top: 0;
+            left: 130px;
         }
 
         b {
@@ -724,8 +726,8 @@
 
         .mp-company-content {
             display: flex;
-            align-items: center;
             min-height: 104px;
+            align-items: center;
 
             b {
                 width: 98px;
@@ -738,6 +740,7 @@
                 border-left: 1px dashed #b4b4b4;
                 font-size: 14px;
                 position: relative;
+
             }
 
 
@@ -748,6 +751,7 @@
                 height: 14px;
                 left: 25px;
                 background: url("/assets/svg/ico_mypage_company.png") no-repeat 0 center;
+
 
             }
 
@@ -767,8 +771,8 @@
 
         .mp-company-content {
             display: flex;
-            align-items: center;
             min-height: 104px;
+            align-items: center;
 
             b {
                 width: 98px;
@@ -827,18 +831,61 @@
         transform: rotate(180deg) translateY(50%);
     }
 
-    .myRes-content {
+
+    .mp-menu-drop-down {
+        position: absolute;
+        top: 86px;
+        left: 210px;
+        padding: 18px 16px;
+        background: #ffffff;
+        box-shadow: 0 3px 30px rgba(0, 0, 0, 0.16);
+        border-radius: 10px;
+        z-index: 10;
+
+        li {
+            display: block;
+            padding: 6px 20px 6px 32px;
+            font-size: 16px;
+            line-height: 20px;
+            border-radius: 6px;
+            border: 1px solid #ffffff;
+            position: relative;
+        }
+
+        li::before {
+            background: #bdd600;
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+    }
+
+
+    .mp-common-content {
         margin-top: 60px;
     }
 
-    .myRes-title {
-        margin-top: 60px;
+    .mp-common-top {
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+    .mp-common-title {
+        // margin-top: 60px;
         font-size: 24px;
         position: relative;
         z-index: 100;
+        font-weight: 700;
+
     }
 
-    .myRes-title::before {
+    .mp-common-title::before {
         content: '';
         position: absolute;
         left: 0;
@@ -858,8 +905,7 @@
         border-radius: 6px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
         background: #ffffff;
-        margin-top: 20px;
-        
+
         button {
             padding: 6px 20px;
             font-size: 16px;
@@ -872,5 +918,255 @@
         }
     }
 
+    .myRes-top {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+        vertical-align: center;
+
+    }
+
+    .mp-table-wrap {
+        border-top: 2px solid #192547;
+        margin-top: 30px;
+    }
+
+    .sort {
+        padding: 0;
+        margin: 0;
+        border: none;
+        // appearance: none; 
+        padding: 4px 8px;
+        font-size: 14px;
+        line-height: 1;
+        height: 36px;
+        vertical-align: middle;
+        outline: none;
+        color: var(--color-nav-main);
+        font-size: 14px;
+    }
+
+    .myRes-thead {
+        display: flex;
+        padding: 32px 0 24px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .res-list-none {
+        text-align: center;
+        display: felx;
+        flex-flow: column;
+        padding: 80px 0;
+    }
+
+    .res-list-none span {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 10px;
+        background: transparent;
+        border: 1px solid #192547;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .res-list-none span::before,
+    .res-list-none span::after {
+        left: 50%;
+        top: 50%;
+        margin-left: -6px;
+        margin-top: -1px;
+        width: 12px;
+        height: 2px;
+        background: #192547;
+        content: '';
+        position: absolute;
+    }
+
+
+    .res-list-none span::before {
+        transform: rotate(45deg);
+    }
+
+    .res-list-none span::after {
+        transform: rotate(-45deg);
+    }
+
+
+
+
+    /* ********************
+    1:1 문의 페이지
+*********************/
+
+    .g-btn {
+        border: 1px solid #d3e92e;
+        background: #d3e92e;
+        color: #192547;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 14px;
+        padding: 0 12px;
+        min-width: 152px;
+        font-weight: 600;
+        width: auto;
+    }
+
+
+    /* ********************
+    관심지역/테마
+*********************/
+
+    .my-interest-desc {
+        font-size: 18px;
+        padding: 10px 0;
+    }
+
+    .go-to-fit-air-btn {
+        display: flex;
+        width: 100%;
+        padding: 22px 28px;
+        background: #d3e92e;
+        border-radius: 10px;
+        box-sizing: border-box;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        p {
+            position: relative;
+            padding-left: 22px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                left: 0px;
+                top: 4px;
+                background: url('/assets/svg/star.svg') no-repeat;
+            }
+        }
+
+        span {
+            padding-right: 15px;
+            position: relative;
+            font-size: 14px;
+            font-weight: 600;
+
+            &::after {
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                right: 0;
+                top: 3px;
+                background: url('/assets/svg/thintoggle.svg') no-repeat center / 10px 10px;
+                transform: rotate(270deg)
+            }
+        }
+    }
+
+    .tag-select {
+        margin-top: 40px;
+        padding: 28px 24px 30px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+    }
+
+
+    .tag-header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        border-bottom: 1px solid #192547;
+    }
+
+    .tag-header-left {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+    }
+
+    .navy-btn {
+        align-items: center;
+        padding: 20px 60px 20px 60px;
+        cursor: pointer;
+        border-radius: 6px;
+        background: #192547;
+        font-size: 14px;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 16px;
+
+    }
+
+    .interest-tag {
+        display: flex;
+        padding: 0 270px;
+        text-align: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+
+        li {
+            line-height: 30px;
+            // vertical-align: middle;
+            position: relative;
+            padding: 0px 16px 0px 32px;
+            ;
+            align-items: center;
+            height: 30px;
+            font-size: 14px;
+            border-radius: 15px;
+            background: #ececee url('/assets/svg/navy_plus.svg') no-repeat 17px 50%;
+            cursor: pointer;
+            // box-sizing: border-box;
+        }
+
+
+        li:hover {
+            background: #192547 url('/assets/svg/check.svg') no-repeat 17px 50%;
+            background-size: 10px auto;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    .small-wrap {
+        padding-top: 90px;
+        max-width: 530px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .sub-desc {
+        font-size: 14px;
+        line-height: 24px;
+        margin: 30px 0;
+    }
+
+    .profile-wrap {
+        display: flex
+        ;
+            flex-flow: column;
+            gap: 5px;
+    }
+
+    .profile-img {
+        display: flex;
+        gap: 24px;
+        
+        img {
+            width: 137px;
+            height: 137px;
+        }
+    }
 
 }

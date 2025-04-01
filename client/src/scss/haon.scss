@@ -162,10 +162,29 @@ video {
                 input:focus {
                     border: 2px solid #d3e92e;
                 }
+              
             }
         }
-
-        div {
+        div:nth-child(2) {
+            // background-color: red;
+            display: flex;
+             p{
+                color: red;
+                padding: 0 5px;
+                font-weight: 100;
+                font-size: 14px;
+            }
+            p:nth-child(2){
+                margin-left: 105px;
+            }
+            p:nth-child(3){
+                margin-left: 30px;
+            }
+            p:nth-child(4){
+                margin-left: 30px;
+            }
+        }
+        div:last-child {
             margin-top: 35px;
             display: flex;
             align-items: center;
@@ -286,6 +305,12 @@ video {
         border-radius: 0 0 10px 10px;
         padding: 30px 80px;
 
+        .active-departure-country,.active-arrive-country{
+            color: var(--color-nav-main);
+            overflow: hidden;
+            text-overflow : ellipsis;
+            white-space : nowrap ;
+        }
         .main-top-search-bottom-main-bottom {
             display: flex;
             align-items: center;
@@ -322,7 +347,7 @@ video {
                         h3 {
                             margin-left: 10px;
                             font-weight: 600;
-                            font-size: 14px;
+                            font-size: 15px;
                         }
                     }
 
@@ -356,7 +381,12 @@ video {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-
+            .active-calendar-date{
+                color: var(--color-nav-main);
+                font-size: 16px;
+                font-weight: 100;
+                margin-left: 10px;
+            }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -381,7 +411,7 @@ video {
             >div:nth-child(4) {
 
                 // border: 1px solid red;
-                h3 {
+                h3:not(.active-calendar-date) {
                     font-size: 16px;
                     font-weight: 100;
                     color: var(--color-153);
@@ -447,7 +477,12 @@ video {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
+            .active-calendar-date{
+                color: var(--color-nav-main);
+                font-size: 16px;
+                font-weight: 100;
+                margin-left: 10px;
+            }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -456,7 +491,6 @@ video {
             .main-top-search-bottom-main-middle-icon2:hover {
                 cursor: pointer;
             }
-
             >div:first-child {
                 color: var(--color-153);
             }
@@ -466,9 +500,7 @@ video {
             }
 
             >div:nth-child(4) {
-
-                // border: 1px solid red;
-                h3 {
+                h3:not(.active-calendar-date) {
                     font-size: 16px;
                     font-weight: 100;
                     color: var(--color-153);
@@ -478,8 +510,8 @@ video {
 
             >div:nth-child(5) {
                 h3 {
-                    font-size: 16px;
-                    font-weight: 100;
+                    font-size: 15px;
+                    font-weight: 600;
                     // color: var(--color-153);
                     margin-left: 10px;
                 }
@@ -551,7 +583,12 @@ video {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
+           
+            .active-calendar-date{
+                color: var(--color-nav-main);
+                font-size: 15px;
+                margin-left: 10px;
+            }
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -581,10 +618,10 @@ video {
                     display: flex;
                     align-items: center;
 
-                    h3 {
+                    h3:not(.active-calendar-date) {
                         font-size: 15px;
-                        color: var(--color-153);
                         margin-left: 10px;
+                        color: var(--color-153);
                     }
                 }
             }
@@ -880,6 +917,10 @@ video {
                 padding: 7px 30px;
                 font-size: 12px;
                 font-weight: 100;
+            }
+            .test{
+                color: var(--color-181);
+                pointer-events: none;  /* 클릭 비활성화 */
             }
 
             li:hover {

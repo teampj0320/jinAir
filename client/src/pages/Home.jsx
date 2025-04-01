@@ -1,5 +1,5 @@
 import React from 'react';
-import MainSearch from '../component/main/MainSearch.jsx'; 
+import MainSearch from '../component/main/search/MainSearch.jsx'; 
 import MainBoon from '../component/main/MainBoon.jsx';
 import MainPromotions from '../component/main/MainPromotions.jsx';
 import MainLowest from '../component/main/MainLowest.jsx';

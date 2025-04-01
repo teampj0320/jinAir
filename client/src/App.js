@@ -8,6 +8,16 @@ import Login from './pages/Login.jsx';
 import FingUserInfo from '../src/component/member/FingUserInfo.jsx';
 import Signup from './pages/Signup.jsx';
 import MyReservation from './pages/MyReservation.jsx';
+//mypage
+import MypageIndex from './pages/MypageIndex.jsx';
+import MyReservation from './pages/Mypage/MyReservation.jsx';
+import CheckIn from './pages/Mypage/CheckIn.jsx';
+import MyInterest from './pages/Mypage/MyInterest.jsx';
+import MyQna from './pages/Mypage/MyQna.jsx';
+import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
+
+import BookingAvailabilityList from './pages/booking/BookingAvailabilityList.jsx';
+import BookingPassenger from './pages/booking/BookingPassenger.jsx';
 
 export default function App() {
   return (
@@ -18,6 +28,15 @@ export default function App() {
         <Route path='/mypage' element={<Mypage />} />
         <Route path='/mypage/index' element={<Mypage />} />
         <Route path='/mypage/getReservation' element={<MyReservation />} />
+        {/* mypage */}
+        <Route path='/mypage/index' element={<MypageIndex />} />
+        <Route path='/mypage/getReservation' element={<MyReservation />} />
+        <Route path='/mypage/checkIn' element={<CheckIn />} />
+        <Route path='/mypage/myInterest' element={<MyInterest />} />
+        <Route path='/mypage/myQna' element={<MyQna />} />
+        <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
+        <Route path='/booking/availabilityList' element={<BookingAvailabilityList />} />
+        <Route path='/booking/passenger' element={<BookingPassenger />} />
         {/* <Route path='/payment' element={<Payment />} />
         <Route path='/admin' element={<Admin />} />  */}
       </Route>
