@@ -27,13 +27,13 @@ export const searchSlice = createSlice({
             state.modalOpen = action.payload;
         },
         setPeopleModal(state, action){ 
-            state.modalOpen = action.payload;
+            state.peopleModal = action.payload;
         },
         setCalendar(state, action){ 
-            state.modalOpen = action.payload;
+            state.calendar = action.payload;
         },
         setCalendar2(state, action){ 
-            state.modalOpen = action.payload;
+            state.calendar2 = action.payload;
         },
         setType(){
 

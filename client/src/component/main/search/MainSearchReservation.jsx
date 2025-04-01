@@ -12,9 +12,9 @@ import {useSelector, useDispatch} from 'react-redux';
 
 export default function MainSearchReservation() {
     const modalOpen = useSelector(state => state.search.modalOpen);
-    const peopleModal = useSelector(state => state.search.modalOpen);
-    const calendar = useSelector(state => state.search.modalOpen);
-    const calendar2 = useSelector(state => state.search.modalOpen);
+    const peopleModal = useSelector(state => state.search.peopleModal);
+    const calendar = useSelector(state => state.search.calendar);
+    const calendar2 = useSelector(state => state.search.calendar2);
     const [searchTab, setSearchTab] = useState('roundTrip');
 
     const [type, setType] = useState('n');
