@@ -137,11 +137,15 @@ video {
 
             li {
                 width: 100%;
-
+                p{
+                    color: white;
+                    font-weight: 100;
+                    font-size: 13px;
+                }
                 label {
                     display: block;
                     color: var(--color-nav-main);
-                    margin-bottom: 10px;
+                    margin-bottom: 15px;
                     font-weight: 100;
                     font-size: 15px;
                 }
@@ -220,7 +224,15 @@ video {
         background-color: white;
         border-radius: 0 0 10px 10px;
         padding: 40px 80px;
-
+        .active-calendar-input{
+            color: var(--color-nav-main);
+            font-size: 14px;
+            font-weight: 100;
+            margin-left: 10px;
+            outline: none;
+            border: none;
+            width: 100px;
+        }
         ul {
             list-style-type: none;
             display: flex;
@@ -231,15 +243,21 @@ video {
             li {
                 width: 100%;
 
+                p{
+                    color: white;
+                    font-weight: 100;
+                    font-size: 13px;
+                    
+                }
                 label {
                     display: block;
                     color: var(--color-nav-main);
-                    margin-bottom: 10px;
+                    margin-bottom: 15px;
                     font-weight: 100;
                     font-size: 15px;
                 }
 
-                input {
+                input:not(.active-calendar-input) {
                     width: 220px;
                     padding: 10px;
                     border-radius: 5px;
@@ -249,13 +267,17 @@ video {
                 >div {
                     width: 220px;
                     padding: 7px;
+                    height: 25px;
                     border-radius: 5px;
                     border: 1px solid var(--color-181);
                     text-align: right;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
                     .main-top-search-bottom3-icon {
                         margin-right: 10px;
-                    }
+                    }                   
                 }
 
                 >div:hover {
@@ -267,8 +289,7 @@ video {
                 }
             }
         }
-
-        >div {
+        >div:last-child {
             margin-top: 35px;
             display: flex;
             align-items: center;
@@ -344,7 +365,7 @@ video {
                         align-items: center;
                         font-size: 16px;
 
-                        h3 {
+                        h3:not(.active-calendar-date) {
                             margin-left: 10px;
                             font-weight: 600;
                             font-size: 15px;
@@ -420,7 +441,7 @@ video {
             }
 
             >div:nth-child(5) {
-                h3 {
+                h3:not(.active-calendar-date) {
                     font-size: 16px;
                     font-weight: 100;
                     // color: var(--color-153);
@@ -457,7 +478,7 @@ video {
                         padding-bottom: 10px;
                     }
 
-                    >h3 {
+                    >h3:not(.active-calendar-date) {
                         font-size: 23px;
                         padding-bottom: 10px;
                     }
@@ -509,7 +530,7 @@ video {
             }
 
             >div:nth-child(5) {
-                h3 {
+                h3:not(.active-calendar-date) {
                     font-size: 15px;
                     font-weight: 600;
                     // color: var(--color-153);
@@ -546,7 +567,7 @@ video {
                         padding-bottom: 10px;
                     }
 
-                    >h3 {
+                    >h3:not(.active-calendar-date) {
                         font-size: 23px;
                         padding-bottom: 10px;
                     }
