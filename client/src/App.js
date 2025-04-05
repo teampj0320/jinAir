@@ -4,8 +4,8 @@ import Layout from './pages/Layout.jsx';
 import Home from './pages/Home.jsx';
 import MobileLayout from './pages/MobileLayout.jsx';
 import Login from './pages/Login.jsx';
-import FingUserInfo from '../src/component/member/FingUserInfo.jsx';
-import Signup from './pages/Signup.jsx';
+import FingdUserInfo from '../src/component/member/FingdUserInfo.jsx';
+import SignupFunnel from './pages/SignupFunnel.jsx';
 //mypage
 import MypageIndex from './pages/MypageIndex.jsx';
 import MyReservation from './pages/Mypage/MyReservation.jsx';
@@ -37,8 +37,8 @@ export default function App() {
 
       <Route element={<MobileLayout />}>
         <Route path='/login' element={<Login />} />
-        <Route path='/find/:finfo' element={<FingUserInfo />} />
-        <Route path='/join/:jnum' element={<Signup />} />
+        <Route path='/find/:finfo' element={<FingdUserInfo />} />
+        <Route path='/join/:part' element={<SignupFunnel />} />
       </Route>
     </Routes>
   </BrowserRouter>

@@ -57,7 +57,7 @@ export default function Login() {
       <div>
           <button type='button' 
                   className='signup-btn' 
-                  onClick={()=>navigate('/join/1')}>회원 가입하기
+                  onClick={()=>navigate('/join/terms')}>회원 가입하기
           </button>
       </div>
     </div>

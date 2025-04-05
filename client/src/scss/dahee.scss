@@ -110,11 +110,13 @@
   color: #3b3b3b;
 }
 .id_save>div:first-child >input,
-.agreement-list>li>input{
+.agreement-list>li>input,
+.user-info .ch-box-input{
   display: none;
 }
 .id_save>div:first-child>span::before,
-.agreement-list>li>span::before{
+.agreement-list>li>span::before,
+.user-info .ch-box::before{
   content: "";
   display: inline-block;
   width: 1.5rem;
@@ -195,7 +197,8 @@
 /********************************
  아이디/비밀번호 찾기 화면
 ********************************/
-.find-content input{
+.find-content input,
+.signup-content input{
   box-sizing: border-box;
 }
 .find-title{
@@ -232,10 +235,10 @@
 .find-basic-info-title{
   font-size: 13px;
   color:  #3a3a3a;
-  margin: 60px 0 10px 0;
+  margin: 60px 0 20px 0;
 }
 .find-basic-info{
-  margin: 10px 0 0;
+  margin: 0;
   display: flex;
   justify-content: space-between;
 }
@@ -243,7 +246,10 @@
 .user-info .name,
 .user-info .birth,
 .user-info .email,
-.user-info .auth-code{
+.user-info .auth-code,
+.user-info .phone,
+.user-info .password,
+.user-info .cpassword{
   width: 650px;
   padding: 15px;
   border: 1px solid #e7e7e7;
@@ -254,7 +260,9 @@
 .user-info .id,
 .user-info .birth,
 .user-info .email,
-.user-info .auth-code{
+.user-info .auth-code,
+.user-info .password,
+.user-info .cpassword{
   width: 100%;
 }
 .find-basic-info .info-gender .gender{
@@ -336,3 +344,12 @@
 /********************************
  회원가입  화면
 ********************************/
+.user-info-text{
+  font-size: 13px;
+  margin-bottom: 50px;
+  color: #3a3a3a;
+}
+.ch-box{
+  padding-left: 10px;
+  font-size: 13px;
+}
