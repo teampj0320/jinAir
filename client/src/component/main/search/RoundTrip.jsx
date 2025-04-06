@@ -5,14 +5,17 @@ import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getModalOpen, getPeopleModal, getCalendar, getAdultNum, getPediatricNum, getBabyNum, getTotal } from '../../../service/searchApi.js';
+import { getModalOpen, getPeopleModal, getCalendar, getType } from '../../../service/searchApi.js';
 
-export default function RoundTrip({ departure,
-    arrive, setType, exchangeCountry, startDate, endDate }) {
+export default function RoundTrip({ exchangeCountry }) {      
     const dispatch = useDispatch();
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
     const babyNum = useSelector(state => state.search.babyNum);
+    const departure = useSelector(state => state.search.departure);
+    const arrive = useSelector(state => state.search.arrive);
+    const startDate = useSelector(state => state.search.startDate);
+    const endDate = useSelector(state => state.search.endDate);
 
     const depart = useRef(null);
     const arr = useRef(null);
@@ -48,7 +51,7 @@ export default function RoundTrip({ departure,
     return (
         <>
             <div className='main-top-search-bottom-main-middle'>
-                <div onClick={() => { dispatch(getModalOpen(true)); setType('y') }} ref={depart}>
+                <div onClick={() => { dispatch(getModalOpen(true)); dispatch(getType('y')) }} ref={depart}>
                     <h5>출발지 선택</h5>
                     <div>
                         {departure === '' ? <h3>출발</h3>
@@ -59,7 +62,7 @@ export default function RoundTrip({ departure,
                 <TbArrowsExchange
                     onClick={exchangeCountry}
                     className='main-top-search-bottom-main-middle-icon2' />
-                <div onClick={() => { dispatch(getModalOpen(true)); setType('n') }} ref={arr}>
+                <div onClick={() => { dispatch(getModalOpen(true)); dispatch(getType('n')) }} ref={arr}>
                     <h5>도착지 선택</h5>
                     <div>
                         {arrive === '' ? <h3>도착</h3>
