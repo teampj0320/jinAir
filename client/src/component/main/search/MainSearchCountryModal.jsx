@@ -6,8 +6,10 @@ import { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { getModalOpen}  from '../../../service/searchApi.js';
 
-export default function MainSearchCountryModal({ type, mom, mom2, departure }) {
+export default function MainSearchCountryModal({  mom, mom2, departure }) {
         const dispatch = useDispatch();
+            const type = useSelector(state => state.search.type);
+        
 
     const data = [
         {

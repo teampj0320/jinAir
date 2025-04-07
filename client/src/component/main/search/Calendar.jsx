@@ -54,7 +54,7 @@ export default function Calendar({mom,endMom}) {
             selectsRange
             locale={ko}
             inline
-        // dateFormat="yyyy년 MM월" 이건 안되는데
+            dateFormatCalendar="yyyy년 MM월"
         />
     );
 }

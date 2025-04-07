@@ -45,14 +45,14 @@ export const searchSlice = createSlice({
         },setTotal(state, action){
             state.total = action.payload;
         },
-        setType(){
-
+        setType(state, action){
+            state.type = action.payload;
         },
-        setDeparture(){
-
+        setDeparture(state, action){
+            state.departure = action.payload;
         },
-        setArrive(){
-
+        setArrive(state, action){
+            state.arrive = action.payload;
         },
         setMultiDepart(){
 
@@ -60,17 +60,18 @@ export const searchSlice = createSlice({
         setMultiArr(){
 
         },
-        setStartDate(){
-
+        setStartDate(state, action){
+            state.startDate = action.payload;
         },setStartDate2(){
 
-        },setEndDate(){
-
+        },setEndDate(state, action){
+            state.endDate = action.payload;
         }
     },
 })
 
 export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal
+    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setDeparture,setArrive,
+    setStartDate,setEndDate,setType
  } = searchSlice.actions
 export default searchSlice.reducer

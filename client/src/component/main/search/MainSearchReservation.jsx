@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BsQuestionCircleFill } from "react-icons/bs";
 import MainSearchCountryModal from './MainSearchCountryModal.jsx';
 import MainSearchPeopleModal from './MainSearchPeopleModal.jsx';
@@ -9,7 +9,9 @@ import RoundTrip from './RoundTrip.jsx';
 import OneWay from './OneWay.jsx';
 import MultiCity from './MultiCity.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAdultNum,getPediatricNum,getBabyNum } from '../../../service/searchApi.js';
+import { getAdultNum,getPediatricNum,getBabyNum,getDeparture,getArrive,getType,
+    getStartDate,getEndDate
+ } from '../../../service/searchApi.js';
 
 
 export default function MainSearchReservation() {
@@ -18,40 +20,34 @@ export default function MainSearchReservation() {
     const peopleModal = useSelector(state => state.search.peopleModal);
     const calendar = useSelector(state => state.search.calendar);
     const calendar2 = useSelector(state => state.search.calendar2);
+    const departure = useSelector(state => state.search.departure);
+    const arrive = useSelector(state => state.search.arrive);
+    const type = useSelector(state => state.search.type);
     const [searchTab, setSearchTab] = useState('roundTrip');
-
-
-    const [type, setType] = useState('n');
-    const [departure, setDeparture] = useState(''); //출발지
-    const [arrive, setArrive] = useState(''); //도착지
     const [multiDepart, setMultiDepart] = useState('');
     const [multiArr, setMultiArr] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [startDate2, setStartDate2] = useState('');  // 다구간용
-    const [endDate, setEndDate] = useState('');
-
+    const [startDate2, setStartDate2] = useState('');  
 
     const mom = (item) => {  
-        type === 'y' && setDeparture(item);
-        type === 'n' && setArrive(item);
+        type === 'y' && dispatch(getDeparture(item));
+        type === 'n' && dispatch(getArrive(item));
     }
     const mom2 = (item) => {
         type === 'o' && setMultiDepart(item);
         type === 'x' && setMultiArr(item);
     }
     const exchangeCountry = () => {
-        setDeparture(arrive);
-        setArrive(departure);
+        dispatch(getDeparture(arrive));
+        dispatch(getArrive(departure));
     }
     const startCalendar2 = (data) => {
         setStartDate2(data);
     }
-
     const startCalendar = (data) => {
-        setStartDate(data);
+        dispatch(getStartDate(data));
     }
     const endCalendar = (data) => {
-        setEndDate(data);
+        dispatch(getEndDate(data));
     } 
 
 
@@ -62,7 +58,7 @@ export default function MainSearchReservation() {
     ];
     return (
         <div className='main-top-search-bottom1'>
-            {modalOpen && <MainSearchCountryModal mom2={mom2} mom={mom} type={type}
+            {modalOpen && <MainSearchCountryModal mom2={mom2} mom={mom}
                 departure={departure} />}
             {peopleModal && <MainSearchPeopleModal />}
             {calendar && <MainSearchCalendar startCalendar={startCalendar}
@@ -73,8 +69,9 @@ export default function MainSearchReservation() {
                     {
                         list && list.map((item) => (
                             <li onClick={() => {
-                                setSearchTab(item.tabNm); setDeparture(''); setArrive(''); setMultiDepart(''); setMultiArr('');
+                                setSearchTab(item.tabNm); dispatch(getDeparture('')); dispatch(getArrive('')); setMultiDepart(''); setMultiArr('');
                                 dispatch(getAdultNum(1)); dispatch(getPediatricNum(0)); dispatch(getBabyNum(0));
+                                dispatch(getStartDate('')); dispatch(getEndDate(''));
                             }}
                                 className={searchTab === item.tabNm ? 'main-top-search-bottom-tab-active' : 'main-top-search-bottom-tab-none'} >
                                 {item.Nm}
@@ -88,22 +85,15 @@ export default function MainSearchReservation() {
                 </div>
             </div>
             {searchTab === 'roundTrip' &&
-                <RoundTrip
-                    departure={departure} arrive={arrive}
-                    setType={setType} exchangeCountry={exchangeCountry}                    
-                    startDate={startDate} endDate={endDate}
-                />
+                <RoundTrip exchangeCountry={exchangeCountry}  />                                                           
             }
             {searchTab === 'oneWay' &&
-                <OneWay departure={departure} arrive={arrive}
-                    setType={setType} exchangeCountry={exchangeCountry}
-                 startDate={startDate} />
+                <OneWay exchangeCountry={exchangeCountry}/>                                   
             }
             {searchTab === 'multiCity' &&
-                <MultiCity departure={departure} arrive={arrive}
-                    setType={setType} exchangeCountry={exchangeCountry}
+                <MultiCity 
+                    exchangeCountry={exchangeCountry}
                     multiDepart={multiDepart} multiArr={multiArr}
-                 startDate={startDate}
                     startDate2={startDate2} />
             }
         </div>

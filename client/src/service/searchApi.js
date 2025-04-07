@@ -1,5 +1,6 @@
 import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal
+    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,
+    setDeparture,setArrive,  setStartDate,setEndDate,setType
   } from "../features/search/searchSlice.js";
 
 export const getModalOpen = (data) => (dispatch) => {
@@ -30,4 +31,22 @@ export const getBabyNum = (num) => (dispatch) => {
 }
 export const getTotal = (num) => (dispatch) => {
     dispatch(setTotal(num));
+}
+
+export const getDeparture = (country) => (dispatch) => {
+    dispatch(setDeparture(country));
+}
+export const getArrive = (country) => (dispatch) => {
+    dispatch(setArrive(country));
+}
+
+export const getStartDate = (date) => (dispatch) => {
+    dispatch(setStartDate(date));
+}
+export const getEndDate = (date) => (dispatch) => {
+    dispatch(setEndDate(date));
+}
+
+export const getType = (type) => (dispatch) => {
+    dispatch(setType(type));
 }
