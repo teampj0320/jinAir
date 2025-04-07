@@ -6,7 +6,7 @@ import { getCalendar } from '../../../service/searchApi.js';
 
 export default function MainSearchReservationCheck() {
     const dispatch = useDispatch();
-    const calendar = useSelector(state => state.search.modalOpen);
+    const calendar = useSelector(state => state.search.calendar);
 
     const [startDate, setStartDate] = useState('');
     const [err, setErr] = useState({});
