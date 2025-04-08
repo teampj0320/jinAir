@@ -1,3 +1,4 @@
+drop database jinairdb;
 CREATE DATABASE  IF NOT EXISTS `jinairdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `jinairdb`;
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
@@ -166,7 +167,7 @@ CREATE TABLE `main_menu_category` (
 
 LOCK TABLES `main_menu_category` WRITE;
 /*!40000 ALTER TABLE `main_menu_category` DISABLE KEYS */;
-INSERT INTO `main_menu_category` VALUES ('101','예약'),('102','프로모션/제휴'),('103','부가서비스'),('104','운항정보'),('105', '전체메뉴);
+INSERT INTO `main_menu_category` VALUES ('101','예약'),('102','프로모션/제휴'),('103','부가서비스'),('104','운항정보'),('105', '전체메뉴');
 /*!40000 ALTER TABLE `main_menu_category` ENABLE KEYS */;
 UNLOCK TABLES;
 

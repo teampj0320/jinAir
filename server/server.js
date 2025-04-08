@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import mypageRouter from './router/mypageRouter'
 
 const server = express();
 const port = 9000;
@@ -10,8 +11,9 @@ server.use(express.json());
 server.use(express.urlencoded());
 server.use(cors());
 
-// middle ware
 
+// middle ware
+server.use('/mypage', mypageRouter)
 
 
 server.listen(port, () => {
