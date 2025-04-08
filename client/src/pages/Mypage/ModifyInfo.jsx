@@ -112,16 +112,49 @@ export default function ModifyInfo() {
                                     <input className='w300' type="text" disabled value={"07570"} />
                                     <button className='info-navy-btn'>우편번호 검색</button>
                                 </div>
-                                    <input className='w300' type="text" disabled value={"서울특별시 강서구 공항대로 453"} />
-                                    <input className='w300' type="text" value={"상세주소"} />
+                                <input className='w300' type="text" disabled value={"서울특별시 강서구 공항대로 453"} />
+                                <input className='w300' type="text" value={"상세주소"} />
                             </div>
                             <div className='field-wrapper info-user-confirm'>
                                 <label>마케팅 광고 활용 수신 동의</label>
-                                    <input type="checkbox" />
-                                <div>
-                                    <span></span>
+                                <div className='flex gap10'>
+                                    <div className='checkbox-wrap'>
+                                        <input type="checkbox" />
+                                        <label htmlFor="" className='f14 w300'>이메일</label>
+                                    </div>
+                                    <div className='checkbox-wrap'>
+                                        <input type="checkbox" />
+                                        <label htmlFor="" className='f14 w300'>SMS</label>
+                                    </div>
+                                    <div className='checkbox-wrap'>
+                                        <input type="checkbox" />
+                                        <label htmlFor="" className='f14 w300'>App푸시</label>
+                                    </div>
                                 </div>
-                            </div>
+                                </div>
+                                {/* SNS 계정연동 */}
+                                <div className='field-wrapper'>
+                                    <b className='f16'>SNS 계정연동</b>
+                                    <p className='f14 w300'>- SNS 계정을 통해서 간편하게 로그인 하세요.</p>
+                                    <div className='sns-btn-wrap'>
+                                        <button>
+                                            <img src="/images/icon_kakao2.webp" alt="" />
+                                            카카오 로그인 연동하기</button>
+                                        <button>
+                                            <img src="/images/icon_naver.webp" alt="" />
+                                            네이버 로그인 연동하기</button>
+                                    </div>
+                                </div>
+                                <div className='field-wrapper' >
+                                    <b className='f16'>회원탈퇴</b>
+                                    <p className='f14 w300'>탈퇴 후 14일 이내에 가입이 불가능합니다.</p>
+                                    <button className='withdraw-btn'>회원 탈퇴하기</button>
+                                </div>
+
+
+                            
+
+
                         </div>
                     </div>
 

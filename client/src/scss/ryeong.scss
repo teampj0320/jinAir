@@ -1280,7 +1280,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
-
+        flex: 1; // input태그가 50%씩 차지하게
     }
 
     .field-row {
@@ -1363,6 +1363,7 @@
     .info-user-confirm {
 
         input[type=checkbox] {
+            appearance: none; 
             width: 20px;
             height: 20px;
             border: 1px solid #ddd;
@@ -1374,10 +1375,69 @@
         }
 
         input[type=checkbox]:checked {
+            appearance: none; 
             border-color: #192547;
             background: #192547 url('/assets/svg/green_check.svg') no-repeat 50% 50%;
         }
     }
 
+
+    .checkbox-wrap{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        input {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+
+    .field-wrapper {
+        display: flex;
+        gap: 16px;
+    }
+
+    .sns-btn-wrap{
+        display: flex;
+        flex-flow: column;
+        gap: 12px;
+
+      
+
+        button {
+            border: 1px solid #192547;
+            background: #ffffff;
+            color: #192547;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            text-decoration: none;
+            cursor: pointer;
+            height: 44px;
+            width: 100%;
+            gap: 4px;
+            border-radius: 6px;
+        }
+
+        button:active {
+           
+            border: 1px solid #192547;
+            background: #192547;
+            font-size: 14px;
+            color: #ffffff;
+        
+    }
+    }
+
+    .withdraw-btn {
+        background: none;
+        text-decoration : underline;
+        font-size: 16px;
+        text-align: left;
+    }
 
 }
