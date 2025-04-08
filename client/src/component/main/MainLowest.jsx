@@ -41,7 +41,7 @@ export default function Mainlowests() {
             style={{ ...style, display: "block", right: "-25px", zIndex: 1 }}
             onClick={onClick}
         >
-            <GrFormNext className={className} size={30} color="#333" />
+            <GrFormNext className={className} size={30}/>
         </div>
     );
 

@@ -326,6 +326,11 @@
             right: -10px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         }
+        .slick-prev:hover,
+        .slick-next:hover {
+            background: var(--color-nav-main);
+            color: var(--color-main);
+        }
     }
     .slick-dots{ 
 
@@ -467,30 +472,8 @@
         }
 
         .lowest_anytime {
-            display: flex;
-            justify-content: space-around;
-
-            span {
-                font-weight: 700;
-            }
-        }
-
-        .lowest_anytime_chart { 
-            .anytime_chart_back {
-                width: 20px;
-                height: 130px;
-                background-color: var(--color-242);
-                border-radius: 10px;
-                justify-content: center;
-
-                .anytime_chart_price {
-                    display: none;
-                }
-            }
-            .anytime_chart_date{ 
-                font-size:small;
-            }
-
+            // border: solid 1px magenta;
+            height: 300px;
         }
     }
 
@@ -519,6 +502,7 @@
         opacity: 1;
     }
 }
+
 
 /***************************************
 * 메인 - 앱 다운로드 / 공지사항
