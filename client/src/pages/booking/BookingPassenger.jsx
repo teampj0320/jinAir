@@ -2,8 +2,15 @@ import React from 'react';
 import BookingStep from '../../component/booking/BookingStep';
 import { MdArrowOutward } from "react-icons/md";
 import '../../scss/yuna.scss';
+import { useNavigate } from 'react-router-dom';
 
 export default function BookingPassenger() {
+    const navigate = useNavigate();
+
+    const clickNextBtn = () => {
+        navigate('/booking/selectSeat');
+    }
+
     return (
         <div className='booking-passenger-wrap'>
             <BookingStep text={'passenger'} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
@@ -101,7 +108,7 @@ export default function BookingPassenger() {
                 </div>
             </div>
             <div className='booking-passenger-next-btn'>
-                <button>다음 단계</button>
+                <button onClick={clickNextBtn}>다음 단계</button>
             </div>
         </div>
     );
