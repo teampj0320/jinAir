@@ -137,11 +137,13 @@ video {
 
             li {
                 width: 100%;
-                p{
+
+                p {
                     color: white;
                     font-weight: 100;
                     font-size: 13px;
                 }
+
                 label {
                     display: block;
                     color: var(--color-nav-main);
@@ -166,28 +168,34 @@ video {
                 input:focus {
                     border: 2px solid #d3e92e;
                 }
-              
+
             }
         }
+
         div:nth-child(2) {
             // background-color: red;
             display: flex;
-             p{
+
+            p {
                 color: red;
                 padding: 0 5px;
                 font-weight: 100;
                 font-size: 14px;
             }
-            p:nth-child(2){
+
+            p:nth-child(2) {
                 margin-left: 105px;
             }
-            p:nth-child(3){
+
+            p:nth-child(3) {
                 margin-left: 30px;
             }
-            p:nth-child(4){
+
+            p:nth-child(4) {
                 margin-left: 30px;
             }
         }
+
         div:last-child {
             margin-top: 35px;
             display: flex;
@@ -224,7 +232,8 @@ video {
         background-color: white;
         border-radius: 0 0 10px 10px;
         padding: 40px 80px;
-        .active-calendar-input{
+
+        .active-calendar-input {
             color: var(--color-nav-main);
             font-size: 14px;
             font-weight: 100;
@@ -233,6 +242,7 @@ video {
             border: none;
             width: 100px;
         }
+
         ul {
             list-style-type: none;
             display: flex;
@@ -243,12 +253,13 @@ video {
             li {
                 width: 100%;
 
-                p{
+                p {
                     color: white;
                     font-weight: 100;
                     font-size: 13px;
-                    
+
                 }
+
                 label {
                     display: block;
                     color: var(--color-nav-main);
@@ -277,7 +288,7 @@ video {
 
                     .main-top-search-bottom3-icon {
                         margin-right: 10px;
-                    }                   
+                    }
                 }
 
                 >div:hover {
@@ -289,6 +300,7 @@ video {
                 }
             }
         }
+
         >div:last-child {
             margin-top: 35px;
             display: flex;
@@ -326,12 +338,14 @@ video {
         border-radius: 0 0 10px 10px;
         padding: 30px 80px;
 
-        .active-departure-country,.active-arrive-country{
+        .active-departure-country,
+        .active-arrive-country {
             color: var(--color-nav-main);
             overflow: hidden;
-            text-overflow : ellipsis;
-            white-space : nowrap ;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
+
         .main-top-search-bottom-main-bottom {
             display: flex;
             align-items: center;
@@ -402,12 +416,14 @@ video {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            .active-calendar-date{
+
+            .active-calendar-date {
                 color: var(--color-nav-main);
                 font-size: 16px;
                 font-weight: 100;
                 margin-left: 10px;
             }
+
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -498,12 +514,14 @@ video {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            .active-calendar-date{
+
+            .active-calendar-date {
                 color: var(--color-nav-main);
                 font-size: 16px;
                 font-weight: 100;
                 margin-left: 10px;
             }
+
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -512,6 +530,7 @@ video {
             .main-top-search-bottom-main-middle-icon2:hover {
                 cursor: pointer;
             }
+
             >div:first-child {
                 color: var(--color-153);
             }
@@ -604,12 +623,13 @@ video {
             display: flex;
             align-items: center;
             justify-content: space-between;
-           
-            .active-calendar-date{
+
+            .active-calendar-date {
                 color: var(--color-nav-main);
                 font-size: 15px;
                 margin-left: 10px;
             }
+
             .main-top-search-bottom-main-middle-icon2 {
                 font-size: 25px;
                 padding-top: 20px;
@@ -939,9 +959,11 @@ video {
                 font-size: 12px;
                 font-weight: 100;
             }
-            .test{
+
+            .test {
                 color: var(--color-181);
-                pointer-events: none;  /* 클릭 비활성화 */
+                pointer-events: none;
+                /* 클릭 비활성화 */
             }
 
             li:hover {
@@ -1142,19 +1164,23 @@ video {
 .react-datepicker {
     border: 1px solid white !important;
 }
+
 .react-datepicker__month-container {
     width: 539px !important;
 }
+
 .react-datepicker__header {
     padding: 25px 0 8px !important;
     background-color: white !important;
     width: 100% !important;
     border-bottom: 1px solid white !important;
 }
+
 .react-datepicker__current-month {
     font-size: 19px;
     color: var(--color-nav-main);
 }
+
 .react-datepicker__day-name {
     padding: 10px 13px 0;
     line-height: 1.7rem;
@@ -1162,6 +1188,7 @@ video {
     margin: 0.166rem;
     font-size: 15px;
 }
+
 .react-datepicker__day,
 .react-datepicker__time-name {
     padding: 8px 13px;
@@ -1170,17 +1197,21 @@ video {
     margin: 0.166rem;
     font-size: 15px;
 }
+
 h2.react-datepicker__current-month {
     font-size: 20px;
     color: var(--color-nav-main);
 }
+
 .react-datepicker__day-names {
     >.react-datepicker__day-name:first-child {
         color: rgb(245, 132, 96);
     }
+
     >.react-datepicker__day-name {
         color: var(--color-153);
     }
+
     >.react-datepicker__day-name:last-child {
         color: rgb(69, 151, 255);
     }
@@ -1190,6 +1221,7 @@ h2.react-datepicker__current-month {
     >.react-datepicker__day:nth-child(1) {
         color: rgb(245, 132, 96);
     }
+
     >.react-datepicker__day:last-child {
         color: rgb(69, 151, 255);
     }
@@ -1202,29 +1234,33 @@ h2.react-datepicker__current-month {
 }
 
 // 제이드 챗봇
-.chatbot{
+.chatbot {
     // border: 2px solid red;
     position: fixed;
     right: 30px;
     bottom: 30px;
-    button{
+
+    button {
         width: 60px;
         height: 60px;
         border-radius: 100%;
         background-color: var(--color-nav-main);
         border: none;
     }
-    button:hover{
+
+    button:hover {
         cursor: pointer;
     }
-    .chatbot-icon{
+
+    .chatbot-icon {
         font-size: 20px;
         color: var(--jinairgreen);
         margin: 0;
         padding: 0;
 
     }
-    span{
+
+    span {
         display: block;
         color: var(--jinairgreen);
         font-size: 14px;
@@ -1232,6 +1268,7 @@ h2.react-datepicker__current-month {
         padding: 0;
     }
 }
+
 .chat-modal-content {
     width: 100%;
     height: 100%;
@@ -1243,21 +1280,126 @@ h2.react-datepicker__current-month {
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
     z-index: 10000;
+
+    .chatbot-main::-webkit-scrollbar {
+        display: none;
+    }
+
     .chat-country-all {
         background-color: white;
         width: 600px;
-        height: 800px;
-        border: 1px solid var(--color-153);
+        height: auto;
         border-radius: 5px;
         margin: 0 auto;
-        .chatbot-top{
+
+        .chatbot-top {
             background-color: var(--color-nav-main);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px 0;
+            padding: 7px;
+
+            span {
+                font-weight: 100;
+                letter-spacing: 1px;
+            }
         }
 
+        .chatbot-main {
+            text-align: center;
+            padding: 40px 30px 0;
+            height: 600px;
+            overflow: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            .chatbot-main-top-box {
+                border: 1px solid gainsboro;
+                border-radius: 10px;
+                margin: 0 auto;
+                width: 450px;
+
+                .chatbot-main-top-box-icon {
+                    margin-top: 50px;
+                    margin-bottom: 10px;
+                }
+
+                h5 {
+                    font-size: 16px;
+                    margin-bottom: 5px;
+                }
+
+                h4 {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                ul {
+                    margin-top: 23px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    text-align: center;
+                    justify-content: center;
+                    gap: 15px;
+                    margin-bottom: 10px;
+                    li:hover{
+                        cursor: pointer;
+                        border: 1px solid var(--color-nav-main);
+                    }
+                    li {
+                        width: 130px;
+                        height: 130px;
+                        border: 1px solid rgb(242, 242, 242);
+                        img {
+                            width: 130px;
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.chatbot-main-bottom-box {
+    // border: 1px solid red;
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    ul {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+        padding: 0 30px;
+
+        li {
+            display: flex;
+            align-items: center;
+            border: 2px solid rgb(0, 99, 177);
+            border-radius: 20px;
+            font-size: 14px;
+            padding: 3px 15px;
+
+            img {
+                width: 30px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.chatbot-bottom-box {
+    border-top: 1px solid gainsboro;
+    padding: 15px 0;
+    width: 600px;
+
+    input {
+        border: none;
+        font-size: 16px;
+        width: 100%;
+        padding: 5px 0;
+        outline: none;
     }
 }
