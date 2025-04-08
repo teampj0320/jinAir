@@ -1,9 +1,10 @@
 import React from 'react';
-import MainSearch from '../component/main/search/MainSearch.jsx'; 
+import MainSearch from '../component/main/search/MainSearch.jsx';
 import MainBoon from '../component/main/MainBoon.jsx';
 import MainPromotions from '../component/main/MainPromotions.jsx';
 import MainLowest from '../component/main/MainLowest.jsx';
 import '../scss/hsh.scss'
+import MainNotic from '../component/main/MainNotic.jsx';
 
 export default function Home() {
     return (
@@ -23,7 +24,11 @@ export default function Home() {
             </div>
             <div style={{ backgroundColor: "var(--color-242)", height: "25px" }}></div>
             <div className='content'>
-            <MainLowest />
+                <MainLowest />
+            </div>
+            <div style={{ backgroundColor: "var(--color-242)", height: "25px" }}></div>
+            <div className='content'>
+                <MainNotic />
             </div>
         </>
     );
