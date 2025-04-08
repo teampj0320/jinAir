@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingRuleModal from './BookingRuleModal.jsx';
@@ -9,6 +10,7 @@ import 'swiper/css/pagination';
 import '../../scss/yuna.scss';
 
 export default function BookingAvailabilityList() {
+    const navigate = useNavigate();
     const [seatSelect, setSeatSelect] = useState(null);
     const [sortSelect, setSortSelect] = useState('early');
     const [modalOpen, setModalOpen] = useState(false);
@@ -39,6 +41,21 @@ export default function BookingAvailabilityList() {
             overflow: "auto",
         },
     };
+
+    /* 좌석 선택 이벤트 */
+    const clickSelectSeat = (type) => {
+        if (type === 'basic') {
+            seatSelect === null ? setSeatSelect('basic') : setSeatSelect(null);
+        } else {
+            seatSelect === null ? setSeatSelect('premium') : setSeatSelect(null);
+        }
+    }
+
+    /* 탑승객 정보 입력 버튼 클릭 이벤트 */
+    const clickNextBtn = () => {
+        // alert("!!");
+        seatSelect !== null ? navigate("/booking/passenger") : alert("좌석을 선택해주세요.");
+    }
 
     return (
         <div className='booking-avaliability-wrap'>
@@ -145,13 +162,13 @@ export default function BookingAvailabilityList() {
                                 </Modal>
                             </div>
                             <div className='booking-flight-buttons'>
-                                <button onClick={() => setSeatSelect('basic')}
+                                <button onClick={() => clickSelectSeat('basic')}
                                     className={seatSelect === 'basic' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
                                     <p>일반석</p>
                                     <span>KRW <b>49,000</b></span>
                                     <p>잔여 5석!</p>
                                 </button>
-                                <button onClick={() => setSeatSelect('premium')}
+                                <button onClick={() => clickSelectSeat('premium')}
                                     className={seatSelect === 'premium' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
                                     <p>프리미엄석</p>
                                     <span>KRW <b>147,000</b></span>
@@ -163,6 +180,17 @@ export default function BookingAvailabilityList() {
                 </div>
             </div>
 
+            <div className='booking-avaliability-bottom'>
+                <button style={{
+                                    backgroundColor: seatSelect !== null ? "#192547" : "rgb(242, 242, 242)",
+                                    color: seatSelect !== null && "#fff"
+                                }}
+                        onClick={clickNextBtn}
+                        className='booking-avaliability-bottom-button'
+                >
+                    탑승객 정보 입력
+                </button>
+            </div>
         </div>
     );
 }
