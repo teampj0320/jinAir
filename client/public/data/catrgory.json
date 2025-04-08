@@ -1,0 +1,256 @@
+{
+    "category": [
+        {
+            "num": "aa1",
+            "title": "예약안내",
+            "icon": "<IoMdAirplane />",
+            "m-code": "101"
+        },
+        {
+            "num": "aa2",
+            "title": "항공권 예약",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "aa3",
+            "title": "예약/결제안내",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "aa4",
+            "title": "예약변경/취소/환불",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "bb1",
+            "title": "추천 항공권",
+            "icon": "<MdAirplaneTicket />",
+            "m-code": "101"
+        },
+        {
+            "num": "bb2",
+            "title": "최저가항공권",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "bb3",
+            "title": "맞춤항공권",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "cc1",
+            "title": "운임 및 수수료",
+            "icon": "<IoIosPricetags />",
+            "m-code": "101"
+        },
+        {
+            "num": "cc2",
+            "title": "국내선",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "cc3",
+            "title": "국제선",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "dd1",
+            "title": "할인",
+            "icon": "<RiDiscountPercentFill />",
+            "m-code": "101"
+        },
+        {
+            "num": "dd2",
+            "title": "할인코드",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "dd4",
+            "title": "프로모션코드",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "dd5",
+            "title": "신분할인제도",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "dd6",
+            "title": "상용우대 프로그램",
+            "icon": null,
+            "m-code": "101"
+        },
+        {
+            "num": "ee1",
+            "title": "이벤트",
+            "icon": "<PiCalendarStarFill />",
+            "m-code": "102"
+        },
+        {
+            "num": "ee2",
+            "title": "진행중",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ee3",
+            "title": "종료",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ee4",
+            "title": "당첨자 발표",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ff1",
+            "title": "제휴",
+            "icon": "<LuHeartHandshake />",
+            "m-code": "102"
+        },
+        {
+            "num": "ff2",
+            "title": "차량",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ff3",
+            "title": "호텔",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ff4",
+            "title": "여행보험",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ff5",
+            "title": "현지투어/통신",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ff6",
+            "title": "카드/환전",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "ff7",
+            "title": "지니 보딩패스",
+            "icon": null,
+            "m-code": "102"
+        },
+        {
+            "num": "gg1",
+            "title": "부가서비스 안내",
+            "icon": "<LuPackagePlus />",
+            "m-code": "103"
+        },
+        {
+            "num": "hh1",
+            "title": "묶음 할인",
+            "icon": "<IoIosGift />",
+            "m-code": "103"
+        },
+        {
+            "num": "ii1",
+            "title": "좌석",
+            "icon": "<PiSeatFill />",
+            "m-code": "103"
+        },
+        {
+            "num": "jj1",
+            "title": "수하물",
+            "icon": "<BsSuitcase2Fill />",
+            "m-code": "103"
+        },
+        {
+            "num": "kk1",
+            "title": "기내식",
+            "icon": "<FaUtensils />",
+            "m-code": "103"
+        },
+        {
+            "num": "ll1",
+            "title": "여행보험",
+            "icon": "<AiFillSafetyCertificate />",
+            "m-code": "103"
+        },
+        {
+            "num": "mm1",
+            "title": "JINI PET",
+            "icon": "<MdOutlinePets />",
+            "m-code": "103"
+        },
+        {
+            "num": "nn1",
+            "title": "출도착 안내",
+            "icon": "<PiAirplaneInFlightFill />",
+            "m-code": "104"
+        },
+        {
+            "num": "nn2",
+            "title": "구간 조회",
+            "icon": null,
+            "m-code": "104"
+        },
+        {
+            "num": "nn3",
+            "title": "편명 조회",
+            "icon": null,
+            "m-code": "104"
+        },
+        {
+            "num": "oo1",
+            "title": "스케줄 조회",
+            "icon": "<FaCalendarCheck />",
+            "m-code": "104"
+        },
+        {
+            "num": "oo2",
+            "title": "왕복",
+            "icon": null,
+            "m-code": "104"
+        },
+        {
+            "num": "oo3",
+            "title": "편도",
+            "icon": null,
+            "m-code": "104"
+        },
+        {
+            "num": "pp1",
+            "title": "취항 노선 안내",
+            "icon": "<FaEarthAsia />",
+            "m-code": "104"
+        },
+        {
+            "num": "pp2",
+            "title": "국내선",
+            "icon": null,
+            "m-code": "104"
+        },
+        {
+            "num": "pp3",
+            "title": "국제선",
+            "icon": null,
+            "m-code": "104"
+        }
+    ]
+}

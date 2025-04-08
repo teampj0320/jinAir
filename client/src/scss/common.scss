@@ -192,7 +192,7 @@ video {
                     }
                 }
         
-                .header_bottom_menu {
+                .header_top_menu {
                     display: flex;
                     max-width: 1200px;
                     justify-content: space-between;
@@ -217,9 +217,10 @@ video {
                     }
                 }
             }
-            .header_bottom {
-                height: 1px;
-                background-color: var(--color-242);
+        }
+        .header_bottom {   
+            .header_bottom_menu{ 
+                display: none;
             }
         }
     }
