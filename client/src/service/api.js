@@ -2,85 +2,65 @@
 
 import axios from "axios";
 
-
-/* post Method */
-export async function axiosPost({ url, data }) {
-    let result = null;
-
-    try {
-        result = await axios({
-            method: 'post',
-            url: url,
-            data: data
-        }).then(res => res.data);
-
-    } catch (error) {
-        console.log(error);
-    }
-
-    return result;
-
-}
-
-
-/* put method */
-
-export async function axiosPut({ url, data }) {
-    let result = null;
-
-    try {
-        result = await axios({
-            method: 'put',
-            url: url,
-            data: data
-        }).then(res => res.data);
-
-    } catch (error) {
-        console.log(error);
-    }
-
-    return result;
-
-}
-
-
-/* delete Method */
-export async function axiosDelete({ url, data }) {
-    let result = null;
-
-    try {
-        result = await axios({
-            method: 'delete',
-            url: url,
-            data: data
-        }).then(res => res.data);
-
-    } catch (error) {
-        console.log(error);
-    }
-
-    return result;
-
-}
-
-
-
-/* get method */
-
+/* GET METHOD */
 export async function axiosGet({ url, data }) {
     let result = null;
 
     try {
-        result = await axios({
-            method: 'get',
-            url: url,
-            data: data
-        }).then(res => res.data);
+        result = await axios({ method: 'get',
+                                 url: url,
+                                 data: data
+                            }).then(res => res.data);
+    } catch (error) { console.log(error);}
 
-    } catch (error) {
-        console.log(error);
-    }
+    return result;
+}
+
+
+/* POST METHOD */
+export async function axiosPost({ url, data }) {
+    let result = null;
+
+    try {
+        result = await axios({method: 'post',
+                                 url: url,
+                                data: data
+                            }).then(res => res.data);
+    } catch (error) { console.log(error); }
 
     return result;
 
 }
+
+
+/* PUT METHOD */
+export async function axiosPut({ url, data }) {
+    let result = null;
+
+    try {
+        result = await axios({method: 'put',
+                                 url: url,
+                                data: data
+                            }).then(res => res.data);
+    } catch (error) { console.log(error); }
+
+    return result;
+}
+
+
+/* DELETE METHOD */
+export async function axiosDelete({ url, data }) {
+    let result = null;
+
+    try {
+        result = await axios({method: 'delete',
+                                 url: url,
+                                data: data
+                            }).then(res => res.data);
+    } catch (error) {console.log(error);}
+
+    return result;
+}
+
+
+

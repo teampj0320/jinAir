@@ -42,18 +42,25 @@ export default function SignupTerms({onNext}) {
       </div> 
       <ul className='agreement-list'>
                 <li>
-                  <input type="checkbox" className='all-agree' /> 
-                  <span>전체동의</span>
+                  <input type="checkbox" className='all-agree' id='check-ch'/> 
+                  <label htmlFor="check-ch">
+                    <span>전체동의</span>
+                  </label>
                 </li>
-                { terms && terms.map((term, i)=>(
-                  <li key={i}>
-                    <input type="checkbox" /> 
-                    <span>[{term.type}]&nbsp; 
-                      <span className='term-info' 
-                            onClick={()=> term.content && openModal(term.content)}>{term.title}</span>에 대한 동의
-                    </span>
-                  </li>
-                ))}
+                { terms && terms.map((term, i)=>{
+                   const id = `check-ch2-${i}`; 
+                   return (
+                    <li key={i}>
+                      <input type="checkbox" id={id}/> 
+                      <label htmlFor={id}>
+                        <span className='check-label'>
+                          [{term.type}]&nbsp; 
+                          <span className='term-info' 
+                                onClick={()=> term.content && openModal(term.content)}>{term.title}</span>에 대한 동의
+                        </span>
+                      </label>
+                    </li>
+                  )})}
         </ul>
         <Modal className='signup-terms' title="약관내용" open={modalOpen}
         onCancel={()=>setModalOpen(false)}footer={null}>

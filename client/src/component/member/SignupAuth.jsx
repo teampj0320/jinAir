@@ -26,7 +26,7 @@ export default function SignupAuth({onNext}) {
       </div> 
       <p className='find-basic-info-title'>이메일로 찾기</p>
       <ul className='user-info'>
-        <AuthUser item={'nomal'} />  
+        <AuthUser item={'signup-auth'} />  
       </ul>
       <button type='button' className='agree-btn' onClick={handleNext}>다음</button>
     </div>

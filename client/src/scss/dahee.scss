@@ -20,7 +20,7 @@
 .login-content,
 .find-content,
 .signup-content{
-  border: 1px solid red;
+  // border: 1px solid red;
   padding: 0 20px;
 }
 .login-header,
@@ -54,6 +54,7 @@
 .header-icon2{
   font-size: 25px;
   font-weight: 200;
+  cursor: pointer;
 }
 .login-logo {
   display: flex;
@@ -81,16 +82,19 @@
   padding: 18px 20px;
 }
 .login-info>span:first-child>input{
-  border-radius: 5px 5px 0 0;
+  border-radius: 8px 8px 0 0;
   border-bottom: none;
 }
 .login-info>span:nth-child(2)>input{
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 8px 8px;
 }
 .login-info>span:first-child>input:focus,
 .login-info>span:nth-child(2)>input:focus{
-  border: 1.5px solid var(--color-main);
-}  
+  border: 2px solid var(--color-main);
+} 
+.login-info-text{
+  margin-left: 10px;
+} 
 .login-btn,
 .find-submit-btn,
 .agree-btn{
@@ -102,6 +106,13 @@
   margin: 20px 0;
   color: #b4b4b4;
   cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+.login-btn-active{
+  background-color: var(--color-main);
+  color: #fff;
+  font-weight: bold;
 }
 .id_save{
   display: flex;
@@ -114,8 +125,14 @@
 .user-info .ch-box-input{
   display: none;
 }
-.id_save>div:first-child>span::before,
-.agreement-list>li>span::before,
+.id_save label{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.id_save>div:first-child>label>span::before,
+.agreement-list>li>label>span::before,
+.agreement-list>li:nth-child(2)>label>span:nth-child(2)::before,
 .user-info .ch-box::before{
   content: "";
   display: inline-block;
@@ -124,8 +141,14 @@
   margin: -2px 10px 0 0 ;
   vertical-align: middle;
   background: url('../assets/svg/login_checkbox.png') no-repeat 0 0 / 1.5rem ;
-  cursor: pointer;
+  border-radius: 50%;
 }
+#save-id:checked + label > span::before,
+#check-ch:checked + label > span::before,
+[id^="check-ch2"]:checked + label > .check-label::before {
+  background:  var(--color-main) url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") no-repeat center center / 1rem;
+}
+
 .id_save>div:nth-child(2)>span:nth-child(2){
   // border: 1px solid red;
   display: inline-block;
@@ -227,6 +250,12 @@
   font-size: 14px;
   letter-spacing: -0.9px;
   border-bottom: 3px solid #e7e7e7;
+  cursor: pointer;
+}
+.find-title>li>.find-info-active {
+  color: black;
+  border-bottom: 3px solid black;
+  font-weight: 700;
 }
 .user-info{
   list-style: none;
@@ -255,7 +284,7 @@
   border: 1px solid #e7e7e7;
   border-radius: 8px;
   outline: none;
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
 }
 .user-info .id,
 .user-info .birth,
@@ -265,6 +294,17 @@
 .user-info .cpassword{
   width: 100%;
 }
+.user-info .validate-text {
+  margin: 0px 0px 15px 5px;
+  font-size: 12px;
+  // color: #fff;
+}
+.user-info .phone,
+.user-info .password,
+.user-info .cpassword{
+margin-bottom: 15px;
+}
+
 .find-basic-info .info-gender .gender{
   background-color: #fff;
   padding: 15px 18px;
@@ -276,6 +316,19 @@
 .find-basic-info .info-gender button:nth-child(2){
   border-radius: 0 8px 8px 0;
 }  
+.find-basic-info .info-gender .info-gender-active{
+  border: 2px solid var(--color-main);
+}
+.user-info .id:focus,
+.user-info .name:focus,
+.user-info .birth:focus,
+.user-info .email:focus,
+.user-info .auth-code:focus,
+.user-info .phone:focus,
+.user-info .password:focus,
+.user-info .cpassword:focus{
+  outline: 1.5px solid var(--color-main);
+}
 .user-info .auth-input{
   position: relative;
 }

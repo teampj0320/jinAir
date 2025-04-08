@@ -10,9 +10,27 @@ import { BsSuitcase2Fill } from "react-icons/bs";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { LuPackagePlus, LuHeartHandshake } from "react-icons/lu"; 
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLogout } from '../service/authApi.js';
 
 export default function Header() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+    console.log('isLoggedIn',isLoggedIn);
+    
+    const handleLoginToggle = ()=>{
+        if(isLoggedIn){
+            const select = window.confirm('정말로 로그아웃 하시겠습니까?');
+            if(select){
+                dispatch(getLogout());
+                navigate('/');
+            }
+        }else{
+            navigate('/login');
+        }
+    };
+
     const handleNav=(path)=>{ 
         navigate(path);
     }
@@ -24,7 +42,11 @@ export default function Header() {
             <div className='header_content'>
                 <div className='header_top'>
                     <div className='header_top_menu'>
-                        <button onClick={()=>navigate('/login')}><span> 로그인·회원가입</span></button>
+                        <button onClick={handleLoginToggle}>
+                            <span> 
+                                {isLoggedIn ? "로그아웃" : "로그인·회원가입"}
+                            </span>
+                        </button>
                         <button><span>고객센터</span></button>
                         <button><span><FaEarthAmericas /></span><span style={{paddingLeft:"5px"}}>한국(한국어)/KRW</span></button>
                     </div>
