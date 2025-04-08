@@ -54,7 +54,7 @@ export default function Chatbot({ setTab }) {
                             }
                         </ul>
                     </div>
-                    <div className='문의했을때 답변이나 뭐 나오는 보더'>
+                    <div className='chatbot-tab-click'>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
                         {chatTab === 'reservation' && <Reservation />}
