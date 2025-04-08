@@ -61,7 +61,7 @@ export default function MainSearch() {
                 <div className={tab === 'main' ? 'main-top-img' : 'main-top-img2'}>
                     <img src="/images/main.jpg" alt="벚꽃이미지" />
                 </div>
-                <SendEmail />
+                {/* <SendEmail /> */}
                 <div className='main-top-search-all'>
                     <div className='main-top-search-btns'>
                         {

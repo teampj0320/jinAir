@@ -1200,3 +1200,35 @@ h2.react-datepicker__current-month {
     width: 50px !important;
     height: 50px !important;
 }
+
+// 제이드 챗봇
+.chatbot{
+    // border: 2px solid red;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    button{
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        background-color: var(--color-nav-main);
+        border: none;
+    }
+    button:hover{
+        cursor: pointer;
+    }
+    .chatbot-icon{
+        font-size: 20px;
+        color: var(--jinairgreen);
+        margin: 0;
+        padding: 0;
+
+    }
+    span{
+        display: block;
+        color: var(--jinairgreen);
+        font-size: 14px;
+        margin: -5px;
+        padding: 0;
+    }
+}
