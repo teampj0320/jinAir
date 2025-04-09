@@ -1,11 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-<<<<<<< HEAD
 import loginRouter from './router/loginRouter.js';
-=======
-import mypageRouter from './router/mypageRouter'
->>>>>>> b8ea22d3af378f52744b339df11aa928d128f539
+import mypageRouter from './router/mypageRouter.js'
 
 const server = express();
 const port = 9000;
@@ -16,13 +13,11 @@ server.use(express.urlencoded());
 server.use(cors());
 
 
-<<<<<<< HEAD
 // login
 server.use('/member', loginRouter);
-=======
+
 // middle ware
 server.use('/mypage', mypageRouter)
->>>>>>> b8ea22d3af378f52744b339df11aa928d128f539
 
 
 server.listen(port, () => {

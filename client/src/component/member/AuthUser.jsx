@@ -18,6 +18,7 @@ export default function AuthUser({item}) {
   const [ msgCheck, setMsgCheck ] = useState('');
   const [ selectedGender, setSelectedGender ] = useState(null);
   const [ active, setActive ] = useState(false);
+  const [ sendCodeActive, setSendCodeActive ] = useState(false);
   const [ codeActive, setCodeActive ] = useState(false);
 
   const refs = {'idRef' : useRef(null),
@@ -41,11 +42,13 @@ export default function AuthUser({item}) {
                     'pwdMsgRef' : useRef(null),
                     'cpwdMsgRef' : useRef(null),};
  
-                    useEffect(() =>{
+  useEffect(() =>{
     setFormData(getInitialState(item));
     setSelectedGender(null);
     setMsgResult('');
     setMsgCheck('');
+    setSendCodeActive(false);
+    setActive(false);
   },[item]);
 
   /* 성별 체크 함수 */  
@@ -64,12 +67,19 @@ export default function AuthUser({item}) {
     const {name, value} = e.target;
     setFormData({...formData, [name]:value });
     setMsgResult('');
+    for(let data in formData){
+      if(formData[data] !== ''){
+        setActive(true);
+      }else{
+        setActive(false);
+      }
+    }
   };
   
   /* 인증번호 이메일 전송 함수 */  
   const handleReqAuthCode = () =>{
     alert('fdgdf');
-    setActive(true);
+    setSendCodeActive(true);
   };
   
   /* 인증번호 확인 함수 */  
@@ -83,7 +93,7 @@ export default function AuthUser({item}) {
   const handleSubmit = (e) =>{
     e.preventDefault();
     console.log('formData.gender',formData.gender);
-    const {result, msg, key} = validateFindUseInfo(refs, msgRefs, item, formData.gender, active, codeActive);
+    const {result, msg, key} = validateFindUseInfo(refs, msgRefs, item, formData.gender, sendCodeActive, codeActive);
     
     if(result){
       alert('통');
@@ -190,11 +200,11 @@ export default function AuthUser({item}) {
                      ref={refs.authCodeRef}
                      onChange={handleChange}
                      placeholder='인증번호'
-                     disabled={!active} />
+                     disabled={!sendCodeActive} />
               <button type='button' 
-                      className={`auth-btn ${active?'auth-btn-active':''}`}
+                      className={`auth-btn ${sendCodeActive?'auth-btn-active':''}`}
                       onClick={handleConform}
-                      disabled={!active}>
+                      disabled={!sendCodeActive}>
               인증하기</button>
             </div>
             <div className={`validate-text ${msgCheck === 'auth-code' ? 'error' : (msgCheck === 'auth-btn') ?'error' : ''}`} 
@@ -252,7 +262,7 @@ export default function AuthUser({item}) {
           </>
         )}
         {(item === 'nomal' || item ==='pwd') && (
-          <button type='submit' className='find-submit-btn'>
+          <button type='submit' className={`find-submit-btn  ${active? 'find-submit-active':''} `}>
             { item === 'nomal'? '아이디 찾기' : '비밀번호 찾기'}
           </button>
         )}

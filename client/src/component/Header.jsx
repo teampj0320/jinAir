@@ -16,7 +16,6 @@ import { getLogout } from '../service/authApi.js';
 
 export default function Header() {
     const navigate = useNavigate();
-<<<<<<< HEAD
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     console.log('isLoggedIn',isLoggedIn);
@@ -33,48 +32,19 @@ export default function Header() {
         }
     };
 
-    const handleNav=(path)=>{ 
-=======
     const handleNav = (path) => {
->>>>>>> b8ea22d3af378f52744b339df11aa928d128f539
         navigate(path);
     }
     return (
         <>
-<<<<<<< HEAD
-        <div className='header_outline'>
-            <div className='header'>
-            <div className='header_content'>
-                <div className='header_top'>
-                    <div className='header_top_menu'>
-                        <button onClick={handleLoginToggle}>
-                            <span> 
-                                {isLoggedIn ? "로그아웃" : "로그인·회원가입"}
-                            </span>
-                        </button>
-                        <button><span>고객센터</span></button>
-                        <button><span><FaEarthAmericas /></span><span style={{paddingLeft:"5px"}}>한국(한국어)/KRW</span></button>
-                    </div>
-                    <div className='header_bottom_menu'>
-                    <div className='home_main_logo'
-                    onClick={()=> handleNav('/')}>
-                        <img src="https://images.jinair.com/newHom/images/web/common/logo.svg" alt="jinair-logo" />
-                    </div>
-                        <div className='menu_list'>
-                            <ul>
-                                <li>예약</li>
-                                <li>프로모션/제휴</li>
-                                <li>부가서비스</li>
-                                <li>운항정보</li>
-                                <li><HiOutlineBars3 /> 전체메뉴</li>
-                            </ul>
-=======
             <div className='header_outline'>
                 <div className='header'>
                     <div className='header_content'>
                         <div className='header_top'>
                             <div className='header_top_menu'>
-                                <button onClick={() => navigate('/login')}><span> 로그인·회원가입</span></button>
+                                <button onClick={handleLoginToggle}>
+                                    <span>{isLoggedIn ? "로그아웃" : "로그인·회원가입"}</span>
+                                </button>
                                 <button><span>고객센터</span></button>
                                 <button><span><FaEarthAmericas /></span><span style={{ paddingLeft: "5px" }}>한국(한국어)/KRW</span></button>
                             </div>
@@ -94,7 +64,6 @@ export default function Header() {
                                 </div>
                                 <div onClick={() => handleNav('/mypage/index')} style={{ display: "flex", cursor: "pointer", justifyContent: "center" }}><CiUser /></div>
                             </div>
->>>>>>> b8ea22d3af378f52744b339df11aa928d128f539
                         </div>
                     </div>
 
@@ -192,4 +161,3 @@ export default function Header() {
         </>
     );
 }
-
