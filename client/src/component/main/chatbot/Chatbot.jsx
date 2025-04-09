@@ -54,7 +54,6 @@ export default function Chatbot({ setTab }) {
                             }
                         </ul>
                     </div>
-                    <div className='chatbot-tab-click'>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
                         {chatTab === 'reservation' && <Reservation />}
@@ -64,7 +63,6 @@ export default function Chatbot({ setTab }) {
                         {chatTab === 'ticket' && <Ticket />}
                         {chatTab === 'check' && <Check />}
                         {chatTab === 'notice' && goNotice()}
-                    </div>
                 </div>
                 <div className='chatbot-main-bottom-box'>
                     <ul>

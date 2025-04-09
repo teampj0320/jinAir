@@ -1,8 +1,10 @@
-import React from 'react';
-import { FaCalendarCheck } from "react-icons/fa";
-
+import React, { useState } from 'react';
+import { IoAirplane } from "react-icons/io5";
 
 export default function Schedule() {
+    const [click, setClick] = useState(false);
+    const [scheduleExist, setScheduleExist] = useState(false);
+
     const data = [
         '서울/인천(ICN)',
         '서울/김포(GMP)',
@@ -50,58 +52,76 @@ export default function Schedule() {
         '울란바토르(UBN)'
     ];
     const processedList = data.map(item => item.split("(")[0]);
-        
+
     return (
-        <div className='schedule-all-box'>
-            <div className='schedule-top-box'>
-                <p>진에어 항공편의 스케줄 조회를 도와드릴게요~</p>
-                <p>출발지, 도착지와 가는날을 선택해주세요!</p>
-            </div>
-            <div className='schedule-country-check-box'>
-                <span>출발/도착</span>
-                <select name="" id="">
-                    {processedList.map((data) => (
-                        <option value="">{data}</option>
-                    ))}
-                </select>
-                <select name="" id="">
-                    {processedList.map((data) => (
-                        <option value="">{data}</option>
-                    ))}
-                </select>
-            </div>
-            <div className='schedule-calendar-check-box'>
-                <span>가는날</span>
-                <div>
-                    <input type="text" />
-                    <FaCalendarCheck />
+        <>
+            <div className='schedule-all-box'>
+                <div className='schedule-top-box'>
+                    <p>진에어 항공편의 스케줄 조회를 도와드릴게요~</p>
+                    <p>출발지, 도착지와 가는날을 선택해주세요!</p>
+                </div>
+                <div className='schedule-country-check-box'>
+                    <span>출발/도착</span>
+                    <select name="" id="">
+                        {processedList.map((data) => (
+                            <option value="">{data}</option>
+                        ))}
+                    </select>
+                    <select name="" id="">
+                        {processedList.map((data) => (
+                            <option value="">{data}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='schedule-calendar-check-box'>
+                    <span>가는날</span>
+                    <input type="date" />
+                </div>
+                <div className='schedule-button-box'>
+                    <button onClick={() => { setClick(true) }}>확인</button>
                 </div>
             </div>
-            <div className='schedule-button-box'>
-                <button>확인</button>
-            </div>            
-        </div>
+            <div className='schedule-all-box'>
+                {click && // 스케줄정보 있을때
+                    <>
+                        <div className='schedule-exist-box'>
+                            <p>[출발일:2025-04-12, 출발지:ICN, 도착지:BKK] <br />스케줄 정보를 조회하였습니다.</p>
+                            <div className='schedule-exist-top'>
+                                <span>서울/인천(icd)</span>
+                                <IoAirplane className='schedule-exist-top-icon' />
+                                <span>오사카(icd)</span>
+                            </div>
+                            <table>
+                                <tr>
+                                    <td>편명</td>
+                                    <td>출발</td>
+                                    <td>도착</td>
+                                </tr>
+                                <tr>
+                                    <td>LJ231</td>
+                                    <td>01:20</td>
+                                    <td>02:20</td>
+                                </tr>
+                            </table>
+                            <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
+                            <div>
+                                <button>예약하기</button>
+                                <button>출도착지 바꾸기</button>
+                            </div>
+            {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
+                    // 출도착지 변경은 걍 두개 변경해주면댐*/}
+                        </div>
+                    </>
+                }
+            </div>
+            <div className='schedule-all-box'>
+                {!scheduleExist &&
+                    <div className='schedule-none-exist-box'>
+                        <p>[출발일:2025-04-13, 출발지:ICN, 도착지:BKK] <br/>일치하는 스케줄 정보가 없습니다.</p>
+                    </div>
+                }
+            </div>
+        </>
     );
 }
 
-// 확인 클릭되면
-{/* <div>
-[출발일:2025-04-12, 출발지:ICN, 도착지:BKK] 스케줄 정보를 조회 중입니다.
-
-잠시만 기다려 주세요~!!
-</div>
-<div>
-<h5>비행기번호?</h5>
-<div>
-    <ul>
-        <li>출발지<span>출발시간</span></li>
-        <li>비행기아이콘<span>비행시간</span></li>
-        <li>도착지<span>도착시간</span></li>
-    </ul>
-    <p>*화면에 표시되는 시각은 현지 시각 기준입니다.</p>
-</div>
-<button>예약하기</button>
-<button>출도착지 바꾸기</button>
-// 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
-// 출도착지 변경은 걍 두개 변경해주면댐
-</div> */}
