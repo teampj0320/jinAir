@@ -9,8 +9,14 @@ import '../scss/haon.scss';
 import Chatbot from '../component/main/chatbot/Chatbot.jsx';
 import { BsRobot } from "react-icons/bs";
 
-export default function Home() {
+export default function Home() { 
     const [tab, setTab] = useState(false);
+    const scrollToTop = ()=>{
+        window.scrollTo({ 
+            top: 0,
+            behavior : 'smooth'
+        })
+    }
     return (
         <>
             <div className='content'>
@@ -24,6 +30,11 @@ export default function Home() {
                     </button>
                 </div>
                 {tab && <Chatbot setTab={setTab}/>}
+                <div className='totop'>
+                <button onClick={()=>{scrollToTop()}}>
+                <FaArrowUp className='totop-icon' size={20}/>
+                </button>
+            </div>
                 <div className='main_home'>
                     <div className='main_home_content'>
                         <div className='main_home_content_top'>
