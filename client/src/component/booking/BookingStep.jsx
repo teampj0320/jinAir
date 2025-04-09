@@ -2,8 +2,18 @@ import React from 'react';
 import { IoIosAirplane } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import '../../scss/yuna.scss';
+import { useNavigate } from 'react-router-dom';
 
 export default function BookingStep({text}) {
+    const navigate = useNavigate();
+
+    /* 이전단계 클릭 이벤트 */
+    const clickBackBtn = () => {
+        if (text === 'selectSeat') {
+            navigate('/booking/passenger');
+        }
+    }
+
     return (
         <div className='booking-step-wrap'>
             <div>
@@ -19,10 +29,19 @@ export default function BookingStep({text}) {
                     </div>
                     <div>
                         <span>성인 2</span>
-                        <button>수정하기</button>
+                        { text === "avaliability" && <button>수정하기</button> }
                     </div>
                 </div>
                 <div className={`booking-step-${text}-bottom`}>
+                    {
+                        text === 'selectSeat' &&
+                        <div className='booking-step-back-btn'
+                            onClick={clickBackBtn}
+                        >
+                            <span><IoIosArrowBack /></span>
+                            <span>이전단계</span>
+                        </div>
+                    }
                     <ul className='booking-step-menu'>
                         <li>1. 항공편 선택</li>
                         <li>2. 탑승객 정보</li>
