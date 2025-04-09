@@ -6,8 +6,7 @@ import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import { getModalOpen, getPeopleModal, getCalendar, getCalendar2 ,getType} from '../../../service/searchApi.js';
 
-export default function MultiCity({ startDate2,  multiArr,
-  multiDepart }) {
+export default function MultiCity({ startDate2,  multiArr,multiDepart }) {  
     const dispatch = useDispatch();
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
@@ -15,7 +14,6 @@ export default function MultiCity({ startDate2,  multiArr,
     const departure = useSelector(state => state.search.departure);
     const arrive = useSelector(state => state.search.arrive);
     const startDate = useSelector(state => state.search.startDate);
-
     const depart = useRef(null);
     const arr = useRef(null);
     const date = useRef(null);
@@ -106,7 +104,6 @@ export default function MultiCity({ startDate2,  multiArr,
                     </div>
                 </div>
             </div>
-
             <div className='main-top-search-bottom-main-middle2'>
                 <div onClick={() => { dispatch(getModalOpen(true)); dispatch(getType('o')); }} ref={depart2}>
                     <h5>출발지 선택</h5>
