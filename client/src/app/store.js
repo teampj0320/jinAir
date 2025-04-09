@@ -1,6 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import searchReducer  from '../features/search/searchSlice.js';
+<<<<<<< HEAD
 import authSlice  from '../features/auth/authSlice.js';
+=======
+import customerReducer  from '../features/customer/customerSlice.js';
+>>>>>>> b8ea22d3af378f52744b339df11aa928d128f539
 
 //로컬 스토리지에 저장된 리덕스 상태값 읽어보기
 const loadState = () => {
@@ -19,7 +23,8 @@ export const store = configureStore({
         // cart: cartSlice,
         // order: orderSlice,
         // product: productSlice
-        search : searchReducer 
+        search : searchReducer,
+        customer: customerReducer
     },
     preloadedState: loadState(),
 })

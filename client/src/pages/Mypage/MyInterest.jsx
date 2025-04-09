@@ -48,7 +48,7 @@ export default function MyInterest() {
                         <div className='tag-header'>
                             <div className='tag-header-left'>
                                 <b className='mp-common-title'>#2</b>
-                                <p className='f18 w600'>관심테마 선택해주세요</p>
+                                <p className='f18 w600'>관심테마를 선택해주세요</p>
                             </div>
                             <div className='f13'>최대 3개까지 선택이 가능합니다.</div>
                         </div>

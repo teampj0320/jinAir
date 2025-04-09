@@ -5,16 +5,35 @@ ul {
     list-style-type: none;
     padding: 0;
 }
+.booking-avaliability-contents,
+.booking-passenger-contents {
+    width: 1280px;
+    margin: 0 auto;
+}
 
 /************************************
  * BookingAvailabilityList - BookingStep
- * 예매 페이지 삳단 탭
+ * 항공권 선택 페이지 삳단 탭
 ************************************/
+.booking-avaliability-wrap {
+    // border: 1px solid red;
+    position: relative;
+}
 .booking-step-wrap {
-    width: 1280px;
-    margin: 0 auto;
+    width: 100%;
     padding: 20px 0;
     color: var(--darkblack);
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+    // position: sticky;
+    // top: 10px;
+    // z-index: 30px;
+
+    > div {
+        width: 1280px;
+        margin: 0 auto;
+        // border: 1px solid red;
+    }
 
     .booking-step-top {
         display: flex;
@@ -169,6 +188,15 @@ ul {
 * BookingAvailabilityList - BookingStep
 * 예매 페이지 삳단 탭
 ************************************/
+/* 항공권 선택 상단 */
+.booking-page-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 40px 0;
+}
+
+
+
 .booking-avaliability-wrap {
     background-color: var(--color-242);
 
@@ -177,12 +205,6 @@ ul {
         margin: 0 auto;
     }
 
-    /* 항공권 선택 상단 */
-    .booking-page-title {
-        font-size: 30px;
-        font-weight: bold;
-        margin: 40px 0;
-    }
 
     .booking-date {
 
@@ -277,19 +299,23 @@ ul {
             border-bottom: 1px solid var(--borderlight);
             padding-bottom: 24px;
 
-            > .flight-selected-sort {
+            >.flight-selected-sort {
                 line-height: 15px;
                 padding-top: 3px;
                 font-weight: 700;
                 cursor: pointer;
             }
-            > .flight-sort {
+
+            >.flight-sort {
                 line-height: 15px;
                 padding-top: 3px;
                 cursor: pointer;
             }
-            > li:last-child {
-                > label, input {
+
+            >li:last-child {
+
+                >label,
+                input {
                     cursor: pointer;
                 }
             }
@@ -315,12 +341,12 @@ ul {
                         padding: 0 64px;
                     }
 
-                    .booking-select-flight-info > p:first-child {
+                    .booking-select-flight-info>p:first-child {
                         font-size: 14px;
                         font-weight: 700;
                     }
 
-                    .booking-select-flight-info > p:last-child {
+                    .booking-select-flight-info>p:last-child {
                         font-size: 12px;
                         font-weight: 700;
                         text-decoration: underline;
@@ -347,21 +373,21 @@ ul {
                             }
                         }
 
-                        > div:nth-child(2) {
+                        >div:nth-child(2) {
                             width: 160px;
                             height: 60px;
                             font-weight: 700;
                             font-size: 12px;
                             text-align: center;
                             position: relative;
-                            
-                            > p:nth-child(2) {
+
+                            >p:nth-child(2) {
                                 font-size: 18px;
                                 z-index: 2;
                                 position: relative;
                             }
 
-                            > div {
+                            >div {
                                 border-bottom: 1px dotted var(--color-153);
                                 width: 160px;
                                 height: 1px;
@@ -389,8 +415,8 @@ ul {
                     justify-content: center;
                     gap: 5px;
                     width: 558px;
-                    
-                    > .booking-flight-selected-seat {
+
+                    >.booking-flight-selected-seat {
                         display: flex;
                         width: 100%;
                         flex-direction: column;
@@ -402,11 +428,13 @@ ul {
                         border: none;
                         background-color: var(--color-nav-main);
                         color: #fff;
-                        > span > b {
+
+                        >span>b {
                             color: var(--jinairgreen);
                         }
                     }
-                    > button {
+
+                    >button {
                         display: flex;
                         width: 100%;
                         flex-direction: column;
@@ -421,7 +449,7 @@ ul {
                         cursor: pointer;
                         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
 
-                        > p:first-child {
+                        >p:first-child {
                             border-bottom: 1px solid #e2e2e2;
                             width: 100%;
                             padding-bottom: 10px;
@@ -429,29 +457,362 @@ ul {
                             font-weight: 700;
                             font-size: 14px;
                         }
-                        > span {
+
+                        >span {
                             display: flex;
                             align-items: center;
                             gap: 4px;
                             padding-top: 12px;
                             font-size: 12px;
                             line-height: 18px;
-                            > b {
+
+                            >b {
                                 font-size: 18px;
                             }
                         }
-                        > p:last-child {
+
+                        >p:last-child {
                             padding-top: 4px;
                         }
                     }
                 }
             }
+
             .booking-select-flight-section:not(:last-child) {
                 margin-bottom: 10px;
             }
-        } // booking-select-flight-list
+        }
+
+        // booking-select-flight-list
+    }
+
+    .booking-avaliability-bottom {
+        border-top: 2px solid var(--color-181);
+        background-color: #fff;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        // margin-bottom: -100px;
+        text-align: center;
+        // box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.06);
+        z-index: 30;
+        transform: translateY(0);
+        transition: 0.2s all 0s ease-in-out;
+        
+        > .booking-avaliability-bottom-button {
+            border: none;
+            margin: 0 auto;
+            width: 144px;
+            height: 56px;
+            padding: 0 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     }
 }
-// border: 1px solid red;
-// border: 1px solid blue;
-// border: 1px solid green;
+
+
+/************************************
+ * BookingPassenger - BookingStep
+ * 탑승객 정보 입력 페이지 삳단 탭
+************************************/
+.booking-step-passenger-bottom {
+    // border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .booking-step-menu {
+        display: flex;
+        background-color: rgb(239, 239, 239);
+        border-radius: 5px;
+        margin: 0;
+
+        >li {
+            width: 200px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--jinairnav);
+            font-weight: 700;
+            position: relative;
+        }
+
+        >li:not(:first-child)::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            margin-top: -5px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 7px solid rgb(196, 196, 196);
+        }
+
+        >li:nth-child(2) {
+            border-radius: 5px;
+            background-color: var(--color-nav-main);
+            color: #fff;
+        }
+    }
+    .booking-step-total {
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        p {
+            margin: 0;
+        }
+
+        p,
+        span {
+            line-height: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        b {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        button {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--color-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // font-size: 22px;
+        }
+    }
+}
+
+/************************************
+ * BookingPassenger - BookingStep
+ * 탑승객 정보 입력 페이지 메인 컨텐츠
+************************************/
+.booking-passenger-wrap {
+    background-color: var(--color-242);
+    
+    .booking-passenger-contents {        
+        .booking-passenger-form {
+            // border: 1px solid blue;
+            border-radius: 10px;
+            background-color: rgb(226, 226, 226);
+            // padding: 0 34px;
+            padding-bottom: 5px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+
+            .booking-passenger-form-top {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                height: 54px;
+                padding: 0 34px;
+                > span {
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+            }
+            .booking-passenger-info {
+                padding: 24px 34px;
+                border-radius: 10px;
+                background-color: #fff;
+                margin: 0 2px;
+                display: flex;
+                justify-content: space-between;
+
+                .booking-passenger-info-left > li,
+                .booking-passenger-info-right > li {
+                    display: flex;
+                    align-items: center;
+                    height: 44px;
+                    > label {
+                        width: 104px;
+                        font-weight: 700;
+                        > span {
+                            color: #d93939;
+                        }
+                    }
+                    input, select {
+                        height: 44px;
+                        padding: 0 24px;
+                        border: 1px solid rgb(193, 193, 193);
+                        border-radius: 6px;
+                        font-size: 14px;
+                    }
+                }
+                .booking-passenger-info-left {
+                    > li:first-child > div {
+                        input:first-child {
+                            width: 120px;
+                            margin-right: 8px;
+                        }
+                        input:last-child {
+                            width: 246px;
+                        }
+                    }
+                    > li:not(:first-child) {
+                        > input {
+                            width: 424px;
+                        }
+                    }
+                }
+                .booking-passenger-info-right {
+                    > li:first-child > div {
+                        display: flex;
+                        gap: 8px;
+                        > div {
+                            border: 1px solid rgb(193, 193, 193);
+                            border-radius: 6px;
+                            width: 158px;
+                            height: 44px;
+                            padding: 0 24px;
+                            display: flex;
+                            align-items: center;
+                            font-size: 14px;
+                        }
+                    }
+                    > li:not(:first-child) {
+                        > select {
+                            width: 424px;
+                        }
+                    }
+                }
+                .booking-passenger-info-left > li:not(:last-child),
+                .booking-passenger-info-right > li:not(:last-child) {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        .booking-passenger-info-desc {
+            padding-top: 46px;
+            font-size: 14px;
+            div {
+                margin-bottom: 8px;
+                > p {
+                    font-weight: 700;
+                }
+                > ul {
+                    list-style-type: "-";
+                    padding-left: 10px;
+                    line-height: 20px;
+                }
+            }
+            button {
+                border: 1px solid #bdd600;
+                font-size: 12px;
+                border-radius: 4px;
+                height: 28px;
+                padding: 0 14px;
+                display: flex;
+                align-items: center;
+                margin-left: 10px;
+                > span {
+                    display: flex;
+                    align-items: center;
+                    border-radius: 50%;
+                    width: 10px;
+                    height: 10px;
+                    padding: 3px;
+                    margin-left: 5px;
+                    background-color: var(--jinairgreen);
+                }
+            }
+        }
+        .booking-passenger-reservant {
+            margin-top: 60px;
+            > p {
+                margin-bottom: 24px;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 28px;
+            }
+            // > p::before {
+            //     content: '';
+            //     // position: absolute;
+            //     z-index: -1;
+            //     left: 0;
+            //     bottom: 8%;
+            //     margin-top: 0;
+            //     width: 100%;
+            //     height: 7px;
+            //     border-radius: 2px;
+            //     background: linear-gradient(to right, rgba(189, 214, 0, 0.7) 0%, rgba(211, 233, 46, 0) 100%);
+            // }
+            .passenger-reservant-form {
+                padding: 24px 34px;
+                border-radius: 10px;
+                background-color: #fff;
+                margin: 0 2px;
+                display: flex;
+                justify-content: space-between;
+                > li {
+                    display: flex;
+                    align-items: center;
+                    height: 44px;
+                    > label {
+                        width: 104px;
+                        font-weight: 700;
+                        > span {
+                            color: #d93939;
+                        }
+                    }
+                    input, select {
+                        height: 44px;
+                        padding: 0 24px;
+                        border: 1px solid rgb(193, 193, 193);
+                        border-radius: 6px;
+                        font-size: 14px;
+                    }
+                }
+                > li:first-child > input {
+                    width: 424px;
+                }
+                > li:last-child {
+                    display: flex;
+                    gap: 8px;
+                    > select {
+                        width: 150px;
+                    }
+                    > input {
+                        width: 266px;
+                    }
+                }
+            }
+            .passenger-reservant-desc {
+                padding-top: 46px;
+                font-size: 14px;
+                list-style-type: "-";
+                padding-left: 10px;
+                line-height: 20px;
+            }
+        }
+    }
+    .booking-passenger-next-btn {
+        text-align: center;
+        margin-top: 56px;
+        > button {
+            height: 56px;
+            border-radius: 5px;
+            background-color: var(--jinairnav);
+            color: #fff;
+            padding: 0 16px;
+            min-width: 144px;
+            font-weight: 700;
+            width: auto;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+}

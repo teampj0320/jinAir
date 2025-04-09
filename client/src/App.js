@@ -15,6 +15,7 @@ import MyQna from './pages/Mypage/MyQna.jsx';
 import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
 import BookingAvailabilityList from './pages/booking/BookingAvailabilityList.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
+import BookingSelectSeat from './pages/booking/BookingSelectSeat.jsx';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
         <Route path='/booking/availabilityList' element={<BookingAvailabilityList />} />
         <Route path='/booking/passenger' element={<BookingPassenger />} />
+        <Route path='/booking/selectSeat' element={<BookingSelectSeat />} />
         {/* <Route path='/payment' element={<Payment />} />
         <Route path='/admin' element={<Admin />} />  */}
       </Route>

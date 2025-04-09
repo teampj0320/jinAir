@@ -58,6 +58,7 @@
     div,
     span,
     input,
+    label,
     b,
     strong,
     select {
@@ -332,6 +333,9 @@
     .gap5 {
         gap: 5px;
     }
+    .gap10 {
+        gap: 10px;
+    }
 
     .space-between {
         display: flex;
@@ -464,6 +468,7 @@
         .modify-info {
             position: relative;
             padding-right: 20px;
+            cursor: pointer;
         }
 
         .modify-info::after {
@@ -1139,11 +1144,14 @@
         }
     }
 
+    /* 회원 정보 수정 페이지 */
+
+
     .small-wrap {
         padding-top: 90px;
         max-width: 530px;
         margin: 0 auto;
-        text-align: center;
+
     }
 
     .sub-desc {
@@ -1153,20 +1161,283 @@
     }
 
     .profile-wrap {
-        display: flex
-        ;
-            flex-flow: column;
-            gap: 5px;
+        display: flex;
+        flex-flow: column;
+        gap: 5px;
+        margin-top: 50px;
     }
 
     .profile-img {
         display: flex;
         gap: 24px;
-        
+
         img {
             width: 137px;
             height: 137px;
+            border-radius: 10px;
         }
+    }
+
+    .profile-img-desc {
+
+        strong {
+            padding-top: 5px;
+            font-size: 16px;
+
+            b {
+                font-weight: 600;
+                font-size: 18px;
+            }
+        }
+
+        span {
+            font-size: 12px;
+            font-weight: 300px;
+            color: #8f8f8f;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666666;
+            line-height: 20px;
+        }
+
+        p,
+        span {
+            padding-top: 10px
+        }
+    }
+
+    // 필수 항목 표시 *
+    .input-required-label {
+        color: #d93939;
+    }
+
+
+    .profile-button {
+        margin-top: 10px;
+        display: flex;
+        gap: 5px;
+
+        button {
+            height: 28px;
+            border-radius: 5px;
+            font-size: 14px;
+            padding: 0 14px;
+            width: auto;
+            min-width: 0;
+            gap: 4px;
+            border: 1px solid #d3e92e;
+            background: #d3e92e;
+            color: #192547;
+        }
+    }
+
+    .info-wrap {
+        margin-top: 50px;
+    }
+
+    .info-content {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+    }
+
+
+    .info-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px dashed #b4b4b4;
+        margin-bottom: 24px;
+
+        p {
+            margin-bottom: 12px;
+        }
+
+    }
+
+    .info-select-box {
+        display: flex;
+        align-items: center;
+        appearance: none;
+        width: 100%;
+        height: 44px;
+        padding: 0 48px 0 24px;
+        border: 1px solid #c1c1c1;
+        border-radius: 6px;
+        font-weight: 400;
+        font-size: 14px;
+        text-align: left;
+        color: #192547;
+        background: #ffffff url('/assets/svg/select_toggle.svg') no-repeat calc(100% - 22px) 50%;
+
+    }
+
+    .field-wrapper,
+    .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1; // input태그가 50%씩 차지하게
+    }
+
+    .field-row {
+        display: flex;
+        gap: 12px;
+    }
+
+    .field-wrapper,
+    .field-row {
+
+        label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* 기본 input 스타일 */
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            height: 44px;
+            padding: 0 24px;
+            background-color: #ffffff;
+            border: 1px solid #c1c1c1;
+            border-radius: 6px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #192547;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        /*  disabled 상태 스타일 */
+        input[type="text"]:disabled,
+        input[type="password"]:disabled,
+        input[type="number"]:disabled,
+        input[type="email"]:disabled,
+        input[type="date"]:disabled {
+            background-color: #efefef !important;
+            border-color: #efefef !important;
+            color: #192547 !important;
+            cursor: not-allowed;
+            // opacity: 1;
+        }
+
+    }
+
+    .info-navy-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 15px;
+        text-decoration: none;
+        cursor: pointer;
+        gap: 4px;
+        border-radius: 6px;
+        border: 1px solid #192547;
+        background: #192547;
+        font-size: 14px;
+        color: #ffffff;
+        white-space: nowrap;
+    }
+
+    .info-user-pwd {
+        button {
+            font-size: 12px;
+            border-radius: 4px;
+            padding: 10px 12px;
+            border: 1px solid #bdd600;
+            background: transparent;
+            color: #192547;
+            display: inline-block !important;
+            align-self: flex-start;
+        }
+    }
+    
+    .info-user-confirm {
+
+        input[type=checkbox] {
+            appearance: none; 
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ddd;
+            background: #ffffff url('/assets/svg/gray_check.svg') no-repeat 50% 50%;
+            vertical-align: top;
+            transition: all ease-in-out 0.1s;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        input[type=checkbox]:checked {
+            appearance: none; 
+            border-color: #192547;
+            background: #192547 url('/assets/svg/green_check.svg') no-repeat 50% 50%;
+        }
+    }
+
+
+    .checkbox-wrap{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        input {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+
+    .field-wrapper {
+        display: flex;
+        gap: 16px;
+    }
+
+    .sns-btn-wrap{
+        display: flex;
+        flex-flow: column;
+        gap: 12px;
+
+      
+
+        button {
+            border: 1px solid #192547;
+            background: #ffffff;
+            color: #192547;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            text-decoration: none;
+            cursor: pointer;
+            height: 44px;
+            width: 100%;
+            gap: 4px;
+            border-radius: 6px;
+        }
+
+        button:active {
+           
+            border: 1px solid #192547;
+            background: #192547;
+            font-size: 14px;
+            color: #ffffff;
+        
+    }
+    }
+
+    .withdraw-btn {
+        background: none;
+        text-decoration : underline;
+        font-size: 16px;
+        text-align: left;
     }
 
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@reduxjs/toolkit": "^2.6.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -21,8 +22,10 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.4.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.3",
     "redux": "^5.0.1",
     "sass": "^1.86.0",
+    "slick-carousel": "^1.8.1",
     "swiper": "^11.2.6",
     "web-vitals": "^2.1.4"
   },

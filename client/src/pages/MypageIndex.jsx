@@ -25,7 +25,7 @@ export default function Mypage() {
                                     <li className='thin300'>jinair@google.com</li>
                                     <li className='thin300'>010.0000.0000</li>
                                 </ul>
-                                <span className='f12 thin300 modify-info'>회원정보수정</span>
+                                <span className='f12 thin300 modify-info' onClick={()=>{navigate('../mypage/modifyInfo')}}>회원정보수정</span>
                             </div>
                         </article>
                         <article className='user-interest'>
