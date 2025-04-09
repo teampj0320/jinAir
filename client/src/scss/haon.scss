@@ -1238,7 +1238,7 @@ h2.react-datepicker__current-month {
     // border: 2px solid red;
     position: fixed;
     right: 30px;
-    bottom: 30px;
+    bottom: 100px;
 
     button {
         width: 60px;
@@ -1409,4 +1409,80 @@ h2.react-datepicker__current-month {
     border-radius: 5px;
     margin: 0 auto;
     margin-top: 20px;
+}
+
+// chatbot schedule
+.schedule-top-box{
+    border-bottom: 1px solid gainsboro;
+    padding: 10px 0;
+}
+.schedule-country-check-box{
+    display: flex;
+    text-align: center;
+    margin-top: 20px;
+    align-items: center;
+    padding: 0 10px;
+    select{
+        width: 155px;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    select:nth-child(2){
+        margin-right: 10px;
+    }
+    span{
+        color: rgb(0, 99, 177);
+        width: 100px;
+    }
+}
+.schedule-calendar-check-box{
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    span{
+        color: rgb(0, 99, 177);
+        width: 100px;
+    }
+    select{
+        width: 320px;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    div{
+        border: 1px solid black;
+        width: 318px;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        input{
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.schedule-all-box{
+   .schedule-button-box{
+    padding: 0 10px;
+    margin-top: 20px;
+    border-top: 1px solid gainsboro;
+    margin-bottom: 10px;
+
+    button{
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px 0;
+        border: 1px solid rgb(0, 255, 255);
+        background-color: white;
+        border-radius: 8px;
+    }
+    button:hover{
+        cursor: pointer;
+    }
+   }
 }
