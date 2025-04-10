@@ -127,7 +127,7 @@ export default function BookingAvailabilityList() {
                     <div className='booking-select-flight-list'>
                         {/* 순회 부분 */}
                         <div className='booking-select-flight-section'
-                            style={{backgroundColor: seatSelect !== null ?  "rgb(211, 233, 46)" : "rgb(230, 230, 230)"}}
+                            style={{backgroundColor: seatSelect !== null ?  "rgb(211, 233, 46)" : "rgb(242, 242, 242)"}}
                         >
                             <div className='booking-select-info'>
                                 <div className='booking-select-flight-info'>

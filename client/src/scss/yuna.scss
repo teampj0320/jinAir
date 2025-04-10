@@ -198,7 +198,7 @@ ul {
 
 
 .booking-avaliability-wrap {
-    background-color: var(--color-242);
+    background-color: rgb(249, 249, 249);
 
     .booking-avaliability-contents {
         width: 1280px;
@@ -323,9 +323,8 @@ ul {
 
         .booking-select-flight-list {
             padding: 30px 0 60px;
-
+            
             .booking-select-flight-section {
-                // background-color: rgb(230, 230, 230);
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -487,7 +486,7 @@ ul {
     }
 
     .booking-avaliability-bottom {
-        border-top: 2px solid var(--color-181);
+        border-top: 2px solid var(--color-242);
         background-color: #fff;
         position: sticky;
         bottom: 0;
@@ -602,14 +601,12 @@ ul {
  * 탑승객 정보 입력 페이지 메인 컨텐츠
 ************************************/
 .booking-passenger-wrap {
-    background-color: var(--color-242);
+    background-color: rgb(249, 249, 249);
     
     .booking-passenger-contents {        
         .booking-passenger-form {
-            // border: 1px solid blue;
             border-radius: 10px;
-            background-color: rgb(226, 226, 226);
-            // padding: 0 34px;
+            background-color: var(--color-242);
             padding-bottom: 5px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
 
@@ -801,7 +798,7 @@ ul {
     }
     .booking-passenger-next-btn {
         text-align: center;
-        margin-top: 56px;
+        padding: 56px 0;
         > button {
             height: 56px;
             border-radius: 5px;
@@ -917,7 +914,7 @@ ul {
  * 좌석 선택(부가서비스) 페이지
 ************************************/
 .booking-selectSeat-wrap {
-    background-color: var(--color-242);
+    background-color: rgb(249, 249, 249);
     .booking-selectSeat-contents {
         width: 1280px;
         margin: 0 auto;
@@ -1113,6 +1110,33 @@ ul {
                     }
                 }
             }
+        }
+    }
+    .booking-selectSeat-buttons {
+        text-align: center;
+        background: #ffffff;
+        box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.06);
+        z-index: 30;
+        transform: translateY(0);
+        transition: 0.2s all 0s ease-in-out;
+        // padding: 54px 0;
+        > button {
+            border: none;
+            height: 56px;
+            padding: 0 16px;
+            min-width: 144px;
+            width: auto;
+            font-size: 16px;
+        }
+        > button:first-child {
+            background-color: #fff;
+            text-decoration: underline;
+            color: var(--jinairnav);
+        }
+        > button:last-child {
+            background-color: var(--jinairnav);
+            color: #fff;
+            font-weight: 700;
         }
     }
 }

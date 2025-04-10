@@ -166,6 +166,10 @@ export default function BookingSelectSeat() {
                     </div>
                 </div>
             </div>
+            <div className='booking-selectSeat-buttons'>
+                <button>나중에 선택</button>
+                <button>신청하기</button>
+            </div>
         </div>
     );
 }
