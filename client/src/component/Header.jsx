@@ -17,27 +17,9 @@ import axios from 'axios';
 export default function Header() {
     const navigate = useNavigate();
     const [menuData, setMenuData] = useState([]);
-    const [isMenuHovered, setIsMenuHovered] = useState(false);
-    const handleNav = (path) => navigate(path);
+    const [activeMenu, setActiveMenu] = useState(null);  // activeMenu 상태로 각 메뉴 hover를 관리합니다.
 
-    const iconMap = {
-        IoMdAirplane: <IoMdAirplane />,
-        MdAirplaneTicket: <MdAirplaneTicket />,
-        IoIosPricetags: <IoIosPricetags />,
-        RiDiscountPercentFill: <RiDiscountPercentFill />,
-        PiCalendarStarFill: <PiCalendarStarFill />,
-        LuHeartHandshake: <LuHeartHandshake />,
-        LuPackagePlus: <LuPackagePlus />,
-        IoIosGift: <IoIosGift />,
-        PiSeatFill: <PiSeatFill />,
-        BsSuitcase2Fill: <BsSuitcase2Fill />,
-        FaUtensils: <FaUtensils />,
-        AiFillSafetyCertificate: <AiFillSafetyCertificate />,
-        MdOutlinePets: <MdOutlinePets />,
-        PiAirplaneInFlightFill: <PiAirplaneInFlightFill />,
-        FaCalendarCheck: <FaCalendarCheck />,
-        FaEarthAsia: <FaEarthAsia />
-    };
+    const handleNav = (path) => navigate(path);
 
     useEffect(() => {
         axios.get('/data/category.json')
@@ -65,15 +47,28 @@ export default function Header() {
                             <div className='home_main_logo' onClick={() => handleNav('/')}>
                                 <img src="https://images.jinair.com/newHom/images/web/common/logo.svg" alt="jinair-logo" />
                             </div>
-                            <div className='menu_list'
-                              onMouseEnter={() => setIsMenuHovered(true)}
-                              onMouseLeave={() => setIsMenuHovered(false)}
-                            >
+                            <div className='menu_list'>
                                 <ul>
-                                    <li>예약</li>
-                                    <li>프로모션/제휴</li>
-                                    <li>부가서비스</li>
-                                    <li>운항정보</li>
+                                    <li className='menu_list1'
+                                        onMouseEnter={() => setActiveMenu('menu1')}
+                                        onMouseLeave={() => setActiveMenu('menu1')}>
+                                        예약
+                                    </li>
+                                    <li className='menu_list2'
+                                        onMouseEnter={() => setActiveMenu('menu2')}
+                                        onMouseLeave={() => setActiveMenu('menu2')}>
+                                        프로모션/제휴
+                                    </li>
+                                    <li className='menu_list3'
+                                        onMouseEnter={() => setActiveMenu('menu3')}
+                                        onMouseLeave={() => setActiveMenu('menu3')}>
+                                        부가서비스
+                                    </li>
+                                    <li className='menu_list4'
+                                        onMouseEnter={() => setActiveMenu('menu4')}
+                                        onMouseLeave={() => setActiveMenu('menu4')}>
+                                        운항정보
+                                    </li>
                                     <li><HiOutlineBars3 /> 전체메뉴</li>
                                 </ul>
                             </div>
@@ -86,60 +81,65 @@ export default function Header() {
                             </div>
                         </div>
                     </div>
-                    <div className='header_bottom_menu_warp'
-                      onMouseEnter={() => setIsMenuHovered(true)}
-                      onMouseLeave={() => setIsMenuHovered(false)}
-                      style={{ display: isMenuHovered ? 'block' : 'none' }}
-                    >
 
-                    <div className='header_bottom_menu'>
-                        <ul>
-                            <li className='menu-main'><IoMdAirplane /> 예약안내</li>
-                            <li>항공권 예약</li>
-                            <li>예약/결제안내</li>
-                            <li>예약변경/취소/환불</li>
-                        </ul>
+                    {/* 각 메뉴의 hover 상태에 따라 메뉴를 보이게 설정 */}
+                    <div className={`header_bottom_menu_warp1 ${activeMenu === 'menu1' ? 'show' : ''}`}
+                    onMouseLeave={() => setActiveMenu(null)}>
+                        <div className='header_bottom_menu1'>
+                            <ul>
+                                <li className='menu-main'><IoMdAirplane /> 예약안내</li>
+                                <li>항공권 예약</li>
+                                <li>예약/결제안내</li>
+                                <li>예약변경/취소/환불</li>
+                            </ul>
 
-                        <ul>
-                            <li className='menu-main'><MdAirplaneTicket /> 추천 항공권</li>
-                            <li>최저가항공권</li>
-                            <li>맞춤항공권</li>
-                        </ul>
+                            <ul>
+                                <li className='menu-main'><MdAirplaneTicket /> 추천 항공권</li>
+                                <li>최저가항공권</li>
+                                <li>맞춤항공권</li>
+                            </ul>
 
-                        <ul>
-                            <li className='menu-main'><IoIosPricetags /> 운임 및 수수료</li>
-                            <li>국내선</li>
-                            <li>국제선</li>
-                        </ul>
+                            <ul>
+                                <li className='menu-main'><IoIosPricetags /> 운임 및 수수료</li>
+                                <li>국내선</li>
+                                <li>국제선</li>
+                            </ul>
 
-                        <ul>
-                            <li className='menu-main'><RiDiscountPercentFill /> 할인</li>
-                            <li>할인코드</li>
-                            <li>프로모션코드</li>
-                            <li>신분할인제도</li>
-                            <li>상용우대 프로그램</li>
-                        </ul>
-                    </div>
-                    <div className='header_bottom_menu'>
-
-                        <ul>
-                            <li className='menu-main'><PiCalendarStarFill /> 이벤트</li>
-                            <li>진행중</li>
-                            <li>종료</li>
-                            <li>당첨자 발표</li>
-                        </ul>
-
-                        <ul>
-                            <li className='menu-main'><LuHeartHandshake /> 제휴</li>
-                            <li>차량</li>
-                            <li>호텔</li>
-                            <li>여행보험</li>
-                            <li>현지투어/통신</li>
-                            <li>카드/환전</li>
-                            <li>지니 보딩패스</li>
-                        </ul>
+                            <ul>
+                                <li className='menu-main'><RiDiscountPercentFill /> 할인</li>
+                                <li>할인코드</li>
+                                <li>프로모션코드</li>
+                                <li>신분할인제도</li>
+                                <li>상용우대 프로그램</li>
+                            </ul>
                         </div>
-                        <div className='header_bottom_menu'>
+                    </div>
+
+                    <div className={`header_bottom_menu_warp2 ${activeMenu === 'menu2' ? 'show' : ''}`}
+                    onMouseLeave={() => setActiveMenu(null)}>
+                        <div className='header_bottom_menu2'>
+                            <ul>
+                                <li className='menu-main'><PiCalendarStarFill /> 이벤트</li>
+                                <li>진행중</li>
+                                <li>종료</li>
+                                <li>당첨자 발표</li>
+                            </ul>
+
+                            <ul>
+                                <li className='menu-main'><LuHeartHandshake /> 제휴</li>
+                                <li>차량</li>
+                                <li>호텔</li>
+                                <li>여행보험</li>
+                                <li>현지투어/통신</li>
+                                <li>카드/환전</li>
+                                <li>지니 보딩패스</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className={`header_bottom_menu_warp3 ${activeMenu === 'menu3' ? 'show' : ''}`}
+                    onMouseLeave={() => setActiveMenu(null)}>
+                        <div className='header_bottom_menu3'>
                             <ul>
                                 <li className='menu-main'><LuPackagePlus /> 부가서비스 안내</li>
                             </ul>
@@ -165,17 +165,19 @@ export default function Header() {
                                 <li className='menu-main'><MdOutlinePets /> JINI PET</li>
                             </ul>
                         </div>
-                        <div className='header_bottom_menu'>
+                    </div>
+
+                    <div className={`header_bottom_menu_warp4 ${activeMenu === 'menu4' ? 'show' : ''}`}
+                    onMouseLeave={() => setActiveMenu(null)}>
+                        <div className='header_bottom_menu4'>
                             <ul>
                                 <li className='menu-main'><PiAirplaneInFlightFill /> 출도착 안내</li>
-
                                 <li>구간 조회</li>
                                 <li>편명 조회</li>
                             </ul>
 
                             <ul>
                                 <li className='menu-main'><FaCalendarCheck /> 스케줄 조회</li>
-
                                 <li>왕복</li>
                                 <li>편도</li>
                             </ul>
@@ -187,8 +189,8 @@ export default function Header() {
                             </ul>
                         </div>
                     </div>
-                    </div>
                 </div>
-            </div> 
-            );
+            </div>
+        </div>
+    );
 }
