@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    customerInfo: {
+    myinfo: {
         id: '',
         name: '',
         nameKor: { last: '', first: '' },
@@ -29,31 +29,32 @@ const customerSlice = createSlice({
     name: 'customer',
     initialState,
     reducers: {
-        setCustomerInfo: (state, action) => {
-            state.customerInfo = action.payload;
+        setMyInfo: (state, action) => {
+            state.myinfo = action.payload;
+            // state.isLoggedIn = true;
         },
-        updateCustomerField: (state, action) => {
+        updateMyInfoField: (state, action) => {
             const { field, value } = action.payload;
-            state.customerInfo[field] = value;
+            state.myinfo[field] = value;
         },
-        updateMarketingConsent: (state, action) => {
-            state.customerInfo.marketingConsent = {
-                ...state.customerInfo.marketingConsent,
+        updateMarketing: (state, action) => {
+            state.myinfo.marketingConsent = {
+                ...state.myinfo.marketingConsent,
                 ...action.payload,
             };
         },
-        logoutCustomer: (state) => {
-            state.customerInfo = initialState.customerInfo;
-            state.isLoggedIn = false;
+        deleteAccount: (state) => {
+            state.myinfo = initialState.myinfo; 
+            state.isLoggedIn = false;                       
         },
     },
 });
 
 export const {
-    setCustomerInfo,
-    updateCustomerField,
-    updateMarketingConsent,
-    logoutCustomer,
+    setMyInfo,
+    updateMyInfoField,
+    updateMarketing,
+    deleteAccount,
 } = customerSlice.actions;
 
-export default customerSlice.reducer;
+export default myinfoSlice.reducer;

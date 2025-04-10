@@ -1,16 +1,30 @@
 // src/services/customerApi.js
-import { axiosGet, axiosPut } from './api';
-import {  setCustomerInfo,
+import { axiosGet, axiosPost } from './api';
+
+import {  setMyInfo,
     updateCustomerField,
     updateMarketingConsent,
     logoutCustomer } from  '../features/customer/customerSlice.js';
 
 // 회원 정보 조회
-export const getCustomerInfo = async (userId) => {
-    return await axiosGet({ url: `/api/customer/${userId}` });
-};
+export const getMyInfo =(formData) = async (dispatch) => {
+    const url = 'http://localhost:9000/mypage/getMyInfo';
+    const data = formData;
 
-// 회원 정보 수정
-export const updateCustomerInfo = async (data) => {
-    return await axiosPut({ url: `/api/customer/update`, data });
-};
+    const getMyInfoResult = await axiosPost({url, data});
+    const result_rows = getMyInfoResult.result_rows;
+
+    if (result_rows) {
+        localStorage.setItem("user_id", formData.id);
+        dispatch(setMyInfo({ result_rows })); 
+    } else {
+        // 실패
+        dispatch(setMyInfo({ result_rows })); 
+
+    };
+
+
+
+
+
+}
