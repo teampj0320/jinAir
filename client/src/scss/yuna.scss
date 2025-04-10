@@ -195,8 +195,6 @@ ul {
     margin: 40px 0;
 }
 
-
-
 .booking-avaliability-wrap {
     background-color: rgb(249, 249, 249);
 
@@ -1209,6 +1207,91 @@ ul {
             height: 40px;
             border-radius: 8px;
             cursor: pointer;
+        }
+    }
+}
+
+
+/************************************
+ * BookingPayment - BookingStep
+ * 결제 정보 확인 페이지 삳단 탭
+************************************/
+.booking-step-payment-bottom {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    // height: auto;
+
+    .booking-step-menu {
+        display: flex;
+        background-color: rgb(239, 239, 239);
+        border-radius: 5px;
+        margin: 0;
+
+        >li {
+            width: 200px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--jinairnav);
+            font-weight: 700;
+            position: relative;
+        }
+
+        >li:not(:first-child)::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            margin-top: -5px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 7px solid rgb(196, 196, 196);
+        }
+
+        >li:last-child {
+            border-radius: 5px;
+            background-color: var(--color-nav-main);
+            color: #fff;
+        }
+    }
+
+    .booking-step-total {
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        p {
+            margin: 0;
+        }
+
+        p,
+        span {
+            line-height: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        b {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        button {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--color-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }

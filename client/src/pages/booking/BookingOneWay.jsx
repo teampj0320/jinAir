@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../scss/yuna.scss';
 
-export default function BookingAvailabilityList() {
+export default function BookingOneWay() {
     const navigate = useNavigate();
     const [seatSelect, setSeatSelect] = useState(null);
     const [sortSelect, setSortSelect] = useState('early');
