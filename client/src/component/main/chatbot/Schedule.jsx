@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { IoAirplane } from "react-icons/io5";
 
 export default function Schedule() {
     const [click, setClick] = useState(false);
     const [scheduleExist, setScheduleExist] = useState(false);
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
+    const [date, setDate] = useState('');
 
     const data = [
         '서울/인천(ICN)',
@@ -52,6 +55,43 @@ export default function Schedule() {
         '울란바토르(UBN)'
     ];
     const processedList = data.map(item => item.split("(")[0]);
+    const startRef = useRef(null);
+    const endRef = useRef(null);
+    const dateRef = useRef(null);
+
+    const handleStart = () => {
+        setStart(startRef.current.value);
+    }
+    const handleEnd = () => {
+        setEnd(endRef.current.value);
+    }
+    
+    const changeCountry = () =>{
+        setStart(end);
+        setEnd(start);
+    }
+    const handleDate = (e) => {
+        setDate(e.target.value);        
+    }
+    const validate = () => {
+        if(start === ''){
+            startRef.current.focus();
+            return false;
+        }else if(end === ''){
+            endRef.current.focus();
+            return false;
+        }else if(date === ''){
+            dateRef.current.focus();
+            return false;
+        }
+        return true;
+    }
+
+    const ScheduleCheck = () => {
+        if(validate()){
+            setClick(true); 
+        }
+    }
 
     return (
         <>
@@ -62,36 +102,36 @@ export default function Schedule() {
                 </div>
                 <div className='schedule-country-check-box'>
                     <span>출발/도착</span>
-                    <select name="" id="">
+                    <select ref={startRef} name="" id="" onChange={handleStart}>
                         {processedList.map((data) => (
-                            <option value="">{data}</option>
+                            <option value={data}>{data}</option>
                         ))}
                     </select>
-                    <select name="" id="">
+                    <select ref={endRef} name="" id="" onChange={handleEnd}>
                         {processedList.map((data) => (
-                            <option value="">{data}</option>
+                            <option value={data}>{data}</option>
                         ))}
                     </select>
                 </div>
                 <div className='schedule-calendar-check-box'>
                     <span>가는날</span>
-                    <input type="date" />
+                    <input ref={dateRef} type="date" onChange={handleDate} />
                 </div>
                 <div className='schedule-button-box'>
-                    <button onClick={() => { setClick(true) }}>확인</button>
+                    <button onClick={() => { ScheduleCheck()}}>확인</button>
                 </div>
             </div>
             <div className='schedule-all-box'>
                 {click && // 스케줄정보 있을때
                     <>
                         <div className='schedule-exist-box'>
-                            <p>[출발일:2025-04-12, 출발지:ICN, 도착지:BKK] <br />스케줄 정보를 조회하였습니다.</p>
-                            <div className='schedule-exist-top'>
-                                <span>서울/인천(icd)</span>
-                                <IoAirplane className='schedule-exist-top-icon' />
-                                <span>오사카(icd)</span>
-                            </div>
+                            <p>[출발일:{date}, 출발지:ICN, 도착지:BKK] <br />스케줄 정보를 조회하였습니다.</p>
                             <table>
+                                <tr>
+                                    <td>{start}</td>
+                                    <td><IoAirplane className='schedule-exist-top-icon' /></td>
+                                    <td>{end}</td>
+                                </tr>
                                 <tr>
                                     <td>편명</td>
                                     <td>출발</td>
@@ -106,16 +146,16 @@ export default function Schedule() {
                             <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
                             <div>
                                 <button>예약하기</button>
-                                {/* <button onClick={chang}>출도착지 바꾸기</button> */}
+                                <button onClick={changeCountry}>출도착지 바꾸기</button>
                             </div>
             {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
-                    // 출도착지 변경은 걍 두개 변경해주면댐*/}
+                    */}
                         </div>
                     </>
                 }
             </div>
             <div className='schedule-all-box'>
-                {!scheduleExist &&
+                {!scheduleExist && !click &&
                     <div className='schedule-none-exist-box'>
                         <p>[출발일:2025-04-13, 출발지:ICN, 도착지:BKK] <br/>일치하는 스케줄 정보가 없습니다.</p>
                     </div>
