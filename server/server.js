@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import mypageRouter from './router/mypageRouter'
+import mypageRouter from './router/mypageRouter.js'
 
 const server = express();
 const port = 9000;

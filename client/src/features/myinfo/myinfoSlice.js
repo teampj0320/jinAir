@@ -25,8 +25,8 @@ const initialState = {
 };
 
 
-const customerSlice = createSlice({
-    name: 'customer',
+const myinfoSlice = createSlice({
+    name: 'myinfo',
     initialState,
     reducers: {
         setMyInfo: (state, action) => {
@@ -55,6 +55,6 @@ export const {
     updateMyInfoField,
     updateMarketing,
     deleteAccount,
-} = customerSlice.actions;
+} = myinfoSlice.actions;
 
 export default myinfoSlice.reducer;

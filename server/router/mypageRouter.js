@@ -1,4 +1,5 @@
 import express from "express";
+const router = express.Router();
 import * as controller from '../controller/mypageController.js';
 
 router 

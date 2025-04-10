@@ -13,9 +13,12 @@ import CheckIn from './pages/Mypage/CheckIn.jsx';
 import MyInterest from './pages/Mypage/MyInterest.jsx';
 import MyQna from './pages/Mypage/MyQna.jsx';
 import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
-import BookingAvailabilityList from './pages/booking/BookingAvailabilityList.jsx';
+import BookingOneWay from './pages/booking/BookingOneWay.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
 import BookingSelectSeat from './pages/booking/BookingSelectSeat.jsx';
+import BookingPayment from './pages/booking/BookingPayment.jsx';
+import BookingGo from './pages/booking/BookingGo.jsx';
+import BookingBack from './pages/booking/BookingBack.jsx';
 
 export default function App() {
   return (
@@ -30,9 +33,12 @@ export default function App() {
         <Route path='/mypage/myInterest' element={<MyInterest />} />
         <Route path='/mypage/myQna' element={<MyQna />} />
         <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
-        <Route path='/booking/availabilityList' element={<BookingAvailabilityList />} />
+        <Route path='/booking/availabilityList/oneWay' element={<BookingOneWay />} />
+        <Route path='/booking/availabilityList/go' element={<BookingGo />} />
+        <Route path='/booking/availabilityList/back' element={<BookingBack />} />
         <Route path='/booking/passenger' element={<BookingPassenger />} />
         <Route path='/booking/selectSeat' element={<BookingSelectSeat />} />
+        <Route path='/booking/beforePayment' element={<BookingPayment />} />
         {/* <Route path='/payment' element={<Payment />} />
         <Route path='/admin' element={<Admin />} />  */}
       </Route>

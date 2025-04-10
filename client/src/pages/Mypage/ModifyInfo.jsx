@@ -66,7 +66,7 @@ export default function ModifyInfo() {
                                 <div className='field-group'>
                                     <label>성(영문)<span className='input-required-label W300'> *</span></label>
                                     <input className='w300' type="text" disabled value={"JIN"} />
-                                </div>
+                                </div>my
                                 <div className='field-group'>
                                     <label>이름(영문)<span className='input-required-label W300'> *</span></label>
                                     <input className='w300' type="text" disabled value={"AIR"} />
