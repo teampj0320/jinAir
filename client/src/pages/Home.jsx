@@ -8,6 +8,7 @@ import MainNotic from '../component/main/MainNotic.jsx';
 import '../scss/haon.scss';
 import Chatbot from '../component/main/chatbot/Chatbot.jsx';
 import { BsRobot } from "react-icons/bs";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function Home() { 
     const [tab, setTab] = useState(false);
