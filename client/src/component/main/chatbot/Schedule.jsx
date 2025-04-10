@@ -106,7 +106,7 @@ export default function Schedule() {
                             <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
                             <div>
                                 <button>예약하기</button>
-                                <button>출도착지 바꾸기</button>
+                                {/* <button onClick={chang}>출도착지 바꾸기</button> */}
                             </div>
             {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
                     // 출도착지 변경은 걍 두개 변경해주면댐*/}
