@@ -4,6 +4,10 @@ import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import '../../scss/ryeong.scss';
 import { getMyInfo } from '../../service/myinfoApi.js';
+import { Modal } from 'antd';
+import ModifyPass from '../../component/mypage/ModifyPass.jsx';
+import Postcode from '../../component/mypage/Postcode.jsx';
+import ImageUpload from '../../component/ImageUpload.jsx';
 
 
 export default function ModifyInfo() {
@@ -13,15 +17,8 @@ export default function ModifyInfo() {
     // 로그인한 유저의 정보 가져오기
     const myinfo = useSelector((state) => state.myinfo.myinfo);
 
-    console.log('불러온 회원 정보:', myinfo);
+    console.log('회원정보 >>>', myinfo);
 
-    // 🔸 useRef로 참조 객체 생성
-    const emailRef = useRef();
-    const addressRef = useRef();
-    const detailAddressRef = useRef();
-    const marketingEmailRef = useRef();
-    const marketingSmsRef = useRef();
-    const marketingPushRef = useRef();
 
     /* 회원 정보 불러오기 */
     useEffect(() => {
@@ -30,18 +27,69 @@ export default function ModifyInfo() {
         // } else {
         //     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
         //     select ?  navigate('/login') :  navigate('/');
-        //     dispatch(clearCartList())
         // }
     }, [])
 
     const [countries, setCountries] = useState([]);
 
 
+    /* 국가 정보 JSON 파일 가져오기 */
     useEffect(() => {
         fetch('/data/countryInfo.json')
             .then((res) => res.json())
             .then((data) => setCountries(data));
     }, []);
+
+
+    /* 비밀번호 변경 모달 스타일 */
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleComplete = () => {
+        setIsOpen(false);
+    };
+    
+    const handleTogle = () => {
+        setIsOpen((prev) => !prev);
+    };
+
+    /* 회원 정보 수정 상태 저장  */
+
+    const [formData, setFormData] = useState({
+        email: "",
+        nationality: "",
+        residence: "",
+        detail_address: "",
+      });
+      
+      useEffect(() => {
+        if (myinfo.id) {
+          setFormData({
+            email: myinfo.email || "",
+            nationality: myinfo.nationality || "",
+            residence: myinfo.residence || "",
+            detail_address: myinfo.detail_adderss || "",
+          });
+        }
+      }, [myinfo]);  // ⭐ myinfo가 바뀔 때만 초기화
+
+        const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      };
+      
+      /* 프사 업로드 및 확인 */
+        const [showUploader, setShowUploader] = useState(false);
+        const [profileImage, setProfileImage] = useState(""); // 미리보기용
+    
+        const handleProfileUpload = (filename) => {
+            setProfileImage(`http://localhost:9000/uploads/${filename}`);
+            setShowUploader(false);
+          };
+          
+
 
 
     return (
@@ -79,45 +127,48 @@ export default function ModifyInfo() {
                         </div>
                         <div className='info-content'>
                             <div className='field-wrapper info-user-id'>
-                                <label>아이디<span className='input-required-label W300'> *</span></label>
-                                <input className='w300' type="text" disabled value={myinfo.id} />
+                                <label className='info-field-title'>아이디<span className='input-required-label W300'> *</span></label>
+                                <input className='w300' type="text" disabled placeholder={myinfo.id} />
                             </div>
                             <div className='field-wrapper info-user-pwd'>
-                                <label>비밀번호 <span className='input-required-label W300'> *</span></label>
-                                <button>비밀번호 변경</button>
+                                <label className='info-field-title'>비밀번호 <span className='input-required-label W300'> *</span></label>
+                                <button onClick={handleTogle}>비밀번호 변경</button>
+                                <Modal open={isOpen} onCancel={handleTogle} footer={null} key={isOpen} width={550}>
+                                    <ModifyPass/>
+                                </Modal>
                             </div>
                             <div className='field-wrapper info-user-name-full'>
-                                <label>이름<span className='input-required-label W300'> *</span></label>
+                                <label className='info-field-title'>이름<span className='input-required-label W300'> *</span></label>
                                 <input className='w300' type="text" disabled value={myinfo.kname_first + myinfo.kname_last} />
                             </div>
                             <div className='field-row info-user-name-kor'>
                                 <div className='field-group'>
-                                    <label>성(한글)<span className='input-required-label W300'> *</span></label>
+                                    <label className='info-field-title'>성(한글)<span className='input-required-label W300'> *</span></label>
                                     <input className='w300' type="text" disabled value={myinfo.kname_first} />
                                 </div>
                                 <div className='field-group'>
-                                    <label>이름(한글)<span className='input-required-label W300'> *</span></label>
+                                    <label className='info-field-title'>이름(한글)<span className='input-required-label W300'> *</span></label>
                                     <input className='w300' type="text" disabled value={myinfo.kname_last} />
                                 </div>
                             </div>
                             <div className='field-row info-user-name-eng'>
                                 <div className='field-group'>
-                                    <label>성(영문)<span className='input-required-label W300'> *</span></label>
+                                    <label >성(영문)<span className='input-required-label W300'> *</span></label>
                                     <input className='w300' type="text" disabled value={myinfo.ename_firtst} />
                                 </div>
                                 <div className='field-group'>
-                                    <label>이름(영문)<span className='input-required-label W300'> *</span></label>
+                                    <label className='info-field-title'>이름(영문)<span className='input-required-label W300'> *</span></label>
                                     <input className='w300' type="text" disabled value={myinfo.ename_last} />
                                 </div>
 
                             </div>
                             <div className='field-wrapper info-user-birthday'>
-                                <label>생년월일<span className='input-required-label W300'> *</span></label>
+                                <label className='info-field-title'>생년월일<span className='input-required-label W300'> *</span></label>
                                 <input className='w300' type="text" disabled value={myinfo.birth} />
                             </div>
                             <div className='field-wrapper info-user-birthday'>
-                                <label>연락처<span className='input-required-label W300'> *</span></label>
-                                <select name="" className='info-select-box w300'>
+                                <label className='info-field-title'>연락처<span className='input-required-label W300'> *</span></label>
+                                <select name="" className='info-select-box w300' onChange={handleChange}>
                                     {
                                         countries.map((country) =>  (
                                             <option value="">{`${country.ko_name} (${country.dial_code})`}</option>
@@ -131,12 +182,13 @@ export default function ModifyInfo() {
                                 </div>
                             </div>
                             <div className='field-wrapper info-user-email'>
-                                <label>이메일<span className='input-required-label W300'> *</span></label>
-                                <input className='w300' type="email" value={myinfo.email} />
+                                <label className='info-field-title'>이메일<span className='input-required-label W300'> *</span></label>
+                                <input className='w300' type="email" value={formData.email}
+  onChange={handleChange}  name="email" />
                             </div>
                             <div className='field-wrapper info-user-email'>
-                                <label>국적(여권)<span className='input-required-label W300'> *</span></label>
-                                <select name="" className='info-select-box w300'>
+                                <label className='info-field-title'>국적(여권)<span className='input-required-label W300'> *</span></label>
+                                <select name="" className='info-select-box w300' onChange={handleChange}>
 
                                     {/* json에서 선택된 값이 db로 가야함 */}
 
@@ -152,8 +204,8 @@ export default function ModifyInfo() {
 
                             {/* json에서 선택된 값이 db로 가야함 */}
 
-                                <label>거주국가</label>
-                                <select name="" className='info-select-box w300'>
+                                <label className='info-field-title'>거주국가</label>
+                                <select name="" className='info-select-box w300' onChange={handleChange}>
                                     {
                                         countries.map((country) => (
                                             <option value="">{`${country.ko_name} (${country.en_name})`}</option>
@@ -163,16 +215,22 @@ export default function ModifyInfo() {
                                 </select>
                             </div>
                             <div className='field-wrapper info-user-address'>
-                                <label>주소</label>
+                                <label className='info-field-title'>주소</label>
                                 <div className='flex gap10'>
-                                    <input className='w300' type="text" disabled value={myinfo.zipcode} />
+                                    <input className='w300' type="text" disabled value={myinfo.zipcode || '우편 번호를 검색 해주세요.'}  />
                                     <button className='info-navy-btn'>우편번호 검색</button>
                                 </div>
-                                <input className='w300' type="text" disabled value={myinfo.adderss} />
-                                <input className='w300' type="text" value={myinfo.detail_adderss} />
+                                <input className='w300' type="text" disabled value={myinfo.adderss || '도로명 주소를 검색 해주세요.'}  />
+                                <input className='w300' type="text" value={myinfo.detail_adderss || '상세 주소를 입력 해주세요.'} onChange={handleChange} />
                             </div>
+                            {/* postcode modal */}
+                            <Modal>
+                            <Modal open={isOpen} onCancel={handleTogle} footer={null} key={isOpen}>
+                                {/* <Postcode onComplete={handleComplete} /> */}
+                            </Modal>
+                            </Modal>
                             <div className='field-wrapper info-user-confirm'>
-                                <label>마케팅 광고 활용 수신 동의</label>
+                                <label className='info-field-title'>마케팅 광고 활용 수신 동의</label>
                                 <div className='flex gap10'>
                                     <div className='checkbox-wrap'>
                                         <input type="checkbox" />
@@ -206,7 +264,10 @@ export default function ModifyInfo() {
                                 <p className='f14 w300'>탈퇴 후 14일 이내에 가입이 불가능합니다.</p>
                                 <button className='withdraw-btn'>회원 탈퇴하기</button>
                             </div>
-
+                            <div className='btn-group'>
+                                <button>취소</button>
+                                <button>수정</button>
+                            </div>
 
 
 
