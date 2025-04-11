@@ -1,5 +1,7 @@
 show databases;
 use JinAirDB;
+use kurlydb;
+
 show tables;
 
 -- 테이블 전체 데이터 조회
@@ -11,6 +13,11 @@ select * from main_menu_category;
 select * from qna;
 select * from reservation;
 select * from sub_category;
+select * from product;
+select * from view_cart_list;
+
+
+
 
 -- 테이블 데이터 타입 조희
 desc admin;

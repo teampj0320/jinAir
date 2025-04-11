@@ -1,9 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
+import { useDispatch, useSelector } from "react-redux";
 import '../../scss/ryeong.scss';
+import { getMyInfo } from '../../service/myinfoApi.js';
+
 
 export default function ModifyInfo() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    // const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
+    // 로그인한 유저의 정보 가져오기
+    const myinfo = useSelector((state) => state.myinfo.myinfo);
 
+    console.log('불러온 회원 정보:', myinfo);
+
+    // 🔸 useRef로 참조 객체 생성
+    const emailRef = useRef();
+    const addressRef = useRef();
+    const detailAddressRef = useRef();
+    const marketingEmailRef = useRef();
+    const marketingSmsRef = useRef();
+    const marketingPushRef = useRef();
+
+    /* 회원 정보 불러오기 */
+    useEffect(() => {
+        // if(isLoggedIn){
+        dispatch(getMyInfo())
+        // } else {
+        //     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+        //     select ?  navigate('/login') :  navigate('/');
+        //     dispatch(clearCartList())
+        // }
+    }, [])
+
+    const [countries, setCountries] = useState([]);
+
+
+    useEffect(() => {
+        fetch('/data/countryInfo.json')
+            .then((res) => res.json())
+            .then((data) => setCountries(data));
+    }, []);
 
 
     return (
@@ -23,7 +61,7 @@ export default function ModifyInfo() {
                         <div className='profile-img'>
                             <img src="../images/ddung.jpg" alt="" />
                             <div className='profile-img-desc'>
-                                <strong className='w300'><b>'진에어'</b> 님 반갑습니다.</strong>
+                                <strong className='w300'><b>'{myinfo.kname_first}{myinfo.kname_last}'</b> 님 반갑습니다.</strong>
                                 <p className='w300'>사진 변경/등록 시 5Mb 이하의 파일 등록만 가능하며 자동으로 리사이징 처리 됩니다. 등록 가능한 확장자는  jpg, jpeg, gif, png, heic 파일입니다.</p>
                                 <span className='w300'>※사진 등록 시 선정적인 사진은 삭제처리 되거나 제재를 받을 수 있습니다.</span>
                             </div>
@@ -42,7 +80,7 @@ export default function ModifyInfo() {
                         <div className='info-content'>
                             <div className='field-wrapper info-user-id'>
                                 <label>아이디<span className='input-required-label W300'> *</span></label>
-                                <input className='w300' type="text" disabled value={"JINAIR"} />
+                                <input className='w300' type="text" disabled value={myinfo.id} />
                             </div>
                             <div className='field-wrapper info-user-pwd'>
                                 <label>비밀번호 <span className='input-required-label W300'> *</span></label>
@@ -50,38 +88,42 @@ export default function ModifyInfo() {
                             </div>
                             <div className='field-wrapper info-user-name-full'>
                                 <label>이름<span className='input-required-label W300'> *</span></label>
-                                <input className='w300' type="text" disabled value={"진에어"} />
+                                <input className='w300' type="text" disabled value={myinfo.kname_first + myinfo.kname_last} />
                             </div>
                             <div className='field-row info-user-name-kor'>
                                 <div className='field-group'>
                                     <label>성(한글)<span className='input-required-label W300'> *</span></label>
-                                    <input className='w300' type="text" disabled value={"진"} />
+                                    <input className='w300' type="text" disabled value={myinfo.kname_first} />
                                 </div>
                                 <div className='field-group'>
                                     <label>이름(한글)<span className='input-required-label W300'> *</span></label>
-                                    <input className='w300' type="text" disabled value={"에어"} />
+                                    <input className='w300' type="text" disabled value={myinfo.kname_last} />
                                 </div>
                             </div>
                             <div className='field-row info-user-name-eng'>
                                 <div className='field-group'>
                                     <label>성(영문)<span className='input-required-label W300'> *</span></label>
-                                    <input className='w300' type="text" disabled value={"JIN"} />
-                                </div>my
+                                    <input className='w300' type="text" disabled value={myinfo.ename_firtst} />
+                                </div>
                                 <div className='field-group'>
                                     <label>이름(영문)<span className='input-required-label W300'> *</span></label>
-                                    <input className='w300' type="text" disabled value={"AIR"} />
+                                    <input className='w300' type="text" disabled value={myinfo.ename_last} />
                                 </div>
 
                             </div>
                             <div className='field-wrapper info-user-birthday'>
                                 <label>생년월일<span className='input-required-label W300'> *</span></label>
-                                <input className='w300' type="date" disabled value={"1999.99.99"} />
+                                <input className='w300' type="text" disabled value={myinfo.birth} />
                             </div>
                             <div className='field-wrapper info-user-birthday'>
                                 <label>연락처<span className='input-required-label W300'> *</span></label>
                                 <select name="" className='info-select-box w300'>
-                                    {/* map 돌리기 */}
-                                    <option value="">한국 (+82)</option>
+                                    {
+                                        countries.map((country) =>  (
+                                            <option value="">{`${country.ko_name} (${country.dial_code})`}</option>
+                                        ))
+                                        
+                                    }
                                 </select>
                                 <div className='flex gap10'>
                                     <input className='w300' type="text" disabled value={"010-1234-5678"} />
@@ -90,30 +132,44 @@ export default function ModifyInfo() {
                             </div>
                             <div className='field-wrapper info-user-email'>
                                 <label>이메일<span className='input-required-label W300'> *</span></label>
-                                <input className='w300' type="email" value={"jinair@gmail.com"} />
+                                <input className='w300' type="email" value={myinfo.email} />
                             </div>
                             <div className='field-wrapper info-user-email'>
                                 <label>국적(여권)<span className='input-required-label W300'> *</span></label>
                                 <select name="" className='info-select-box w300'>
-                                    {/* map 돌리기 */}
-                                    <option value="">한국 (+82)</option>
+
+                                    {/* json에서 선택된 값이 db로 가야함 */}
+
+                                    {
+                                        countries.map((country) =>  (
+                                            <option value="">{`${country.ko_name} (${country.en_name})`}</option>
+                                        ))
+                                        
+                                    }
                                 </select>
                             </div>
                             <div className='field-wrapper info-user-email'>
+
+                            {/* json에서 선택된 값이 db로 가야함 */}
+
                                 <label>거주국가</label>
                                 <select name="" className='info-select-box w300'>
-                                    {/* map 돌리기 */}
-                                    <option value="">한국 (+82)</option>
+                                    {
+                                        countries.map((country) => (
+                                            <option value="">{`${country.ko_name} (${country.en_name})`}</option>
+                                        ))
+                                        
+                                    }
                                 </select>
                             </div>
                             <div className='field-wrapper info-user-address'>
                                 <label>주소</label>
                                 <div className='flex gap10'>
-                                    <input className='w300' type="text" disabled value={"07570"} />
+                                    <input className='w300' type="text" disabled value={myinfo.zipcode} />
                                     <button className='info-navy-btn'>우편번호 검색</button>
                                 </div>
-                                <input className='w300' type="text" disabled value={"서울특별시 강서구 공항대로 453"} />
-                                <input className='w300' type="text" value={"상세주소"} />
+                                <input className='w300' type="text" disabled value={myinfo.adderss} />
+                                <input className='w300' type="text" value={myinfo.detail_adderss} />
                             </div>
                             <div className='field-wrapper info-user-confirm'>
                                 <label>마케팅 광고 활용 수신 동의</label>
@@ -131,28 +187,28 @@ export default function ModifyInfo() {
                                         <label htmlFor="" className='f14 w300'>App푸시</label>
                                     </div>
                                 </div>
+                            </div>
+                            {/* SNS 계정연동 */}
+                            <div className='field-wrapper'>
+                                <b className='f16'>SNS 계정연동</b>
+                                <p className='f14 w300'>- SNS 계정을 통해서 간편하게 로그인 하세요.</p>
+                                <div className='sns-btn-wrap'>
+                                    <button>
+                                        <img src="/images/icon_kakao2.webp" alt="" />
+                                        카카오 로그인 연동하기</button>
+                                    <button>
+                                        <img src="/images/icon_naver.webp" alt="" />
+                                        네이버 로그인 연동하기</button>
                                 </div>
-                                {/* SNS 계정연동 */}
-                                <div className='field-wrapper'>
-                                    <b className='f16'>SNS 계정연동</b>
-                                    <p className='f14 w300'>- SNS 계정을 통해서 간편하게 로그인 하세요.</p>
-                                    <div className='sns-btn-wrap'>
-                                        <button>
-                                            <img src="/images/icon_kakao2.webp" alt="" />
-                                            카카오 로그인 연동하기</button>
-                                        <button>
-                                            <img src="/images/icon_naver.webp" alt="" />
-                                            네이버 로그인 연동하기</button>
-                                    </div>
-                                </div>
-                                <div className='field-wrapper' >
-                                    <b className='f16'>회원탈퇴</b>
-                                    <p className='f14 w300'>탈퇴 후 14일 이내에 가입이 불가능합니다.</p>
-                                    <button className='withdraw-btn'>회원 탈퇴하기</button>
-                                </div>
+                            </div>
+                            <div className='field-wrapper' >
+                                <b className='f16'>회원탈퇴</b>
+                                <p className='f14 w300'>탈퇴 후 14일 이내에 가입이 불가능합니다.</p>
+                                <button className='withdraw-btn'>회원 탈퇴하기</button>
+                            </div>
 
 
-                            
+
 
 
                         </div>
