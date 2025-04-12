@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState,useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 
 export default function Schedule() {
@@ -7,6 +7,12 @@ export default function Schedule() {
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
     const [date, setDate] = useState('');
+    const resultRef = useRef(null); // 👈 결과 영역 참조용
+    useEffect(() => {
+        if (click && resultRef.current) {
+            resultRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [click]);
 
     const data = [
         '서울/인천(ICN)',
@@ -95,7 +101,7 @@ export default function Schedule() {
 
     return (
         <>
-            <div className='schedule-all-box'>
+            <div className='schedule-all-box' ref={resultRef}>
                 <div className='schedule-top-box'>
                     <p>진에어 항공편의 스케줄 조회를 도와드릴게요~</p>
                     <p>출발지, 도착지와 가는날을 선택해주세요!</p>
@@ -103,11 +109,13 @@ export default function Schedule() {
                 <div className='schedule-country-check-box'>
                     <span>출발/도착</span>
                     <select ref={startRef} name="" id="" onChange={handleStart}>
+                        <option value='default'>선택</option>
                         {processedList.map((data) => (
                             <option value={data}>{data}</option>
                         ))}
                     </select>
                     <select ref={endRef} name="" id="" onChange={handleEnd}>
+                        <option value='default'>선택</option>
                         {processedList.map((data) => (
                             <option value={data}>{data}</option>
                         ))}

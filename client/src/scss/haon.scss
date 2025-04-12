@@ -1523,6 +1523,7 @@ h2.react-datepicker__current-month {
             }
         }
     }
+    // 
     >div:nth-child(3){
         // border: 1px solid red;
         text-align: right;
@@ -1606,12 +1607,27 @@ h2.react-datepicker__current-month {
        }
        table{
         border-collapse: collapse;
-        text-align: center;
+        margin-top: 10px;
+        // border: 1px solid red;
+        margin-bottom: 10px;
         width: 100%;
-        padding: 0 30px;
-        td:first-child{
-            padding-right: 30px;
-        }        
+        font-size: 15px;
+        font-weight: 100;
+        tr:first-child{
+            color: var(--chatBlue);
+        }
+        td{
+            padding: 3px 0;
+            width: 150px;
+        }
+        tr:first-child{
+            padding: 5px 50px;
+            font-size: 17px;
+            color: var(--chatBlue);
+            .schedule-exist-top-icon{
+                font-size: 30px;    
+            }
+        }
     }
     div:last-child{
         padding: 0 10px;
@@ -1631,4 +1647,49 @@ h2.react-datepicker__current-month {
     }
 }
 
+//***********************************
+// chatbot reservation
+// *******************************
+
+.reservation-all-box{
+    >div:first-child{
+        p{
+            margin-top: 10px;
+        }
+        .reservation-button-box{
+            padding: 0 10px;
+            margin-bottom: 10px;
+        
+            button{
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+            button:hover{
+                cursor: pointer;
+            }
+           }
+    }
+    .reservation-button2-box{
+        padding: 0 10px;
+        margin-bottom: 10px;
+        p{
+            margin-top: 10px;
+        }
+        button{
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+       }
+}
 

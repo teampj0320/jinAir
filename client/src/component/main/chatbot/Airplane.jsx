@@ -87,18 +87,20 @@ export default function Airplane() {
                 <div className='airplane-airNumClick'>
                     <div className='schedule-all-box'>
                         <p>[출발일:2025-04-10, 편명:LLJ231] <br />출도착 정보를 조회하였습니다.</p>
-                        <div className='schedule-exist-top'>
-                            <span>서울/인천(ICN)</span>
-                            <IoAirplane className='schedule-exist-top-icon' />
-                            <span>서울/인천(ICN)</span>
-                        </div>
                         <table>
                             <tr>
-                                <td>스케줄 10:30</td>
-                                <td>예상 시각 11:30</td>
+                                <td>서울/인천(ICN)</td>
+                                <td><IoAirplane className='schedule-exist-top-icon' /></td>
+                                <td>서울/인천(ICN)</td>
                             </tr>
                             <tr>
                                 <td>스케줄 10:30</td>
+                                <td></td>
+                                <td>스케줄 10:30</td>
+                            </tr>
+                            <tr>
+                                <td>예상 시각 11:30</td>
+                                <td></td>
                                 <td>예상 시각 11:30</td>
                             </tr>
                         </table>
