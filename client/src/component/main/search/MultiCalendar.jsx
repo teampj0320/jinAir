@@ -28,7 +28,7 @@ export default function MultiCalendar({mom}) {
     }
 
     useEffect(() => {
-        handleStartDate(startDate);
+        if (startDate) handleStartDate(startDate);
     }, [startDate]);
 
     return (
