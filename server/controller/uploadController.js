@@ -1,12 +1,11 @@
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
-
-// 싱글이미지 업로드, oldfile 이름은 저장X, 바로 삭제 되도록 함, 원본 파일 이름 변경하여 업로드
+import { db } from '../repository/db.js'; // DB 연결
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, 'images/'); // 저장 폴더
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname);
@@ -18,16 +17,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }).single("file");
 
 export const fileUpload = (req, res) => {
-    upload(req, res, (err) => {
+    upload(req, res, async (err) => {
         if (err) {
             console.error("업로드 에러:", err);
             return res.status(500).json({ error: "파일 업로드 실패" });
         }
 
-        // oldFile 삭제
+        // ✅ 기존 이미지 삭제
         const oldFile = req.body.oldFile;
         if (oldFile) {
-            const oldFilePath = path.join("uploads", oldFile);
+            const oldFilePath = path.join("images", oldFile);
             if (fs.existsSync(oldFilePath)) {
                 try {
                     fs.unlinkSync(oldFilePath);
@@ -38,11 +37,19 @@ export const fileUpload = (req, res) => {
             }
         }
 
-        // 새 파일 정보 반환
+        // ✅ 새 이미지 경로 구성 및 DB 업데이트
+        const newPath = `/images/${req.file.filename}`;
+        await db.execute(
+            `UPDATE customer SET profile_img = JSON_ARRAY(?) WHERE id = 'test1'`,
+            [newPath]
+        );
+
+        // ✅ 클라이언트로 응답
         res.json({
-            filename: req.file.filename,          // ex) 1712865378383.jpg
-            path: req.file.path,                  // uploads/1712865378383.jpg
-            original: req.file.originalname       // 원본 파일명 (사용자 참고용)
+            success: true,
+            filename: req.file.filename,
+            imagePath: newPath,
+            original: req.file.originalname
         });
     });
 };

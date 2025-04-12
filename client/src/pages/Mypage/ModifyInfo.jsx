@@ -47,7 +47,7 @@ export default function ModifyInfo() {
     const handleComplete = () => {
         setIsOpen(false);
     };
-    
+
     const handleTogle = () => {
         setIsOpen((prev) => !prev);
     };
@@ -59,37 +59,37 @@ export default function ModifyInfo() {
         nationality: "",
         residence: "",
         detail_address: "",
-      });
-      
-      useEffect(() => {
-        if (myinfo.id) {
-          setFormData({
-            email: myinfo.email || "",
-            nationality: myinfo.nationality || "",
-            residence: myinfo.residence || "",
-            detail_address: myinfo.detail_adderss || "",
-          });
-        }
-      }, [myinfo]);  // ⭐ myinfo가 바뀔 때만 초기화
+    });
 
-        const handleChange = (e) => {
+    useEffect(() => {
+        if (myinfo.id) {
+            setFormData({
+                email: myinfo.email || "",
+                nationality: myinfo.nationality || "",
+                residence: myinfo.residence || "",
+                detail_address: myinfo.detail_adderss || "",
+            });
+        }
+    }, [myinfo]);  // ⭐ myinfo가 바뀔 때만 초기화
+
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
-          ...prev,
-          [name]: value,
+            ...prev,
+            [name]: value,
         }));
-      };
-      
-      /* 프사 업로드 및 확인 */
-        const [showUploader, setShowUploader] = useState(false);
-        const [profileImage, setProfileImage] = useState(""); // 미리보기용
-    
-        const handleProfileUpload = (filename) => {
-            setProfileImage(`http://localhost:9000/uploads/${filename}`);
-            setShowUploader(false);
-          };
-          
+    };
 
+    /* 프사 업로드 및 확인 */
+    const [showUploader, setShowUploader] = useState(false);
+    const [profileImage, setProfileImage] = useState(""); // 미리보기용
+
+    const handleProfileUpload = (filename) => {
+        const fullPath = `http://localhost:9000/images/${filename}`;
+        setProfileImage(fullPath);
+        setShowUploader(false);
+        dispatch(getMyInfo()); // 새 이미지 불러오기
+    };
 
 
     return (
@@ -107,7 +107,10 @@ export default function ModifyInfo() {
                     <div className='profile-wrap'>
                         <b>프로필 사진</b>
                         <div className='profile-img'>
-                            <img src="../images/ddung.jpg" alt="" />
+                            <img
+                                src={profileImage || (myinfo.profile_img && `http://localhost:9000${myinfo.profile_img[0]}`)}
+                                alt="프로필 이미지"
+                            />
                             <div className='profile-img-desc'>
                                 <strong className='w300'><b>'{myinfo.kname_first}{myinfo.kname_last}'</b> 님 반갑습니다.</strong>
                                 <p className='w300'>사진 변경/등록 시 5Mb 이하의 파일 등록만 가능하며 자동으로 리사이징 처리 됩니다. 등록 가능한 확장자는  jpg, jpeg, gif, png, heic 파일입니다.</p>
@@ -115,9 +118,15 @@ export default function ModifyInfo() {
                             </div>
                         </div>
                         <div className='profile-button'>
-                            <button>변경</button>
+                            <button onClick={() => setShowUploader(true)}>변경</button>
                             <button>삭제</button>
                         </div>
+
+                        {showUploader && (
+                            <div className="profile-upload-area">
+                                <ImageUpload getFileName={handleProfileUpload} />
+                            </div>
+                        )}
                     </div>
                     {/* 기본정보 */}
                     <div className='info-wrap'>
@@ -134,7 +143,7 @@ export default function ModifyInfo() {
                                 <label className='info-field-title'>비밀번호 <span className='input-required-label W300'> *</span></label>
                                 <button onClick={handleTogle}>비밀번호 변경</button>
                                 <Modal open={isOpen} onCancel={handleTogle} footer={null} key={isOpen} width={550}>
-                                    <ModifyPass/>
+                                    <ModifyPass />
                                 </Modal>
                             </div>
                             <div className='field-wrapper info-user-name-full'>
@@ -170,10 +179,10 @@ export default function ModifyInfo() {
                                 <label className='info-field-title'>연락처<span className='input-required-label W300'> *</span></label>
                                 <select name="" className='info-select-box w300' onChange={handleChange}>
                                     {
-                                        countries.map((country) =>  (
+                                        countries.map((country) => (
                                             <option value="">{`${country.ko_name} (${country.dial_code})`}</option>
                                         ))
-                                        
+
                                     }
                                 </select>
                                 <div className='flex gap10'>
@@ -184,7 +193,7 @@ export default function ModifyInfo() {
                             <div className='field-wrapper info-user-email'>
                                 <label className='info-field-title'>이메일<span className='input-required-label W300'> *</span></label>
                                 <input className='w300' type="email" value={formData.email}
-  onChange={handleChange}  name="email" />
+                                    onChange={handleChange} name="email" />
                             </div>
                             <div className='field-wrapper info-user-email'>
                                 <label className='info-field-title'>국적(여권)<span className='input-required-label W300'> *</span></label>
@@ -193,16 +202,16 @@ export default function ModifyInfo() {
                                     {/* json에서 선택된 값이 db로 가야함 */}
 
                                     {
-                                        countries.map((country) =>  (
+                                        countries.map((country) => (
                                             <option value="">{`${country.ko_name} (${country.en_name})`}</option>
                                         ))
-                                        
+
                                     }
                                 </select>
                             </div>
                             <div className='field-wrapper info-user-email'>
 
-                            {/* json에서 선택된 값이 db로 가야함 */}
+                                {/* json에서 선택된 값이 db로 가야함 */}
 
                                 <label className='info-field-title'>거주국가</label>
                                 <select name="" className='info-select-box w300' onChange={handleChange}>
@@ -210,24 +219,24 @@ export default function ModifyInfo() {
                                         countries.map((country) => (
                                             <option value="">{`${country.ko_name} (${country.en_name})`}</option>
                                         ))
-                                        
+
                                     }
                                 </select>
                             </div>
                             <div className='field-wrapper info-user-address'>
                                 <label className='info-field-title'>주소</label>
                                 <div className='flex gap10'>
-                                    <input className='w300' type="text" disabled value={myinfo.zipcode || '우편 번호를 검색 해주세요.'}  />
+                                    <input className='w300' type="text" disabled value={myinfo.zipcode || '우편 번호를 검색 해주세요.'} />
                                     <button className='info-navy-btn'>우편번호 검색</button>
                                 </div>
-                                <input className='w300' type="text" disabled value={myinfo.adderss || '도로명 주소를 검색 해주세요.'}  />
+                                <input className='w300' type="text" disabled value={myinfo.adderss || '도로명 주소를 검색 해주세요.'} />
                                 <input className='w300' type="text" value={myinfo.detail_adderss || '상세 주소를 입력 해주세요.'} onChange={handleChange} />
                             </div>
                             {/* postcode modal */}
                             <Modal>
-                            <Modal open={isOpen} onCancel={handleTogle} footer={null} key={isOpen}>
-                                {/* <Postcode onComplete={handleComplete} /> */}
-                            </Modal>
+                                <Modal open={isOpen} onCancel={handleTogle} footer={null} key={isOpen}>
+                                    {/* <Postcode onComplete={handleComplete} /> */}
+                                </Modal>
                             </Modal>
                             <div className='field-wrapper info-user-confirm'>
                                 <label className='info-field-title'>마케팅 광고 활용 수신 동의</label>
