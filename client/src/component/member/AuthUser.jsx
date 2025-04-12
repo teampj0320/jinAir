@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { validateFindUseInfo } from '../../utils/authValidate';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function AuthUser({item}) {
   const getInitialState = (item) =>{
     switch (item) {
-      case 'nomal':
+      case 'id':
         return {'name':'', 'gender':'', 'birth':'', 'email':'', 'authCode':''};
       case 'pwd' :
         return {'id':'','name':'', 'gender':'', 'birth':'', 'email':'', 'authCode':''};
@@ -13,6 +15,7 @@ export default function AuthUser({item}) {
       default: return {};  
     }
   };
+  const navigate = useNavigate();
   const [ formData, setFormData ] = useState(getInitialState(item));
   const [ msgResult, setMsgResult ] = useState('');
   const [ msgCheck, setMsgCheck ] = useState('');
@@ -20,6 +23,7 @@ export default function AuthUser({item}) {
   const [ active, setActive ] = useState(false);
   const [ sendCodeActive, setSendCodeActive ] = useState(false);
   const [ codeActive, setCodeActive ] = useState(false);
+  const [ authCode, setAuthCode ] = useState('');
 
   const refs = {'idRef' : useRef(null),
                 'nameRef' : useRef(null),
@@ -77,31 +81,77 @@ export default function AuthUser({item}) {
   };
   
   /* 인증번호 이메일 전송 함수 */  
-  const handleReqAuthCode = () =>{
-    alert('fdgdf');
-    setSendCodeActive(true);
+  const handleReqAuthCode = async() =>{
+    try {
+      if(refs.emailRef.current.value !== ''){
+        const res = await axios.post('http://localhost:9000/member/authcode'
+          ,{ name:refs.nameRef.current.value
+            , email:refs.emailRef.current.value});
+            if(res.data.success){
+              alert('인증번호가 발송되었습니다.');
+              setSendCodeActive(true);
+              setAuthCode(res.data.code);
+            }
+      }else{
+        alert('이메일을 입력해주세요');
+        refs.emailRef.current.focus();
+      }
+    } catch (error) {
+      console.log('메일 전송 실패', error);
+      alert('메일전송에 실패했습니다.');      
+    }
   };
   
   /* 인증번호 확인 함수 */  
   const handleConform = () =>{
-    alert('2222');
-    setCodeActive(true);
-    setMsgResult('');
+      if(authCode === refs.authCodeRef.current.value){
+        alert('인증되었습니다');
+        setCodeActive(true);
+        setMsgResult('');
+      }else{
+        alert('인증번호가 일치하지 않습니다.'); 
+        setMsgResult('');
+        refs.authCodeRef.current.focus();
+      }
   };
   
   /* submit 함수 */  
-  const handleSubmit = (e) =>{
+  const handleSubmit = async(e) =>{
     e.preventDefault();
     console.log('formData.gender',formData.gender);
     const {result, msg, key} = validateFindUseInfo(refs, msgRefs, item, formData.gender, sendCodeActive, codeActive);
     
-    if(result){
-      alert('통');
-    }else{
-      if(msg !== ''){
-        setMsgResult(msg);
-        setMsgCheck(key);
+    try {
+      if(result){
+        console.log('item',item);
+        if(item ==='id'){
+          const resultData = await axios.post('http://localhost:9000/member/findId', formData);
+          console.log('resultData',resultData);
+          if(resultData.data[0].cnt){
+            navigate('/find/findUserId', {state:{'userId':resultData.data[0].id}});
+          }else{
+            alert('존재하지 않는 회원입니다.'); 
+          }
+        }else if(item ==='pwd'){
+          const resultData = await axios.post('http://localhost:9000/member/findPwd', formData);
+          console.log('resultData.data', resultData.data);
+          console.log('resultData.data', resultData.data.password);
+          
+          if(resultData.data.success){
+            console.log('임시 비밀번호:', resultData.data.data.password);
+            navigate('/find/findUserPwd', {state:{'userPwd':resultData.data.data.password}});
+          }else{
+            alert('회원정보가 일치하지 않습니다. 다시 입력해주세요.'); 
+          }
+        }
+      }else{
+        if(msg !== ''){
+          setMsgResult(msg);
+          setMsgCheck(key);
+        }
       }
+    } catch (error) {
+      
     }
   };
 
@@ -171,7 +221,7 @@ export default function AuthUser({item}) {
             {msgCheck === 'birth'  && msgResult}
           </div>
         </li>
-        { item === 'nomal' || item === 'pwd' || item ==='signup-auth'?(    
+        { item === 'id' || item === 'pwd' || item ==='signup-auth'?(    
           <>
            <li>
             <div className='auth-input'>
@@ -261,9 +311,9 @@ export default function AuthUser({item}) {
             </li>
           </>
         )}
-        {(item === 'nomal' || item ==='pwd') && (
+        {(item === 'id' || item ==='pwd') && (
           <button type='submit' className={`find-submit-btn  ${active? 'find-submit-active':''} `}>
-            { item === 'nomal'? '아이디 찾기' : '비밀번호 찾기'}
+            { item === 'id'? '아이디 찾기' : '비밀번호 찾기'}
           </button>
         )}
     </form>  

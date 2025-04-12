@@ -4,6 +4,9 @@ import * as controller from '../controller/loginController.js';
 
 const router = express.Router();
 
-router.post('/login', controller.checkLogin);
+router.post('/login', controller.checkLogin)
+      .post('/authcode', controller.getAuthCode)
+      .post('/findId', controller.getFindId)
+      .post('/findPwd', controller.getFindPwd);
 
 export default router;

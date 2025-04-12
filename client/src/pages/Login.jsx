@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLogin, getLoginResest } from '../service/authApi.js';
 import { validateLogin } from '../utils/authValidate.js';
+import { useCookies } from 'react-cookie';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ export default function Login() {
   const [ formData, setFormData ] = useState({'id':'', 'password':''});
   const [ msgResult, setMsgResult] = useState('');
   const [ active, setActive ] = useState(false);
+  const [ userId, setUserId ] = useState('');
+  const [ cookies, setCookie, removeCookie ] = useCookies(['rememberUserId']); // Cookies 이름
+  const [ isRemember, setIsRemember ] = useState(false);      // #아이디 저장 체크박스 체크 유무
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const isError = useSelector(state => state.login.isError);
   const refs = {'idRef' : useRef(null),
@@ -31,8 +35,26 @@ export default function Login() {
       if(isLoggedIn){
         alert('로그인 성공');
         navigate('/');
+        if(isRemember){
+          setCookie('rememberUserId', formData.id, { maxAge: 2000 });
+        }else{
+          removeCookie("rememberUserId");
+        }
       }
     },[isLoggedIn]);
+
+    useEffect(()=>{
+      if(cookies.rememberUserId !== undefined){
+        const rememberedId = cookies.rememberUserId;
+        setUserId(rememberedId);
+        setIsRemember(true);
+        setFormData(prev => ({ ...prev, id: rememberedId }));
+      }
+    },[]);
+
+  const handleOnChange =(e) =>{
+    setIsRemember(e.target.checked);
+  };
 
   const handleChange = (e) =>{
     const {name, value} = e.target;
@@ -72,6 +94,7 @@ export default function Login() {
             <input type="text" 
                    name='id'
                    ref={refs.idRef}
+                   value={formData.id}
                    placeholder='아이디를 입력해주세요'
                    onChange={handleChange}/>
           </span>
@@ -92,7 +115,7 @@ export default function Login() {
       </form>
       <div className='id_save'>
         <div>
-          <input type="checkbox" id='save-id'/> 
+          <input type="checkbox" id='save-id' checked={isRemember} onChange={handleOnChange} /> 
           <label htmlFor="save-id">
             <span>아이디저장</span>
           </label>
