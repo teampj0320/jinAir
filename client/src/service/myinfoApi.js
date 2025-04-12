@@ -8,6 +8,7 @@ import {  setMyInfo,
 
 // 회원 정보 불러오기
 export const getMyInfo = (data) => async (dispatch) => {
+    console.log('[getMyInfo 호출됨]');
     const url = 'http://localhost:9000/mypage/getMyInfo';
 
     const getMyInfoResult = await axiosPost({url, data});
@@ -22,8 +23,14 @@ export const getMyInfo = (data) => async (dispatch) => {
 
 }
 
+
+
+
 // 회원정보 업데이트
-    // export const updateMyInfo = (formData) => async(dispatch) => {
-    //     const url = 'http://localhost:9000/mypage/updateMyInfo';
-    //     const result = await axiosPost({ url, data: formData });
-    // }
+export const updateMyInfo = (formData) => async (dispatch) => {
+    const url = 'http://localhost:9000/mypage/updateMyInfo';
+    const result = await axiosPost({ url, data: formData });
+    if (result.success) {
+      dispatch(setMyInfo(result.updatedInfo)); 
+    }
+  };

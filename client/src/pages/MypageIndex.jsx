@@ -39,7 +39,11 @@ export default function Mypage() {
                     <section className='mp-left box-style'>
                         <article className='user-info'>
                             <span>
-                                <img src="/images/ddung.jpg" alt="" />
+                            {myinfo.profile_img?.[0] ? (
+  <img src={`http://localhost:9000${myinfo.profile_img[0]}`} />
+) : (
+  <div className="default-profile-img" />
+)}
                             </span>
                             <div>
                                 <p className='f30'><b>{myinfo.kname_first}{myinfo.kname_last}</b>님</p>

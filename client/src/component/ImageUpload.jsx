@@ -1,4 +1,4 @@
-// ✅ ImageUpload.jsx - 파일 선택창 자동 트리거형으로 단순화
+
 import React, { useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
