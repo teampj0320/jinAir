@@ -66,12 +66,14 @@ export const searchSlice = createSlice({
 
         },setEndDate(state, action){
             state.endDate = action.payload;
-        }
+        },
+         // 🎯 여기에 초기화 액션 추가
+         resetSearch: () => initialState
     },
 })
 
 export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,
     setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setDeparture,setArrive,
-    setStartDate,setEndDate,setType
+    setStartDate,setEndDate,setType, resetSearch
  } = searchSlice.actions
 export default searchSlice.reducer
