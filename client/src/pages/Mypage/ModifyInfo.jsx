@@ -19,6 +19,8 @@ export default function ModifyInfo() {
 
     console.log('회원정보 >>>', myinfo);
 
+    const uploadButtonRef = useRef();
+
 
     /* 회원 정보 불러오기 */
     useEffect(() => {
@@ -81,16 +83,10 @@ export default function ModifyInfo() {
     };
 
     /* 프사 업로드 및 확인 */
-    const [showUploader, setShowUploader] = useState(false);
-    const [profileImage, setProfileImage] = useState(""); // 미리보기용
 
     const handleProfileUpload = (filename) => {
-        const fullPath = `http://localhost:9000/images/${filename}`;
-        setProfileImage(fullPath);
-        setShowUploader(false);
-        dispatch(getMyInfo()); // 새 이미지 불러오기
-    };
-
+        dispatch(getMyInfo()); // 새 프로필 이미지를 store에서 즉시 반영
+      };
 
     return (
         <div className='r-common mp-container'>
@@ -107,10 +103,12 @@ export default function ModifyInfo() {
                     <div className='profile-wrap'>
                         <b>프로필 사진</b>
                         <div className='profile-img'>
-                            <img
-                                src={profileImage || (myinfo.profile_img && `http://localhost:9000${myinfo.profile_img[0]}`)}
-                                alt="프로필 이미지"
-                            />
+                        {myinfo.profile_img?.[0] ? (
+  <img src={`http://localhost:9000${myinfo.profile_img[0]}`} />
+) : (
+  <div className="default-profile-img" />
+)}
+                           
                             <div className='profile-img-desc'>
                                 <strong className='w300'><b>'{myinfo.kname_first}{myinfo.kname_last}'</b> 님 반갑습니다.</strong>
                                 <p className='w300'>사진 변경/등록 시 5Mb 이하의 파일 등록만 가능하며 자동으로 리사이징 처리 됩니다. 등록 가능한 확장자는  jpg, jpeg, gif, png, heic 파일입니다.</p>
@@ -118,15 +116,14 @@ export default function ModifyInfo() {
                             </div>
                         </div>
                         <div className='profile-button'>
-                            <button onClick={() => setShowUploader(true)}>변경</button>
+                        <button ref={uploadButtonRef}>변경</button>
                             <button>삭제</button>
                         </div>
 
-                        {showUploader && (
                             <div className="profile-upload-area">
-                                <ImageUpload getFileName={handleProfileUpload} />
+                                <ImageUpload   getFileName={handleProfileUpload}
+  triggerRef={uploadButtonRef} />
                             </div>
-                        )}
                     </div>
                     {/* 기본정보 */}
                     <div className='info-wrap'>
@@ -230,7 +227,7 @@ export default function ModifyInfo() {
                                     <button className='info-navy-btn'>우편번호 검색</button>
                                 </div>
                                 <input className='w300' type="text" disabled value={myinfo.adderss || '도로명 주소를 검색 해주세요.'} />
-                                <input className='w300' type="text" value={myinfo.detail_adderss || '상세 주소를 입력 해주세요.'} onChange={handleChange} />
+                                <input className='w300' type="text" value={formData.detail_address || '상세 주소를 입력 해주세요.'} onChange={handleChange} />
                             </div>
                             {/* postcode modal */}
                             <Modal>

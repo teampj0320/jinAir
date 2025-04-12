@@ -1175,10 +1175,21 @@
         gap: 24px;
 
         img {
-            width: 137px;
+            min-width: 137px;
             height: 137px;
             border-radius: 10px;
         }
+
+        .default-profile-img {
+            min-width: 137px;
+            height: 137px;
+            cursor: pointer;
+            display: block;
+            text-indent: -1000em;
+            border-radius: 10px;
+            background: url('/assets/svg/noneprofile.svg') no-repeat 50% 50%;
+            flex-shrink: 0;
+          }
     }
 
     .profile-img-desc {

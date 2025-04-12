@@ -1,10 +1,17 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
+// ✅ ImageUpload.jsx - 파일 선택창 자동 트리거형으로 단순화
+import React, { useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-export default function ImageUpload({ getFileName }) {
+export default function ImageUpload({ getFileName, triggerRef }) {
+  const inputRef = useRef();
   const myinfo = useSelector((state) => state.myinfo.myinfo);
+
+  useEffect(() => {
+    if (triggerRef?.current) {
+      triggerRef.current.onclick = () => inputRef.current?.click();
+    }
+  }, [triggerRef]);
 
   const handleFileUpload = (e) => {
     const formData = new FormData();
@@ -13,17 +20,19 @@ export default function ImageUpload({ getFileName }) {
     const oldFileName = myinfo.profile_img?.[0]?.split('/').pop();
     formData.append("oldFile", oldFileName);
 
-    axios
-      .post('http://localhost:9000/uploads', formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then(res => {
-        getFileName(res.data.filename); 
-      })
-      .catch(error => console.error(error));
+    axios.post('http://localhost:9000/uploads', formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(res => getFileName(res.data.filename))
+    .catch(console.error);
   };
 
   return (
-    <Form.Control type="file" onChange={handleFileUpload} />
+    <input
+      type="file"
+      ref={inputRef}
+      onChange={handleFileUpload}
+      style={{ display: 'none' }}
+    />
   );
 }

@@ -33,3 +33,9 @@ desc sub_category;
 UPDATE customer
 SET profile_img = JSON_ARRAY('/images/ddung.jpg')
 WHERE id = 'test1';
+
+
+UPDATE customer
+SET profile_img = NULL
+WHERE id = 'test1';
+
