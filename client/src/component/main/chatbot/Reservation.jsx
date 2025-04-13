@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 
 export default function Reservation() {
     const [iknow, setIknow] = useState(false);
     const [idknow, setIdknow] = useState(false);
+    const btnRef = useRef(null);
 
+    useEffect(() => {
+        if (iknow && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }else if(idknow &&  btnRef.current){
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [iknow,idknow]
+)
     return (
         <div className='reservation-all-box'>
             <div className='schedule-all-box'>
                 <p>예약번호를 알고 계신가요?</p>
-                <div className='reservation-button-box'>
-                    <button onClick={() => { setIknow(true) }}>알고 있어요</button>
-                    <button onClick={() => { setIdknow(true) }}>아뇨, 몰라요</button>
+                <div ref={btnRef} className='reservation-button-box'>
+                    <button onClick={() => { setIknow(true); setIdknow(false);}}>알고 있어요</button>
+                    <button onClick={() => { setIdknow(true); setIknow(false); }}>아뇨, 몰라요</button>
                 </div>
             </div>
             {iknow && //알고있어요 클릭시
@@ -31,8 +40,8 @@ export default function Reservation() {
                 <div className='schedule-all-box'>
                     <div className='reservation-button2-box'>
                         <p>
-                        홈페이지 로그인 후 확인이 가능합니다.<br />
-                        상세 예약내역을 조회 하시려면 아래 버튼을 클릭해주세요.
+                            홈페이지 로그인 후 확인이 가능합니다.<br />
+                            상세 예약내역을 조회 하시려면 아래 버튼을 클릭해주세요.
                         </p>
                         // 온클릭시 로그인 페이지로 넘어가게
                         <button>예약조회 하러가기</button>
