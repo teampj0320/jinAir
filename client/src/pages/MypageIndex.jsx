@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import '../scss/ryeong.scss';
 import { useNavigate } from 'react-router-dom';
+import { getMyInfo } from '../service/myinfoApi.js';
+
 
 export default function Mypage() {
 
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    // const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
+    // 로그인한 유저의 정보 가져오기
+    const myinfo = useSelector((state) => state.myinfo.myinfo);
+
+    
+    
+    /* 회원 정보 불러오기 */
+    useEffect(() => {
+        console.log('불러온 회원 정보:', myinfo);
+        // if(isLoggedIn){
+        dispatch(getMyInfo())
+        // } else {
+        //     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+        //     select ?  navigate('/login') :  navigate('/');
+        // }
+    }, [])
+
+
 
     return (
         <div className='r-common mp-container'>
@@ -16,14 +39,18 @@ export default function Mypage() {
                     <section className='mp-left box-style'>
                         <article className='user-info'>
                             <span>
-                                <img src="/images/ddung.jpg" alt="" />
+                            {myinfo.profile_img?.[0] ? (
+  <img src={`http://localhost:9000${myinfo.profile_img[0]}`} />
+) : (
+  <div className="default-profile-img" />
+)}
                             </span>
                             <div>
-                                <p className='f30'><b>진에어</b>님</p>
+                                <p className='f30'><b>{myinfo.kname_first}{myinfo.kname_last}</b>님</p>
                                 <ul>
-                                    <li className='thin300'>2999.01.01</li>
-                                    <li className='thin300'>jinair@google.com</li>
-                                    <li className='thin300'>010.0000.0000</li>
+                                    <li className='thin300'>{myinfo.birth}</li>
+                                    <li className='thin300'>{myinfo.email}</li>
+                                    <li className='thin300'>{myinfo.phone}</li>
                                 </ul>
                                 <span className='f12 thin300 modify-info' onClick={()=>{navigate('../mypage/modifyInfo')}}>회원정보수정</span>
                             </div>

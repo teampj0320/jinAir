@@ -3,10 +3,13 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
 import { ko } from 'date-fns/locale/ko';
+import { useDispatch } from 'react-redux';
+import { getCalendar } from '../../../service/searchApi.js';
 
 export default function Calendar({mom,endMom}) {
+    const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);
+    const [endDate, setEndDate] = useState(null); 
     const onChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
@@ -40,9 +43,9 @@ export default function Calendar({mom,endMom}) {
     }
 
     useEffect(() => {
-        handleStartDate(startDate);
-        handleEndDate(endDate);
-    }, [startDate, endDate]);
+        if (startDate) handleStartDate(startDate);
+        if (endDate) handleEndDate(endDate); // ✅ null 체크!
+      }, [startDate, endDate]);
 
     return (
         <DatePicker

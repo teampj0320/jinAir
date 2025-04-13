@@ -1523,6 +1523,7 @@ h2.react-datepicker__current-month {
             }
         }
     }
+    // 
     >div:nth-child(3){
         // border: 1px solid red;
         text-align: right;
@@ -1606,12 +1607,27 @@ h2.react-datepicker__current-month {
        }
        table{
         border-collapse: collapse;
-        text-align: center;
+        margin-top: 10px;
+        // border: 1px solid red;
+        margin-bottom: 10px;
         width: 100%;
-        padding: 0 30px;
-        td:first-child{
-            padding-right: 30px;
-        }        
+        font-size: 15px;
+        font-weight: 100;
+        tr:first-child{
+            color: var(--chatBlue);
+        }
+        td{
+            padding: 3px 0;
+            width: 150px;
+        }
+        tr:first-child{
+            padding: 5px 50px;
+            font-size: 17px;
+            color: var(--chatBlue);
+            .schedule-exist-top-icon{
+                font-size: 30px;    
+            }
+        }
     }
     div:last-child{
         padding: 0 10px;
@@ -1631,4 +1647,297 @@ h2.react-datepicker__current-month {
     }
 }
 
+//***********************************
+// chatbot reservation
+// *******************************
 
+.reservation-all-box{
+    >div:first-child{
+        p{
+            margin-top: 10px;
+        }
+        .reservation-button-box{
+            padding: 0 10px;
+            margin-bottom: 10px;
+        
+            button{
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+            button:hover{
+                cursor: pointer;
+            }
+           }
+    }
+    .reservation-button2-box{
+        padding: 0 10px;
+        margin-bottom: 10px;
+        p{
+            margin-top: 10px;
+        }
+        button{
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+       }
+}
+//***********************************
+// chatbot cheap
+// *******************************
+.cheap-all-box{
+    >div:nth-child(6){
+        >div:last-child{
+            margin-top: 20px;
+            font-size: 13px;
+            font-weight: 100;
+            margin-bottom: 10px;
+        }
+        .cheap-cheap-month{
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            padding: 0 30px;
+            h5{
+                font-size: 17px;
+                font-weight: 100;
+                color: rgb(84, 162, 84);
+                margin-bottom: 10px;
+            }
+           .cheap-cheap-month-middle{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                button{
+                    background-color: rgb(0, 120, 215);
+                    color: white;
+                    border: none;
+                    padding: 7px 25px;
+                    border-radius: 10px;
+                    font-size: 16px;
+                }
+                ul{
+                    // border: 1px solid blue;
+                    width: 200px;
+                    font-size: 15px;
+                    li:nth-child(2){
+                        font-size: 13px;
+                    }
+                    li:nth-child(3){
+                        font-weight: 600;
+                        font-size: 16px;
+                        margin-top: 3px;
+                    }
+                    li:nth-child(4){
+                        font-size: 12px;
+                    }
+                }
+           }
+        }
+        >p{
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 100;
+        }
+        >div:first-child{
+            margin-top: 10px;
+            font-size: 17px;
+            >span{
+                span{
+                    color: red;
+                }
+            }
+        }
+        >div:nth-child(2){
+            color: var(--chatBlue);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            >span{
+                width: 150px;
+                // border: 1px solid red;
+                font-size: 22px;
+            }
+            .cheap-icon{
+                font-size: 30px;
+                width: 150px;
+            }
+        }
+        >div:nth-child(3){
+            font-size: 14px;
+        }
+        .cheap-reservation{
+            // border: 1px solid red;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            >div:first-child{
+                text-align: left;
+            }
+            >div:last-child{
+                button{
+                    background-color: rgb(0, 120, 215);
+                    color: white;
+                    border: none;
+                    padding: 7px 25px;
+                    border-radius: 10px;
+                    font-size: 16px;
+                }
+            }
+            ul{
+                // border: 1px solid blue;
+                width: 200px;
+                li{
+                    display: flex;
+                    font-weight: 600;
+                    font-size: 15px;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                }
+                li:nth-child(2){
+                    font-weight: 100;
+                    border-bottom: 1px solid gainsboro;
+                }
+            }
+        }
+    }
+    >div:nth-child(5){
+        ul{
+            margin-top: 10px;
+            li{
+                margin-bottom: 10px;
+            }
+        }
+        >p{
+            // margin-top: 10px;
+            border: none;
+        }
+    }
+    >div:nth-child(4){
+        >p{
+            margin-top: 10px;
+            border: none;
+        }
+        ul{
+            padding: 0 20px;
+            margin-top: 10px;
+        }
+        li{
+            display: flex;
+            margin-top: 10px;
+            align-items: center;
+            justify-content: space-between;
+            label{
+                // border:1px solid red;
+                width: 100px;
+                text-align: center;
+                color: var(--chatBlue);
+            }
+            select{
+                // border: 1px solid red;
+                padding: 10px 0;
+                width: 350px;
+            }
+            
+        }
+    }
+
+    >div:nth-child(3){
+        >p{
+            margin-top: 10px;
+            border: none;
+        }
+    }
+    >div:nth-child(2){
+        border: 1px solid gainsboro;
+        width: 450px;
+        border-radius: 5px;
+        margin: 0 auto;
+        margin-top: 20px;
+        >p{
+            margin-top: 10px;
+            border: none;
+        }
+        .cheap-button-box{
+            padding: 0 10px;
+                margin-top: 10px;
+                border-top: 1px solid gainsboro;
+                margin-bottom: 10px;
+    
+                button{
+                    margin-top: 10px;
+                    width: 100%;
+                    padding: 10px 0;
+                    border: 1px solid rgb(0, 255, 255);
+                    background-color: white;
+                    border-radius: 8px;
+                }
+                button:hover{
+                    cursor: pointer;
+                }
+        }
+    }
+    >div:first-child{
+        border: 1px solid gainsboro;
+        width: 450px;
+        border-radius: 5px;
+        margin: 0 auto;
+        margin-top: 20px;
+        >p{
+            margin-top: 10px;
+            border: none;
+        }
+        .schedule-button-box{
+            padding: 0 10px;
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            margin-bottom: 10px;
+
+            button{
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+            button:hover{
+                cursor: pointer;
+            }
+        }
+    }        
+    .schedule-all-box{
+        .cheap-button-box{
+            padding: 0 10px;
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            margin-bottom: 10px;
+
+            button{
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+            button:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}

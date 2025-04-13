@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
 import { IoMdClose } from "react-icons/io";
 import Schedule from './Schedule.jsx';
 import Reservation from './Reservation.jsx';
@@ -22,13 +22,19 @@ export default function Chatbot({ setTab }) {
         { tab: 'check', img: "/images/chatbot/icon_08_de.jpg" },
         { tab: 'notice', img: "/images/chatbot/icon_09_de.jpg" }
     ];
-
+    const componentRef = useRef(null);
     const goFood = () => {
         window.location.href = 'https://www.jinair.com/addService/preordermeal/all';
     };
     const goNotice = () => {
         window.location.href = 'https://www.jinair.com/company/announce/announceList';
     };
+    useEffect(() => {
+        if (chatTab && componentRef.current) {
+            componentRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [chatTab]);
+
     return (
         <div className='chat-modal-content'>
             <div className='chat-country-all'>
@@ -54,6 +60,7 @@ export default function Chatbot({ setTab }) {
                             }
                         </ul>
                     </div>
+                    <div ref={componentRef}>                        
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
                         {chatTab === 'reservation' && <Reservation />}
@@ -63,6 +70,7 @@ export default function Chatbot({ setTab }) {
                         {chatTab === 'ticket' && <Ticket />}
                         {chatTab === 'check' && <Check />}
                         {chatTab === 'notice' && goNotice()}
+                    </div>
                 </div>
                 <div className='chatbot-main-bottom-box'>
                     <ul>

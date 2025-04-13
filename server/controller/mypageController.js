@@ -5,3 +5,15 @@ export const getMyInfo = async(req, res) => {
     res.json(result);
     res.end();
 };
+
+export const updateMyInfo = async (req, res) => {
+    const result = await repository.updateMyInfo(req.body);
+    res.json({ success: true, updatedInfo: result });
+  };
+
+
+  export const checkPwd = async (req, res) => {
+    const { id, password } = req.body;
+    const result = await repository.checkPwd(id, password);
+    res.json({ match: result });
+  };
