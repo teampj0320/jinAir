@@ -4,6 +4,7 @@ import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import '../../scss/ryeong.scss';
 import { getMyInfo, updateMyInfo } from '../../service/myinfoApi.js';
+import { deleteProfileImage } from '../../service/profileApi.js';
 import { Modal } from 'antd';
 import ModifyPass from '../../component/mypage/ModifyPass.jsx';
 import Postcode from '../../component/mypage/Postcode.jsx';
@@ -16,12 +17,10 @@ export default function ModifyInfo() {
     // const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
     // 로그인한 유저의 정보 가져오기
     const myinfo = useSelector((state) => state.myinfo.myinfo);
-
-    // 프사 업로드 위치 파악
-    const uploadButtonRef = useRef();
+    const uploadButtonRef = useRef(); // 프사 업로드 참조
 
 
-    /* 회원 정보 불러오기 */
+    /* 회원 정보 조회 */
     useEffect(() => {
         console.log('회원정보 >>>', myinfo);
         // if(isLoggedIn){
@@ -35,7 +34,7 @@ export default function ModifyInfo() {
     const [countries, setCountries] = useState([]);
 
 
-    /* 국가 정보 JSON 파일 가져오기 */
+    /* 국가 정보 불러오기(JSON) */
     useEffect(() => {
         fetch('/data/countryInfo.json')
             .then((res) => res.json())
@@ -46,32 +45,30 @@ export default function ModifyInfo() {
     /* 비밀번호 변경 모달 */
     const [pwdModalOpen, setPwdModalOpen] = useState(false);
 
-
     const handlePwdTogle = () => {
         setPwdModalOpen((prev) => !prev);
     };
 
 
     /* 우편번호 변경 모달 */
-    const [postcodeModalOpen, setPostcodeModalOpen] = useState(false);
+        const [postcodeModalOpen, setPostcodeModalOpen] = useState(false);
+
+        const handlePostTogle = () => {
+            setPostcodeModalOpen((prev) => !prev);
+        };
+
+        //postcode 주소 변경시 회원정보수정에 반영
+        const handleAddressChange = ({ zipcode, roadAddress, detailAddress }) => {
+            setFormData(prev => ({
+                ...prev,
+                zipcode,
+                address: roadAddress,
+                detail_address: detailAddress
+            }));
+        };
 
 
-    const handlePostTogle = () => {
-        setPostcodeModalOpen((prev) => !prev);
-    };
-
-    //postcode 주소 변경시 회원정보수정에 반영
-    const handleAddressChange = ({ zipcode, roadAddress, detailAddress }) => {
-        setFormData(prev => ({
-            ...prev,
-            zipcode,
-            address: roadAddress,
-            detail_address: detailAddress
-        }));
-    };
-
-
-    /* 회원 정보 수정 상태 저장  */
+    /* 변경된 회원 정보 formData에 저장  */
 
     const [formData, setFormData] = useState({
         email: "",
@@ -90,11 +87,14 @@ export default function ModifyInfo() {
                 phone :  myinfo.phone || '',
                 nationality: myinfo.nationality || '한국',
                 residence: myinfo.residence || '한국',
+                zipcode: myinfo.zipcode || '',
+                address: myinfo.address || '',
                 detail_address: myinfo.detail_address || '',
             });
         }
     }, [myinfo]); 
 
+    // 폼 값 변화 반영
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -106,11 +106,22 @@ export default function ModifyInfo() {
 
 
 
-    /* 프사 업로드 및 확인 */
+    /* 프사 */
 
+    // 새로운 프사 업로드
     const handleProfileUpload = (filename) => {
-        dispatch(getMyInfo()); // 새 프로필 이미지를 store에서 즉시 반영
+        dispatch(getMyInfo());
     };
+
+    // 프사 삭제
+    const handleDelProfile = () => {
+        const filename = myinfo.profile_img?.[0]?.split('/').pop();
+        if (!filename) return;
+      
+        deleteProfileImage(filename).then(() => {
+          dispatch(getMyInfo()); 
+        });
+      };
 
 
     /* 회원정보 수정 */
@@ -154,7 +165,7 @@ export default function ModifyInfo() {
                         </div>
                         <div className='profile-button'>
                             <button ref={uploadButtonRef}>변경</button>
-                            <button>삭제</button>
+                            <button onClick={handleDelProfile}>삭제</button>
                         </div>
 
                         <div className="profile-upload-area">
@@ -176,9 +187,12 @@ export default function ModifyInfo() {
                             <div className='field-wrapper info-user-pwd'>
                                 <label className='info-field-title'>비밀번호 <span className='input-required-label W300'> *</span></label>
                                 <button onClick={handlePwdTogle}>비밀번호 변경</button>
-                                <Modal open={pwdModalOpen} onCancel={handlePwdTogle} footer={null} key={pwdModalOpen} width={550}>
-                                    <ModifyPass />
-                                </Modal>
+                                {pwdModalOpen && (
+  <Modal open onCancel={handlePwdTogle} footer={null} width={550}>
+    <ModifyPass />
+  </Modal>
+)}
+
                             </div>
                             <div className='field-wrapper info-user-name-full'>
                                 <label className='info-field-title'>이름<span className='input-required-label W300'> *</span></label>
@@ -221,7 +235,7 @@ export default function ModifyInfo() {
                                 </select>
                                 <div className='flex gap10'>
                                     <input
-                                    className='w300'  name="phone" type="text" value={formData.phone || "예) 01000000000"} onChange={handleChange} />
+                                    className='w300'  name="phone" type="text" value={formData.phone} onChange={handleChange} placeholder='예)01000000000' />
                                     {/* <button className='info-navy-btn'>변경/인증</button> */}
                                 </div>
                             </div>
@@ -232,7 +246,7 @@ export default function ModifyInfo() {
                             </div>
                             <div className='field-wrapper info-user-email'>
                                 <label className='info-field-title'>국적(여권)<span className='input-required-label W300'> *</span></label>
-                                <select name="" className='info-select-box w300' onChange={handleChange}>
+                                <select name="nationality" className='info-select-box w300' onChange={handleChange}>
 
                                     {/* json에서 선택된 값이 db로 가야함 */}
 
@@ -249,7 +263,7 @@ export default function ModifyInfo() {
                                 {/* json에서 선택된 값이 db로 가야함 */}
 
                                 <label className='info-field-title'>거주국가</label>
-                                <select name="nationality" className='info-select-box w300' onChange={handleChange} >
+                                <select name="country" className='info-select-box w300' onChange={handleChange} >
                                     {
                                         countries.map((country) => (
                                             <option value="">{`${country.ko_name} (${country.en_name})`}</option>
@@ -261,16 +275,22 @@ export default function ModifyInfo() {
                             <div className='field-wrapper info-user-address'>
                                 <label className='info-field-title'>주소</label>
                                 <div className='flex gap10'>
-                                    <input className='w300' type="text" disabled value={formData.zipcode || '우편 번호를 검색 해주세요.'} />
+                                    <input className='w300' type="text" disabled value={formData.zipcode} 
+                                    placeholder='우편 번호를 검색 해주세요.'/>
                                     <button className='info-navy-btn' onClick={handlePostTogle}>우편번호 검색</button>
                                 </div>
-                                <input className='w300' type="text" disabled value={formData.address || '도로명 주소를 검색 해주세요.'} />
-                                <input className='w300' type="text" value={formData.detail_address || '상세 주소를 입력 해주세요.'} onChange={handleChange} />
+                                <input className='w300' type="text" disabled value={formData.address} 
+                                placeholder='도로명 주소를 검색 해주세요.'/>
+                                <input className='w300' type="text" value={formData.detail_address} onChange={handleChange}
+                                placeholder='우편번호 검색 후에 상세주소를 입력해주세요.' />
                             </div>
                             {/* 주소 검색 모달 */}
-                                <Modal open={postcodeModalOpen} onCancel={handlePostTogle} footer={null} key={postcodeModalOpen} width={550}>
-                                    <Postcode onCompleteAddress={handleAddressChange} onClose={handlePostTogle}  />
-                                </Modal>
+                            {postcodeModalOpen && (
+  <Modal open onCancel={handlePostTogle} footer={null} width={550}>
+    <Postcode onCompleteAddress={handleAddressChange} onClose={handlePostTogle} />
+  </Modal>
+)}
+
                             <div className='field-wrapper info-user-confirm'>
                                 <label className='info-field-title'>마케팅 광고 활용 수신 동의</label>
                                 <div className='flex gap10'>

@@ -53,3 +53,37 @@ export const fileUpload = (req, res) => {
         });
     });
 };
+
+
+// 프로필 이미지 삭제
+export const fileDelte = async (req, res) => {
+    const { filename } = req.body;
+
+    if (!filename) {
+        return res.status(400).json({ success: false, message: "파일명이 없습니다." });
+    }
+
+    const filePath = path.join("images", filename);
+
+    // 이미지 파일 삭제
+    if (fs.existsSync(filePath)) {
+        try {
+            fs.unlinkSync(filePath);
+            console.log("프로필 이미지 삭제 완료:", filePath);
+        } catch (error) {
+            console.error("파일 삭제 실패:", error);
+            return res.status(500).json({ success: false, message: "파일 삭제 실패" });
+        }
+    }
+
+    // DB profile_img => NULL
+    try {
+        await db.execute(
+            `UPDATE customer SET profile_img = NULL WHERE id = 'test1'`
+        );
+        return res.json({ success: true, message: "삭제 완료" });
+    } catch (err) {
+        console.error("DB 업데이트 실패:", err);
+        return res.status(500).json({ success: false, message: "DB 업데이트 실패" });
+    }
+};

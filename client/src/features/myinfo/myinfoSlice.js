@@ -11,15 +11,15 @@ const initialState = {
         email: '',
         nationality: '',
         residence: '',
-        zipCode: '',
+        zipcode: '',
         address: '',
-        addressDetail: '',
+        address_detail: '',
         marketingConsent: {
             email: false,
             sms: false,
             app: false,
         },
-        profileImage: '',
+        profile_img: '',
     },
     isLoggedIn: false, // 로그인 전
 };
@@ -37,12 +37,12 @@ const myinfoSlice = createSlice({
             const { field, value } = action.payload;
             state.myinfo[field] = value;
         },
-        updateMarketing: (state, action) => {
-            state.myinfo.marketingConsent = {
-                ...state.myinfo.marketingConsent,
-                ...action.payload,
-            };
-        },
+        // updateMarketing: (state, action) => {
+        //     state.myinfo.marketingConsent = {
+        //         ...state.myinfo.marketingConsent,
+        //         ...action.payload,
+        //     };
+        // },
         deleteAccount: (state) => {
             state.myinfo = initialState.myinfo; 
             state.isLoggedIn = false;                       

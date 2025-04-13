@@ -1,10 +1,11 @@
-
 import React, { useRef, useEffect } from 'react';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadProfileImage } from '../service/profileApi.js';
+import { getMyInfo } from '../service/myinfoApi.js'
 
-export default function ImageUpload({ getFileName, triggerRef }) {
+export default function ImageUpload({ triggerRef }) {
   const inputRef = useRef();
+  const dispatch = useDispatch();
   const myinfo = useSelector((state) => state.myinfo.myinfo);
 
   useEffect(() => {
@@ -13,18 +14,15 @@ export default function ImageUpload({ getFileName, triggerRef }) {
     }
   }, [triggerRef]);
 
-  const handleFileUpload = (e) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const oldFile = myinfo.profile_img?.[0]?.split('/').pop();
 
-    const oldFileName = myinfo.profile_img?.[0]?.split('/').pop();
-    formData.append("oldFile", oldFileName);
+    const result = await uploadProfileImage({ file, oldFile });
 
-    axios.post('http://localhost:9000/uploads', formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-    .then(res => getFileName(res.data.filename))
-    .catch(console.error);
+    if (result?.filename) {
+      dispatch(getMyInfo());
+    }
   };
 
   return (
@@ -32,7 +30,7 @@ export default function ImageUpload({ getFileName, triggerRef }) {
       type="file"
       ref={inputRef}
       onChange={handleFileUpload}
-      style={{ display: 'none' }}
+      style={{ display: 'none' }} /* 변경버튼 클릭시 - 바로열리게 */
     />
   );
 }

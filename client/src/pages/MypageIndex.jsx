@@ -14,11 +14,11 @@ export default function Mypage() {
     // 로그인한 유저의 정보 가져오기
     const myinfo = useSelector((state) => state.myinfo.myinfo);
 
-    console.log('불러온 회원 정보:', myinfo);
-
-
+    
+    
     /* 회원 정보 불러오기 */
     useEffect(() => {
+        console.log('불러온 회원 정보:', myinfo);
         // if(isLoggedIn){
         dispatch(getMyInfo())
         // } else {

@@ -50,12 +50,12 @@ export default function Postcode({ onCompleteAddress,  onClose }) {
       </div>
 
       <div className='layer-contents'>
-        <p className='f16'>도로명 주소 또는 지번 주소를 검색 해주세요.</p>
+        <p className='f16'>도로명 주소를 검색 해주세요.</p>
 
         <div className='field-wrapper'>
           <div className='flex gap10'>
             <input type="text" disabled value={zipcode} placeholder="우편번호" style={{ flex: 1 }} />
-            <input type="text" disabled value={roadAddress} placeholder="도로명 주소" style={{ flex: 3 }} />
+            <input type="text" disabled value={roadAddress} placeholder="도로명 + 건물 번호" style={{ flex: 3 }} />
           </div>
 
           <div className='flex gap10'>
