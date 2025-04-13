@@ -51,21 +51,21 @@ export default function ModifyInfo() {
 
 
     /* 우편번호 변경 모달 */
-        const [postcodeModalOpen, setPostcodeModalOpen] = useState(false);
+    const [postcodeModalOpen, setPostcodeModalOpen] = useState(false);
 
-        const handlePostTogle = () => {
-            setPostcodeModalOpen((prev) => !prev);
-        };
+    const handlePostTogle = () => {
+        setPostcodeModalOpen((prev) => !prev);
+    };
 
-        //postcode 주소 변경시 회원정보수정에 반영
-        const handleAddressChange = ({ zipcode, roadAddress, detailAddress }) => {
-            setFormData(prev => ({
-                ...prev,
-                zipcode,
-                address: roadAddress,
-                detail_address: detailAddress
-            }));
-        };
+    //postcode 주소 변경시 회원정보수정에 반영
+    const handleAddressChange = ({ zipcode, roadAddress, detailAddress }) => {
+        setFormData(prev => ({
+            ...prev,
+            zipcode,
+            address: roadAddress,
+            detail_address: detailAddress
+        }));
+    };
 
 
     /* 변경된 회원 정보 formData에 저장  */
@@ -74,17 +74,18 @@ export default function ModifyInfo() {
         email: "",
         nationality: "",
         residence: "",
-        phone : "",
+        phone: "",
         detail_address: "",
-        zipcode: "",     
-        address: "",       
+        zipcode: "",
+        address: "",
+        password: "",
     });
 
     useEffect(() => {
         if (myinfo.id) {
             setFormData({
                 email: myinfo.email || '',
-                phone :  myinfo.phone || '',
+                phone: myinfo.phone || '',
                 nationality: myinfo.nationality || '한국',
                 residence: myinfo.residence || '한국',
                 zipcode: myinfo.zipcode || '',
@@ -92,7 +93,7 @@ export default function ModifyInfo() {
                 detail_address: myinfo.detail_address || '',
             });
         }
-    }, [myinfo]); 
+    }, [myinfo]);
 
     // 폼 값 변화 반영
     const handleChange = (e) => {
@@ -117,11 +118,11 @@ export default function ModifyInfo() {
     const handleDelProfile = () => {
         const filename = myinfo.profile_img?.[0]?.split('/').pop();
         if (!filename) return;
-      
+
         deleteProfileImage(filename).then(() => {
-          dispatch(getMyInfo()); 
+            dispatch(getMyInfo());
         });
-      };
+    };
 
 
     /* 회원정보 수정 */
@@ -130,6 +131,8 @@ export default function ModifyInfo() {
             id: myinfo.id,
             ...formData,
         };
+
+        console.log('최종 업데이트 데이터 👉', updatedData); // ✅ 여기!
         dispatch(updateMyInfo(updatedData)).then(() => {
             dispatch(getMyInfo());
             alert('회원 정보가 수정되었습니다.');
@@ -188,10 +191,17 @@ export default function ModifyInfo() {
                                 <label className='info-field-title'>비밀번호 <span className='input-required-label W300'> *</span></label>
                                 <button onClick={handlePwdTogle}>비밀번호 변경</button>
                                 {pwdModalOpen && (
-  <Modal open onCancel={handlePwdTogle} footer={null} width={550}>
-    <ModifyPass />
-  </Modal>
-)}
+                                    <Modal open onCancel={handlePwdTogle} footer={null} width={550}>
+                                        <ModifyPass 
+                                            userId={myinfo.id}
+                                            onConfirm={(newPassword) => {
+                                              setFormData(prev => ({ ...prev, password: newPassword }));
+                                              setPwdModalOpen(false);
+                                            }}    
+                                        
+                                        />
+                                    </Modal>
+                                )}
 
                             </div>
                             <div className='field-wrapper info-user-name-full'>
@@ -235,7 +245,7 @@ export default function ModifyInfo() {
                                 </select>
                                 <div className='flex gap10'>
                                     <input
-                                    className='w300'  name="phone" type="text" value={formData.phone} onChange={handleChange} placeholder='예)01000000000' />
+                                        className='w300' name="phone" type="text" value={formData.phone} onChange={handleChange} placeholder='예)01000000000' />
                                     {/* <button className='info-navy-btn'>변경/인증</button> */}
                                 </div>
                             </div>
@@ -275,21 +285,21 @@ export default function ModifyInfo() {
                             <div className='field-wrapper info-user-address'>
                                 <label className='info-field-title'>주소</label>
                                 <div className='flex gap10'>
-                                    <input className='w300' type="text" disabled value={formData.zipcode} 
-                                    placeholder='우편 번호를 검색 해주세요.'/>
+                                    <input className='w300' type="text" disabled value={formData.zipcode}
+                                        placeholder='우편 번호를 검색 해주세요.' />
                                     <button className='info-navy-btn' onClick={handlePostTogle}>우편번호 검색</button>
                                 </div>
-                                <input className='w300' type="text" disabled value={formData.address} 
-                                placeholder='도로명 주소를 검색 해주세요.'/>
+                                <input className='w300' type="text" disabled value={formData.address}
+                                    placeholder='도로명 주소를 검색 해주세요.' />
                                 <input className='w300' type="text" value={formData.detail_address} onChange={handleChange}
-                                placeholder='우편번호 검색 후에 상세주소를 입력해주세요.' />
+                                    placeholder='우편번호 검색 후에 상세주소를 입력해주세요.' />
                             </div>
                             {/* 주소 검색 모달 */}
                             {postcodeModalOpen && (
-  <Modal open onCancel={handlePostTogle} footer={null} width={550}>
-    <Postcode onCompleteAddress={handleAddressChange} onClose={handlePostTogle} />
-  </Modal>
-)}
+                                <Modal open onCancel={handlePostTogle} footer={null} width={550}>
+                                    <Postcode onCompleteAddress={handleAddressChange} onClose={handlePostTogle} />
+                                </Modal>
+                            )}
 
                             <div className='field-wrapper info-user-confirm'>
                                 <label className='info-field-title'>마케팅 광고 활용 수신 동의</label>
