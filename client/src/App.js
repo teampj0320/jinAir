@@ -19,6 +19,7 @@ import BookingSelectSeat from './pages/booking/BookingSelectSeat.jsx';
 import BookingPayment from './pages/booking/BookingPayment.jsx';
 import BookingGo from './pages/booking/BookingGo.jsx';
 import BookingBack from './pages/booking/BookingBack.jsx';
+import BookingCheckout from './pages/booking/BookingCheckout.jsx';
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
         <Route path='/booking/passenger' element={<BookingPassenger />} />
         <Route path='/booking/selectSeat' element={<BookingSelectSeat />} />
         <Route path='/booking/beforePayment' element={<BookingPayment />} />
+        <Route path='/booking/afterPayment' element={<BookingCheckout />} />
         {/* <Route path='/payment' element={<Payment />} />
         <Route path='/admin' element={<Admin />} />  */}
       </Route>

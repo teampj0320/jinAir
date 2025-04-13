@@ -246,6 +246,7 @@ video {
 .header_bottom_menu_warp3,
 .header_bottom_menu_warp4 {
     display: none; /* 기본적으로 숨김 */
+    border-top: solid 2px var(--color-242);
 }
 
 .header_bottom_menu_warp1.show,
