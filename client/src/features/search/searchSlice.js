@@ -6,17 +6,17 @@ const initialState = {
      calendar : false,
      calendar2 : false ,
      type : 'n',
-     departure : '' ,
-     arrive : '',
+     departure : '' , // 출발지
+     arrive : '', // 도착지
      multiDepart : '',
      multiArr : '',
-     adultNum : 1 , 
-     pediatricNum : 0,   
-     babyNum : 0 , 
+     adultNum : 1 , // 성인 수
+     pediatricNum : 0,    // 소아 수 
+     babyNum : 0 , // 유아 수
      total : 0,
-     startDate : '',
+     startDate : '',  // 출발일
      startDate2 : '' , 
-     endDate : '',
+     endDate : '', // 도착일
 }
 
 export const searchSlice = createSlice({
@@ -53,12 +53,6 @@ export const searchSlice = createSlice({
         },
         setArrive(state, action){
             state.arrive = action.payload;
-        },
-        setMultiDepart(){
-
-        },
-        setMultiArr(){
-
         },
         setStartDate(state, action){
             state.startDate = action.payload;
