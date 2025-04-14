@@ -691,8 +691,7 @@
         }
         .payment-table-total{
             align-items: center;
-            display: grid
-            ;
+            display: grid ;
                 grid-template-columns: 4fr 1fr;
                 grid-template-rows: 50px;
                 background: #ececee;
@@ -824,6 +823,12 @@
                 padding-right: 24px;
                 border-bottom: 1px dashed #b4b4b4; 
                 gap: 10px; 
+                .agree2{
+                    display: flex; 
+                    .all{
+                        font-size: 1.2rem;
+                    }
+                }
             }
             .bottom-agree-title{
                 margin-top: 18px;
@@ -846,7 +851,8 @@
             }
             
         }
-} 
+    } 
+    
 .bottom-more-goods{
     display: grid ;
         grid-template-columns: 1fr 1fr 1fr;

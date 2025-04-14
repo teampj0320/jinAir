@@ -43,3 +43,24 @@ SET profile_img = NULL
 WHERE id = 'test1';
 
 -- customer 테이블 phone 데이터 수정하기 010-0000-0000 -> 01000000000
+
+
+
+-- 예약 테이블 탑승객 이름 (passenger_name) 컬럼 추가
+DROP TABLE reservation;
+
+CREATE TABLE `reservation` (
+  `NO` int auto_increment PRIMARY KEY,
+  `ID` varchar(20) NOT NULL,
+  `fNUM` varchar(20) NOT NULL,
+  `RES_NUM` varchar(20) NOT NULL, 
+  `passenger_name` varchar(20) not null ,
+  `RES_DATE` datetime NOT NULL,
+  KEY `SUB_RESERVATION_FK_fnum` (`fNUM`),
+  KEY `SUB_RESERVATION_FK_id` (`ID`),
+  CONSTRAINT `SUB_RESERVATION_FK_fnum` FOREIGN KEY (`fNUM`) REFERENCES `flight` (`fNUM`),
+  CONSTRAINT `SUB_RESERVATION_FK_id` FOREIGN KEY (`ID`) REFERENCES `customer` (`id`)
+);
+
+INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
+VALUES ('test1', 'LJ100', '11111-11111', '홍길순' , now());

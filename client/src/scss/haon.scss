@@ -5,7 +5,7 @@
     --color-153: rgb(153, 153, 153);
     --color-181: rgb(181, 181, 181);
     --color-242: rgb(242, 242, 242);
-    --chatBlue:rgb(0, 99, 177);
+    --chatBlue: rgb(0, 99, 177);
     --borderlight: #dfe4eb;
     --fontblack: #333333;
     --darkblack: #222222;
@@ -1053,6 +1053,10 @@ video {
                     align-items: center;
                     margin-top: 5px;
                 }
+
+                button:hover {
+                    cursor: pointer;
+                }
             }
 
             >span {
@@ -1096,6 +1100,10 @@ video {
             color: white;
             border: 1px solid var(--color-nav-main);
             border-radius: 8px;
+        }
+
+        button:hover {
+            cursor: pointer;
         }
     }
 }
@@ -1313,6 +1321,7 @@ h2.react-datepicker__current-month {
             overflow: scroll;
             scrollbar-width: none;
             -ms-overflow-style: none;
+
             .chatbot-main-top-box {
                 border: 1px solid gainsboro;
                 border-radius: 10px;
@@ -1342,14 +1351,17 @@ h2.react-datepicker__current-month {
                     justify-content: center;
                     gap: 15px;
                     margin-bottom: 10px;
-                    li:hover{
+
+                    li:hover {
                         cursor: pointer;
                         border: 1px solid var(--color-nav-main);
                     }
+
                     li {
                         width: 130px;
                         height: 130px;
                         border: 1px solid rgb(242, 242, 242);
+
                         img {
                             width: 130px;
                             margin: 0;
@@ -1373,6 +1385,10 @@ h2.react-datepicker__current-month {
         gap: 10px;
         justify-content: space-between;
         padding: 0 30px;
+
+        li:hover {
+            cursor: pointer;
+        }
 
         li {
             display: flex;
@@ -1403,7 +1419,8 @@ h2.react-datepicker__current-month {
         outline: none;
     }
 }
-.chatbot-tab-click{
+
+.chatbot-tab-click {
     border: 1px solid gainsboro;
     width: 450px;
     border-radius: 5px;
@@ -1414,92 +1431,106 @@ h2.react-datepicker__current-month {
 //***********************************
 // chatbot schedule
 // *******************************
-.schedule-top-box{
+.schedule-top-box {
     border-bottom: 1px solid gainsboro;
     padding: 10px 0;
 }
-.schedule-country-check-box{
+
+.schedule-country-check-box {
     display: flex;
     text-align: center;
     margin-top: 20px;
     align-items: center;
     padding: 0 10px;
-    select{
+
+    select {
         width: 155px;
         padding: 10px 0;
         font-size: 14px;
         font-weight: 300;
     }
-    select:nth-child(2){
+
+    select:nth-child(2) {
         margin-right: 10px;
     }
-    span{
+
+    span {
         color: rgb(0, 99, 177);
         width: 100px;
     }
 }
-.schedule-calendar-check-box{
+
+.schedule-calendar-check-box {
     display: flex;
     text-align: center;
     margin-top: 10px;
     align-items: center;
     padding: 0 10px;
     margin-bottom: 10px;
-    span{
+
+    span {
         color: rgb(0, 99, 177);
         width: 100px;
     }
-    select{
+
+    select {
         width: 320px;
         padding: 10px 0;
         font-size: 14px;
         font-weight: 300;
     }
-    input{
+
+    input {
         width: 316px;
         padding: 10px 0;
-    }    
+    }
 }
 
-.schedule-all-box{
+.schedule-all-box {
     border: 1px solid gainsboro;
     width: 450px;
     border-radius: 5px;
     margin: 0 auto;
     margin-top: 20px;
-   .schedule-button-box{
-    padding: 0 10px;
-    margin-top: 20px;
-    border-top: 1px solid gainsboro;
-    margin-bottom: 10px;
 
-    button{
+    .schedule-button-box {
+        padding: 0 10px;
         margin-top: 20px;
-        width: 100%;
-        padding: 10px 0;
-        border: 1px solid rgb(0, 255, 255);
-        background-color: white;
-        border-radius: 8px;
+        border-top: 1px solid gainsboro;
+        margin-bottom: 10px;
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
     }
-    button:hover{
-        cursor: pointer;
-    }
-   }
 }
-.schedule-all-box{
+
+.schedule-all-box {
     border: 1px solid gainsboro;
     width: 450px;
     border-radius: 5px;
     margin: 0 auto;
     margin-top: 20px;
 }
-.schedule-exist-box{
+
+.schedule-exist-box {
     padding: 10px 0;
-    p{
+
+    p {
         border-bottom: 1px solid gainsboro;
         padding-bottom: 10px;
     }
-    table{
+
+    table {
         border-collapse: collapse;
         margin-top: 10px;
         // border: 1px solid red;
@@ -1507,33 +1538,40 @@ h2.react-datepicker__current-month {
         width: 100%;
         font-size: 15px;
         font-weight: 100;
-        tr:not(:first-child, :nth-child(2)){
+
+        tr:not(:first-child, :nth-child(2)) {
             color: var(--chatBlue);
         }
-        td{
+
+        td {
             padding: 3px 0;
             width: 150px;
         }
-        tr:first-child{
+
+        tr:first-child {
             padding: 5px 50px;
             font-size: 17px;
             color: var(--chatBlue);
-            .schedule-exist-top-icon{
-                font-size: 30px;    
+
+            .schedule-exist-top-icon {
+                font-size: 30px;
             }
         }
     }
+
     // 
-    >div:nth-child(3){
+    >div:nth-child(3) {
         // border: 1px solid red;
         text-align: right;
         font-size: 13px;
         font-weight: 100;
         padding: 0 5px;
     }
-    >div:nth-child(4){
+
+    >div:nth-child(4) {
         padding: 0 10px;
-        button{
+
+        button {
             width: 100%;
             padding: 10px 0;
             border: 1px solid rgb(0, 255, 255);
@@ -1541,49 +1579,88 @@ h2.react-datepicker__current-month {
             border-radius: 8px;
             margin-top: 10px;
         }
-        button:hover{
+
+        button:hover {
             cursor: pointer;
         }
-    }   
+    }
 }
 
-.schedule-none-exist-box{
+.schedule-none-exist-box {
     padding: 10px 0;
 }
 
 //***********************************
 // chatbot airplane
 // *******************************
-.airplane-all-box{
+.airplane-country-table {
+    padding: 0 20px;
+    border-collapse: collapse;
+    margin-top: 10px;
+    // border: 1px solid red;
+    margin-bottom: 10px;
+    width: 400px;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: 100;
+
+    tr:first-child {
+        color: var(--chatBlue);
+    }
+
+    td {
+        padding: 3px 0;
+        width: 130px;
+    }
+
+    tr:first-child {
+        padding: 5px 50px;
+        font-size: 17px;
+        color: var(--chatBlue);
+
+        .schedule-exist-top-icon {
+            font-size: 30px;
+        }
+    }
+}
+
+.airplane-all-box {
     padding: 0 10px;
-    >div:first-child{
-        >p{
+
+    >div:first-child {
+        >p {
             margin-top: 10px;
         }
-        div{
+
+        div {
             padding: 0 10px;
             margin-bottom: 10px;
-            button{
+
+            button {
                 width: 100%;
                 padding: 10px 0;
                 border: 1px solid rgb(0, 255, 255);
                 background-color: white;
                 border-radius: 8px;
                 margin-top: 10px;
-            } 
-            button:hover{
+            }
+
+            button:hover {
                 cursor: pointer;
             }
         }
     }
-    >div:nth-child(2)>div:first-child{
+
+    >div:nth-child(2)>div:first-child {
         border-bottom: 1px solid gainsboro;
         margin: 10px 0 20px 0;
         padding-bottom: 10px;
     }
-    >div:nth-child(2)>div:last-child{
+
+    >div:nth-child(2)>div:last-child {
         padding: 0 10px;
-        button{
+
+        button {
             width: 100%;
             padding: 10px 0;
             border: 1px solid rgb(0, 255, 255);
@@ -1592,60 +1669,69 @@ h2.react-datepicker__current-month {
             margin-top: 10px;
             margin-bottom: 10px;
         }
-        button:hover{
+
+        button:hover {
             cursor: pointer;
         }
     }
 }
 
-.airplane-airNumClick{
-    >div:first-child{
-       p{
-        margin-top: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid gainsboro;
-       }
-       table{
-        padding: 0 20px;
-        border-collapse: collapse;
-        margin-top: 10px;
-        // border: 1px solid red;
-        margin-bottom: 10px;
-        width: 400px;
-        margin: 0 auto;
-        font-size: 15px;
-        font-weight: 100;
-        tr:first-child{
-            color: var(--chatBlue);
+.airplane-airNumClick {
+    >div:first-child {
+        p {
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid gainsboro;
         }
-        td{
-            padding: 3px 0;
-            width: 130px;
-        }
-        tr:first-child{
-            padding: 5px 50px;
-            font-size: 17px;
-            color: var(--chatBlue);
-            .schedule-exist-top-icon{
-                font-size: 30px;    
+
+        table {
+            padding: 0 20px;
+            border-collapse: collapse;
+            margin-top: 10px;
+            // border: 1px solid red;
+            margin-bottom: 10px;
+            width: 400px;
+            margin: 0 auto;
+            font-size: 15px;
+            font-weight: 100;
+
+            tr:first-child {
+                color: var(--chatBlue);
+            }
+
+            td {
+                padding: 3px 0;
+                width: 130px;
+            }
+
+            tr:first-child {
+                padding: 5px 50px;
+                font-size: 17px;
+                color: var(--chatBlue);
+
+                .schedule-exist-top-icon {
+                    font-size: 30px;
+                }
             }
         }
-    }
-    div:last-child{
-        padding: 0 10px;
-        button{
-            width: 100%;
-            padding: 10px 0;
-            border: 1px solid rgb(0, 255, 255);
-            background-color: white;
-            border-radius: 8px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+
+        div:last-child {
+            padding: 0 10px;
+
+            button {
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
         }
-        button:hover{
-            cursor: pointer;
-        }
-    }
     }
 }
 
@@ -1653,16 +1739,17 @@ h2.react-datepicker__current-month {
 // chatbot reservation
 // *******************************
 
-.reservation-all-box{
-    >div:first-child{
-        p{
+.reservation-all-box {
+    >div:first-child {
+        p {
             margin-top: 10px;
         }
-        .reservation-button-box{
+
+        .reservation-button-box {
             padding: 0 10px;
             margin-bottom: 10px;
-        
-            button{
+
+            button {
                 margin-top: 10px;
                 width: 100%;
                 padding: 10px 0;
@@ -1670,18 +1757,22 @@ h2.react-datepicker__current-month {
                 background-color: white;
                 border-radius: 8px;
             }
-            button:hover{
+
+            button:hover {
                 cursor: pointer;
             }
-           }
+        }
     }
-    .reservation-button2-box{
+
+    .reservation-button2-box {
         padding: 0 10px;
         margin-bottom: 10px;
-        p{
+
+        p {
             margin-top: 10px;
         }
-        button{
+
+        button {
             margin-top: 10px;
             width: 100%;
             padding: 10px 0;
@@ -1689,37 +1780,43 @@ h2.react-datepicker__current-month {
             background-color: white;
             border-radius: 8px;
         }
-        button:hover{
+
+        button:hover {
             cursor: pointer;
         }
-       }
+    }
 }
+
 //***********************************
 // chatbot cheap
 // *******************************
-.cheap-all-box{
-    >div:nth-child(6){
-        >div:last-child{
+.cheap-all-box {
+    >div:nth-child(6) {
+        >div:last-child {
             margin-top: 20px;
             font-size: 13px;
             font-weight: 100;
             margin-bottom: 10px;
         }
-        .cheap-cheap-month{
+
+        .cheap-cheap-month {
             margin-top: 10px;
             border-top: 1px solid gainsboro;
             padding: 0 30px;
-            h5{
+
+            h5 {
                 font-size: 17px;
                 font-weight: 100;
                 color: rgb(84, 162, 84);
                 margin-bottom: 10px;
             }
-           .cheap-cheap-month-middle{
+
+            .cheap-cheap-month-middle {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                button{
+
+                button {
                     background-color: rgb(0, 120, 215);
                     color: white;
                     border: none;
@@ -1727,39 +1824,51 @@ h2.react-datepicker__current-month {
                     border-radius: 10px;
                     font-size: 16px;
                 }
-                ul{
+
+                button:hover {
+                    cursor: pointer;
+                }
+
+                ul {
                     // border: 1px solid blue;
                     width: 200px;
                     font-size: 15px;
-                    li:nth-child(2){
+
+                    li:nth-child(2) {
                         font-size: 13px;
                     }
-                    li:nth-child(3){
+
+                    li:nth-child(3) {
                         font-weight: 600;
                         font-size: 16px;
                         margin-top: 3px;
                     }
-                    li:nth-child(4){
+
+                    li:nth-child(4) {
                         font-size: 12px;
                     }
                 }
-           }
+            }
         }
-        >p{
+
+        >p {
             margin-top: 10px;
             font-size: 13px;
             font-weight: 100;
         }
-        >div:first-child{
+
+        >div:first-child {
             margin-top: 10px;
             font-size: 17px;
-            >span{
-                span{
+
+            >span {
+                span {
                     color: red;
                 }
             }
         }
-        >div:nth-child(2){
+
+        >div:nth-child(2) {
             color: var(--chatBlue);
             font-size: 15px;
             display: flex;
@@ -1767,31 +1876,37 @@ h2.react-datepicker__current-month {
             padding: 0 20px;
             margin-top: 10px;
             margin-bottom: 10px;
-            >span{
+
+            >span {
                 width: 150px;
                 // border: 1px solid red;
                 font-size: 22px;
             }
-            .cheap-icon{
+
+            .cheap-icon {
                 font-size: 30px;
                 width: 150px;
             }
         }
-        >div:nth-child(3){
+
+        >div:nth-child(3) {
             font-size: 14px;
         }
-        .cheap-reservation{
+
+        .cheap-reservation {
             // border: 1px solid red;
             margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 30px;
-            >div:first-child{
+
+            >div:first-child {
                 text-align: left;
             }
-            >div:last-child{
-                button{
+
+            >div:last-child {
+                button {
                     background-color: rgb(0, 120, 215);
                     color: white;
                     border: none;
@@ -1799,147 +1914,479 @@ h2.react-datepicker__current-month {
                     border-radius: 10px;
                     font-size: 16px;
                 }
+
+                button:hover {
+                    cursor: pointer;
+                }
             }
-            ul{
+
+            ul {
                 // border: 1px solid blue;
                 width: 200px;
-                li{
+
+                li {
                     display: flex;
                     font-weight: 600;
                     font-size: 15px;
                     justify-content: space-between;
                     margin-bottom: 5px;
                 }
-                li:nth-child(2){
+
+                li:nth-child(2) {
                     font-weight: 100;
                     border-bottom: 1px solid gainsboro;
                 }
             }
         }
     }
-    >div:nth-child(5){
-        ul{
+
+    >div:nth-child(5) {
+        ul {
             margin-top: 10px;
-            li{
+
+            li {
                 margin-bottom: 10px;
             }
         }
-        >p{
+
+        >p {
             // margin-top: 10px;
             border: none;
         }
     }
-    >div:nth-child(4){
-        >p{
+
+    >div:nth-child(4) {
+        >p {
             margin-top: 10px;
             border: none;
         }
-        ul{
+
+        ul {
             padding: 0 20px;
             margin-top: 10px;
         }
-        li{
+
+        li {
             display: flex;
             margin-top: 10px;
             align-items: center;
             justify-content: space-between;
-            label{
+
+            label {
                 // border:1px solid red;
                 width: 100px;
                 text-align: center;
                 color: var(--chatBlue);
             }
-            select{
+
+            select {
                 // border: 1px solid red;
                 padding: 10px 0;
                 width: 350px;
             }
-            
+
         }
     }
 
-    >div:nth-child(3){
-        >p{
+    >div:nth-child(3) {
+        >p {
             margin-top: 10px;
             border: none;
         }
     }
-    >div:nth-child(2){
+
+    >div:nth-child(2) {
         border: 1px solid gainsboro;
         width: 450px;
         border-radius: 5px;
         margin: 0 auto;
         margin-top: 20px;
-        >p{
+
+        >p {
             margin-top: 10px;
             border: none;
         }
-        .cheap-button-box{
+
+        .cheap-button-box {
             padding: 0 10px;
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            margin-bottom: 10px;
+
+            button {
                 margin-top: 10px;
-                border-top: 1px solid gainsboro;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    >div:first-child {
+        border: 1px solid gainsboro;
+        width: 450px;
+        border-radius: 5px;
+        margin: 0 auto;
+        margin-top: 20px;
+
+        >p {
+            margin-top: 10px;
+            border: none;
+        }
+
+        .schedule-button-box {
+            padding: 0 10px;
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            margin-bottom: 10px;
+
+            button {
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .schedule-all-box {
+        .cheap-button-box {
+            padding: 0 10px;
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            margin-bottom: 10px;
+
+            button {
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.cheap-round-desc {
+    margin-top: 15px;
+}
+
+.cheap-round-before-select {
+    margin-bottom: 5px;
+
+    >span {
+        display: block;
+
+        span {
+            color: red;
+        }
+    }
+}
+
+//***********************************
+// chatbot Buyticket
+// *******************************
+.chatbot-buyticket-all-box {
+    .schedule-all-box {
+        p {
+            margin-top: 10px;
+        }
+    }
+
+    .cheap-button-box {
+        padding: 0 10px;
+        margin-top: 10px;
+        border-top: 1px solid gainsboro;
+        margin-bottom: 10px;
+
+        button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+
+    .buyticket-oneway-people-box {
+        // border: 1px solid red;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        justify-content: space-between;
+        text-align: center;
+
+        li {
+            list-style-type: none;
+
+            select {
+                width: 80px;
+                padding: 10px 0;
+                margin-left: 10px;
+            }
+
+            label {
+                color: var(--chatBlue);
+            }
+        }
+    }
+
+    >div:nth-child(3) {
+
+        // border: 1px solid red;
+        >div:last-child {
+            margin-top: 20px;
+            font-size: 13px;
+            font-weight: 100;
+            margin-bottom: 10px;
+        }
+
+        .cheap-cheap-month {
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            padding: 0 30px;
+
+            h5 {
+                font-size: 17px;
+                font-weight: 100;
+                color: rgb(84, 162, 84);
                 margin-bottom: 10px;
-    
-                button{
-                    margin-top: 10px;
-                    width: 100%;
-                    padding: 10px 0;
-                    border: 1px solid rgb(0, 255, 255);
-                    background-color: white;
-                    border-radius: 8px;
+            }
+
+            .cheap-cheap-month-middle {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                button {
+                    background-color: rgb(0, 120, 215);
+                    color: white;
+                    border: none;
+                    padding: 7px 25px;
+                    border-radius: 10px;
+                    font-size: 16px;
                 }
-                button:hover{
+
+                button:hover {
                     cursor: pointer;
                 }
+
+                ul {
+                    // border: 1px solid blue;
+                    width: 200px;
+                    font-size: 15px;
+
+                    li:nth-child(2) {
+                        font-size: 13px;
+                    }
+
+                    li:nth-child(3) {
+                        font-weight: 600;
+                        font-size: 16px;
+                        margin-top: 3px;
+                    }
+
+                    li:nth-child(4) {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        >p {
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 100;
+        }
+
+        >div:first-child {
+            margin-top: 10px;
+            font-size: 17px;
+
+            >span {
+                span {
+                    color: red;
+                }
+            }
+        }
+
+        >div:nth-child(2) {
+            color: var(--chatBlue);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            >span {
+                width: 150px;
+                // border: 1px solid red;
+                font-size: 22px;
+            }
+
+            .cheap-icon {
+                font-size: 30px;
+                width: 150px;
+            }
+        }
+
+        >div:nth-child(3) {
+            font-size: 14px;
+        }
+
+        .cheap-reservation {
+            // border: 1px solid red;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+
+            >div:first-child {
+                text-align: left;
+            }
+
+            >div:last-child {
+                button {
+                    background-color: rgb(0, 120, 215);
+                    color: white;
+                    border: none;
+                    padding: 7px 25px;
+                    border-radius: 10px;
+                    font-size: 16px;
+                }
+
+                button:hover {
+                    cursor: pointer;
+                }
+            }
+
+            ul {
+                // border: 1px solid blue;
+                width: 200px;
+
+                li {
+                    display: flex;
+                    font-weight: 600;
+                    font-size: 15px;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                }
+
+                li:nth-child(2) {
+                    font-weight: 100;
+                    border-bottom: 1px solid gainsboro;
+                }
+            }
         }
     }
-    >div:first-child{
-        border: 1px solid gainsboro;
-        width: 450px;
-        border-radius: 5px;
-        margin: 0 auto;
-        margin-top: 20px;
-        >p{
-            margin-top: 10px;
-            border: none;
-        }
-        .schedule-button-box{
-            padding: 0 10px;
-            margin-top: 10px;
-            border-top: 1px solid gainsboro;
-            margin-bottom: 10px;
+}
 
-            button{
-                margin-top: 10px;
-                width: 100%;
-                padding: 10px 0;
-                border: 1px solid rgb(0, 255, 255);
-                background-color: white;
-                border-radius: 8px;
-            }
-            button:hover{
-                cursor: pointer;
-            }
-        }
-    }        
-    .schedule-all-box{
-        .cheap-button-box{
-            padding: 0 10px;
+//***********************************
+// chatbot question
+// *******************************
+.chatbot-question-all-box {
+    .schedule-all-box {
+        p {
             margin-top: 10px;
-            border-top: 1px solid gainsboro;
-            margin-bottom: 10px;
+        }
+    }
 
-            button{
-                margin-top: 10px;
-                width: 100%;
-                padding: 10px 0;
-                border: 1px solid rgb(0, 255, 255);
-                background-color: white;
-                border-radius: 8px;
-            }
-            button:hover{
-                cursor: pointer;
-            }
+    .cheap-button-box {
+        padding: 0 10px;
+        margin-top: 10px;
+        border-top: 1px solid gainsboro;
+        margin-bottom: 10px;
+
+        button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+    .cheap-button-box1 {
+        padding: 0 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+
+}
+//***********************************
+// chatbot check
+// *******************************
+.chatbot-check-all-box{
+    .schedule-all-box {
+        p {
+            margin-top: 10px;
+        }
+    }
+
+    .cheap-button-box {
+        padding: 0 10px;
+        margin-top: 10px;
+        border-top: 1px solid gainsboro;
+        margin-bottom: 10px;
+
+        button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 0;
+            border: 1px solid rgb(0, 255, 255);
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+    >div:nth-child(3){
+        // border: 1px solid red;
+        p{
+            margin-bottom: 10px;
         }
     }
 }

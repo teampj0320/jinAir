@@ -5,6 +5,7 @@ import path from 'path';
 import mypageRouter from './router/mypageRouter.js'
 import uploadRouter from './router/uploadRouter.js'
 import loginRouter from './router/loginRouter.js';
+import chatbotRouter from './router/chatbotRouter.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -28,6 +29,9 @@ server.use('/member', loginRouter);
 // middle ware
 server.use('/mypage', mypageRouter)
 server.use('/uploads', uploadRouter);
+
+// chatbot
+server.use('/chatbot', chatbotRouter);
 
 
 server.listen(port, () => {

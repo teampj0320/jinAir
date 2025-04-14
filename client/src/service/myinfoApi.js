@@ -8,17 +8,15 @@ import {  setMyInfo,
 
 // 회원 정보 불러오기
 export const getMyInfo = (data) => async (dispatch) => {
-    console.log('[getMyInfo 호출됨]');
     const url = 'http://localhost:9000/mypage/getMyInfo';
+    const id = localStorage.getItem("user_id");
 
-    const getMyInfoResult = await axiosPost({url, data});
+    const getMyInfoResult = await axiosPost({url, data:{id}});
+
     const result_rows = getMyInfoResult.result_rows;
 
     if (result_rows) {
-        // localStorage.setItem("user_id", data.id);
-        // 로그인 인증시 id를 찾는걸로 바꿔야함
         dispatch(setMyInfo( result_rows[0])); 
-    
     };
 
 }

@@ -23,7 +23,7 @@ export const fileUpload = (req, res) => {
             return res.status(500).json({ error: "파일 업로드 실패" });
         }
 
-        // ✅ 기존 이미지 삭제
+        // 기존 이미지 삭제
         const oldFile = req.body.oldFile;
         if (oldFile) {
             const oldFilePath = path.join("images", oldFile);
@@ -37,11 +37,13 @@ export const fileUpload = (req, res) => {
             }
         }
 
-        // ✅ 새 이미지 경로 구성 및 DB 업데이트
+        // 새 이미지 경로 구성 및 DB 업데이트
+        const { id } = req.body;
+
         const newPath = `/images/${req.file.filename}`;
         await db.execute(
-            `UPDATE customer SET profile_img = JSON_ARRAY(?) WHERE id = 'test1'`,
-            [newPath]
+            `UPDATE customer SET profile_img = JSON_ARRAY(?) WHERE id = ?`,
+            [newPath, id]
         );
 
         // ✅ 클라이언트로 응답
@@ -57,7 +59,8 @@ export const fileUpload = (req, res) => {
 
 // 프로필 이미지 삭제
 export const fileDelte = async (req, res) => {
-    const { filename } = req.body;
+    const { filename, id } = req.body;
+
 
     if (!filename) {
         return res.status(400).json({ success: false, message: "파일명이 없습니다." });
@@ -79,7 +82,8 @@ export const fileDelte = async (req, res) => {
     // DB profile_img => NULL
     try {
         await db.execute(
-            `UPDATE customer SET profile_img = NULL WHERE id = 'test1'`
+            `UPDATE customer SET profile_img = NULL WHERE id = ?`,
+            [id]
         );
         return res.json({ success: true, message: "삭제 완료" });
     } catch (err) {

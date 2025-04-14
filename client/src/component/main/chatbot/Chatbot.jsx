@@ -7,10 +7,12 @@ import Cheap from './Cheap.jsx';
 import Question from './Question.jsx';
 import Ticket from './Ticket.jsx';
 import Check from './Check.jsx';
-
-
+import BuyTicket from './BuyTicket.jsx';
+import { useNavigate } from 'react-router-dom';
 export default function Chatbot({ setTab }) {
     const [chatTab, setChatTab] = useState('');
+    const [buyAirTicket, setBuyAirTicket] = useState(false);
+    
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
         { tab: 'airplane', img: "/images/chatbot/icon_02_de.png" },
@@ -34,7 +36,16 @@ export default function Chatbot({ setTab }) {
             componentRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [chatTab]);
-
+    const handleResetHome = () => {
+        setChatTab('');
+        setBuyAirTicket(false);
+    }
+    const handleQna = () => {
+        // 로그인 아닐때
+        // navigate('/login');
+        // 로그인 일때
+        // qna 페이지로 이동됨
+    }
     return (
         <div className='chat-modal-content'>
             <div className='chat-country-all'>
@@ -70,21 +81,22 @@ export default function Chatbot({ setTab }) {
                         {chatTab === 'ticket' && <Ticket />}
                         {chatTab === 'check' && <Check />}
                         {chatTab === 'notice' && goNotice()}
+                        {buyAirTicket && <BuyTicket/>}
                     </div>
                 </div>
                 <div className='chatbot-main-bottom-box'>
                     <ul>
                         <li>
                             <img src="/images/chatbot/small_icon_01.png" alt="챗봇스몰아이콘" />
-                            <span>처음으로</span>
+                            <span onClick={handleResetHome}>처음으로</span>
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_02.png" alt="챗봇스몰아이콘" />
-                            <span>항공권구매</span>
+                            <span onClick={()=>{setBuyAirTicket(true)}}>항공권구매</span>
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_03.png" alt="챗봇스몰아이콘" />
-                            <span>고객의말씀(Q&A)</span>
+                            <span onClick={handleQna}>고객의말씀(Q&A)</span>
                         </li>
                     </ul>
                 </div>
