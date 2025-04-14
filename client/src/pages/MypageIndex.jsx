@@ -10,21 +10,20 @@ export default function Mypage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
-    // 로그인한 유저의 정보 가져오기
-    const myinfo = useSelector((state) => state.myinfo.myinfo);
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
+    const myinfo = useSelector((state) => state.myinfo.myinfo); // 로그인 유저 정보
 
     
     
     /* 회원 정보 불러오기 */
     useEffect(() => {
         console.log('불러온 회원 정보:', myinfo);
-        // if(isLoggedIn){
+        if(isLoggedIn){
         dispatch(getMyInfo())
-        // } else {
-        //     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-        //     select ?  navigate('/login') :  navigate('/');
-        // }
+        } else {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ?  navigate('/login') :  navigate('/');
+        }
     }, [])
 
 

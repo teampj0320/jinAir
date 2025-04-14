@@ -3,9 +3,9 @@
 import {db} from './db.js'
 
 // 회원 정보 불러오기
-export const getMyInfo = async() => {
-    const sql = `SELECT * FROM customer WHERE id = 'test1'`; // 아이디 우선 고정
-    const [result] = await db.execute(sql);
+export const getMyInfo = async(data) => {
+    const sql = `SELECT * FROM customer WHERE id = ?`
+    const [result] = await db.execute(sql, [data.id]);
     return { result_rows: result };
 };
 
