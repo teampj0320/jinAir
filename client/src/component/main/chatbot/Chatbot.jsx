@@ -9,11 +9,10 @@ import Ticket from './Ticket.jsx';
 import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
-
-
 export default function Chatbot({ setTab }) {
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
+    
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
         { tab: 'airplane', img: "/images/chatbot/icon_02_de.png" },

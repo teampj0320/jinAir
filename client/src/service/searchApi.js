@@ -1,7 +1,8 @@
 import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,
     setAdultNum,  setPediatricNum,  setBabyNum, setTotal,
-    setDeparture,setArrive,  setStartDate,setEndDate,setType
+    setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList
   } from "../features/search/searchSlice.js";
+import { axiosPost } from "./api.js";
 
 export const getModalOpen = (data) => (dispatch) => {
     data === true && dispatch(setModalOpen(data));
@@ -49,4 +50,17 @@ export const getEndDate = (date) => (dispatch) => {
 
 export const getType = (type) => (dispatch) => {
     dispatch(setType(type));
+}
+
+
+/** 
+ * 나라데이터 가져오기
+ */
+export const getCountry = () => async(dispatch) => {
+    const url = 'http://localhost:9000/chatbot';
+
+    const result = await axiosPost({url}); 
+    if(result) {
+        dispatch(setCountryList(result));
+    }
 }

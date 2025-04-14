@@ -17,12 +17,16 @@ const initialState = {
      startDate : '',  // 출발일
      startDate2 : '' , 
      endDate : '', // 도착일
+     countryList : []
 }
 
 export const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
+        setCountryList(state, action){
+            state.countryList = action.payload;           
+        },
         setModalOpen(state, action){ 
             state.modalOpen = action.payload;
         },
@@ -68,6 +72,6 @@ export const searchSlice = createSlice({
 
 export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,
     setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setDeparture,setArrive,
-    setStartDate,setEndDate,setType, resetSearch
+    setStartDate,setEndDate,setType, resetSearch,setCountryList
  } = searchSlice.actions
 export default searchSlice.reducer
