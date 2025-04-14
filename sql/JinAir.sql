@@ -12,7 +12,6 @@ select * from qna;
 select * from reservation;
 select * from sub_category;
 select * from product;
-select * from reservation;
 select * from view_my_reservation;
 
 
@@ -64,7 +63,7 @@ CREATE TABLE `reservation` (
 );
 
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
-VALUES ('test1', 'LJ100', '11111-11111', '["홍길순","김철수","이영희"]', now());
+VALUES ('test1', 'LJ279', '11111-11111', '["홍길순","김철수","이영희"]', now());
 
 
 
