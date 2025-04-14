@@ -18,7 +18,7 @@ export default function ImageUpload({ triggerRef }) {
     const file = e.target.files[0];
     const oldFile = myinfo.profile_img?.[0]?.split('/').pop();
 
-    const result = await uploadProfileImage({ file, oldFile });
+    const result = await uploadProfileImage({file, oldFile, id: myinfo.id });
 
     if (result?.filename) {
       dispatch(getMyInfo());

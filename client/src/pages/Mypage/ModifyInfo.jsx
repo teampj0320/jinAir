@@ -119,7 +119,7 @@ export default function ModifyInfo() {
         const filename = myinfo.profile_img?.[0]?.split('/').pop();
         if (!filename) return;
 
-        deleteProfileImage(filename).then(() => {
+        deleteProfileImage(filename, myinfo.id).then(() => {
             dispatch(getMyInfo());
         });
     };
