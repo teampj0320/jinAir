@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
 import '../../scss/ryeong.scss';
+import { getMyRes } from '../../service/myinfoApi.js'
 
 export default function MyReservation() {
 
-
+/* 예약 정보 가져오기 */
+useEffect(() => {
+        // if(isLoggedIn){
+        dispatch(getMyRes())
+        // } else {
+        //     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+        //     select ?  navigate('/login') :  navigate('/');
+        // }
+    }, [])
 
     const [filterBtn, setFilterBtn] = useState('예약내역');
 
@@ -36,10 +45,17 @@ export default function MyReservation() {
                             <li style={{ flex: '1' }}>탑승객수</li>
                             <li style={{ flex: '2' }}>예약상태</li>
                         </ul>
+                        {/* 예약 없을 때 */}
                         <div className='res-list-none'>
                             <span></span>
                             <p>예약된 내역이 없습니다.</p>
                         </div>
+                        <ul className='myRes-tbody'>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
                     </div>
                 </section>
             </div> {/* 해당 컴포넌트 가운데 정렬*/}

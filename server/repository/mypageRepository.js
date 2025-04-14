@@ -44,10 +44,19 @@ export const updateMyInfo = async (data) => {
 
 
 
-  //
+
+  /* 비밀번호 확인 */
   export const checkPwd = async (id, password) => {
     const sql = `SELECT password FROM customer WHERE id = ?`;
     const [rows] = await db.execute(sql, [id]);
     return rows.length > 0 && rows[0].password === password;
   };
   
+
+
+    /* 나의 예약 가져오기 */
+    export const getMyRes = async() => {
+      const sql = `SELECT * FROM reservaiton WHERE id = 'test1'`; // 아이디 우선 고정
+      const [result] = await db.execute(sql);
+      return { result_rows: result };
+  };
