@@ -34,7 +34,7 @@ export default function Cheap() {
     useEffect(() => {
         dispatch(getCountry());
     }, []);
-    
+
     const handleStart = () => {
         setStart(startRef.current.value);
     }
@@ -110,6 +110,17 @@ export default function Cheap() {
         setLastRoundtripClick(false);
         setRoundtripClick(false);
     }
+
+    const peopleList = [ 
+        { name: '성인' , ref : adultRef ,
+        onChange : handleAdult ,value : '1', count : '1' },
+        { name: '어린이', ref : childRef ,
+        onChange : handleAdult, value : 'default', count : '선택'},
+        { name: '유아' , ref : babyRef ,
+        onChange : handleBaby, value : 'default', count : '선택'},
+        ];
+
+
     return (
         <div className='cheap-all-box'>
             <div>
@@ -172,33 +183,18 @@ export default function Cheap() {
                                 <div className='schedule-all-box'>
                                     <p>예약 인원을 선택해 주세요</p>
                                     <ul>
-                                        <li>
-                                            <label htmlFor="">성인</label>
-                                            <select onChange={handleAdult} ref={adultRef}>
-                                                <option value="1">1</option>
-                                                {list.map((num) => (
+                                        {peopleList.map((item)=>(
+                                            <li>
+                                                <label htmlFor="">{item.name}</label>
+                                                <select onChange={item.onChange} ref={item.ref}>
+                                                <option value={item.value}>{item.count}</option>
+                                                    {list.map((num) => (
                                                     <option value={num}>{num}</option>
                                                 ))}
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="">어린이</label>
-                                            <select onChange={handleChild} ref={childRef}>
-                                                <option value="">선택</option>
-                                                {list.map((num) => (
-                                                    <option value={num}>{num}</option>
-                                                ))}
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="">유아</label>
-                                            <select onChange={handleBaby} ref={babyRef}>
-                                                <option value="">선택</option>
-                                                {list.map((num) => (
-                                                    <option value={num}>{num}</option>
-                                                ))}
-                                            </select>
-                                        </li>
+                                                </select>
+                                            </li>
+                                        ))
+                                        }
                                     </ul>
                                     <div className='cheap-button-box'>
                                         <button onClick={() => { setPeopleRoundClick(true) }}>확인</button>
@@ -314,33 +310,18 @@ export default function Cheap() {
                                 <div className='schedule-all-box'>
                                     <p>예약 인원을 선택해 주세요</p>
                                     <ul>
-                                        <li>
-                                            <label htmlFor="">성인</label>
-                                            <select onChange={handleAdult} ref={adultRef}>
-                                                <option value="1">1</option>
-                                                {list.map((num) => (
+                                    {peopleList.map((item)=>(
+                                            <li>
+                                                <label htmlFor="">{item.name}</label>
+                                                <select onChange={item.onChange} ref={item.ref}>
+                                                <option value={item.value}>{item.count}</option>
+                                                    {list.map((num) => (
                                                     <option value={num}>{num}</option>
                                                 ))}
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="">어린이</label>
-                                            <select onChange={handleChild} ref={childRef}>
-                                                <option value="">선택</option>
-                                                {list.map((num) => (
-                                                    <option value={num}>{num}</option>
-                                                ))}
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <label htmlFor="">유아</label>
-                                            <select onChange={handleBaby} ref={babyRef}>
-                                                <option value="">선택</option>
-                                                {list.map((num) => (
-                                                    <option value={num}>{num}</option>
-                                                ))}
-                                            </select>
-                                        </li>
+                                                </select>
+                                            </li>
+                                        ))
+                                        }
                                     </ul>
                                     <div className='cheap-button-box'>
                                         <button onClick={() => { setPeopleClick(true) }}>확인</button>
