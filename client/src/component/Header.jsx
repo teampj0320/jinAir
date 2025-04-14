@@ -18,7 +18,6 @@ export default function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-    console.log('isLoggedIn',isLoggedIn);
     
     const handleLoginToggle = ()=>{
         if(isLoggedIn){

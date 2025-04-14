@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { validateFindUseInfo } from '../../utils/authValidate';
+import { validateUserSignup, validateFindUseInfo } from '../../utils/authValidate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function AuthUser({item}) {
+export default function AuthUser({item, onNext}) {
   const getInitialState = (item) =>{
     switch (item) {
       case 'id':
+      case 'signup-auth':
         return {'name':'', 'gender':'', 'birth':'', 'email':'', 'authCode':''};
       case 'pwd' :
         return {'id':'','name':'', 'gender':'', 'birth':'', 'email':'', 'authCode':''};
       case 'userInfo' :
-        return {'id':'', 'name':'', 'gender':'', 'birth':'', 'password':'', 'cpassword':''};   
+        return {'id':'', 'name':'', 'kname_first':'', 'kname_last':'', 'ename_firtst':'', 'ename_last':'',   'gender':'', 'birth':'', 'phone':'', 'email':'', 'password':'', 'cpassword':''};   
       default: return {};  
     }
   };
@@ -21,6 +22,7 @@ export default function AuthUser({item}) {
   const [ msgCheck, setMsgCheck ] = useState('');
   const [ selectedGender, setSelectedGender ] = useState(null);
   const [ active, setActive ] = useState(false);
+  const [ idCheckState, setIdCheckState ] = useState(false);
   const [ sendCodeActive, setSendCodeActive ] = useState(false);
   const [ codeActive, setCodeActive ] = useState(false);
   const [ authCode, setAuthCode ] = useState('');
@@ -34,7 +36,11 @@ export default function AuthUser({item}) {
                 'authCodeRef': useRef(null),
                 'phoneRef' : useRef(null),
                 'pwdRef' : useRef(null),
-                'cpwdRef' : useRef(null),};
+                'cpwdRef' : useRef(null),
+                'knameFirstRef' : useRef(null),
+                'knameLastRef' : useRef(null),
+                'enameFirtstRef' : useRef(null),
+                'enameLastRef' : useRef(null)};
 
   const msgRefs = {"idMsgRef": useRef(null),
                     'nameMsgRef' : useRef(null),
@@ -44,8 +50,12 @@ export default function AuthUser({item}) {
                     'authCodeMsgRef': useRef(null),
                     'phoneMsgRef' : useRef(null),
                     'pwdMsgRef' : useRef(null),
-                    'cpwdMsgRef' : useRef(null),};
- 
+                    'cpwdMsgRef' : useRef(null),
+                    'knameFirstMsgRef' : useRef(null),
+                    'knameFLastMsgRef' : useRef(null),
+                    'enameFirstMsgRef' : useRef(null),
+                    'enameLastMsgRef' : useRef(null)};
+  
   useEffect(() =>{
     setFormData(getInitialState(item));
     setSelectedGender(null);
@@ -71,6 +81,9 @@ export default function AuthUser({item}) {
     const {name, value} = e.target;
     setFormData({...formData, [name]:value });
     setMsgResult('');
+    if (name === 'id') {
+      setIdCheckState(false);
+    }
     for(let data in formData){
       if(formData[data] !== ''){
         setActive(true);
@@ -115,45 +128,93 @@ export default function AuthUser({item}) {
       }
   };
   
+  /* 아이디 중복확인 */  
+  const handleIdCheck = () =>{
+    axios.post('http://localhost:9000/member/idcheck', {id: formData.id})
+         .then((res)=>{
+            if(res.data[0].cnt){
+              alert('이미 사용중인 아이디입니다.');
+              setIdCheckState(false);
+              refs.idRef.current.value='';
+              refs.idRef.current.focus();
+            }else{
+              alert('사용가능한 아이디입니다.');
+              setIdCheckState(true);
+            }
+          })
+         .catch((error)=>console.log(error))
+  };
+
   /* submit 함수 */  
   const handleSubmit = async(e) =>{
     e.preventDefault();
-    console.log('formData.gender',formData.gender);
-    const {result, msg, key} = validateFindUseInfo(refs, msgRefs, item, formData.gender, sendCodeActive, codeActive);
+    let result, msg, key;
+    if(item === 'userInfo'){
+      ({ result, msg, key } = validateUserSignup(refs, msgRefs, item, formData.gender, sendCodeActive, codeActive));
+    }else{
+      ({result, msg, key} = validateFindUseInfo(refs, msgRefs, item, formData.gender, sendCodeActive, codeActive));
+    }
     
+    if (!result) {
+      if (msg !== '') {
+        setMsgResult(msg);
+        setMsgCheck(key);
+      }
+      return;
+    }
+
     try {
-      if(result){
-        console.log('item',item);
-        if(item ==='id'){
-          const resultData = await axios.post('http://localhost:9000/member/findId', formData);
-          console.log('resultData',resultData);
-          if(resultData.data[0].cnt){
-            navigate('/find/findUserId', {state:{'userId':resultData.data[0].id}});
-          }else{
-            alert('존재하지 않는 회원입니다.'); 
-          }
-        }else if(item ==='pwd'){
-          const resultData = await axios.post('http://localhost:9000/member/findPwd', formData);
-          console.log('resultData.data', resultData.data);
-          console.log('resultData.data', resultData.data.password);
-          
-          if(resultData.data.success){
-            console.log('임시 비밀번호:', resultData.data.data.password);
-            navigate('/find/findUserPwd', {state:{'userPwd':resultData.data.data.password}});
-          }else{
-            alert('회원정보가 일치하지 않습니다. 다시 입력해주세요.'); 
-          }
+      if (item === 'id') {
+        const { data } = await axios.post('http://localhost:9000/member/findId', formData);
+        if (data[0]?.cnt) {
+          navigate('/find/findUserId', { state: { userId: data[0].id } });
+        } else {
+          alert('존재하지 않는 회원입니다.');
         }
-      }else{
-        if(msg !== ''){
-          setMsgResult(msg);
-          setMsgCheck(key);
+        return;
+      }
+
+      if (item === 'pwd') {
+        const { data } = await axios.post('http://localhost:9000/member/findPwd', formData);
+  
+        if (data.success) {
+          navigate('/find/findUserPwd', { state: { userPwd: data.data.password } });
+        } else {
+          alert('회원정보가 일치하지 않습니다. 다시 입력해주세요.');
+        }
+        return;
+      }
+  
+      if (item === 'signup-auth'){
+        if(!codeActive){
+          alert('이메일 인증을 완료해주세요.');
+          return;
+        }
+        onNext(true);
+        return;
+      } 
+
+      if( item === 'userInfo') {
+        if(idCheckState){
+          const { data } = await axios.post('http://localhost:9000/member/signup', formData);
+          
+          if(data){
+            onNext(true);
+            return;
+          }
+          alert('회원가입에 실패하였습니다. 다시 진행해주세요.')
+          return;
+        }else{
+          alert('아이디 중복확인을 진행해주세요.');
         }
       }
+  
     } catch (error) {
-      
+      console.error('에러 발생:', error);
+      alert('알 수 없는 오류가 발생했습니다.');
     }
   };
+      
 
  
 
@@ -162,7 +223,7 @@ export default function AuthUser({item}) {
         {(item === 'pwd' || item === 'userInfo') && (
           <>
             <li>
-              <div className='auth-find-pwd'>
+              <div className='auth-find-pwd user-id-check'>
                 <input type="text" 
                        className='id'
                        name='id'
@@ -170,6 +231,11 @@ export default function AuthUser({item}) {
                        ref={refs.idRef}
                        onChange={handleChange}
                        placeholder='아이디(이메일계정)'/>
+              {(item === 'userInfo')&& (
+                <button type='button' 
+                className='id-check-btn auth-btn'
+                onClick={handleIdCheck}>중복확인</button>
+              )}
               </div>
             </li>
             <div className={`validate-text ${msgCheck === 'id' ? 'error' : ''}`}  ref={msgRefs.idMsgRef} >
@@ -177,38 +243,115 @@ export default function AuthUser({item}) {
             </div>
           </>
         )}
-       <li>
-          <div className='find-basic-info'>
-            <div>
+       {(item === 'userInfo') ? (
+          <>
+            <li>
+              <div className='find-basic-info2'>
+                <div>
+                  <input type="text" 
+                        name='kname_first'
+                        className='kname_first'
+                        value={formData.kname_first}
+                        ref={refs.knameFirstRef}
+                        onChange={handleChange}
+                        placeholder='성(한글)'/>
+                  <input type="text" 
+                        name='kname_last'
+                        className='kname_last'
+                        value={formData.kname_last}
+                        ref={refs.knameLastRef}
+                        onChange={handleChange}
+                        placeholder='이름(한글)'/>
+                </div>
+                <div className='info-gender'> 
+                  <button type='button' 
+                          ref={refs.genderMaleRef}
+                          className={`gender ${selectedGender === 'male' ? 'info-gender-active':''}`} 
+                          onClick={()=>handleGenderClick('male') }>남
+                  </button>
+                  <button type='button' 
+                          ref={refs.genderFemaleRef}
+                          className={`gender ${selectedGender === 'female' ? 'info-gender-active':''}`}
+                          onClick={()=>handleGenderClick('female') }>여
+                  </button>
+                </div>
+              </div>
+              <div className={`validate-text ${(msgCheck === 'kname_first'|| msgCheck === 'kname_last') ? 'error' : (msgCheck === 'gender')? 'error':''}`}
+                  ref={(msgCheck === 'kname_first') ? msgRefs.knameFirstMsgRef :(msgCheck === 'kname_last')? msgRefs.knameFLastMsgRef : msgRefs.genderMsgRef }>
+                {(msgCheck === 'kname_first' || msgCheck === 'kname_last' || msgCheck === 'gender' ) &&  msgResult}
+              </div>
+            </li>
+            <li className='info-engname'>
+              <div className='find-basic-info2'>
+                  <input type="text" 
+                        name='ename_firtst'
+                        className='ename_firtst'
+                        value={formData.ename_firtst}
+                        ref={refs.enameFirtstRef}
+                        onChange={handleChange}
+                        placeholder='성(영문)'/>
+                  <input type="text" 
+                        name='ename_last'
+                        className='ename_last'
+                        value={formData.ename_last}
+                        ref={refs.enameLastRef}
+                        onChange={handleChange}
+                        placeholder='이름(영문)'/>
+                </div>
+                <div className={`validate-text ${(msgCheck === 'ename_firtst') ? 'error' : (msgCheck === 'ename_last')? 'error':''}`}
+                  ref={(msgCheck === 'ename_firtst') ? msgRefs.enameFirstMsgRef : msgRefs.enameLastMsgRef }>
+                {(msgCheck === 'ename_firtst' || msgCheck === 'ename_last' ) &&  msgResult}
+              </div>
+            </li>
+            <li>
+            <div className='auth-input'>
               <input type="text" 
-                     name='name'
-                     className='name'
-                     value={formData.name}
-                     ref={refs.nameRef}
+                     name='email'
+                     className='email'
+                     value={formData.email}
+                     ref={refs.emailRef}
                      onChange={handleChange}
-                     placeholder='이름'/>
+                     placeholder='이메일' />
             </div>
-            <div className='info-gender'> 
-              <button type='button' 
-                      ref={refs.genderMaleRef}
-                      className={`gender ${selectedGender === 'male' ? 'info-gender-active':''}`} 
-                      onClick={()=>handleGenderClick('male') }>남
-              </button>
-              <button type='button' 
-                      ref={refs.genderFemaleRef}
-                      className={`gender ${selectedGender === 'female' ? 'info-gender-active':''}`}
-                      onClick={()=>handleGenderClick('female') }>여
-              </button>
+            <div className={`validate-text ${(msgCheck === 'email') ? 'error' : (msgCheck === 'req-auth') ? 'error':''}`} 
+                 ref={msgRefs.emailMsgRef}>
+              {(msgCheck === 'email' || msgCheck === 'req-auth' )&&  msgResult}
             </div>
-          </div>
-          <div className={`validate-text ${(msgCheck === 'name') ? 'error' : (msgCheck === 'gender')? 'error':''}`}
-               ref={(msgCheck === 'name') ? msgRefs.nameMsgRef :msgRefs.genderMsgRef }>
-            {(msgCheck === 'name' || msgCheck === 'gender' ) &&  msgResult}
-          </div>
-        </li>
+           </li>
+          </>
+         ): (
+           <li>
+            <div className='find-basic-info'>
+              <div>
+                <input type="text" 
+                      name='name'
+                      className='name'
+                      value={formData.name}
+                      ref={refs.nameRef}
+                      onChange={handleChange}
+                      placeholder='이름'/>
+              </div>
+              <div className='info-gender'> 
+                <button type='button' 
+                        ref={refs.genderMaleRef}
+                        className={`gender ${selectedGender === 'male' ? 'info-gender-active':''}`} 
+                        onClick={()=>handleGenderClick('male') }>남
+                </button>
+                <button type='button' 
+                        ref={refs.genderFemaleRef}
+                        className={`gender ${selectedGender === 'female' ? 'info-gender-active':''}`}
+                        onClick={()=>handleGenderClick('female') }>여
+                </button>
+              </div>
+            </div>
+            <div className={`validate-text ${(msgCheck === 'name') ? 'error' : (msgCheck === 'gender')? 'error':''}`}
+                ref={(msgCheck === 'name') ? msgRefs.nameMsgRef :msgRefs.genderMsgRef }>
+              {(msgCheck === 'name' || msgCheck === 'gender' ) &&  msgResult}
+            </div>
+          </li>
+        )}
 
         <li>
-          <div>
             <input type="text"  
                    name='birth'
                    className='birth'
@@ -216,7 +359,6 @@ export default function AuthUser({item}) {
                    ref={refs.birthRef}
                    onChange={handleChange}
                    placeholder='생년월일 (ex)_19901207'/>
-          </div>
           <div className={`validate-text ${msgCheck === 'birth' ? 'error' : ''}`} ref={msgRefs.birthMsgRef}>
             {msgCheck === 'birth'  && msgResult}
           </div>
@@ -273,9 +415,7 @@ export default function AuthUser({item}) {
                        ref={refs.phoneRef}
                        value={formData.phone}
                        onChange={handleChange}
-                       placeholder='휴대폰번호'/>
-                <input type="checkbox" className='ch-box-input'/> 
-                <span  className='ch-box'>외국인</span>
+                       placeholder='휴대폰번호 (ex)_010-1234-1234'/>
               </div>
               <div className={`validate-text ${msgCheck === 'phone' ? 'error' : ''}`} ref={msgRefs.phoneMsgRef}>
                 {msgCheck === 'phone'  && msgResult}
@@ -311,9 +451,13 @@ export default function AuthUser({item}) {
             </li>
           </>
         )}
-        {(item === 'id' || item ==='pwd') && (
+        {(item === 'id' || item ==='pwd') ? (
           <button type='submit' className={`find-submit-btn  ${active? 'find-submit-active':''} `}>
             { item === 'id'? '아이디 찾기' : '비밀번호 찾기'}
+          </button>
+        ):(
+          <button type='submit' className={`find-submit-btn  ${active? 'find-submit-active':''} `}>
+           다음
           </button>
         )}
     </form>  

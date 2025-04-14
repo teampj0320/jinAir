@@ -46,6 +46,9 @@
   top: -3px;
   left: 30px;
 }
+.signup-header .signup-success{
+  left: 0;
+}
 .find-header,
 .signup-header{
   display: flex;
@@ -277,6 +280,16 @@
   display: flex;
   justify-content: space-between;
 }
+.find-basic-info2{
+  margin: 0;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center; 
+  gap: 15px; 
+}
+.find-basic-userinfo{
+  margin-bottom: 10px;
+}
 .user-info .id,
 .user-info .name,
 .user-info .birth,
@@ -290,15 +303,39 @@
   border: 1px solid #e7e7e7;
   border-radius: 8px;
   outline: none;
-  // margin-bottom: 15px;
+}
+.user-info .kname_first,
+.user-info .ename_firtst,
+.user-info .kname_last,
+.user-info .ename_last{
+  padding: 15px;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  outline: none;
+  // margin-right: 10px;
+}
+.user-info .kname_first {
+  margin-right: 12.5px;
+}
+.user-info .kname_first,
+.user-info .ename_firtst{
+  width: 200px;
+}
+.user-info .kname_last,
+.user-info .ename_last{
+  width: 300px;
 }
 .user-info .id,
 .user-info .birth,
 .user-info .email,
+.user-info .phone,
 .user-info .auth-code,
 .user-info .password,
 .user-info .cpassword{
   width: 100%;
+}
+.info-engname {
+  margin-bottom: 20px; 
 }
 .user-info .validate-text {
   margin: 0px 0px 15px 5px;
@@ -308,23 +345,36 @@
 .validate-text.error {
   color: red;
 }
-.find-basic-info .info-gender .gender{
+.find-basic-info .info-gender .gender,
+.find-basic-info2 .info-gender .gender{
   background-color: #fff;
   padding: 15px 18px;
   border: 1px solid  #e7e7e7;
 }
-.find-basic-info .info-gender button:first-child{
+.find-basic-info .info-gender button,
+.find-basic-info2 .info-gender button{
+  right: 500px;
+}
+.find-basic-info .info-gender button:first-child,
+.find-basic-info2 .info-gender button:first-child{
   border-radius: 8px 0 0 8px;
 }  
-.find-basic-info .info-gender button:nth-child(2){
+.find-basic-info .info-gender button:nth-child(2),
+.find-basic-info2 .info-gender button:nth-child(2){
   border-radius: 0 8px 8px 0;
 }  
-.find-basic-info .info-gender .info-gender-active{
-  border: 2px solid var(--color-main);
+.find-basic-info .info-gender  .info-gender-active,
+.find-basic-info2 .info-gender  .info-gender-active{
+  border: 2px solid var(--color-main) !important;
 }
 .user-info .id:focus,
 .user-info .name:focus,
+.user-info .kname_first:focus,
+.user-info .kname_last:focus,
+.user-info .ename_firtst:focus,
+.user-info .ename_last:focus,
 .user-info .birth:focus,
+.user-info .gender:focus,
 .user-info .email:focus,
 .user-info .auth-code:focus,
 .user-info .phone:focus,
@@ -332,10 +382,12 @@
 .user-info .cpassword:focus{
   outline: 1.5px solid var(--color-main);
 }
-.user-info .auth-input{
+.user-info .auth-input,
+.user-id-check{
   position: relative;
 }
-.auth-input .auth-btn{
+.auth-input .auth-btn,
+.id-check-btn{
   top: 12px;
   right: 15px;
   font-size: 12px;
@@ -386,6 +438,9 @@
   font-weight: bold;
   color: #fff;
   background-color: var(--color-main);
+}
+.signup-success-btn{
+  margin-top: 50px;
 }
 .term-info {
   color: #4583f5;

@@ -87,3 +87,41 @@ export const updatePwd = async(formData) =>{
   }
   return updateResult.affectedRows;
 };
+
+/***************************** 
+ * 아이디 중복체크
+*****************************/
+export const getIdCheck = async({id})=>{
+  const sql =`select count(*) as cnt from customer where id=?`;
+
+  const [result] = await db.execute(sql, [id]);
+  return result;
+};
+
+
+/***************************** 
+ * 회원가입
+*****************************/
+export const setSignup = async(formData)=>{
+  const sql =`
+    insert into customer (id, password, kname_first, kname_last, ename_firtst, ename_last
+                        , phone, email, gender, birth, reg_date)
+    values(?,?,?,?,?,?,?,?,?,?, now());
+  `;
+
+  const values = [
+    formData.id, 
+    formData.password,
+    formData.kname_first,
+    formData.kname_last,
+    formData.ename_firtst,
+    formData.ename_last,
+    formData.phone,
+    formData.email,
+    formData.gender,
+    formData.birth
+  ];
+
+  const [result] = await db.execute(sql, values);
+  return result.affectedRows;
+}  

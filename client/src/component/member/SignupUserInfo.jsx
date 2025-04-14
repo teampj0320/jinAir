@@ -7,8 +7,8 @@ import AuthUser from '../member/AuthUser.jsx';
 export default function SignupUserInfo({onNext}) {
   const navigate = useNavigate();
 
-  const handleNext = () =>{
-    onNext(); //modalOpen 넣기
+  const handleNext = (data) =>{
+    onNext(data);
   };
 
 return (
@@ -26,9 +26,8 @@ return (
     </div> 
     <p className='user-info-text'>진에어는 고객님의 정보를 안전하게 관리합니다.</p>
     <ul className='user-info'>
-      <AuthUser item={'userInfo'}/>        
+      <AuthUser item={'userInfo'} onNext={handleNext}/>        
     </ul>
-      <button type='button' className='agree-btn' onClick={handleNext}>다음</button>
   </div>
 );
 }

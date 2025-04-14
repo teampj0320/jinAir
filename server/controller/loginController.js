@@ -83,3 +83,24 @@ export const getFindPwd = async(req, res) =>{
       res.end();
     }
 };
+
+/***************************** 
+ * 아이디 중복체크
+*****************************/
+export const getIdCheck = async(req, res)=>{
+  const result = await repository.getIdCheck(req.body);
+  res.json(result);
+  res.end();
+};
+
+/***************************** 
+ * 회원가입
+*****************************/
+export const setSignup = async(req, res)=>{
+  const phone = `${req.body.phone.slice(0,3)}-${req.body.phone.slice(3,7)}-${req.body.phone.slice(7,11)}`
+  const formData = {...req.body, phone}
+  
+  const result = await repository.setSignup(formData);
+  res.json(result);
+  res.end();
+};
