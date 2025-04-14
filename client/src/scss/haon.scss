@@ -1606,11 +1606,13 @@ h2.react-datepicker__current-month {
         border-bottom: 1px solid gainsboro;
        }
        table{
+        padding: 0 20px;
         border-collapse: collapse;
         margin-top: 10px;
         // border: 1px solid red;
         margin-bottom: 10px;
-        width: 100%;
+        width: 400px;
+        margin: 0 auto;
         font-size: 15px;
         font-weight: 100;
         tr:first-child{
@@ -1618,7 +1620,7 @@ h2.react-datepicker__current-month {
         }
         td{
             padding: 3px 0;
-            width: 150px;
+            width: 130px;
         }
         tr:first-child{
             padding: 5px 50px;
