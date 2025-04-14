@@ -1,10 +1,14 @@
 
 import { axiosGet, axiosPost } from './api';
 
-import {  setMyInfo  } from  '../features/myinfo/myinfoSlice.js';
+import {  setMyInfo,
+    updateCustomerField,
+    updateMarketingConsent,
+    logoutCustomer } from  '../features/myinfo/myinfoSlice.js';
 
 // 회원 정보 불러오기
 export const getMyInfo = (data) => async (dispatch) => {
+    console.log('[getMyInfo 호출됨]');
     const url = 'http://localhost:9000/mypage/getMyInfo';
 
     const getMyInfoResult = await axiosPost({url, data});

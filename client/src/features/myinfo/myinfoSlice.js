@@ -53,6 +53,7 @@ const myinfoSlice = createSlice({
 export const {
     setMyInfo,
     updateMyInfoField,
+    updateMarketing,
     deleteAccount,
 } = myinfoSlice.actions;
 
