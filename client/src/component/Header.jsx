@@ -12,12 +12,28 @@ import { BsSuitcase2Fill } from "react-icons/bs";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { LuPackagePlus, LuHeartHandshake } from "react-icons/lu";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLogout } from '../service/authApi.js';
 import axios from 'axios';
 
 export default function Header() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const [menuData, setMenuData] = useState([]);
     const [activeMenu, setActiveMenu] = useState(null);  // activeMenu 상태로 각 메뉴 hover를 관리합니다.
+    
+    const handleLoginToggle = ()=>{
+        if(isLoggedIn){
+            const select = window.confirm('정말로 로그아웃 하시겠습니까?');
+            if(select){
+                dispatch(getLogout());
+                navigate('/');
+            }
+        }else{
+            navigate('/login');
+        }
+    };
 
     const handleNav = (path) => navigate(path);
 
@@ -33,8 +49,8 @@ export default function Header() {
                 <div className='header_content'>
                     <div className='header_top'>
                         <div className='header_top_menu header_local'>
-                            <button onClick={() => navigate('/login')}>
-                                <span> 로그인·회원가입</span>
+                            <button onClick={handleLoginToggle}>
+                                <span>{isLoggedIn ? "로그아웃" : "로그인·회원가입"}</span>
                             </button>
                             <button><span>고객센터</span></button>
                             <button>
@@ -194,3 +210,5 @@ export default function Header() {
         </div>
     );
 }
+
+
