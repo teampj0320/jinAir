@@ -1,60 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
 import BookingStep from '../../component/booking/BookingStep.jsx';
-import BookingRuleModal from './BookingRuleModal.jsx';
+import BookingDates from '../../component/booking/BookingDates.jsx';
 import { IoIosAirplane } from 'react-icons/io';
 import { RxDividerVertical } from "react-icons/rx";
-import 'swiper/css';
-import 'swiper/css/pagination';
 import '../../scss/yuna.scss';
 
 export default function BookingOneWay() {
     const navigate = useNavigate();
-    const [seatSelect, setSeatSelect] = useState(null);
+    const [seatSelect, setSeatSelect] = useState('');
     const [sortSelect, setSortSelect] = useState('early');
-    const [modalOpen, setModalOpen] = useState(false);
 
-    /* 운임규정 안내창 모달 스타일 */
-    const customModalStyles = {
-        overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-        },
-        content: {
-            width: "700px",
-            height: "180px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-        },
-    };
-
-    /* 좌석 선택 이벤트 */
+    /* 좌석 선택(일반석/프리미엄석) 클릭 이벤트 */
     const clickSelectSeat = (type) => {
-        if (type === 'basic') {
-            seatSelect === null ? setSeatSelect('basic') : setSeatSelect(null);
-        } else {
-            seatSelect === null ? setSeatSelect('premium') : setSeatSelect(null);
-        }
+        seatSelect === type ? setSeatSelect('') : setSeatSelect(type);
     }
 
     /* 탑승객 정보 입력 버튼 클릭 이벤트 */
     const clickNextBtn = () => {
-        // alert("!!");
-        seatSelect !== null ? navigate("/booking/passenger") : alert("좌석을 선택해주세요.");
+        seatSelect !== '' ? navigate("/booking/passenger") : alert("좌석을 선택해주세요.");
     }
 
     return (
@@ -72,37 +36,7 @@ export default function BookingOneWay() {
                             <span>제주 <span>CJU</span></span>
                         </div>
                     </div>
-                    {/* 추후 스와이퍼 적용 필요 */}
-                    <ul className='booking-list'>
-                        <li>
-                            <p>2025-04-01 (화)</p>
-                            <p>KRW <b>96,900</b></p>
-                        </li>
-                        <li>
-                            <p>2025-04-02 (수)</p>
-                            <p>KRW <b>55,900</b></p>
-                        </li>
-                        <li>
-                            <p>2025-04-03 (목)</p>
-                            <p>KRW <b>49,900</b></p>
-                        </li>
-                        <li>
-                            <p>2025-04-04 (금)</p>
-                            <p>KRW <b>31,900</b></p>
-                        </li>
-                        <li>
-                            <p>2025-04-05 (토)</p>
-                            <p>KRW <b>26,900</b></p>
-                        </li>
-                        <li>
-                            <p>2025-04-06 (일)</p>
-                            <p>KRW <b>33,900</b></p>
-                        </li>
-                        <li>
-                            <p>2025-04-07 (월)</p>
-                            <p>KRW <b>52,900</b></p>
-                        </li>
-                    </ul>
+                    <BookingDates /> {/* 날짜 리스트 */}
                 </div>
 
                 <div className='booking-select-flight'>
@@ -125,9 +59,9 @@ export default function BookingOneWay() {
                         </li>
                     </ul>
                     <div className='booking-select-flight-list'>
-                        {/* 순회 부분 */}
+                        {/* 순회 부분 - 분리? */}
                         <div className='booking-select-flight-section'
-                            style={{backgroundColor: seatSelect !== null ?  "rgb(211, 233, 46)" : "rgb(242, 242, 242)"}}
+                            style={{backgroundColor: seatSelect !== '' ?  "rgb(211, 233, 46)" : "rgb(242, 242, 242)"}}
                         >
                             <div className='booking-select-info'>
                                 <div className='booking-select-flight-info'>
@@ -149,17 +83,6 @@ export default function BookingOneWay() {
                                         <p>CJU</p>
                                     </div>
                                 </div>
-                                <button onClick={() => {setModalOpen(true)}} className='booking-select-button'>운임규정</button>
-                                <Modal
-                                    isOpen={modalOpen}
-                                    onRequestClose={() => setModalOpen(false)}
-                                    style={customModalStyles}
-                                    ariaHideApp={false}
-                                    contentLabel="Pop up Message"
-                                    shouldCloseOnOverlayClick={true}
-                                >
-                                    <BookingRuleModal />
-                                </Modal>
                             </div>
                             <div className='booking-flight-buttons'>
                                 <button onClick={() => clickSelectSeat('basic')}
@@ -182,8 +105,8 @@ export default function BookingOneWay() {
 
             <div className='booking-avaliability-bottom'>
                 <button style={{
-                                    backgroundColor: seatSelect !== null ? "#192547" : "rgb(242, 242, 242)",
-                                    color: seatSelect !== null && "#fff"
+                                    backgroundColor: seatSelect !== '' ? "#192547" : "rgb(242, 242, 242)",
+                                    color: seatSelect !== '' && "#fff"
                                 }}
                         onClick={clickNextBtn}
                         className='booking-avaliability-bottom-button'

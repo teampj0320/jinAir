@@ -12,6 +12,84 @@ ul {
 }
 
 /************************************
+ * BookingDates
+ * 날짜 목록 공통 컴포넌트
+************************************/
+.booking-list-container {
+    position: relative;
+
+    .booking-list-prev,
+    .booking-list-next {
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        margin-top: 0;
+        z-index: 10;
+        background: rgb(193, 193, 193);
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        transition: 0.2s all 0s ease-in-out;
+        cursor: pointer;
+        color: #fff;
+    }
+    .booking-list-next {
+        right: 0;
+    }
+    .booking-list {
+        border-top: 1px solid var(--jinairnav);
+        border-bottom: 1px solid var(--borderlight);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+        padding: 16px 44px;
+        margin-top: 30px;
+    
+        > li {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            width: 160px;
+            height: 70px;
+            margin: 0 auto;
+            border-radius: 6px;
+            position: relative;
+            cursor: pointer;
+        }
+    
+        > li:not(:first-child)::before {
+            content: "|";
+            position: absolute;
+            left: -3px;
+            top: 30%;
+            width: 0;
+            height: 0;
+        }
+    
+        > .selected-booking-date {
+            background-color: var(--jinairnav);
+            color: #fff;
+        }
+    
+        > li > p {
+            font-size: 14px;
+        }
+    
+        >li > p > b {
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}
+
+/************************************
  * BookingAvailabilityList - BookingStep
  * 항공권 선택 페이지 삳단 탭
 ************************************/
@@ -201,11 +279,85 @@ ul {
     .booking-avaliability-contents {
         width: 1280px;
         margin: 0 auto;
+        
+        .booking-section1-container {
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 16px 24px;
+            background-color: var(--jinairnav);
+            color: #fff;
+
+            .booking-section1-left {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                > span {
+                    border-radius: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0 8px;
+                    width: 45px;
+                    height: 26px;
+                    background: var(--jinairgreen);
+                    color: var(--jinairnav);
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+                > div {
+                    position: relative;
+                }
+                > div:nth-child(2) {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: 700;
+                }
+                > div:not(:nth-child(2)) {
+                    margin-left: 20px;
+                }
+                > div:not(:nth-child(2))::before {
+                    content: '';
+                    position: absolute;
+                    left: -20px;
+                    top: 20%;
+                    width: 1px;
+                    height: 16px;
+                    background-color: #fff;
+                    margin-right: 20px;
+                    vertical-align: middle;
+                }
+                > div:nth-child(3) {
+                    display: flex;
+                    gap: 5px;
+                }
+                > div:last-child {
+                    > span:last-child {
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+                }
+            }
+            .booking-section1-right {
+                // border: 1px solid red;
+                background: rgba(255, 255, 255, 0.3);
+                display: flex;
+                align-items: center;
+                height: 22px;
+                border-radius: 5px;
+                font-size: 12px;
+                padding: 0 8px;
+                cursor: pointer;
+            }
+        }
     }
 
 
     .booking-date {
-
         .booking-location {
             display: flex;
             align-items: center;
@@ -235,53 +387,6 @@ ul {
                 >span>span {
                     font-weight: 400;
                 }
-            }
-        }
-
-        .booking-list {
-            border-top: 1px solid var(--jinairnav);
-            border-bottom: 1px solid var(--borderlight);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 auto;
-            padding: 16px 44px;
-            margin-top: 30px;
-
-            >li {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 4px;
-                width: 160px;
-                height: 70px;
-                margin: 0 auto;
-                border-radius: 6px;
-                position: relative;
-            }
-
-            >li:not(:first-child)::before {
-                content: "|";
-                position: absolute;
-                left: -3px;
-                top: 30%;
-                width: 0;
-                height: 0;
-            }
-
-            >li:nth-child(4) {
-                background-color: var(--jinairnav);
-                color: #fff;
-            }
-
-            >li>p {
-                font-size: 14px;
-            }
-
-            >li>p>b {
-                font-size: 18px;
-                font-weight: 700;
             }
         }
     }
