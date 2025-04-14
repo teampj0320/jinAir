@@ -94,8 +94,11 @@ export default function Schedule() {
     }
 
     const ScheduleCheck = () => {
-        if(validate()){
+        if(validate()){ // 스케쥴이 잇으면
             setClick(true); 
+        }else{ //스케쥴이 없으면
+            setClick(false); 
+            setScheduleExist(true);
         }
     }
 
@@ -129,8 +132,8 @@ export default function Schedule() {
                     <button onClick={() => { ScheduleCheck()}}>확인</button>
                 </div>
             </div>
-            <div className='schedule-all-box'>
                 {click && // 스케줄정보 있을때
+            <div className='schedule-all-box'>
                     <>
                         <div className='schedule-exist-box'>
                             <p>[출발일:{date}, 출발지:ICN, 도착지:BKK] <br />스케줄 정보를 조회하였습니다.</p>
@@ -160,15 +163,15 @@ export default function Schedule() {
                     */}
                         </div>
                     </>
-                }
             </div>
+                }
+                {scheduleExist && !click &&
             <div className='schedule-all-box'>
-                {!scheduleExist && !click &&
                     <div className='schedule-none-exist-box'>
                         <p>[출발일:2025-04-13, 출발지:ICN, 도착지:BKK] <br/>일치하는 스케줄 정보가 없습니다.</p>
                     </div>
-                }
             </div>
+                }
         </>
     );
 }
