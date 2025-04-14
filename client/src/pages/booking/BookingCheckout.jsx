@@ -4,6 +4,28 @@ import { FaEquals, FaMinus } from "react-icons/fa6";
 
 export default function BookingPayment() {
   const [radio, setRadio] = useState("coupon");
+  const [discountValue, setDiscountValue] = useState("default");
+  const totalFare = 121950;
+
+  const getDiscountAmount = () => {
+    if (!discountValue || discountValue === "default") return 0;
+
+    if (discountValue.endsWith("%")) {
+      const percent = parseFloat(discountValue.replace("%", ""));
+      const discount = (totalFare * percent) / 100;
+      return Math.min(discount, totalFare); // 할인금액이 총 운임을 초과하지 않도록 제한
+    }
+
+    const discount = parseInt(discountValue, 10);
+    return Math.min(discount, totalFare); // 할인금액이 총 운임을 초과하지 않도록 제한
+  };
+
+  const discountAmount = getDiscountAmount();
+  const finalAmount = totalFare - discountAmount;
+
+  const finalOrder = () => {
+    console.log(finalAmount);
+  };
 
   return (
     <div className="booking-payment">
@@ -43,19 +65,24 @@ export default function BookingPayment() {
                 </span>
               </div>
 
-              {/*  쿠폰 선택 시 표시 */}
+              {/* 쿠폰 선택 시 표시 */}
               {radio === "coupon" && (
                 <div className="check-out-coupon">
                   <div className="select-warpper">
-                    <select>
+                    <select
+                      value={discountValue}
+                      onChange={(e) => setDiscountValue(e.target.value)}
+                    >
                       <option value="default">선택</option>
+                      <option value="1000">깜짝 천원 할인쿠폰</option>
+                      <option value="10000">깜짝 만원 할인쿠폰</option>
+                      <option value="100000">선착순 십만원 할인쿠폰</option>
                     </select>
                     <div>
                       <button className="sale-button">선택</button>
                     </div>
                   </div>
                   <ul>
-                    <li>- 유류할증료 및 세금은 할인 대상에서 제외됩니다.</li>
                     <li>
                       - 쿠폰 금액이 항공운임 혹은 부가서비스 결제금액보다 크면
                       잔액은 자동 소멸됩니다.
@@ -72,19 +99,17 @@ export default function BookingPayment() {
                 </div>
               )}
 
-              {/*  카드 선택 시 표시 */}
+              {/* 카드 선택 시 표시 */}
               {radio === "card" && (
                 <div className="check-out-card">
                   <div className="select-warpper">
-                    <select>
+                    <select
+                      value={discountValue}
+                      onChange={(e) => setDiscountValue(e.target.value)}
+                    >
                       <option value="default">선택</option>
-                      <option value="kb">
-                        KB국민 Easy Fly 티타늄카드 부가서비스 할인
-                      </option>
-                      <option value="air">
-                        Air Money/TOP Point/유니마일 사용
-                      </option>
-                      <option value="bc">BC 법인 카드 할인</option>
+                      <option value="5%">5% 카카오페이 할인쿠폰</option>
+                      <option value="15%">15% 토스페이 할인쿠폰</option>
                     </select>
                     <div>
                       <button className="sale-button">선택</button>
@@ -92,13 +117,9 @@ export default function BookingPayment() {
                   </div>
                   <ul>
                     <li>
-                      - KB카드 즉시 할인은 부가서비스에만 적용되며 보험 제외
-                    </li>
-                    <li>- 1만원 초과 결제 시, 건당 1만원 즉시 할인</li>
-                    <li>
                       - 할인 적용된 부가서비스는 부분 취소 불가, 전체 취소 필요
                     </li>
-                    <li>- KB카드로 결제 시에만 적용</li>
+                    <li>- 혜택 카드로 결제 시에만 적용</li>
                     <li>- 결제 시 카드사 검증 실패 시 예약 초기화될 수 있음</li>
                     <li>- 항공권 청구할인 서비스와 중복 제공</li>
                     <li>- 자세한 내용은 KB국민카드 홈페이지 참고</li>
@@ -117,8 +138,7 @@ export default function BookingPayment() {
               <div className="calc-item">
                 <span>총 운임</span>
                 <strong>
-                  KRW
-                  <span>121,950</span>
+                  KRW <span>{totalFare.toLocaleString()}</span>
                 </strong>
               </div>
               <div className="operation">
@@ -127,8 +147,7 @@ export default function BookingPayment() {
               <div className="calc-item">
                 <span>총 할인 금액</span>
                 <strong>
-                  KRW
-                  <span>0</span>
+                  KRW <span>{discountAmount.toLocaleString()}</span>
                 </strong>
               </div>
               <div className="operation">
@@ -137,8 +156,7 @@ export default function BookingPayment() {
               <div className="calc-item">
                 <span>총 예상 결제 금액</span>
                 <strong>
-                  KRW
-                  <span>121,950</span>
+                  KRW <span>{finalAmount.toLocaleString()}</span>
                 </strong>
               </div>
             </div>
@@ -146,7 +164,7 @@ export default function BookingPayment() {
           </section>
 
           <div className="order-button-warp">
-            <button>결제</button>
+            <button onClick={finalOrder}>결제</button>
           </div>
         </div>
       </div>

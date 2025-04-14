@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import BookingStep from "../../component/booking/BookingStep.jsx";
+import { useNavigate } from "react-router-dom";
 import {
   FaArrowRightArrowLeft,
   FaEquals,
   FaAngleUp,
   FaAngleDown,
+  FaRegSquareCheck,
+  FaSquareCheck,
 } from "react-icons/fa6";
+import { BsArrowUpRightCircleFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { BiSolidPlaneTakeOff } from "react-icons/bi";
-import { BsArrowUpRightCircleFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 
 export default function BookingPayment() {
   const nav = useNavigate();
   const [openStates, setOpenStates] = useState({
     segment1: true,
     segment2: true,
-    addition1: true,
-    addition2: true,
     more1: false,
     more2: true,
     more3: false,
+    additionall: false,
+    addition1: false,
+    addition2: false,
+    addition3: false,
+    addition4: false,
   });
 
   const toggleList = (segmentKey) => {
@@ -30,9 +35,28 @@ export default function BookingPayment() {
     }));
   };
 
-  const orderClick = () => {
-    nav("/booking/afterPayment");
+  // 전체선택
+  const handleCheckAll = () => {
+    const newValue = !openStates.additionall;
+    setOpenStates((prev) => ({
+      ...prev,
+      additionall: newValue,
+      addition1: newValue,
+      addition2: newValue,
+      addition3: newValue,
+      addition4: newValue,
+    }));
   };
+
+  // 주문하기 버튼
+  const orderClick = () => {
+    if (Object.values(openStates).slice(-4).includes(false)) {
+      alert("이용약관을 모두 동의해주셔야 결제가 가능합니다.");
+    } else {
+      nav("/booking/afterPayment");
+    }
+  };
+
   return (
     <div className="booking-payment">
       <div className="booking-payment-wrap">
@@ -214,28 +238,12 @@ export default function BookingPayment() {
               </div>
 
               {/* 구간1 추가 서비스 */}
-              <div
-                className="payment-adition-button"
-                onClick={() => toggleList("addition1")}
-              >
-                <span>구간1</span>
-                <span>
-                  krw 14,850
-                  {openStates.addition1 ? <FaAngleDown /> : <FaAngleUp />}
-                </span>
-              </div>
-              <div
-                className={
-                  openStates.addition1
-                    ? "payment-addition-warp"
-                    : "payment-addition-hide"
-                }
-              >
+              <div className="payment-addition-warp">
                 <table className="payment-addition-table">
                   <colgroup>
-                    <col style={{ width: "220px" }} />
+                    <col style={{ width: "100%" }} />
                     <col />
-                    <col style={{ width: "150px" }} />
+                    <col />
                   </colgroup>
                   <thead>
                     <tr>
@@ -246,25 +254,9 @@ export default function BookingPayment() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td rowSpan="3">홍/길동</td>
                       <td className="td-wrap">
-                        <div className="desc-wrap ico-baggage">
-                          초과 수하물 : 5kg <p>KRW 8,000</p>
-                        </div>
-                      </td>
-                      <td rowSpan="3">KRW 14,850</td>
-                    </tr>
-                    <tr>
-                      <td className="td-wrap">
-                        <div className="desc-wrap ico-insurance">
-                          여행보험 : 표준형 <p>KRW 3,850</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="td-wrap">
-                        <div className="desc-wrap ico-baggage2">
-                          우선 수하물 : 1개 <p>KRW 3,000</p>
+                        <div>
+                          <span>부가서비스 신청내역이 없습니다</span>
                         </div>
                       </td>
                     </tr>
@@ -272,73 +264,19 @@ export default function BookingPayment() {
                 </table>
               </div>
 
-              {/* 구간2 추가 서비스 */}
-              <div
-                className="payment-adition-button"
-                onClick={() => toggleList("addition2")}
-              >
-                <span>구간2</span>
-                <span>
-                  krw 14,850
-                  {openStates.addition2 ? <FaAngleDown /> : <FaAngleUp />}
-                </span>
-              </div>
-              <div
-                className={
-                  openStates.addition2
-                    ? "payment-addition-warp"
-                    : "payment-addition-hide"
-                }
-              >
-                <table className="payment-addition-table">
-                  <colgroup>
-                    <col style={{ width: "220px" }} />
-                    <col />
-                    <col style={{ width: "150px" }} />
-                  </colgroup>
-                  <thead>
-                    <tr>
-                      <th>성명</th>
-                      <th>내역</th>
-                      <th>합계</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td rowSpan="3">홍/길동</td>
-                      <td className="td-wrap">
-                        <div className="desc-wrap ico-baggage">
-                          초과 수하물 : 5kg <p>KRW 8,000</p>
-                        </div>
-                      </td>
-                      <td rowSpan="3">KRW 14,850</td>
-                    </tr>
-                    <tr>
-                      <td className="td-wrap">
-                        <div className="desc-wrap ico-insurance">
-                          여행보험 : 표준형 <p>KRW 3,850</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="td-wrap">
-                        <div className="desc-wrap ico-baggage2">
-                          우선 수하물 : 1개 <p>KRW 3,000</p>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="payment-addition-warp">
                 <div className="payment-addition-total">
                   <div>
                     <strong>항공요금 합계</strong>
                   </div>
-                  <span>KRW 91,200</span>
+                  <span>KRW 0</span>
                 </div>
               </div>
             </div>
           </article>
         </section>
+
+        {/* 결제 가격 안내 */}
         <section className="payment-information">
           <h3>결제정보</h3>
           <article>
@@ -351,7 +289,7 @@ export default function BookingPayment() {
             </strong>
             <div className="calc-warp calc-item">
               <span>부가서비스</span>
-              <strong>KRW 25,850</strong>
+              <strong>KRW 0</strong>
             </div>
             <strong className="operation">
               <FaEquals />
@@ -362,30 +300,55 @@ export default function BookingPayment() {
             </div>
           </article>
         </section>
+
         {/* 이용약관 규정 */}
         <section className="booking-payment-section payment-bottom">
           <div className="payment-bottom-agree">
-            <h3>예약 규정 및 기타 사항 확인(필수)</h3>
-            <span>
-              <input type="checkbox" />
-              <label>전체 선택</label>
-            </span>
+            <div className="agree1">
+              <h3>예약 규정 및 기타 사항 확인(필수)</h3>
+            </div>
+            <div className="agree2">
+              <span className="check-icon-warp">
+                <label onClick={handleCheckAll} className="check-icon">
+                  {openStates.additionall ? (
+                    <FaSquareCheck size="28" className="check-icon" />
+                  ) : (
+                    <FaRegSquareCheck size="25" className="check-icon" />
+                  )}
+                </label>
+                <label className="all">전체 선택</label>
+              </span>
+            </div>
           </div>
           <ul>
             <li className="bottom-agree-title">
               <div>
                 <strong>항공권 운임 규정</strong>
                 <span className="agree-toggleB">
-                  <input type="checkbox" />
-                  <label>동의 하기</label>
+                  <span className="check-icon-warp">
+                    <label onClick={() => toggleList("addition1")}>
+                      {openStates.addition1 ? (
+                        <FaSquareCheck size="25" className="check-icon" />
+                      ) : (
+                        <FaRegSquareCheck size="25" className="check-icon" />
+                      )}
+                    </label>
+                    <label>동의 하기</label>
+                  </span>
                 </span>
               </div>
             </li>
             <li className="bottom-agree-title">
               <div>
                 <strong>부가서비스별 유의사항</strong>
-                <span>
-                  <input type="checkbox" />
+                <span className="check-icon-warp">
+                  <label onClick={() => toggleList("addition2")}>
+                    {openStates.addition2 ? (
+                      <FaSquareCheck size="25" className="check-icon" />
+                    ) : (
+                      <FaRegSquareCheck size="25" className="check-icon" />
+                    )}
+                  </label>
                   <label>동의 하기</label>
                   <button
                     className="agree-toggleA"
@@ -401,46 +364,49 @@ export default function BookingPayment() {
                 }
               >
                 <ul className="bottom-agree-notic-list">
-                  <ul>
-                    <li>
-                      항공권 구매 이후에도, [예약상세]–[부가서비스 관리] 에서
-                      부가서비스 구매 가능합니다.
-                    </li>
-                    <li>
-                      부가서비스 구매 후 변경은 불가하며, 취소 후 재구매 해야
-                      합니다.
-                    </li>
-                    <li>
-                      부가서비스별 구매/취소 가능 기한
-                      <ul className="agree-notic-inside">
-                        <li>
-                          <span>✓</span>
-                          항공기 출발 24시간 전까지 : [마이페이지]- [부가서비스
-                          구매/취소]
-                        </li>
-                        <li>
-                          <span>✓</span>
-                          항공기 출발 24시간 이후 ~ 항공기 출발 1시간 전까지 :
-                          [마이페이지]- [여행보험 취소] 클릭
-                        </li>
-                        <li>
-                          <span>✓</span>
-                          항공기 출발 1시간 전부터 ~ 항공기 출발 이후 :
-                          Chubb여행보험 (1666-5075) 문의 후 진에어
-                          고객서비스센터측에 항공권 환불 문의 (1600-6200) (평일
-                          업무시간: 09:00~18:00 / 주말, 공휴일 제외)
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      각 부가서비스별 유의 사항은 부가서비스 안내 페이지에서
-                      반드시 확인 바랍니다.
-                    </li>
-                    <li>
-                      항공기 기종과 스케줄은 사전예고 없이 변경될 수 있으며, 이
-                      경우 사전 구매하신 좌석이 변경 또는 취소될 수 있습니다.
-                    </li>
-                  </ul>
+                  <li>
+                    <ul>
+                      <li>
+                        항공권 구매 이후에도, [예약상세]–[부가서비스 관리] 에서
+                        부가서비스 구매 가능합니다.
+                      </li>
+                      <li>
+                        부가서비스 구매 후 변경은 불가하며, 취소 후 재구매 해야
+                        합니다.
+                      </li>
+                      <li>
+                        부가서비스별 구매/취소 가능 기한
+                        <ul className="agree-notic-inside">
+                          <li>
+                            <span>✓</span>
+                            항공기 출발 24시간 전까지 : [마이페이지]-
+                            [부가서비스 구매/취소]
+                          </li>
+                          <li>
+                            <span>✓</span>
+                            항공기 출발 24시간 이후 ~ 항공기 출발 1시간 전까지 :
+                            [마이페이지]- [여행보험 취소] 클릭
+                          </li>
+                          <li>
+                            <span>✓</span>
+                            항공기 출발 1시간 전부터 ~ 항공기 출발 이후 :
+                            Chubb여행보험 (1666-5075) 문의 후 진에어
+                            고객서비스센터측에 항공권 환불 문의 (1600-6200)
+                            (평일 업무시간: 09:00~18:00 / 주말, 공휴일 제외)
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        각 부가서비스별 유의 사항은 부가서비스 안내 페이지에서
+                        반드시 확인 바랍니다.
+                      </li>
+                      <li>
+                        항공기 기종과 스케줄은 사전예고 없이 변경될 수 있으며,
+                        이 경우 사전 구매하신 좌석이 변경 또는 취소될 수
+                        있습니다.
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -450,18 +416,19 @@ export default function BookingPayment() {
                   국내선 여객운송 약관
                   <BsArrowUpRightCircleFill />
                 </button>
-                <span className="agree-toggleB">
-                  <input type="checkbox" />
-                  <label>동의 하기</label>
-                </span>
               </div>
             </li>
             <li className="bottom-agree-title">
               <div>
                 <strong>항공기 위험물 안내</strong>
-
-                <span>
-                  <input type="checkbox" />
+                <span className="check-icon-warp">
+                  <label onClick={() => toggleList("addition3")}>
+                    {openStates.addition3 ? (
+                      <FaSquareCheck size="25" className="check-icon" />
+                    ) : (
+                      <FaRegSquareCheck size="25" className="check-icon" />
+                    )}
+                  </label>
                   <label>동의 하기</label>
                   <button
                     className="agree-toggleA"
@@ -728,8 +695,14 @@ export default function BookingPayment() {
             <li className="bottom-agree-title">
               <div>
                 <strong>기타 유의사항</strong>
-                <span>
-                  <input type="checkbox" />
+                <span className="check-icon-warp">
+                  <label onClick={() => toggleList("addition4")}>
+                    {openStates.addition4 ? (
+                      <FaSquareCheck size="25" className="check-icon" />
+                    ) : (
+                      <FaRegSquareCheck size="25" className="check-icon" />
+                    )}
+                  </label>
                   <label>동의 하기</label>
                   <button
                     className="agree-toggleA"
@@ -828,11 +801,11 @@ export default function BookingPayment() {
             </li>
           </ul>
         </section>
+        {/* 결제하기  */}
         <div className="order-button" onClick={orderClick}>
           <button>결제진행</button>
         </div>
       </div>
     </div>
-    // 해당 페이지 컨텐츠 부분 배경 색상 : background-color: rgb(249, 249, 249);
   );
 }
