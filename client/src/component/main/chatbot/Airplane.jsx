@@ -1,6 +1,7 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getCountry } from '../../../service/searchApi.js';
 export default function Airplane() {
     const [country, setCountry] = useState(false);
     const [countryClick, setCountryClick] = useState(false);
@@ -16,54 +17,13 @@ export default function Airplane() {
     const startRef = useRef(null);
     const endRef = useRef(null);
     const countryRef = useRef(null);
+    const dispatch = useDispatch();
+    const countryList = useSelector(state => state.search.countryList);
 
-    const data = [
-        '서울/인천(ICN)',
-        '서울/김포(GMP)',
-        '부산(PUS)',
-        '제주(CJU)',
-        '광주(KWJ)',
-        '군산(KUV)',
-        '대구(TAE)',
-        '무안(MWX)',
-        '사천(HIN)',
-        '울산(USN)',
-        '원주(WJU)',
-        '여수(RSU)',
-        '청주(CJJ)',
-        '포항/경주(KPO)',
-        '도쿄/나리타(NRT)',
-        '오사카/간사이(KIX)',
-        '후쿠오카(FUK)',
-        '기타큐슈(KKJ)',
-        '나고야(NGO)',
-        '다카마쓰(TAK)',
-        '미야코지마/시모지시마(SHI)',
-        '이시가키지마(ISG)',
-        '삿포로(CTS)',
-        '오키나와(OKA)',
-        '상하이/푸둥(PVG)',
-        '시안(XIY)',
-        '정저우(CGO)',
-        '홍콩(HKG)',
-        '마카오(MFM)',
-        '타이베이/타오위안(TPE)',
-        '타이중(RMQ)',
-        '방콕(BKK)',
-        '푸껫(HKT)',
-        '치앙마이(CNX)',
-        '세부(CEB)',
-        '클락(CRK)',
-        '보홀(TAG)',
-        '다낭(DAD)',
-        '나트랑(CXR)',
-        '푸꾸옥(PQC)',
-        '비엔티안(VTE)',
-        '코타키나발루(BKI)',
-        '괌(GUM)',
-        '울란바토르(UBN)'
-    ];
-    const processedList = data.map(item => item.split("(")[0]);
+    useEffect(() => {
+        dispatch(getCountry());
+    }, []);
+    const processedList = countryList.map(item => item.city.split('(')[0]);
 
     const handleAirnumber = (e) => {
         setAirNumber(e.target.value);
