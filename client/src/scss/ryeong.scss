@@ -67,6 +67,7 @@
 
 
 
+
     html,
     body,
     div,
@@ -239,6 +240,7 @@
     button>* {
         position: relative;
         display: block;
+        cursor: pointer;
     }
 
     ::-webkit-file-upload-button {
@@ -333,6 +335,7 @@
     .gap5 {
         gap: 5px;
     }
+
     .gap10 {
         gap: 10px;
     }
@@ -449,6 +452,16 @@
             border-radius: 100%;
             width: 80px;
             height: 80px;
+        }
+        .default-profile-img {
+            min-width: 80px;
+            height: 80px;
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 100%;
+            background: #efefef url('/assets/svg/noneprofile.svg') no-repeat 50% 50%;
+            margin-bottom: 30px;
+            overflow: hidden;
         }
 
 
@@ -1172,9 +1185,20 @@
         gap: 24px;
 
         img {
-            width: 137px;
+            min-width: 137px;
             height: 137px;
             border-radius: 10px;
+        }
+
+        .default-profile-img {
+            min-width: 137px;
+            height: 137px;
+            cursor: pointer;
+            display: block;
+            text-indent: -1000em;
+            border-radius: 10px;
+            background: #efefef url('/assets/svg/noneprofile.svg') no-repeat 50% 50%;
+            flex-shrink: 0;
         }
     }
 
@@ -1291,7 +1315,7 @@
     .field-wrapper,
     .field-row {
 
-        label {
+        .info-field-title {
             font-size: 16px;
             font-weight: 600;
         }
@@ -1359,11 +1383,11 @@
             align-self: flex-start;
         }
     }
-    
+
     .info-user-confirm {
 
         input[type=checkbox] {
-            appearance: none; 
+            appearance: none;
             width: 20px;
             height: 20px;
             border: 1px solid #ddd;
@@ -1375,14 +1399,14 @@
         }
 
         input[type=checkbox]:checked {
-            appearance: none; 
+            appearance: none;
             border-color: #192547;
             background: #192547 url('/assets/svg/green_check.svg') no-repeat 50% 50%;
         }
     }
 
 
-    .checkbox-wrap{
+    .checkbox-wrap {
         display: flex;
         gap: 10px;
         align-items: center;
@@ -1399,12 +1423,12 @@
         gap: 16px;
     }
 
-    .sns-btn-wrap{
+    .sns-btn-wrap {
         display: flex;
         flex-flow: column;
         gap: 12px;
 
-      
+
 
         button {
             border: 1px solid #192547;
@@ -1421,23 +1445,108 @@
             width: 100%;
             gap: 4px;
             border-radius: 6px;
+            font-size: 14px;
+
         }
 
         button:active {
-           
+
             border: 1px solid #192547;
             background: #192547;
             font-size: 14px;
             color: #ffffff;
-        
-    }
+
+        }
     }
 
     .withdraw-btn {
         background: none;
-        text-decoration : underline;
+        text-decoration: underline;
         font-size: 16px;
         text-align: left;
+    }
+
+
+    /* 비밀번호 변경 모달 스타일 */
+    .layer-header-title {
+        font-size: 20px;
+        font-weight: 600;
+        padding: 10px 20px 15px;
+    }
+
+    .border-line {
+        height: 2px;
+        background-color: rgb(211, 233, 46); // 원하는 색상
+        width: calc(100% + 48px); // 좌우 padding 합산
+        margin-left: -24px;
+    }
+
+    .layer-contents {
+        padding: 20px;
+
+        .layer-content-desc {
+            margin: 5px 0 15px 0;
+        }
+
+        .field-wrapper {
+            gap: 8px !important;
+            padding-top: 15px !important;
+        }
+
+    }
+
+
+    .btn-group {
+
+        justify-content: center;
+        display: flex;
+        gap: 10px;
+        padding-top: 45px;
+
+
+        .gray-btn {
+            border: 1px solid #efefef;
+            background: #efefef;
+            color: #192547;
+            height: 56px;
+            border-radius: 5px;
+            padding: 0 16px;
+            min-width: 144px;
+            font-weight: 700;
+            width: auto;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .gray-btn2 {
+            background: #efefef;
+            border: 1px solid #efefef;
+            color: #192547;
+            cursor: default;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 14px;
+            padding: 0 12px;
+            min-width: 152px;
+            font-weight: 400;
+            width: auto;
+        }
+
+        .navy-btn2 {
+            padding: 0 16px;
+            cursor: pointer;
+            min-width: 144px;
+            height: 56px;
+            width: auto;
+            font-weight: 700;
+            border-radius: 5px;
+            border: 1px solid #192547;
+            background: #192547;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+
     }
 
 }

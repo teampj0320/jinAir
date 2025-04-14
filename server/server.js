@@ -2,8 +2,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import loginRouter from './router/loginRouter.js';
 import mypageRouter from './router/mypageRouter.js'
+import uploadRouter from './router/uploadRouter.js'
+import loginRouter from './router/loginRouter.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -19,13 +20,14 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') }); // 루트에 .env�
 server.use(express.json());
 server.use(express.urlencoded());
 server.use(cors());
-
+server.use("/images", express.static(path.join("images")));
 
 // login
 server.use('/member', loginRouter);
 
 // middle ware
 server.use('/mypage', mypageRouter)
+server.use('/uploads', uploadRouter);
 
 
 server.listen(port, () => {

@@ -12,7 +12,7 @@ export default function Login() {
   const [ formData, setFormData ] = useState({'id':'', 'password':''});
   const [ msgResult, setMsgResult] = useState('');
   const [ active, setActive ] = useState(false);
-  const [ setUserId ] = useState('');
+  const [ userId, setUserId ] = useState('');
   const [ cookies, setCookie, removeCookie ] = useCookies(['rememberUserId']); // Cookies 이름
   const [ isRemember, setIsRemember ] = useState(false);      // #아이디 저장 체크박스 체크 유무
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
