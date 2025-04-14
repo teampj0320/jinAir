@@ -17,3 +17,9 @@ export const updateMyInfo = async (req, res) => {
     const result = await repository.checkPwd(id, password);
     res.json({ match: result });
   };
+
+  export const getMyRes = async (req, res) => {
+    const result = await repository.getMyRes(req.body); 
+    res.json(result);
+    res.end();
+  };

@@ -61,7 +61,8 @@
     label,
     b,
     strong,
-    select {
+    select,
+    i {
         font-family: 'Pretendard-Regular';
     }
 
@@ -361,6 +362,10 @@
         text-align: center;
     }
 
+    .fd-column {
+        display: flex;
+        flex-direction: column;
+    }
 
 
 
@@ -453,6 +458,7 @@
             width: 80px;
             height: 80px;
         }
+
         .default-profile-img {
             min-width: 80px;
             height: 80px;
@@ -1517,7 +1523,7 @@
             font-size: 16px;
             cursor: pointer;
         }
-        
+
         .gray-btn2 {
             background: #efefef;
             border: 1px solid #efefef;
@@ -1548,5 +1554,119 @@
 
 
     }
+
+
+    .myRes-tbody {
+        width: 100%;
+        display: flex;
+        gap: 6px;
+        padding: 10px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+
+        > div:nth-of-type(1) { flex: 2; }  /* 예약번호 */
+        > div:nth-of-type(2) { flex: 6.2; }  /* 여정 */
+        > div:nth-of-type(3) { flex: 2; }  /* 예약일 */
+        > div:nth-of-type(4) { flex: 1; }  /* 구분 */
+        > div:nth-of-type(5) { flex: 1; }  /* 탑승객수 */
+        > div:nth-of-type(6) { flex: 2; }  /* 예약상태 */
+
+        > div:first-child, 
+        > div:nth-of-type(n+3):nth-of-type(-n+5)
+         {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+        
+        
+        > div:last-child {
+            background: #192547;
+            border-radius: 10px;
+            margin-left: 5PX;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            
+        }
+
+        
+    }
+
+    .itinerary {
+
+        padding: 0 20px;
+
+        .empty{
+            width: 5px;
+            height: auto;
+            background: none;
+        }
+        
+        li+li {
+            border-top: 1px dashed #b4b4b4; ;
+        }
+        
+        li {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 24px 0;
+
+            .flight-segment-type {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .flight-segment {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                text-align: center;
+                
+                b, span {
+                    font-size: 12px;
+                }
+    
+                b{
+                    padding: 4px 8px;
+                    background: #d3e92e;
+                    border-radius: 4px;
+                
+                }
+
+        }
+
+            
+
+        }
+
+    }
+
+
+    .flight-segment-type {
+        span {
+            label {
+                margin-left: 3px;
+            }
+        }
+    }
+
+    .air-port-svg {
+        width: 20px;
+        height: 20px;
+        color: #192547;
+        background: white url('/assets/svg/airport.svg') no-repeat 40%;
+        padding: 0 5px;
+    
+    }
+
 
 }

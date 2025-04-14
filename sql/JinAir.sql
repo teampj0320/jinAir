@@ -12,7 +12,8 @@ select * from qna;
 select * from reservation;
 select * from sub_category;
 select * from product;
-select * from view_cart_list;
+select * from reservation;
+select * from view_my_reservation;
 
 
 
@@ -63,4 +64,27 @@ CREATE TABLE `reservation` (
 );
 
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
-VALUES ('test1', 'LJ100', '11111-11111', '홍길순' , now());
+VALUES ('test1', 'LJ100', '11111-11111', '["홍길순","김철수","이영희"]', now());
+
+
+
+-- 나의 예약 확인 (예약&항공테이블)
+drop view view_my_reservation;
+
+create view view_my_reservation
+as
+select  r.Id as id,
+		r.fnum as fnum,
+        r.res_num as res_num,
+		r.passenger_name  as passenger_name ,
+        r.res_date as res_date,
+        f.departure_location as departure_location,
+        f.d_acode as d_acode,
+        f.departure_date as departure_date,
+        f.arrive_location as arrive_location,
+        f.a_acode as a_acode,
+        f.arrive_date as arrive_date
+	from reservation r, flight f
+    where r.fnum = f.fnum;
+
+-- 왕복, 편도 구분하기

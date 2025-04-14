@@ -51,3 +51,11 @@ export const updateMyInfo = async (data) => {
     return rows.length > 0 && rows[0].password === password;
   };
   
+  
+  
+  export const getMyRes = async ({id}) => {
+    const sql = `SELECT * FROM view_my_reservation WHERE id = ?`;
+    const [result] = await db.execute(sql, [id]);
+    return result;
+  };
+  
