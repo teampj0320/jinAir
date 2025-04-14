@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import MainSearch from '../component/main/search/MainSearch.jsx';
 import MainBoon from '../component/main/MainBoon.jsx';
 import MainPromotions from '../component/main/MainPromotions.jsx';
@@ -9,8 +9,11 @@ import '../scss/haon.scss';
 import Chatbot from '../component/main/chatbot/Chatbot.jsx';
 import { BsRobot } from "react-icons/bs";
 import { FaArrowUp } from "react-icons/fa";
+import {resetSearch} from '../features/search/searchSlice.js';
+import { useDispatch } from 'react-redux';
 
 export default function Home() { 
+    const dispatch = useDispatch();
     const [tab, setTab] = useState(false);
     const scrollToTop = ()=>{
         window.scrollTo({ 
@@ -18,6 +21,10 @@ export default function Home() {
             behavior : 'smooth'
         })
     }
+    useEffect(() => {
+        dispatch(resetSearch());
+    }, []);
+
     return (
         <>
             <div className='content'>
