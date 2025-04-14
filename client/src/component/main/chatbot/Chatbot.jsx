@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Chatbot({ setTab }) {
-    const navigate = useNavigate();
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
     const list = [
