@@ -20,6 +20,11 @@ import BookingPayment from './pages/booking/BookingPayment.jsx';
 import BookingGo from './pages/booking/BookingGo.jsx';
 import BookingBack from './pages/booking/BookingBack.jsx';
 import BookingCheckout from './pages/booking/BookingCheckout.jsx';
+import AdminLayout from'./pages/AdminLayout.jsx';
+import AdminLogin from'./component/admin/AdminLogin.jsx';
+import Admin from'./component/admin/Admin.jsx';
+import AdminAirRegister from'./component/admin/AdminAirRegister.jsx';
+import AdminNotice from'./component/admin/AdminNotice.jsx';
 
 export default function App() {
   return (
@@ -49,6 +54,12 @@ export default function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/find/:finfo' element={<FingdUserInfo />} />
         <Route path='/join/:part' element={<SignupFunnel />} />
+      </Route>
+      <Route element={<AdminLayout />}>
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/admin/login' element={<AdminLogin />} />
+        <Route path='/admin/airRegister' element={<AdminAirRegister />} />
+        <Route path='/admin/notice' element={<AdminNotice />} />
       </Route>
     </Routes>
   </BrowserRouter>
