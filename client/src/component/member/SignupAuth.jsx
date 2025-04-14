@@ -7,9 +7,9 @@ import AuthUser from '../member/AuthUser.jsx';
 export default function SignupAuth({onNext}) {
    const navigate = useNavigate();
    
-   const handleNext = () =>{
-    onNext(); //modalOpen 넣기
-  };
+  //  const handleNext = () =>{
+  //   onNext(); //modalOpen 넣기
+  // };
 
   return (
     <div className='signup-content'>
