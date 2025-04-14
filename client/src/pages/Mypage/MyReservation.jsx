@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
 import '../../scss/ryeong.scss';
 import { getMyRes } from '../../service/myinfoApi.js'
+import { useDispatch } from 'react-redux';
 
 export default function MyReservation() {
-
+const dispatch = useDispatch();
 /* 예약 정보 가져오기 */
+
 useEffect(() => {
         // if(isLoggedIn){
         dispatch(getMyRes())
