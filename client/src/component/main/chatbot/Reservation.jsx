@@ -1,9 +1,11 @@
 import React, { useState,useRef,useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 export default function Reservation() {
     const [iknow, setIknow] = useState(false);
     const [idknow, setIdknow] = useState(false);
     const btnRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (iknow && btnRef.current) {
@@ -44,7 +46,7 @@ export default function Reservation() {
                             상세 예약내역을 조회 하시려면 아래 버튼을 클릭해주세요.
                         </p>
                         // 온클릭시 로그인 페이지로 넘어가게
-                        <button>예약조회 하러가기</button>
+                        <button onClick={()=>{navigate('/login')}}>예약조회 하러가기</button>
                     </div>
                 </div>}
         </div>
