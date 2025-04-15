@@ -1791,6 +1791,9 @@ h2.react-datepicker__current-month {
 // chatbot cheap
 // *******************************
 .cheap-all-box {
+    >div:nth-child(1){
+        border: 1px solid red;
+    }
     >div:nth-child(6) {
         >div:last-child {
             margin-top: 20px;

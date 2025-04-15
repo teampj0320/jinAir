@@ -6,3 +6,35 @@ export const getCountry = async(req, res) =>{
   res.json(result);
   res.end();
 };
+
+// 비행 스케쥴 있는지 조회
+export const searchSchedule = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.searchSchedule(req.body);
+  res.json(result);
+  res.end();
+};
+
+// 비행 스케쥴 정보가져오기
+export const getSchedule = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.getSchedule(req.body);
+  res.json(result);
+  res.end();
+};
+
+// 비행 스케쥴 있는지 조회 airplane
+export const searchAirplane = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.searchAirplane(req.body);
+  res.json(result);
+  res.end();
+};
+
+// 당월 최저가 가져오기 출발지 도착지 가격
+export const searchMonthCheap = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.searchMonthCheap(req.body);
+  res.json(result);
+  res.end();
+};
