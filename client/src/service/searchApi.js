@@ -1,6 +1,6 @@
 import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,
     setAdultNum,  setPediatricNum,  setBabyNum, setTotal,
-    setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList
+    setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList,setCalendarType
   } from "../features/search/searchSlice.js";
 import { axiosPost } from "./api.js";
 
@@ -52,6 +52,9 @@ export const getType = (type) => (dispatch) => {
     dispatch(setType(type));
 }
 
+export const getCalendarType = (type) => (dispatch) => {
+    dispatch(setCalendarType(type));
+}
 
 /** 
  * 나라데이터 가져오기
