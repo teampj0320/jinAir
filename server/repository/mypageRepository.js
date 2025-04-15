@@ -54,8 +54,40 @@ export const updateMyInfo = async (data) => {
   
   
   export const getMyRes = async ({id}) => {
-    const sql = `SELECT * FROM view_my_reservation WHERE id = ?`;
-    const [result] = await db.execute(sql, [id]);
-    return result;
+    const sql = `
+    
+              SELECT 
+                  r.id,
+                  r.fnum,
+                  r.res_num,
+                  r.passenger_name,
+                  r.res_date,
+                  f.departure_location,
+                  f.d_acode,
+                  f.departure_date,
+                  f.arrive_location,
+                  f.a_acode,
+                  f.arrive_date
+          FROM reservation r
+          JOIN flight f ON r.fnum = f.fnum
+          WHERE r.id = ?
+        ORDER BY r.res_num, f.departure_date
+    
+    `;
+
+    const [rows] = await db.execute(sql, [id]);
+
+    //res_num(예약번호) 기준으로 그룹핑
+    const resMap = new Map();
+  
+    for (const row of rows) {
+      if (!resMap.has(row.res_num)) {
+        resMap.set(row.res_num, []);
+      }
+      resMap.get(row.res_num).push(row);
+    }
+  
+    const grouped = Array.from(resMap.values());
+    return grouped;
   };
   
