@@ -8,7 +8,7 @@ import { getCalendar } from '../../../service/searchApi.js';
 
 export default function Calendar({mom,endMom}) {
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null); 
     const [endDate, setEndDate] = useState(null); 
     const onChange = (dates) => {
         const [start, end] = dates;

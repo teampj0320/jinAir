@@ -3,6 +3,9 @@ import * as controller from '../controller/chatbotController.js';
 
 const router = express.Router();
 router.post('/',controller.getCountry);
-
+router.post('/searchSchedule',controller.searchSchedule);
+router.post('/getSchedule',controller.getSchedule);
+router.post('/searchAirplane',controller.searchAirplane);
+router.post('/searchMonthCheap',controller.searchMonthCheap);
 
 export default router;
