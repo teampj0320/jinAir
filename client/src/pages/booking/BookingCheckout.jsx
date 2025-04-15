@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import BookingStep from "../../component/booking/BookingStep.jsx";
 import { FaEquals, FaMinus } from "react-icons/fa6";
+import axios from 'axios';
 
 export default function BookingPayment() {
+
+
   const [radio, setRadio] = useState("coupon");
   const [discountValue, setDiscountValue] = useState("default");
   const totalFare = 121950;
+
+  const noRef = useRef();
+  const idRef = useRef();
+  const way1Ref = useRef();
+  const way2Ref = useRef();
 
   const getDiscountAmount = () => {
     if (!discountValue || discountValue === "default") return 0;
@@ -23,8 +31,28 @@ export default function BookingPayment() {
   const discountAmount = getDiscountAmount();
   const finalAmount = totalFare - discountAmount;
 
-  const finalOrder = () => {
-    console.log(finalAmount);
+  const handlePayment = () => {
+    const no = noRef.current.textContent.trim();
+    const id = idRef.current.textContent.trim();
+    const way1 = way1Ref.current.textContent.trim();
+
+    axios.post('http://localhost:9000/payment/add', {
+      no,
+      id,
+      fnum: way1
+    })
+      .then(response => {
+        console.log(response);
+        if (response.data?.success === true && response.data.data[0]?.affectedRows === 1) {
+          alert("예약이 완료되었습니다.");
+        } else {
+          alert("예약 실패");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert("예약 중 오류 발생");
+      });
   };
 
   return (
@@ -35,6 +63,18 @@ export default function BookingPayment() {
       <div>
         <div className="booking-passenger-contents">
           <p className="booking-page-title">4. 결제</p>
+
+          {/**테스트용 임시 정보 */}
+          <div>
+            <span>NO:</span>
+            <span ref={noRef}>2</span>
+            <span>ID:</span>
+            <span ref={idRef}>test1</span>
+            <span>plite-way1:</span>
+            <span ref={way1Ref}>LJ100</span>
+            <span>plite-way2:</span>
+            <span ref={way2Ref}>LJ190</span>
+          </div>
 
           {/* 쿠폰 / 카드 할인 영역 */}
           <section className="noneExtras">
@@ -164,7 +204,7 @@ export default function BookingPayment() {
           </section>
 
           <div className="order-button-warp">
-            <button onClick={finalOrder}>결제</button>
+            <button onClick={handlePayment}>결제</button>
           </div>
         </div>
       </div>
