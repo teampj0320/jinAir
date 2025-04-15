@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
 import { ko } from 'date-fns/locale/ko';
 import { useDispatch } from 'react-redux';
-import { getCalendar } from '../../../service/searchApi.js';
+
 
 export default function Calendar({mom,endMom}) {
     const dispatch = useDispatch();
