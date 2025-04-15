@@ -54,7 +54,7 @@ CREATE TABLE `reservation` (
   `ID` varchar(20) NOT NULL,
   `fNUM` varchar(20) NOT NULL,
   `RES_NUM` varchar(20) NOT NULL, 
-  `passenger_name` varchar(20) not null ,
+  `passenger_name` json not null ,
   `RES_DATE` datetime NOT NULL,
   KEY `SUB_RESERVATION_FK_fnum` (`fNUM`),
   KEY `SUB_RESERVATION_FK_id` (`ID`),
@@ -63,8 +63,8 @@ CREATE TABLE `reservation` (
 );
 
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
-VALUES ('test1', 'LJ279', 'A11111', '["홍길순","김철수","이영희"]', now()),
-		('test1', 'LJ278', 'A11111', '["홍길순","김철수","이영희"]', now());
+VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희') , now()),
+      ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now());
 
 
 
@@ -74,9 +74,9 @@ drop view view_my_reservation;
 create view view_my_reservation
 as
 select  r.Id as id,
-		r.fnum as fnum,
+      r.fnum as fnum,
         r.res_num as res_num,
-		r.passenger_name  as passenger_name ,
+      r.passenger_name  as passenger_name ,
         r.res_date as res_date,
         f.departure_location as departure_location,
         f.d_acode as d_acode,
@@ -84,6 +84,6 @@ select  r.Id as id,
         f.arrive_location as arrive_location,
         f.a_acode as a_acode,
         f.arrive_date as arrive_date
-	from reservation r, flight f
+   from reservation r, flight f
     where r.fnum = f.fnum;
 
