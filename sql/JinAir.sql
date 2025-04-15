@@ -42,7 +42,7 @@ UPDATE customer
 SET profile_img = NULL
 WHERE id = 'test1';
 
--- customer 테이블 값 수정 : phone 데이터 수정하기 010-0000-0000 -> 01000000000, 관심 지역 2개정도 넣어놓기
+-- customer 테이블 값 수정 : phone 데이터 수정하기 010-0000-0000 -> 01000000000, 관심 지역 2개정도 넣어놓기 , 관심테마는 삭제해도 될듯
 
 
 
