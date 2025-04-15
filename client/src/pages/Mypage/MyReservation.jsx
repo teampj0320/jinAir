@@ -104,7 +104,7 @@ export default function MyReservation() {
                                     </div>
                                     <div>{dayjs(itemGroup[0].res_date).format('YYYY.MM.DD (ddd)')}</div>
                                     <div>왕복</div>
-                                    <div> {itemGroup[0].passenger_name ? JSON.parse(itemGroup[0].passenger_name).length : 0}명</div>
+                                    <div> {itemGroup[0].passenger_name ? itemGroup[0].passenger_name.length : 0}명</div>
                                     {/* 여정 출발일 기준 디데이 계산 */}
                                     <div>확약
                                         <p>(D-{dayjs(itemGroup[0].departure_date).diff(dayjs(), 'day')})</p>
