@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function MypageNavigation() {
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -17,14 +18,14 @@ export default function MypageNavigation() {
                     {
                         menuOpen && (
                     <ul className='mp-menu-drop-down'>
-                        <li>마이페이지 홈</li>
+                        <li onClick={()=>{navigate('../mypage/index')}} >마이페이지 홈</li>
                         <li>나의 예약</li>
-                        <li>체크인 / 탑승권</li>
-                        <li>나비포인트</li>
-                        <li>할인쿠폰</li>
-                        <li>관심 지역/테마</li>
-                        <li>고객문의</li>
-                        <li>회원정보 수정</li>
+                        <li onClick={()=>{navigate('../mypage/checkIn')}}>체크인 / 탑승권</li>
+                        <li onClick={()=>{navigate('../mypage/index')}}>나비포인트</li>
+                        <li onClick={()=>{navigate('../mypage/index')}}>할인쿠폰</li>
+                        <li onClick={()=>{navigate('../mypage/myInterest')}}>관심 지역/테마</li>
+                        <li onClick={()=>{navigate('../mypage/myQna')}}>고객문의</li>
+                        <li onClick={()=>{navigate('../mypage/modifyInfo')}}>회원정보 수정</li>
                     </ul>
 
                         )
