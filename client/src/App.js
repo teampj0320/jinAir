@@ -20,10 +20,12 @@ import BookingPayment from './pages/booking/BookingPayment.jsx';
 import BookingGo from './pages/booking/BookingGo.jsx';
 import BookingBack from './pages/booking/BookingBack.jsx';
 import BookingCheckout from './pages/booking/BookingCheckout.jsx';
+import ScrollToTop from './pages/ScrollToTop.jsx'
 
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
     <Routes>
       <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />
