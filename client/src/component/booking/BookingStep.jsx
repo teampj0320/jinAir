@@ -1,11 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import { IoIosAirplane } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import '../../scss/yuna.scss';
-import { useNavigate } from 'react-router-dom';
 
 export default function BookingStep({text}) {
     const navigate = useNavigate();
+    const departure = useSelector(state => state.search.departure); // 출발지
+    const arrive = useSelector(state => state.search.arrive); // 도착지
+    const startDate = useSelector(state => state.search.startDate); // 출발일
+    const endDate = useSelector(state => state.search.startDate); // 도착일
+
+    const adultNum = useSelector(state => state.search.adultNum); // 성인 수
+    const pediatricNum = useSelector(state => state.search.pediatricNum); // 소아 수
+    const babyNum = useSelector(state => state.search.babyNum); // 유아 수
 
     /* 이전단계 클릭 이벤트 */
     const clickBackBtn = () => {
@@ -21,15 +30,15 @@ export default function BookingStep({text}) {
                     <div>
                         <span>왕복</span>
                         <div>
-                            <span>서울/김포 <span className='thin'>GMP</span></span>
+                            <span>{departure} <span className='thin'>GMP</span></span>
                             <span><IoIosAirplane /></span>
-                            <span>제주 <span className='thin'>CJU</span></span>
+                            <span>{arrive} <span className='thin'>CJU</span></span>
                         </div>
-                        <span>2025.04.21(월) ~ 2025.04.23(수)</span>
+                        <span>{startDate} ~ {endDate}</span>
                     </div>
                     <div>
-                        <span>성인 2</span>
-                        { text === "avaliability" && <button>수정하기</button> }
+                        <span>{adultNum >=1 && `성인 ${adultNum}`} {pediatricNum >=1 && `소아 ${pediatricNum}`} {babyNum >=1 && `유아 ${babyNum}`}</span>
+                        {/* { text === "avaliability" && <button>수정하기</button> } */}
                     </div>
                 </div>
                 <div className={`booking-step-${text}-bottom`}>
@@ -45,7 +54,7 @@ export default function BookingStep({text}) {
                     <ul className='booking-step-menu'>
                         <li>1. 항공편 선택</li>
                         <li>2. 탑승객 정보</li>
-                        <li>3. 부가서비스</li>
+                        <li>3. 좌석 선택</li>
                         <li>4. 결제</li>
                     </ul>
                     <div className='booking-step-total'>

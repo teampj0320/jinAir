@@ -1,52 +1,99 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { getOnewayList } from '../../service/bookingApi.js';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
 export default function BookingDates() {
-    const [selectedDate, setSelectedDate] = useState(3);
+    const dispatch = useDispatch();
+    const startDate = useSelector(state => state.search.startDate); // 출발일
+    const departure = useSelector(state => state.search.departure); // 출발지
+    const arrive = useSelector(state => state.search.arrive); // 도착지
+    const formatStartDate = startDate.replace(/\(.*\)/g, '').trim().replace(/\./g, '-');
+    const [selectedDate, setSelectedDate] = useState(formatStartDate);
 
-    // 임시 데이터
-    const dateList = [
-        {date: '2025-04-01', week: '화', price: 96900},
-        {date: '2025-04-02', week: '수', price: 55900},
-        {date: '2025-04-03', week: '목', price: 49900},
-        {date: '2025-04-04', week: '금', price: 31900},
-        {date: '2025-04-05', week: '토', price: 26900},
-        {date: '2025-04-06', week: '일', price: 33900},
-        {date: '2025-04-07', week: '월', price: 52900}
-    ];
-
-    // 화살표 버튼 클릭 이벤트
-    // 클릭시 선택한 날짜를 기준으로 일주일씩 이동해야 함
-    const clickArrowBtn = (type) => {
-        console.log(type);
+    // useEffect(() => {
+    //     dispatch(getOnewayList(departure, arrive, selectedDate));
+    // }, [selectedDate]);
+    
+    /* 현재 선택 날짜 기준으로 날짜 목록 생성 함수 */
+    const getDateRange = (date) => {
+        const selectedDate = new Date(date);
+        const dateList = [];
+        
+        for (let i = -3; i < 4; i++) {
+            const date = new Date(selectedDate);
+            date.setDate(date.getDate() + i);
+            
+            const formatDate = date.toISOString().split('T')[0];
+            dateList.push(formatDate);
+        }
+        
+        return dateList;
     }
 
-    // 날짜 목록 클릭 이벤트
-    const handleDate = (i) => {
-        setSelectedDate(i);
+    /* selectedDate가 바뀔 때마다 dateList를 업데이트 */
+    const [dateList, setDateList] = useState(getDateRange(selectedDate));
+
+    /* 화살표 이전(<) 버튼 클릭 이벤트 - 클릭 시 선택 날짜 기준으로 일주일 전으로 이동 */
+    const clickPrev = () => {
+        const minDate = new Date('2025-04-08');
+        const newDate = new Date(selectedDate);
+        
+        if (newDate < minDate) {
+            alert("운항 정보가 없습니다.");
+        } else {
+            newDate.setDate(newDate.getDate() - 7);
+            const formateDate = newDate.toISOString().split('T')[0];
+            setSelectedDate(formateDate);
+            setDateList(getDateRange(formateDate));
+            // dispatch(getOnewayList(departure, arrive, selectedDate));
+        }
+    }
+    
+    /* 화살표 다음(>) 버튼 클릭 이벤트 - 클릭 시 선택 날짜 기준으로 일주일 후로 이동 */
+    const clickNext = () => {
+        console.log("다음");
+        const newDate = new Date(selectedDate);
+        newDate.setDate(newDate.getDate() + 7);
+        const formateDate = newDate.toISOString().split('T')[0];
+        setSelectedDate(formateDate);
+        setDateList(getDateRange(formateDate));
+        // dispatch(getOnewayList(departure, arrive, selectedDate));
+    }
+
+    /* 날짜 목록 클릭 이벤트 :: 현재 편도 기준으로 작업중 */
+    const handleDate = (list) => {
+        if (list.substring(5, 7) === '03') {
+            alert("운항 정보가 없습니다");
+            setSelectedDate(formatStartDate);
+        } else {
+            setSelectedDate(list);
+            dispatch(getOnewayList(departure, arrive, list));
+        }
     }
 
     return (
         <div className='booking-list-container'>
             <button className='booking-list-prev'
-                onClick={() => clickArrowBtn("prev")}
+                onClick={clickPrev}
             >
                 <IoIosArrowBack />
             </button>
             <ul className='booking-list'>
-                { dateList && dateList.map((list, i) => 
-                    <li className={selectedDate === i && 'selected-booking-date'}
-                        id={i}
-                        onClick={() => handleDate(i)}
+                { dateList && dateList.map((list) => 
+                    <li className={selectedDate === list && 'selected-booking-date'}
+                        onClick={() => {
+                            handleDate(list);
+                        }}
                     >
-                        <p>{list.date} ({list.week})</p>
-                        <p>KRW <b>{list.price.toLocaleString()}</b></p>
+                        <p>{list}</p>
+                        <p>{list.substring(5, 7) === '03' && '운항 없음'}</p>
                     </li>
                 ) }
             </ul>
             <button className='booking-list-next'
-                onClick={() => clickArrowBtn("next")}
+                onClick={clickNext}
             >
                 <IoIosArrowForward />
             </button>

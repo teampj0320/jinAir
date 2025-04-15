@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingDates from '../../component/booking/BookingDates.jsx';
+import BookingTicketList from '../../component/booking/BookingTicketList.jsx';
 import { IoIosAirplane } from 'react-icons/io';
 import { RxDividerVertical } from "react-icons/rx";
 import 'swiper/css';
@@ -12,11 +13,6 @@ export default function BookingBack() {
     const navigate = useNavigate();
     const [seatSelect, setSeatSelect] = useState('');
     const [sortSelect, setSortSelect] = useState('early');
-
-    /* 좌석 선택(일반석/프리미엄석) 클릭 이벤트 */
-    const clickSelectSeat = (type) => {
-        seatSelect === type ? setSeatSelect('') : setSeatSelect(type);
-    }
 
     /* 탑승객 정보 입력 버튼 클릭 이벤트 */
     const clickNextBtn = () => {
@@ -93,48 +89,63 @@ export default function BookingBack() {
                             <input type="checkbox" />
                         </li>
                     </ul>
-                    <div className='booking-select-flight-list'>
-                        {/* 순회 부분 */}
-                        <div className='booking-select-flight-section'
-                            style={{backgroundColor: seatSelect !== '' ?  "rgb(211, 233, 46)" : "rgb(242, 242, 242)"}}
-                        >
-                            <div className='booking-select-info'>
-                                <div className='booking-select-flight-info'>
-                                    <p>LJ517</p>
-                                    <p className='thin'>B737-800</p>
-                                </div>
-                                <div className='booking-select-time-info'>
-                                    <div className='booking-select-time-block'>
-                                        <p>06:00</p>
-                                        <p>GMP</p>
-                                    </div>
-                                    <div>
-                                        <p>01h 15m</p>
-                                        <p><IoIosAirplane /></p>
-                                        <div></div>
-                                    </div>
-                                    <div className='booking-select-time-block'>
-                                        <p>07:15</p>
-                                        <p>CJU</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='booking-flight-buttons'>
-                                <button onClick={() => clickSelectSeat('basic')}
-                                    className={seatSelect === 'basic' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
-                                    <p>일반석</p>
-                                    <span>KRW <b>49,000</b></span>
-                                    <p>잔여 5석!</p>
-                                </button>
-                                <button onClick={() => clickSelectSeat('premium')}
-                                    className={seatSelect === 'premium' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
-                                    <p>프리미엄석</p>
-                                    <span>KRW <b>147,000</b></span>
-                                    <p>잔여 8석!</p>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
+                    <BookingTicketList
+                        seatSelect = {seatSelect}
+                        setSeatSelect = {setSeatSelect}
+                    /> {/* 예약 가능 항공권 리스트 */}
+                    
+                    {/* <div className='booking-select-flight-list'>
+                        {onewayList && onewayList.map}
+                        {
+                            onewayList.length > 0
+                                ? (
+                                    onewayList.map((list) =>
+                                        <div className='booking-select-flight-section'
+                                            style={{ backgroundColor: seatSelect !== '' ? "rgb(211, 233, 46)" : "rgb(242, 242, 242)" }}
+                                        >
+                                            <div className='booking-select-info'>
+                                                <div className='booking-select-flight-info'>
+                                                    <p>{list.fNUM}</p>
+                                                    <p className='thin'>{list.pnum}</p>
+                                                </div>
+                                                <div className='booking-select-time-info'>
+                                                    <div className='booking-select-time-block'>
+                                                        <p>{list.Arrive_time.substring(0, 5)}</p>
+                                                        <p>{list.A_acode}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p>01h 15m</p>
+                                                        <p><IoIosAirplane /></p>
+                                                        <div></div>
+                                                    </div>
+                                                    <div className='booking-select-time-block'>
+                                                        <p>{list.Departure_time.substring(0, 5)}</p>
+                                                        <p>{list.D_acode}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='booking-flight-buttons'>
+                                                <button onClick={() => clickSelectSeat('basic')}
+                                                    className={seatSelect === 'basic' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
+                                                    <p>일반석</p>
+                                                    <span>KRW <b>{list.basic_price.toLocaleString()}</b></span>
+                                                    <p>잔여 5석!</p>
+                                                </button>
+                                                <button onClick={() => clickSelectSeat('premium')}
+                                                    className={seatSelect === 'premium' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
+                                                    <p>프리미엄석</p>
+                                                    <span>KRW <b>{list.premium_price.toLocaleString()}</b></span>
+                                                    <p>잔여 8석!</p>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
+                                )
+                                : <div>항공권이 존재하지 않습니다.</div>
+                        }
+                    </div> */}
+
                 </div>
             </div>
 

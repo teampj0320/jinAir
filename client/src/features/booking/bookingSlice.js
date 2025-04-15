@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     onewayList : [],
+    dcode: '',
+    acode: '',
 };
 
 const bookingSlice = createSlice({
@@ -12,11 +14,22 @@ const bookingSlice = createSlice({
         setOnewayList(state, action) {
             state.onewayList = action.payload.result;
         },
+
+        // 출발 공항 코드
+        setDcode(state, action) {
+            state.dcode = action.payload.dcode;
+        },
+        
+        // 도착 공항 코드
+        setAcode(state, action) {
+            state.acode = action.payload.acode;
+        }
     },
 });
 
 export const {
-    setOnewayList
+    setOnewayList,
+    setDcode, setAcode
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
