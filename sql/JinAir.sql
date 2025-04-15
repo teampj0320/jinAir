@@ -42,11 +42,11 @@ UPDATE customer
 SET profile_img = NULL
 WHERE id = 'test1';
 
--- customer 테이블 phone 데이터 수정하기 010-0000-0000 -> 01000000000
+-- customer 테이블 값 수정 : phone 데이터 수정하기 010-0000-0000 -> 01000000000, 관심 지역 2개정도 넣어놓기
 
 
 
--- 예약 테이블 탑승객 이름 (passenger_name) 컬럼 추가
+-- 예약 테이블 탑승객 이름 (passenger_name) 컬럼 추가, JSON으로 타입 변경
 DROP TABLE reservation;
 
 CREATE TABLE `reservation` (
@@ -67,23 +67,4 @@ VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영
       ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now());
 
 
-
--- 나의 예약 확인 (예약&항공테이블)
-drop view view_my_reservation;
-
-create view view_my_reservation
-as
-select  r.Id as id,
-      r.fnum as fnum,
-        r.res_num as res_num,
-      r.passenger_name  as passenger_name ,
-        r.res_date as res_date,
-        f.departure_location as departure_location,
-        f.d_acode as d_acode,
-        f.departure_date as departure_date,
-        f.arrive_location as arrive_location,
-        f.a_acode as a_acode,
-        f.arrive_date as arrive_date
-   from reservation r, flight f
-    where r.fnum = f.fnum;
 

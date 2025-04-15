@@ -2,14 +2,19 @@
 
 import {db} from './db.js'
 
-// 회원 정보 불러오기
+/************************************
+ *       회원정보 불러오기
+************************************/
 export const getMyInfo = async(data) => {
     const sql = `SELECT * FROM customer WHERE id = ?`
     const [result] = await db.execute(sql, [data.id]);
     return { result_rows: result };
 };
 
-// 회원정보 수정 버튼 클릭시 회원정보 업뎃
+
+/************************************
+ *       회원정보 수정
+************************************/
 export const updateMyInfo = async (data) => {
   const sql = `
     UPDATE customer SET 
@@ -44,13 +49,20 @@ export const updateMyInfo = async (data) => {
 
 
 
-  //
+/************************************
+ *       비밀번호 체크 
+************************************/
   export const checkPwd = async (id, password) => {
     const sql = `SELECT password FROM customer WHERE id = ?`;
     const [rows] = await db.execute(sql, [id]);
     return rows.length > 0 && rows[0].password === password;
   };
   
+
+  
+/************************************
+ *      나의 예약 불러오기
+************************************/
   
   
   export const getMyRes = async ({id}) => {
@@ -91,3 +103,26 @@ export const updateMyInfo = async (data) => {
     return grouped;
   };
   
+
+
+/************************************
+ *       관심 지역 불러오기
+************************************/
+
+  export const getInterest = async({id}) => {
+    const sql = `SELECT interest_area FROM customer WHERE id = ?`
+    const [result] = await db.execute(sql, [id]);
+    return result
+};
+
+
+/************************************
+ *        관심지역 추가하기
+************************************/
+export const updateInterest = async ({ id, checkList }) => {
+  const sql = `UPDATE customer SET interest_area = ? WHERE id = ?`;
+  const values = [JSON.stringify(checkList), id];
+  const [result] = await db.execute(sql, values);
+
+  return result;
+};

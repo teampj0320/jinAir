@@ -2,17 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import '../scss/ryeong.scss';
 import { useNavigate } from 'react-router-dom';
-import { getMyInfo } from '../service/myinfoApi.js';
+import { getMyInfo, getInterest } from '../service/myinfoApi.js';
 
 
-export default function Mypage() {
+export default function MypageIndex() {
 
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
     const myinfo = useSelector((state) => state.myinfo.myinfo); // 로그인 유저 정보
-
+    const interestArea = useSelector((state) => state.myinfo.myinterest);
     
     
     /* 회원 정보 불러오기 */
@@ -20,12 +20,13 @@ export default function Mypage() {
         console.log('불러온 회원 정보:', myinfo);
         if(isLoggedIn){
         dispatch(getMyInfo())
+        dispatch(getInterest()); 
+        
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
             select ?  navigate('/login') :  navigate('/');
         }
     }, [])
-
 
 
     return (
@@ -58,9 +59,15 @@ export default function Mypage() {
                             <div>
                                 <p className='f20 w600'>관심 지역/테마</p>
                                 <ul>
-                                    <li>#도시</li>
-                                    <li>#국내</li>
-                                    <li>#일본</li>
+                                   {
+                                    interestArea && interestArea.length > 0 ? (
+                                        interestArea.map((item) =>
+                                            <li> #{item}</li>
+                                        )
+                                    ) : 
+                                    (<span className='f13'>관심지역을 설정하세요.</span>)
+
+                                   }
                                 </ul>
                             </div>
                             <div className='interest-btn'  onClick={()=>{navigate('../mypage/myInterest')}}>

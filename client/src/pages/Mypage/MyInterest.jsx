@@ -1,8 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MypageNavigation from '../../component/mypage/MypageNavigation.jsx';
 import '../../scss/ryeong.scss';
+import { toggleInterestItem } from '../../features/myinfo/myinfoSlice.js';
+import { updateInterest, getInterest  } from '../../service/myinfoApi.js';
+import { areaList } from '../../component/mypage/interestList.js'; // 재사용할것이라 따로뺌
+
+
 
 export default function MyInterest() {
+    const dispatch = useDispatch();
+    const selectedAreas = useSelector(state => state.myinfo?.myinterest ?? []);
+
+    useEffect(() => {
+        dispatch(getInterest()); 
+    }, []);
+
+
+    const handleTagClick = (value) => {
+        dispatch(toggleInterestItem(value));
+    };
+
+    const handleSave = () => {
+        dispatch(updateInterest(selectedAreas))
+        alert('관심 지역에 저장 되었습니다.')
+    };
 
 
     return (
@@ -16,7 +38,7 @@ export default function MyInterest() {
                     <p className='my-interest-desc'>관심지역/테마를 선택하고 내게 맞는 맞춤형 정보와 다양한 혜택을 누려보세요.</p>
                     <div className='go-to-fit-air-btn'>
                         <p>
-                            관심지역/테마를 선택 후 내게 맞는 맞춤항공권을 확인하세요.
+                            관심지역을 선택 후 내게 맞는 맞춤항공권을 확인하세요.
                         </p>
                         <span>
                             맞춤항공권 바로가기
@@ -31,38 +53,23 @@ export default function MyInterest() {
                             <div className='f13'>최대 3개까지 선택이 가능합니다.</div>
                         </div>
                         <ul className='interest-tag'>
-                            <li>국내</li>
-                            <li>일본</li>
-                            <li>중국</li>
-                            <li>홍콩</li>
-                            <li>마카오</li>
-                            <li>대만</li>
-                            <li>베트남</li>
-                            <li>말레이시아</li>
-                            <li>필리핀</li>
-                            <li>라오스</li>
-                            <li>미국(괌)</li>
+                            {
+                                areaList.map((area)=>(
+
+                                    <li
+                                    key={area}
+                                    className={selectedAreas.includes(area) ? 'active' : ''}
+                                    onClick={() => handleTagClick(area)}
+                                    
+                                    >{area}</li>
+                                ))
+                            }
                         </ul>
                     </div> {/* end of tagselect */}
-                    <div className='tag-select'>
-                        <div className='tag-header'>
-                            <div className='tag-header-left'>
-                                <b className='mp-common-title'>#2</b>
-                                <p className='f18 w600'>관심테마를 선택해주세요</p>
-                            </div>
-                            <div className='f13'>최대 3개까지 선택이 가능합니다.</div>
-                        </div>
-                        <ul className='interest-tag'>
-                            <li>해변</li>
-                            <li>도시</li>
-                            <li>쇼핑</li>
-                            <li>미식</li>
-                            <li>유소아동반</li>
-                            <li>친구</li>
-                        </ul>
-                    </div> {/* end of tagselect */}
+
+                    
                     <div className='align-center mt-top40 '>
-                    <button className='navy-btn'>저장</button>
+                    <button className='navy-btn' onClick={handleSave}>저장</button>
 
                     </div>
                 </section>
