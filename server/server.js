@@ -6,6 +6,7 @@ import mypageRouter from './router/mypageRouter.js'
 import uploadRouter from './router/uploadRouter.js'
 import loginRouter from './router/loginRouter.js';
 import chatbotRouter from './router/chatbotRouter.js';
+import bookingRouter from './router/bookingRouter.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -29,6 +30,7 @@ server.use('/member', loginRouter);
 // middle ware
 server.use('/mypage', mypageRouter)
 server.use('/uploads', uploadRouter);
+server.use('/booking', bookingRouter);
 
 // chatbot
 server.use('/chatbot', chatbotRouter);
