@@ -23,7 +23,8 @@ import BookingCheckout from './pages/booking/BookingCheckout.jsx';
 import AdminLayout from'./pages/AdminLayout.jsx';
 import AdminLogin from'./component/admin/AdminLogin.jsx';
 import Admin from'./component/admin/Admin.jsx';
-import AdminAirRegister from'./component/admin/AdminAirRegister.jsx';
+import AdminFlightList from'./component/admin/AdminFlightList.jsx';
+import AdminFlightAdd from'./component/admin/AdminFlightAdd.jsx';
 import AdminNotice from'./component/admin/AdminNotice.jsx';
 
 export default function App() {
@@ -58,7 +59,8 @@ export default function App() {
       <Route element={<AdminLayout />}>
         <Route path='/admin' element={<Admin />} />
         <Route path='/admin/login' element={<AdminLogin />} />
-        <Route path='/admin/airRegister' element={<AdminAirRegister />} />
+        <Route path='/admin/flight' element={<AdminFlightList />} />
+        <Route path='/admin/flight/add' element={<AdminFlightAdd />} />
         <Route path='/admin/notice' element={<AdminNotice />} />
       </Route>
     </Routes>
