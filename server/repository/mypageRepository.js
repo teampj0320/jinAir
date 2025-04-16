@@ -150,7 +150,7 @@ export const couponCount = async ({ id}) => {
   const sql = `
   SELECT COUNT(*) AS coupon_count
     FROM coupon
-    WHERE id = ?`;
+    WHERE id = ? and used = 0`;
   const [result] = await db.execute(sql, [id]);
 
   return result;
