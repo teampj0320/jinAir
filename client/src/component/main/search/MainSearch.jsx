@@ -14,6 +14,7 @@ import MainSearchReservationCheck from './MainSearchReservationCheck.jsx';
 import SendEmail from '../../order/SendEmail.jsx';
 import { getTab } from '../../../service/searchApi.js';
 import { useDispatch, useSelector } from 'react-redux';
+import config from "../chatbot/config.js";
 
 export default function MainSearch() {
     const dispatch = useDispatch();

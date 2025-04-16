@@ -6,7 +6,7 @@ import MainLowest from '../component/main/MainLowest.jsx';
 import '../scss/hsh.scss'
 import MainNotic from '../component/main/MainNotic.jsx';
 import '../scss/haon.scss';
-import Chatbot from '../component/main/chatbot/Chatbot.jsx';
+import Chatbots from '../component/main/chatbot/Chatbots.jsx';
 import { BsRobot } from "react-icons/bs";
 import { FaArrowUp } from "react-icons/fa";
 import {resetSearch} from '../features/search/searchSlice.js';
@@ -38,7 +38,7 @@ export default function Home() {
                         <span>JAID</span>
                     </button>
                 </div>
-                {chatbotModalOpen && <Chatbot/>}
+                {chatbotModalOpen && <Chatbots/>}
                 <div className='totop'>
                 <button onClick={()=>{scrollToTop()}}>
                 <FaArrowUp className='totop-icon' size={20}/>

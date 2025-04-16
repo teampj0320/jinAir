@@ -1,4 +1,4 @@
-import React, { useState,useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IoMdClose } from "react-icons/io";
 import Schedule from './Schedule.jsx';
 import Reservation from './Reservation.jsx';
@@ -10,13 +10,20 @@ import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {getChatbotModalOpen} from '../../../service/searchApi.js';
+import { getChatbotModalOpen } from '../../../service/searchApi.js';
+import config from "./config.js";
+import MessageParser from "./MessageParser.jsx";
+import ActionProvider from "./ActionProvider.jsx";
+import Chatbot from "react-chatbot-kit";
+import 'react-chatbot-kit/build/main.css';
 
-export default function Chatbot() {
+export default function Chatbots() {
     const dispatch = useDispatch();
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
-    
+    const [message, setMessage] = useState('');
+    const [message1, setMessage1] = useState('');
+
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
         { tab: 'airplane', img: "/images/chatbot/icon_02_de.png" },
@@ -50,6 +57,20 @@ export default function Chatbot() {
         // 로그인 일때
         // qna 페이지로 이동됨
     }
+    const handleMessage = (e) => {
+        // const { name, value } = e.target;
+        setMessage(e.target.value);
+        setMessage1(e.target.value);
+    }
+    const activeEnter = (e) => {
+        if (e.key === "Enter") {
+            handleMessage(e);
+            setMessage('');
+        }
+    }
+    console.log(message);
+
+
     return (
         <div className='chat-modal-content'>
             <div className='chat-country-all'>
@@ -75,18 +96,25 @@ export default function Chatbot() {
                             }
                         </ul>
                     </div>
-                    <div ref={componentRef}>                        
+                    <div ref={componentRef}>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
-                        {chatTab === 'reservation' && <Reservation />}
+                        {chatTab === 'reservation' && <Reservation message1={message1}/>}
                         {chatTab === 'food' && goFood()}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
                         {chatTab === 'ticket' && <Ticket />}
                         {chatTab === 'check' && <Check />}
                         {chatTab === 'notice' && goNotice()}
-                        {buyAirTicket && <BuyTicket/>}
+                        {buyAirTicket && <BuyTicket />}
                     </div>
+                {/* <div className='real-chatbot-box'>
+                    <Chatbot
+                        config={config}
+                        messageParser={MessageParser}
+                        actionProvider={ActionProvider}
+                    />
+                </div> */}
                 </div>
                 <div className='chatbot-main-bottom-box'>
                     <ul>
@@ -96,7 +124,7 @@ export default function Chatbot() {
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_02.png" alt="챗봇스몰아이콘" />
-                            <span onClick={()=>{setBuyAirTicket(true)}}>항공권구매</span>
+                            <span onClick={() => { setBuyAirTicket(true) }}>항공권구매</span>
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_03.png" alt="챗봇스몰아이콘" />
@@ -105,7 +133,9 @@ export default function Chatbot() {
                     </ul>
                 </div>
                 <div className='chatbot-bottom-box'>
-                    <input type="text" placeholder='궁금하신 사항을 입력해 주세요~' />
+                    <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
+                    value={message}
+                        onKeyDown={activeEnter} onChange={handleMessage}/>
                 </div>
             </div >
         </div>
