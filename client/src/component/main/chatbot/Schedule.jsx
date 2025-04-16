@@ -3,6 +3,7 @@ import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCountry } from '../../../service/searchApi.js';
 import axios from 'axios';
+import {getChatbotModalOpen, getDeparture,getArrive, getStartDate, getTab,getSearchTab} from '../../../service/searchApi.js';
 
 export default function Schedule() {
     const dispatch = useDispatch();
@@ -73,7 +74,21 @@ export default function Schedule() {
         }
         return true;
     }
-
+    const scrollToTop = ()=>{
+        window.scrollTo({ 
+            top: 0,
+            behavior : 'smooth'
+        })
+    }
+    const reservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date)); 
+        dispatch(getTab('main'));        
+        dispatch(getSearchTab('oneWay'));        
+    }
+    
     const ScheduleCheck = () => {
         if (validate()) { // 스케쥴이 잇으면
             axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
@@ -148,7 +163,7 @@ export default function Schedule() {
                             </table>
                             <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
                             <div>
-                                <button>예약하기</button>
+                                <button onClick={()=>{reservation();scrollToTop()}}>예약하기</button>
                                 <button onClick={changeCountry}>출도착지 바꾸기</button>
                             </div>
                             {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)

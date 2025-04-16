@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountry } from '../../../service/searchApi.js';
+import { getCountry,getChatbotModalOpen, getDeparture,getArrive, getStartDate, getTab,getSearchTab } from '../../../service/searchApi.js';
 import axios from 'axios';
 
 export default function Airplane() {
@@ -129,14 +129,30 @@ export default function Airplane() {
             })
             .catch(error => console.log(error));
     }
-
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+    const reservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date));
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('oneWay'));
+    }
     return (
         <div className='airplane-all-box'>
             <div className='schedule-all-box'>
                 <p>출도착조회를 선택하셨습니다. 조회하실 방법을 선택해주세요.</p>
                 <div>
-                    <button onClick={() => { setAirNum(true); setCountry(false) }}>편명으로 조회</button>
-                    <button onClick={() => { setCountry(true); setAirNum(false) }}>출도착지로 조회</button>
+                    <button onClick={() => { setAirNum(true); setCountry(false); }}>편명으로 조회</button>
+                    <button onClick={() => {
+                        setCountry(true); setAirNum(false); setAirNumClick(false);
+                        setNoneAirNumClick(false);
+                    }}>출도착지로 조회</button>
                 </div>
             </div>
             {airNum &&
@@ -238,21 +254,21 @@ export default function Airplane() {
                             </table>
                             <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
                             <div>
-                                <button>예약하기</button>
+                                <button onClick={() => { reservation(); scrollToTop() }}>예약하기</button>
                                 <button onClick={() => { exchangeCountry() }}>출도착지 바꾸기</button>
                             </div>
                             {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
                                         // 출도착지 변경은 걍 두개 변경해주면댐*/}
                         </div>
                     </div>
-                    </>}
-                    {noneCountryClick &&
-                        <div className='schedule-all-box'>
-                            <div className='schedule-none-exist-box'>
-                                <p>[출발일:{date}, 출발지:{start}, 도착지:{end}] <br />일치하는 스케줄 정보가 없습니다.</p>
-                            </div>
-                        </div>
-                    }
+                </>}
+            {noneCountryClick &&
+                <div className='schedule-all-box'>
+                    <div className='schedule-none-exist-box'>
+                        <p>[출발일:{date}, 출발지:{start}, 도착지:{end}] <br />일치하는 스케줄 정보가 없습니다.</p>
+                    </div>
+                </div>
+            }
         </div>
     );
 }

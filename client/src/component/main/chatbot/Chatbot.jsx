@@ -9,7 +9,11 @@ import Ticket from './Ticket.jsx';
 import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
-export default function Chatbot({ setTab }) {
+import { useSelector, useDispatch } from 'react-redux';
+import {getChatbotModalOpen} from '../../../service/searchApi.js';
+
+export default function Chatbot() {
+    const dispatch = useDispatch();
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
     
@@ -51,7 +55,7 @@ export default function Chatbot({ setTab }) {
             <div className='chat-country-all'>
                 <div className='chatbot-top'>
                     <span>제이드(Jaid)</span>
-                    <IoMdClose onClick={() => setTab(false)} className='main-search-country-icon2' />
+                    <IoMdClose onClick={() => dispatch(getChatbotModalOpen(false))} className='main-search-country-icon2' />
                 </div>
                 <div className='chatbot-main'>
                     <div className='chatbot-main-top-box'>
