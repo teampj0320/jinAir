@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
+import axios from 'axios';
 
 export default function Reservation() {
     const [iknow, setIknow] = useState(false);
     const [iknow1, setIknow1] = useState(false);
     const [idknow, setIdknow] = useState(false);
+    const [reservationExist, setReservationExist] = useState(false);
+    const [reservationNo, setReservationNo] = useState(false);
     const btnRef = useRef(null);
     const navigate = useNavigate();
     const reserMessage = useSelector(state => state.search.reserMessage);
@@ -14,9 +16,13 @@ export default function Reservation() {
 
     useEffect(()=>{
         if(reserMessage !=='' && reserMessage1 !==''){
-            axios.post('http://localhost:9000/chatbot',{})
+            axios.post('http://localhost:9000/chatbot/searchReservation',{reserMessage1,reserMessage})
                 .then(res => {
-                    console.log(res.data);
+                    if(res.data.result === 1){
+                        setReservationExist(true);
+                    }else{
+                        setReservationNo(true);
+                    }
                     
                 })
                 .catch(error=> console.log(error));
@@ -60,7 +66,7 @@ export default function Reservation() {
                         <div>
                             <span>{reserMessage1}</span>
                         </div> : ''}
-                    {reserMessage1 === '' && reserMessage === '' &&
+                    {reservationNo &&
                     <div className='조회놉'>
                         <p>입력하신 예약번호로는 예약 내역을 찾을수가 없습니다.
                             <br />
@@ -70,13 +76,13 @@ export default function Reservation() {
                         </p>
                     </div>
                     }
-                    {reserMessage1 !== '' ?
+                    {reservationExist &&
                         <div className='조회성공시'>
                             <p>해당하는 조회 내역을 출력</p>
                             <div>
                                 출발지 도착지 출발날짜 인원수 이런거 띄우면 될듯
                             </div>
-                        </div> : ''
+                        </div> 
                     }
 
                 </div>

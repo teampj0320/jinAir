@@ -158,14 +158,14 @@ export default function Chatbots() {
                         </li>
                     </ul>
                 </div>
-                {msg1 &&
+                {chatTab === 'reservation' && msg1 &&
                     <div className='chatbot-bottom-box'>
                         <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
                             value={message}
                             onKeyDown={activeEnter} onChange={handleMessage} />
                     </div>
                 }
-                {msg2 &&
+                {chatTab === 'reservation' && msg2 &&
                     <div className='chatbot-bottom-box'>
                         <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
                             value={message}

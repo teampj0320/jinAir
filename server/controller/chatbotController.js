@@ -38,3 +38,12 @@ export const searchMonthCheap = async(req, res) =>{
   res.json(result);
   res.end();
 };
+
+
+// 예약번호 아이디로 예약조회
+export const searchReservation = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.searchReservation(req.body);
+  res.json(result);
+  res.end();
+};
