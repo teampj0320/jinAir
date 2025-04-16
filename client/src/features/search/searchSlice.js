@@ -1,81 +1,97 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-     modalOpen : false,
-     peopleModal : false,
-     calendar : false,
-     calendar2 : false ,
-     type : 'n',
-     departure : '' , // 출발지
-     arrive : '', // 도착지
-     multiDepart : '',
-     multiArr : '',
-     adultNum : 1 , // 성인 수
-     pediatricNum : 0,    // 소아 수 
-     babyNum : 0 , // 유아 수
-     total : 0,
-     startDate : '',  // 출발일
-     startDate2 : '' , 
-     endDate : '', // 도착일
-     countryList : [],
-     calendarType : ''
+    searchTab: 'roundTrip' ,// MainSearch 왕복편도다구간 탭
+    tab: 'main',  
+    chatbotModalOpen: false,
+    modalOpen: false,
+    peopleModal: false,
+    calendar: false,
+    calendar2: false,
+    calendar3: false,
+    type: 'n',
+    departure: '', // 출발지
+    arrive: '', // 도착지
+    multiDepart: '',
+    multiArr: '',
+    adultNum: 1, // 성인 수
+    pediatricNum: 0,    // 소아 수 
+    babyNum: 0, // 유아 수
+    total: 0,
+    startDate: '',  // 출발일
+    startDate2: '',
+    endDate: '', // 도착일
+    countryList: [],
+    calendarType: ''
 }
 
 export const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
-        setCalendarType(state, action){
-            state.countryList = action.payload; 
+        setSearchTab(state, action){
+            state.searchTab = action.payload;
         },
-        setCountryList(state, action){
-            state.countryList = action.payload;           
+        setTab(state, action) {
+            state.tab = action.payload;
         },
-        setModalOpen(state, action){ 
+        setChatbotModalOpen(state, action) {
+            state.chatbotModalOpen = action.payload;
+        },
+        setCalendarType(state, action) {
+            state.countryList = action.payload;
+        },
+        setCountryList(state, action) {
+            state.countryList = action.payload;
+        },
+        setModalOpen(state, action) {
             state.modalOpen = action.payload;
         },
-        setPeopleModal(state, action){ 
+        setPeopleModal(state, action) {
             state.peopleModal = action.payload;
         },
-        setCalendar(state, action){ 
+        setCalendar(state, action) {
             state.calendar = action.payload;
         },
-        setCalendar2(state, action){ 
+        setCalendar2(state, action) {
             state.calendar2 = action.payload;
         },
-        setAdultNum(state, action){
+        setCalendar3(state, action) {
+            state.calendar3 = action.payload;
+        },
+        setAdultNum(state, action) {
             state.adultNum = action.payload;
-            
-        },setPediatricNum(state, action){
+
+        }, setPediatricNum(state, action) {
             state.pediatricNum = action.payload;
-        },setBabyNum(state, action){
+        }, setBabyNum(state, action) {
             state.babyNum = action.payload;
-        },setTotal(state, action){
+        }, setTotal(state, action) {
             state.total = action.payload;
         },
-        setType(state, action){
+        setType(state, action) {
             state.type = action.payload;
         },
-        setDeparture(state, action){
+        setDeparture(state, action) {
             state.departure = action.payload;
         },
-        setArrive(state, action){
+        setArrive(state, action) {
             state.arrive = action.payload;
         },
-        setStartDate(state, action){
+        setStartDate(state, action) {
             state.startDate = action.payload;
-        },setStartDate2(){
+        }, setStartDate2() {
 
-        },setEndDate(state, action){
+        }, setEndDate(state, action) {
             state.endDate = action.payload;
         },
-         // 🎯 여기에 초기화 액션 추가
-         resetSearch: () => initialState
+        // 🎯 여기에 초기화 액션 추가
+        resetSearch: () => initialState
     },
 })
 
-export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setDeparture,setArrive,
-    setStartDate,setEndDate,setType, resetSearch,setCountryList,setCalendarType
- } = searchSlice.actions
+export const { setModalOpen, setPeopleModal, setCalendar, setCalendar2, setCalendar3,
+    setAdultNum, setPediatricNum, setBabyNum, setTotal, setDeparture, setArrive,setTab,setSearchTab,
+    setStartDate, setEndDate, setType, resetSearch, setCountryList, setCalendarType, setChatbotModalOpen
+} = searchSlice.actions
 export default searchSlice.reducer

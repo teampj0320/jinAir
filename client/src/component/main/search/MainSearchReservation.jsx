@@ -5,12 +5,13 @@ import MainSearchCountryModal from './MainSearchCountryModal.jsx';
 import MainSearchPeopleModal from './MainSearchPeopleModal.jsx';
 import MainSearchCalendar from './MainSearchCalendar.jsx';
 import MultiSearchCalendar from './MultiSearchCalendar.jsx';
+import OnewaySearchCalendar from './OnewaySearchCalendar.jsx';
 import RoundTrip from './RoundTrip.jsx';
 import OneWay from './OneWay.jsx';
 import MultiCity from './MultiCity.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAdultNum,getPediatricNum,getBabyNum,getDeparture,getArrive,getType,
-    getStartDate,getEndDate
+    getStartDate,getEndDate,getSearchTab
  } from '../../../service/searchApi.js';
 
 
@@ -19,11 +20,12 @@ export default function MainSearchReservation() {
     const modalOpen = useSelector(state => state.search.modalOpen);
     const peopleModal = useSelector(state => state.search.peopleModal);
     const calendar = useSelector(state => state.search.calendar);
-    const calendar2 = useSelector(state => state.search.calendar2);
+    const calendar2 = useSelector(state => state.search.calendar2);   // 다구간
+    const calendar3 = useSelector(state => state.search.calendar3);  // 편도
     const departure = useSelector(state => state.search.departure);
     const arrive = useSelector(state => state.search.arrive);
     const type = useSelector(state => state.search.type);
-    const [searchTab, setSearchTab] = useState('roundTrip');
+    const searchTab = useSelector(state => state.search.searchTab);
     const [multiDepart, setMultiDepart] = useState('');
     const [multiArr, setMultiArr] = useState('');
     const [startDate2, setStartDate2] = useState('');  
@@ -64,12 +66,13 @@ export default function MainSearchReservation() {
             {calendar && <MainSearchCalendar startCalendar={startCalendar}
                 endCalendar={endCalendar} />}
             {calendar2 && <MultiSearchCalendar startCalendar2={startCalendar2} />}
+            {calendar3 && <OnewaySearchCalendar startCalendar={startCalendar} />}
             <div className='main-top-search-bottom-main-top'>
                 <ul>
                     {
                         list && list.map((item) => (
                             <li onClick={() => {
-                                setSearchTab(item.tabNm); dispatch(getDeparture('')); dispatch(getArrive('')); setMultiDepart(''); setMultiArr('');
+                                dispatch(getSearchTab(item.tabNm)); dispatch(getDeparture('')); dispatch(getArrive('')); setMultiDepart(''); setMultiArr('');
                                 dispatch(getAdultNum(1)); dispatch(getPediatricNum(0)); dispatch(getBabyNum(0));
                                 dispatch(getStartDate('')); dispatch(getEndDate(''));
                             }}
