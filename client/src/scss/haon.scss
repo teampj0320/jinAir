@@ -1740,6 +1740,29 @@ h2.react-datepicker__current-month {
 // *******************************
 
 .reservation-all-box {
+    >div:last-child{
+        // padding: 0 10px;
+        p{
+            margin-top: 10px;
+        }
+        .cheap-button-box {
+            padding: 0 10px;
+            margin-bottom: 10px;
+            
+            button {
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+            
+            button:hover {
+                cursor: pointer;
+            }
+        }
+    }
     >div:nth-child(2) {
         // border: 1px solid gainsboro;
         width: 450px;

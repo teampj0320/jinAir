@@ -10,7 +10,9 @@ import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getChatbotModalOpen } from '../../../service/searchApi.js';
+import { getChatbotModalOpen, getMessage, getReserMessage, getReserMessage1,
+    
+ } from '../../../service/searchApi.js';
 import config from "./config.js";
 import MessageParser from "./MessageParser.jsx";
 import ActionProvider from "./ActionProvider.jsx";
@@ -21,12 +23,11 @@ export default function Chatbots() {
     const dispatch = useDispatch();
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
-    const [message, setMessage] = useState('');
-    const [message1, setMessage1] = useState('');  // reservation 으로 넘길값
-    const [message2, setMessage2] = useState('');
-    const [message3, setMessage3] = useState('');// reservation 으로 넘길값
     const [msg1, setMsg1] = useState(true);
     const [msg2, setMsg2] = useState(false);
+    const [msg3, setMsg3] = useState(false);
+    const message = useSelector(state => state.search.message);
+    
 
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
@@ -62,39 +63,46 @@ export default function Chatbots() {
         // qna 페이지로 이동됨
     }
     const handleMessage = (e) => {
-        // const { name, value } = e.target;
-        setMessage(e.target.value);
-        setMessage1(e.target.value);
+        dispatch(getMessage(e.target.value));
+        dispatch(getReserMessage(e.target.value));
     }
     const activeEnter = (e) => {
         if (e.key === "Enter") {
             handleMessage(e);
-            setMessage('');
+            dispatch(getMessage(''));
             setMsg1(false);
             setMsg2(true);
         }
     }
     const handleMessage2 = (e) => {
-        // const { name, value } = e.target;
-        setMessage2(e.target.value);
-        setMessage3(e.target.value);
+        dispatch(getMessage(e.target.value));
+        dispatch(getReserMessage1(e.target.value));
     }
     const activeEnter2 = (e) => {
         if (e.key === "Enter") {
             handleMessage2(e);
-            setMessage2('');
+            dispatch(getMessage(''));
             setMsg1(false);
             setMsg2(false);
         }
     }
 
+    const closeAll = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getMessage(''));
+        dispatch(getReserMessage(''));
+        dispatch(getReserMessage1(''));
+        setMsg1(true);
+        setMsg2(false);
+        setMsg3(false);
+    }
 
     return (
         <div className='chat-modal-content'>
             <div className='chat-country-all'>
                 <div className='chatbot-top'>
                     <span>제이드(Jaid)</span>
-                    <IoMdClose onClick={() => dispatch(getChatbotModalOpen(false))} className='main-search-country-icon2' />
+                    <IoMdClose onClick={() => { closeAll() }} className='main-search-country-icon2' />
                 </div>
                 <div className='chatbot-main'>
                     <div className='chatbot-main-top-box'>
@@ -117,7 +125,7 @@ export default function Chatbots() {
                     <div ref={componentRef}>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
-                        {chatTab === 'reservation' && <Reservation message1={message1} message3={message3}/>}
+                        {chatTab === 'reservation' && <Reservation/>}
                         {chatTab === 'food' && goFood()}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
@@ -160,7 +168,7 @@ export default function Chatbots() {
                 {msg2 &&
                     <div className='chatbot-bottom-box'>
                         <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
-                            value={message2}
+                            value={message}
                             onKeyDown={activeEnter2} onChange={handleMessage2} />
                     </div>
                 }

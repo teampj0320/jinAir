@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+    message: '',   // 인풋 초기화
+    reserMessage: '', // 전달할 값1
+    reserMessage1: '', // 전달할 값2
     searchTab: 'roundTrip' ,// MainSearch 왕복편도다구간 탭
     tab: 'main',  
     chatbotModalOpen: false,
@@ -29,6 +32,15 @@ export const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
+        setMessage(state, action){
+            state.message = action.payload;
+        },
+        setReserMessage(state, action){
+            state.reserMessage = action.payload;
+        },
+        setReserMessage1(state, action){
+            state.reserMessage1 = action.payload;
+        },
         setSearchTab(state, action){
             state.searchTab = action.payload;
         },
@@ -91,6 +103,7 @@ export const searchSlice = createSlice({
 })
 
 export const { setModalOpen, setPeopleModal, setCalendar, setCalendar2, setCalendar3,
+    setMessage,setReserMessage,setReserMessage1,
     setAdultNum, setPediatricNum, setBabyNum, setTotal, setDeparture, setArrive,setTab,setSearchTab,
     setStartDate, setEndDate, setType, resetSearch, setCountryList, setCalendarType, setChatbotModalOpen
 } = searchSlice.actions
