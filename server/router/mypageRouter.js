@@ -8,6 +8,7 @@ router
     .post('/checkPwd', controller.checkPwd )
     .post('/getMyRes', controller.getMyRes )
     .post('/getInterest', controller.getInterest )
-    .post('/updateInterest', controller.updateInterest );
+    .post('/updateInterest', controller.updateInterest )
+    .post('/getMyCoupon', controller.getMyCoupon );
 
 export default router;

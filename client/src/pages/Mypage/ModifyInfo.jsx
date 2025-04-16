@@ -14,7 +14,7 @@ import ImageUpload from '../../component/ImageUpload.jsx';
 export default function ModifyInfo() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     // 로그인한 유저의 정보 가져오기
     const myinfo = useSelector((state) => state.myinfo.myinfo);
     const uploadButtonRef = useRef(); // 프사 업로드 참조
@@ -23,11 +23,11 @@ export default function ModifyInfo() {
     /* 회원 정보 조회 */
     useEffect(() => {
         console.log('회원정보 >>>', myinfo);
-        if(isLoggedIn){
-        dispatch(getMyInfo())
+        if (isLoggedIn) {
+            dispatch(getMyInfo())
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-            select ?  navigate('/login') :  navigate('/');
+            select ? navigate('/login') : navigate('/');
         }
     }, [])
 
@@ -192,13 +192,13 @@ export default function ModifyInfo() {
                                 <button onClick={handlePwdTogle}>비밀번호 변경</button>
                                 {pwdModalOpen && (
                                     <Modal open onCancel={handlePwdTogle} footer={null} width={550}>
-                                        <ModifyPass 
+                                        <ModifyPass
                                             userId={myinfo.id}
                                             onConfirm={(newPassword) => {
-                                              setFormData(prev => ({ ...prev, password: newPassword }));
-                                              setPwdModalOpen(false);
-                                            }}    
-                                        
+                                                setFormData(prev => ({ ...prev, password: newPassword }));
+                                                setPwdModalOpen(false);
+                                            }}
+
                                         />
                                     </Modal>
                                 )}
