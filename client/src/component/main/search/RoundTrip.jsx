@@ -6,8 +6,10 @@ import { IoPersonSharp } from "react-icons/io5";
 import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getModalOpen, getPeopleModal, getCalendar, getType } from '../../../service/searchApi.js';
+import { useNavigate } from 'react-router-dom';
 
-export default function RoundTrip({ exchangeCountry }) {      
+export default function RoundTrip({ exchangeCountry }) {   
+    const navigate = useNavigate();   
     const dispatch = useDispatch();
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
@@ -45,9 +47,11 @@ export default function RoundTrip({ exchangeCountry }) {
             date.current.style.setProperty('border', '2px solid red');
             isValid = false;
         }
-        return isValid;
+        return isValid;        
     };
-
+    const handleCheckGo = () => {
+        handleCheck() && navigate('/booking/availabilityList/go');
+    }
     return (
         <>
             <div className='main-top-search-bottom-main-middle'>
@@ -98,7 +102,7 @@ export default function RoundTrip({ exchangeCountry }) {
                         <IoIosArrowDown className='main-top-search-bottom-main-middle-icon' />
                     </div>
                 </div>
-                <button onClick={handleCheck}>항공권 조회</button>
+                <button onClick={handleCheckGo}>항공권 조회</button>
             </div>
         </>
     );
