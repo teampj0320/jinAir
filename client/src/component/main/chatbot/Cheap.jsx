@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountry } from '../../../service/searchApi.js';
+import {
+    getCountry, getChatbotModalOpen, getDeparture, getArrive, getStartDate, getTab, getSearchTab,
+    getAdultNum, getPediatricNum, getBabyNum,getEndDate
+} from '../../../service/searchApi.js';
 import axios from 'axios';
 export default function Cheap() {
     const [dateSelect, setDateSelect] = useState(false);
@@ -93,7 +96,7 @@ export default function Cheap() {
                 .then(res => {
                     if (res.data.result === 1) {
                         setOnewayClick(true);
-                    }                                           
+                    }
                 })
                 .catch(error => console.log(error));
         }
@@ -104,9 +107,9 @@ export default function Cheap() {
                 .then(res => {
                     if (res.data.result === 1) {
                         setRoundtripClick(true);
-                    }                                           
+                    }
                 })
-                .catch(error => console.log(error));            
+                .catch(error => console.log(error));
         }
     }
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -115,11 +118,11 @@ export default function Cheap() {
         setStart(end);
         setEnd(start);
         axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
-        .then(res => {
-            // if (res.data.result === 1) {
-                setGetFlightList(res.data.result);                
-                setOneWayScheduleClick(true);                
-                } 
+            .then(res => {
+                // if (res.data.result === 1) {
+                setGetFlightList(res.data.result);
+                setOneWayScheduleClick(true);
+            }
             )
             .catch(error => console.log(error));
     }
@@ -140,7 +143,7 @@ export default function Cheap() {
         },
         {
             name: '어린이', ref: childRef,
-            onChange: handleAdult, value: 'default', count: '선택'
+            onChange: handleChild, value: 'default', count: '선택'
         },
         {
             name: '유아', ref: babyRef,
@@ -150,25 +153,54 @@ export default function Cheap() {
 
     const handleOneway = () => {
         axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
-        .then(res => {
-            // if (res.data.result === 1) {
-                setGetFlightList(res.data.result);                
-                setOneWayScheduleClick(true);                
-                } 
+            .then(res => {
+                // if (res.data.result === 1) {
+                setGetFlightList(res.data.result);
+                setOneWayScheduleClick(true);
+            }
             )
             .catch(error => console.log(error));
     }
     const handleRoundTrip = () => {
-        axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date})
-        .then(res => {
-            // if (res.data.result === 1) {
-                setGetFlightList(res.data.result);                
-                setLastRoundtripClick(true);               
-                } 
+        axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+            .then(res => {
+                // if (res.data.result === 1) {
+                setGetFlightList(res.data.result);
+                setLastRoundtripClick(true);
+            }
             )
             .catch(error => console.log(error));
     }
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+    const onewayReservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date));
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('oneWay'));
+        dispatch(getAdultNum(adult));
+        dispatch(getPediatricNum(child));
+        dispatch(getBabyNum(baby));
+    }
 
+    const RoundReservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date));
+        dispatch(getEndDate(endDate));
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('roundTrip'));
+        dispatch(getAdultNum(adult));
+        dispatch(getPediatricNum(child));
+        dispatch(getBabyNum(baby));
+    }
     return (
         <div className='cheap-all-box'>
             <div>
@@ -196,261 +228,266 @@ export default function Cheap() {
                             <button onClick={() => { setRoundtrip(true) }}>왕복</button>
                         </div>
                     </div>
-                    </>}
-                    {roundtrip &&  //왕복클릭시
-                        <>
-                            <div className='schedule-all-box'>
-                                <p>츨/도착지와 날짜를 선택해주세요!</p>
-                                <div className='schedule-country-check-box'>
-                                    <span>출발/도착</span>
-                                    <select ref={startRef} name="" id="" onChange={handleStart}>
-                                        <option value='default'>선택</option>
-                                        {processedList.map((data) => (
-                                            <option value={data}>{data}</option>
-                                        ))}
-                                    </select>
-                                    <select ref={endRef} name="" id="" onChange={handleEnd}>
-                                        <option value='default'>선택</option>
-                                        {processedList.map((data) => (
-                                            <option value={data}>{data}</option>
-                                        ))}
-                                    </select>
+                </>}
+            {roundtrip &&  //왕복클릭시
+                <>
+                    <div className='schedule-all-box'>
+                        <p>츨/도착지와 날짜를 선택해주세요!</p>
+                        <div className='schedule-country-check-box'>
+                            <span>출발/도착</span>
+                            <select ref={startRef} name="" id="" onChange={handleStart}>
+                                <option value='default'>선택</option>
+                                {processedList.map((data) => (
+                                    <option value={data}>{data}</option>
+                                ))}
+                            </select>
+                            <select ref={endRef} name="" id="" onChange={handleEnd}>
+                                <option value='default'>선택</option>
+                                {processedList.map((data) => (
+                                    <option value={data}>{data}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className='schedule-calendar-check-box'>
+                            <span>가는날</span>
+                            <input ref={dateRef} type="date" onChange={handleDate} />
+                        </div>
+                        <div className='schedule-calendar-check-box'>
+                            <span>오는날</span>
+                            <input type="date" ref={endDateRef} onChange={handleEndDate} />
+                        </div>
+                        <div className='cheap-button-box'>
+                            <button onClick={() => { ScheduleCheckRound() }}>확인</button>
+                        </div>
+                    </div>
+                    {roundtripClick &&//확인클릭시
+                        <div className='schedule-all-box'>
+                            <p>예약 인원을 선택해 주세요</p>
+                            <ul>
+                                {peopleList.map((item) => (
+                                    <li>
+                                        <label htmlFor="">{item.name}</label>
+                                        <select onChange={item.onChange} ref={item.ref}>
+                                            <option value={item.value}>{item.count}</option>
+                                            {list.map((num) => (
+                                                <option value={num}>{num}</option>
+                                            ))}
+                                        </select>
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                            <div className='cheap-button-box'>
+                                <button onClick={() => { setPeopleRoundClick(true) }}>확인</button>
+                            </div>
+                        </div>}
+                    {peopleRoundClick &&//확인 클릭시
+                        <div className='schedule-all-box'>
+                            <ul>
+                                <li>▣ 가는 항공편</li>
+                                <li>◈ 경로 : {start} &#10132; {end}</li>
+                                <li>◈ 출발일 : {date}</li>
+                                <li>▣ 오는 항공편</li>
+                                <li>◈ 경로 : {end} &#10132; {start}</li>
+                                <li>◈ 출발일 : {endDate}</li>
+                                <li>▣ 탑승인원</li>
+                                <li>⊙ 성인 : {adult}명</li>
+                                <li>⊙ 소아 : {child}명</li>
+                                <li>⊙ 유아 : {baby}명</li>
+                            </ul>
+                            <p>입력하신 정보가 맞는지 확인 해주세요~
+                                <br />잘못 입력하셨다면 처음으로 돌아갑니다.
+                            </p>
+                            <div className='cheap-button-box'>
+                                <button onClick={() => { handleRoundTrip() }}>예</button>
+                                <button onClick={() => { handleClearOneWay() }}>아니오</button>
+                                <button onClick={exchangeCountryOneWay}>출도착지 바꾸기</button>
+                            </div>
+                        </div>}
+                    {lastRoundtripClick && //예 클릭시
+                        <div className='schedule-all-box'>
+                            <div className='cheap-round-before-select'>
+                                <span>가는날 : <span>{date}</span></span>
+                                <span>오는날 : <span>{endDate}</span></span>
+                            </div>
+                            <div>
+                                <span>{start}</span>
+                                <IoAirplane className='cheap-icon' />
+                                <span>{end}</span>
+                            </div>
+                            <div>성인 {adult}명, 소아{child}명, 유아{baby}명</div>
+                            <div className='cheap-reservation'>
+                                <div >
+                                    <ul>
+                                        <li>
+                                            <span>항공운임</span>
+                                            <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                                getFlightList.basic_price * baby).toLocaleString()}원</span>
+                                        </li>
+                                        <li>
+                                            <span>유류할증료 + 세금</span>
+                                            <span>{(getFlightList.basic_price * 0.1).toLocaleString()}원</span>
+                                        </li>
+                                        <li>
+                                            <span>총 금액</span>
+                                            <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                                getFlightList.basic_price * baby + getFlightList.basic_price * 0.1).toLocaleString()}원</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div className='schedule-calendar-check-box'>
-                                    <span>가는날</span>
-                                    <input ref={dateRef} type="date" onChange={handleDate} />
-                                </div>
-                                <div className='schedule-calendar-check-box'>
-                                    <span>오는날</span>
-                                    <input type="date" ref={endDateRef} onChange={handleEndDate} />
-                                </div>
-                                <div className='cheap-button-box'>
-                                    <button onClick={() => { ScheduleCheckRound() }}>확인</button>
+                                <div>
+                                    <button onClick={() => { RoundReservation(); scrollToTop() }}>예약하기</button>
                                 </div>
                             </div>
-                            {roundtripClick &&//확인클릭시
-                                <div className='schedule-all-box'>
-                                    <p>예약 인원을 선택해 주세요</p>
-                                    <ul>
-                                        {peopleList.map((item) => (
-                                            <li>
-                                                <label htmlFor="">{item.name}</label>
-                                                <select onChange={item.onChange} ref={item.ref}>
-                                                    <option value={item.value}>{item.count}</option>
-                                                    {list.map((num) => (
-                                                        <option value={num}>{num}</option>
-                                                    ))}
-                                                </select>
-                                            </li>
-                                        ))
-                                        }
-                                    </ul>
-                                    <div className='cheap-button-box'>
-                                        <button onClick={() => { setPeopleRoundClick(true) }}>확인</button>
-                                    </div>
-                                </div>}
-                            {peopleRoundClick &&//확인 클릭시
-                                <div className='schedule-all-box'>
-                                    <ul>
-                                        <li>▣ 가는 항공편</li>
-                                        <li>◈ 경로 : {start} &#10132; {end}</li>
-                                        <li>◈ 출발일 : {date}</li>
-                                        <li>▣ 오는 항공편</li>
-                                        <li>◈ 경로 : {end} &#10132; {start}</li>
-                                        <li>◈ 출발일 : {endDate}</li>
-                                        <li>▣ 탑승인원</li>
-                                        <li>⊙ 성인 : {adult}명</li>
-                                        <li>⊙ 소아 : {child}명</li>
-                                        <li>⊙ 유아 : {baby}명</li>
-                                    </ul>
-                                    <p>입력하신 정보가 맞는지 확인 해주세요~
-                                        <br />잘못 입력하셨다면 처음으로 돌아갑니다.
-                                    </p>
-                                    <div className='cheap-button-box'>
-                                        <button onClick={() => { handleRoundTrip() }}>예</button>
-                                        <button onClick={() => { handleClearOneWay() }}>아니오</button>
-                                        <button onClick={exchangeCountryOneWay}>출도착지 바꾸기</button>
-                                    </div>
-                                </div>}
-                            {lastRoundtripClick && //예 클릭시
-                                <div className='schedule-all-box'>
-                                    <div className='cheap-round-before-select'>
-                                        <span>가는날 : <span>{date}</span></span>
-                                        <span>오는날 : <span>{endDate}</span></span>
-                                    </div>
+                            <p>*상기 운임은 참고사항으로, 공항 사정이나 일정에 따라 수시로 변동 될 수 있습니다.</p>
+                            <div className='cheap-cheap-month'>
+                                <h5>{getFlightList.month} 최저가</h5>
+                                <div className='cheap-cheap-month-middle'>
                                     <div>
-                                        <span>{start}</span>
-                                        <IoAirplane className='cheap-icon' />
-                                        <span>{end}</span>
+                                        <ul>
+                                            <li>{getFlightList.date} ~ {getFlightList.endDate}</li>
+                                            <li>성인 1명 기준</li>
+                                            <li>{getFlightList.basic_price.toLocaleString()}원</li>
+                                            <li>(항공운임, 유류할증료, 세금 포함 금액)</li>
+                                        </ul>
                                     </div>
-                                    <div>성인 1명, 소아0명, 유아0명</div>
-                                    <div className='cheap-reservation'>
-                                        <div >
-                                            <ul>
-                                                <li>
-                                                    <span>항공운임</span>
-                                                    <span>{getFlightList.basic_price.toLocaleString()}원</span>
-                                                </li>
-                                                <li>
-                                                    <span>유류할증료 + 세금</span>
-                                                    <span>{(getFlightList.basic_price*0.1).toLocaleString()}원</span>
-                                                </li>
-                                                <li>
-                                                    <span>총 금액</span>
-                                                    <span>{(getFlightList.basic_price+getFlightList.basic_price*0.1).toLocaleString()}원</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <button>예약하기</button>
-                                        </div>
+                                    <div >
+                                        <button onClick={() => { onewayReservation(); scrollToTop() }}>예약하기</button>
                                     </div>
-                                    <p>*상기 운임은 참고사항으로, 공항 사정이나 일정에 따라 수시로 변동 될 수 있습니다.</p>
-                                    <div className='cheap-cheap-month'>
-                                        <h5>{getFlightList.month} 최저가</h5>
-                                        <div className='cheap-cheap-month-middle'>
-                                            <div>
-                                                <ul>
-                                                    <li>{getFlightList.date} ~ {getFlightList.endDate}</li>
-                                                    <li>성인 1명 기준</li>
-                                                    <li>{getFlightList.basic_price.toLocaleString()}원</li>
-                                                    <li>(항공운임, 유류할증료, 세금 포함 금액)</li>
-                                                </ul>
-                                            </div>
-                                            <div >
-                                                <button>예약하기</button>
-                                            </div>
-                                        </div>
-                                        <div className='cheap-round-desc'>
-                                            <p>월별 최저가 운임은 성인 1인 기준으로, 여러 좌석 예매를 진행 하실 경우 남은 좌석에 따라 운임이 변동 될 수 있습니다. 또한 동일한 운임이 있을 경우 가장 가까운 날짜를 알려드립니다.</p>
-                                        </div>
-                                    </div>
-                                </div>}
-                        </>
-                    }
-                    {oneway &&//편도클릭시
-                        <>
-                            <div className='schedule-all-box'>
-                                <p>츨/도착지와 날짜를 선택해주세요!</p>
-                                <div className='schedule-country-check-box'>
-                                    <span>출발/도착</span>
-                                    <select ref={startRef} name="" id="" onChange={handleStart}>
-                                        <option value='default'>선택</option>
-                                        {processedList.map((data) => (
-                                            <option value={data}>{data}</option>
-                                        ))}
-                                    </select>
-                                    <select ref={endRef} name="" id="" onChange={handleEnd}>
-                                        <option value='default'>선택</option>
-                                        {processedList.map((data) => (
-                                            <option value={data}>{data}</option>
-                                        ))}
-                                    </select>
                                 </div>
-                                <div className='schedule-calendar-check-box'>
-                                    <span>가는날</span>
-                                    <input ref={dateRef} type="date" onChange={handleDate} />
-                                </div>
-                                <div className='cheap-button-box'>
-                                    <button onClick={() => { ScheduleCheck() }}>확인</button>
+                                <div className='cheap-round-desc'>
+                                    <p>월별 최저가 운임은 성인 1인 기준으로, 여러 좌석 예매를 진행 하실 경우 남은 좌석에 따라 운임이 변동 될 수 있습니다. 또한 동일한 운임이 있을 경우 가장 가까운 날짜를 알려드립니다.</p>
                                 </div>
                             </div>
-                            {onewayClick && //확인클릭시
-                                <div className='schedule-all-box'>
-                                    <p>예약 인원을 선택해 주세요</p>
+                        </div>}
+                </>
+            }
+            {oneway &&//편도클릭시
+                <>
+                    <div className='schedule-all-box'>
+                        <p>츨/도착지와 날짜를 선택해주세요!</p>
+                        <div className='schedule-country-check-box'>
+                            <span>출발/도착</span>
+                            <select ref={startRef} name="" id="" onChange={handleStart}>
+                                <option value='default'>선택</option>
+                                {processedList.map((data) => (
+                                    <option value={data}>{data}</option>
+                                ))}
+                            </select>
+                            <select ref={endRef} name="" id="" onChange={handleEnd}>
+                                <option value='default'>선택</option>
+                                {processedList.map((data) => (
+                                    <option value={data}>{data}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className='schedule-calendar-check-box'>
+                            <span>가는날</span>
+                            <input ref={dateRef} type="date" onChange={handleDate} />
+                        </div>
+                        <div className='cheap-button-box'>
+                            <button onClick={() => { ScheduleCheck() }}>확인</button>
+                        </div>
+                    </div>
+                    {onewayClick && //확인클릭시
+                        <div className='schedule-all-box'>
+                            <p>예약 인원을 선택해 주세요</p>
+                            <ul>
+                                {peopleList.map((item) => (
+                                    <li>
+                                        <label htmlFor="">{item.name}</label>
+                                        <select onChange={item.onChange} ref={item.ref}>
+                                            <option value={item.value}>{item.count}</option>
+                                            {list.map((num) => (
+                                                <option value={num}>{num}</option>
+                                            ))}
+                                        </select>
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                            <div className='cheap-button-box'>
+                                <button onClick={() => { setPeopleClick(true) }}>확인</button>
+                            </div>
+                        </div>}
+                    {peopleClick &&//확인 클릭시
+                        <div className='schedule-all-box'>
+                            <ul>
+                                <li>▣ 가는 항공편</li>
+                                <li>◈ 경로 : {start}&#10132;{end}</li>
+                                <li>◈ 출발일 : {date}</li>
+                                <li>▣ 탑승인원</li>
+                                <li>⊙ 성인 : {adult}명</li>
+                                <li>⊙ 소아 : {child}명</li>
+                                <li>⊙ 유아 : {baby}명</li>
+                            </ul>
+                            <p>입력하신 정보가 맞는지 확인 해주세요~
+                                <br />잘못 입력하셨다면 처음으로 돌아갑니다.
+                            </p>
+                            <div className='cheap-button-box'>
+                                <button onClick={handleOneway}>예</button>
+                                <button onClick={() => { handleClearOneWay() }}>아니오</button>
+                                <button onClick={exchangeCountryOneWay}>출도착지 바꾸기</button>
+                            </div>
+                        </div>}
+                    {onewayScheduleClick && //예 클릭시
+                        <div className='schedule-all-box'>
+                            <div>
+                                <span>출발일 : <span>{date}</span></span>
+                            </div>
+                            <div>
+                                <span>{start}</span>
+                                <IoAirplane className='cheap-icon' />
+                                <span>{end}</span>
+                            </div>
+                            <div>성인 {adult}명, 소아{child}명, 유아{baby}명</div>
+                            <div className='cheap-reservation'>
+                                <div>
                                     <ul>
-                                        {peopleList.map((item) => (
-                                            <li>
-                                                <label htmlFor="">{item.name}</label>
-                                                <select onChange={item.onChange} ref={item.ref}>
-                                                    <option value={item.value}>{item.count}</option>
-                                                    {list.map((num) => (
-                                                        <option value={num}>{num}</option>
-                                                    ))}
-                                                </select>
-                                            </li>
-                                        ))
-                                        }
+                                        <li>
+                                            <span>항공운임</span>
+                                            <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                                getFlightList.basic_price * baby
+                                            ).toLocaleString()}원</span>
+                                        </li>
+                                        <li>
+                                            <span>유류할증료 + 세금</span>
+                                            <span>{(getFlightList.basic_price * 0.1).toLocaleString()}원</span>
+                                        </li>
+                                        <li>
+                                            <span>총 금액</span>
+                                            <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                                getFlightList.basic_price * baby + getFlightList.basic_price * 0.1).toLocaleString()}원</span>
+                                        </li>
                                     </ul>
-                                    <div className='cheap-button-box'>
-                                        <button onClick={() => { setPeopleClick(true) }}>확인</button>
-                                    </div>
-                                </div>}
-                            {peopleClick &&//확인 클릭시
-                                <div className='schedule-all-box'>
-                                    <ul>
-                                        <li>▣ 가는 항공편</li>
-                                        <li>◈ 경로 : {start}&#10132;{end}</li>
-                                        <li>◈ 출발일 : {date}</li>
-                                        <li>▣ 탑승인원</li>
-                                        <li>⊙ 성인 : {adult}명</li>
-                                        <li>⊙ 소아 : {child}명</li>
-                                        <li>⊙ 유아 : {baby}명</li>
-                                    </ul>
-                                    <p>입력하신 정보가 맞는지 확인 해주세요~
-                                        <br />잘못 입력하셨다면 처음으로 돌아갑니다.
-                                    </p>
-                                    <div className='cheap-button-box'>
-                                        <button onClick={handleOneway}>예</button>
-                                        <button onClick={() => { handleClearOneWay() }}>아니오</button>
-                                        <button onClick={exchangeCountryOneWay}>출도착지 바꾸기</button>
-                                    </div>
-                                </div>}
-                            {onewayScheduleClick && //예 클릭시
-                                <div className='schedule-all-box'>
+                                </div>
+                                <div>
+                                    <button onClick={() => { onewayReservation(); scrollToTop() }}>예약하기</button>
+                                </div>
+                            </div>
+                            <p>*상기 운임은 참고사항으로, 공항 사정이나 일정에 따라 수시로 변동 될 수 있습니다.</p>
+                            <div className='cheap-cheap-month'>
+                                <h5>{getFlightList.month} 최저가</h5>
+                                <div className='cheap-cheap-month-middle'>
                                     <div>
-                                        <span>출발일 : <span>{date}</span></span>
+                                        <ul>
+                                            <li>{getFlightList.date}</li>
+                                            <li>성인 1명 기준</li>
+                                            <li>{getFlightList.basic_price.toLocaleString()}원</li>
+                                            <li>(항공운임, 유류할증료, 세금 포함 금액)</li>
+                                        </ul>
                                     </div>
-                                    <div>
-                                        <span>{start}</span>
-                                        <IoAirplane className='cheap-icon' />
-                                        <span>{end}</span>
-                                    </div>
-                                    <div>성인 {adult}명, 소아{child}명, 유아{baby}명</div>
-                                    <div className='cheap-reservation'>
-                                        <div>
-                                            <ul>
-                                                <li>
-                                                    <span>항공운임</span>
-                                                    <span>{getFlightList.basic_price.toLocaleString()}원</span>
-                                                </li>
-                                                <li>
-                                                    <span>유류할증료 + 세금</span>
-                                                    <span>{(getFlightList.basic_price*0.1).toLocaleString()}원</span>
-                                                </li>
-                                                <li>
-                                                    <span>총 금액</span>
-                                                    <span>{(getFlightList.basic_price+getFlightList.basic_price*0.1).toLocaleString()}원</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <button>예약하기</button>
-                                        </div>
-                                    </div>
-                                    <p>*상기 운임은 참고사항으로, 공항 사정이나 일정에 따라 수시로 변동 될 수 있습니다.</p>
-                                    <div className='cheap-cheap-month'>
-                                        <h5>{getFlightList.month} 최저가</h5>
-                                        <div className='cheap-cheap-month-middle'>
-                                            <div>
-                                                <ul>
-                                                    <li>{getFlightList.date}</li>
-                                                    <li>성인 1명 기준</li>
-                                                    <li>{getFlightList.basic_price.toLocaleString()}원</li>
-                                                    <li>(항공운임, 유류할증료, 세금 포함 금액)</li>
-                                                </ul>
-                                            </div>
-                                            <div><button>예약하기</button></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p>월별 최저가 운임은 성인 1인 기준으로, 여러 좌석 예매를 진행 하실 경우
-                                            <br /> 남은 좌석에 따라 운임이 변동 될 수 있습니다. 또한 동일한 운임이 있을 경우
-                                            <br /> 가장 가까운 날짜를 알려드립니다.</p>
-                                    </div>
-                                </div>}
-                        </>}
-              
+                                    <div><button onClick={() => { onewayReservation(); scrollToTop() }}>예약하기</button></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p>월별 최저가 운임은 성인 1인 기준으로, 여러 좌석 예매를 진행 하실 경우
+                                    <br /> 남은 좌석에 따라 운임이 변동 될 수 있습니다. 또한 동일한 운임이 있을 경우
+                                    <br /> 가장 가까운 날짜를 알려드립니다.</p>
+                            </div>
+                        </div>}
+                </>}
+
         </div>
     );
 }

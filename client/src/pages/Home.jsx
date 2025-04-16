@@ -10,11 +10,12 @@ import Chatbot from '../component/main/chatbot/Chatbot.jsx';
 import { BsRobot } from "react-icons/bs";
 import { FaArrowUp } from "react-icons/fa";
 import {resetSearch} from '../features/search/searchSlice.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
+import {getChatbotModalOpen} from '../service/searchApi.js';
 
 export default function Home() { 
     const dispatch = useDispatch();
-    const [tab, setTab] = useState(false);
+    const chatbotModalOpen = useSelector(state => state.search.chatbotModalOpen);
     const scrollToTop = ()=>{
         window.scrollTo({ 
             top: 0,
@@ -32,12 +33,12 @@ export default function Home() {
                     <MainSearch />
                 </div>
                 <div className='chatbot'>
-                    <button onClick={() => {setTab(true)}}>
+                    <button onClick={() => {dispatch(getChatbotModalOpen(true))}}>
                         <BsRobot className='chatbot-icon' />
                         <span>JAID</span>
                     </button>
                 </div>
-                {tab && <Chatbot setTab={setTab}/>}
+                {chatbotModalOpen && <Chatbot/>}
                 <div className='totop'>
                 <button onClick={()=>{scrollToTop()}}>
                 <FaArrowUp className='totop-icon' size={20}/>
