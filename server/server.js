@@ -7,7 +7,6 @@ import uploadRouter from './router/uploadRouter.js'
 import loginRouter from './router/loginRouter.js';
 import chatbotRouter from './router/chatbotRouter.js';
 import bookingRouter from './router/bookingRouter.js';
-import paymentRouter from './router/paymentRouter.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -21,8 +20,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') }); // 루트에 .env�
 
 //common
 server.use(express.json());
-//server.use(express.urlencoded());
-server.use(express.urlencoded({ extended: true })); 
+server.use(express.urlencoded());
 server.use(cors());
 server.use("/images", express.static(path.join("images")));
 
@@ -36,9 +34,6 @@ server.use('/booking', bookingRouter);
 
 // chatbot
 server.use('/chatbot', chatbotRouter);
-
-// payment
-server.use('/payment', paymentRouter);
 
 
 server.listen(port, () => {

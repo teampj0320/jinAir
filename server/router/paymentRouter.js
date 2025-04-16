@@ -3,7 +3,8 @@ import * as controller from '../controller/paymentController.js';
 
 const router = express.Router();
 
-router.post('/res', controller.payment);
-router.post('/active', controller.active);
+router.post('/add', controller.payment);
 
 export default router;
+
+

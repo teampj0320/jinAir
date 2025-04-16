@@ -1,27 +1,20 @@
-import * as repository from '../repository/paymentRepository.js';
-
+import { db } from './db.js';
 
 /***************************** 
- * Reservation 
+ * Reservation insert
 *****************************/
 
-export const payment = (req, res) => {
-    repository.payment(req.body)
-        .then(result => {
-            res.json({ success: true, data: result });
-        })
-        .catch(error => {
-            // 에러 메시지 전달
-            res.status(500).json({
-                success: false,
-                message: error.message || '예약 처리 중 오류가 발생했습니다.'
-            });
-        });
+export const payment = ({ no, id, fnum }) => {
+    const sql = `
+    INSERT INTO reservation (no, id, fnum, res_num, res_date)
+    VALUES (?, ?, ?, CONCAT(
+      CHAR(FLOOR(RAND() * 26) + 65),
+      LPAD(FLOOR(RAND() * 10000), 2, '0'),
+      CHAR(FLOOR(RAND() * 26) + 65),
+      LPAD(FLOOR(RAND() * 10000), 1, '0'),
+      CHAR(FLOOR(RAND() * 26) + 65)
+    ), NOW());
+  `; 
+      return db.execute(sql, no, id, fnum); 
 };
-/***************************** 
- * active
-*****************************/
-export const active = async (req, res) => {
-    const result = await repository.active(req.body);
-    res.json(result); 
-  };
+
