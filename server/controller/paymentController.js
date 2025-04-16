@@ -15,6 +15,6 @@ export const payment = ({ no, id, fnum }) => {
       CHAR(FLOOR(RAND() * 26) + 65)
     ), NOW());
   `; 
-      return db.execute(sql, [no, id, fnum]); 
+      return db.execute(sql, no, id, fnum); 
 };
 
