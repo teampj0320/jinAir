@@ -4,11 +4,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
 import { ko } from 'date-fns/locale/ko';
 import { useDispatch } from 'react-redux';
-import { getCalendar } from '../../../service/searchApi.js';
+
 
 export default function Calendar({mom,endMom}) {
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null); 
     const [endDate, setEndDate] = useState(null); 
     const onChange = (dates) => {
         const [start, end] = dates;

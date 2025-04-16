@@ -1,65 +1,70 @@
-import React, { useState,useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountry } from '../../../service/searchApi.js';
+import { getCountry,getChatbotModalOpen, getDeparture,getArrive, getStartDate, getTab,getSearchTab } from '../../../service/searchApi.js';
+import axios from 'axios';
+
 export default function Airplane() {
     const [country, setCountry] = useState(false);
-    const [countryClick, setCountryClick] = useState(false);
     const [airNum, setAirNum] = useState(false);
+    const [countryClick, setCountryClick] = useState(false);
+    const [noneCountryClick, setNoneCountryClick] = useState(false);
     const [airNumClick, setAirNumClick] = useState(false);
+    const [noneAirNumClick, setNoneAirNumClick] = useState(false);
     const [airNumber, setAirNumber] = useState('');
     const [airNumStartDate, setAirNumStartDate] = useState('');
-    const [startCountry, setStartCountry] = useState('');
-    const [endCountry, setEndCountry] = useState('');
-    const [countryDate, setCountryDate] = useState('');
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
+    const [date, setDate] = useState('');
     const airnumRef = useRef(null);
     const airnumDateRef = useRef(null);
     const startRef = useRef(null);
     const endRef = useRef(null);
     const countryRef = useRef(null);
     const dispatch = useDispatch();
+    const [getFlightList, setGetFlightList] = useState([]);
     const countryList = useSelector(state => state.search.countryList);
 
     useEffect(() => {
         dispatch(getCountry());
     }, []);
-    const processedList = countryList.map(item => item.city.split('(')[0]);
+    const processedList = countryList.map(item => item.city.split(' (')[0]);
 
     const handleAirnumber = (e) => {
         setAirNumber(e.target.value);
-        
+
     }
     const handleAirnumDate = (e) => {
-        setAirNumStartDate(e.target.value);        
+        setAirNumStartDate(e.target.value);
     }
     const handleStartCountry = () => {
-        setStartCountry(startRef.current.value);
+        setStart(startRef.current.value);
     }
     const handleEndCountry = () => {
-        setEndCountry(endRef.current.value);
+        setEnd(endRef.current.value);
     }
     const handleCountryDate = (e) => {
-        setCountryDate(e.target.value); 
+        setDate(e.target.value);
     }
 
     const validateAirnum = () => {
-        if(airNumber === ''){
+        if (airNumber === '') {
             airnumRef.current.focus();
             return false;
-        }else if(airNumStartDate === ''){
+        } else if (airNumStartDate === '') {
             airnumDateRef.current.focus();
             return false;
         }
         return true;
     }
     const validateCountry = () => {
-        if(startCountry === ''){
+        if (start === '') {
             startRef.current.focus();
             return false;
-        }else if(endCountry === ''){
+        } else if (end === '') {
             endRef.current.focus();
             return false;
-        }else if(countryDate === ''){
+        } else if (date === '') {
             countryRef.current.focus();
             return false;
         }
@@ -67,28 +72,87 @@ export default function Airplane() {
     }
 
     const handleAirNum = () => {
-        if(validateAirnum()){
-                setAirNumClick(true);
-            }
+        if (validateAirnum()) {
+            // 서버에서 있는지 조회
+            axios.post('http://localhost:9000/chatbot/searchAirplane', { airNumber, airNumStartDate })
+                .then((res) => {
+                    if (res.data.result === 1) {
+                        setAirNumClick(true);
+                        setNoneAirNumClick(false);
+                        axios.post('http://localhost:9000/chatbot/getSchedule', { airNumber, airNumStartDate })
+                            .then(res => setGetFlightList(res.data.result))
+                            .catch(error => console.log(error));
+                    } else {
+                        setNoneAirNumClick(true);
+                        setAirNumClick(false);
+                    }
+                })
+                .catch(error => console.log(error));
         }
+    }
 
     const handleCountry = () => {
-        if(validateCountry()){
-            setCountryClick(true);
+        if (validateCountry()) {
+            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+                .then(res => {
+                    if (res.data.result === 1) {
+                        setCountryClick(true);
+                        setNoneCountryClick(false);
+                        axios.post('http://localhost:9000/chatbot/getSchedule', { start, end, date })
+                            .then(res =>
+                                setGetFlightList(res.data.result)
+                            )
+                            .catch(error => console.log(error));
+                    } else {
+                        setNoneCountryClick(true);
+                        setCountryClick(false);
+                    }
+                })
+                .catch(error => console.log(error));
         }
     }
     const exchangeCountry = () => {
-        setStartCountry(endCountry);
-        setEndCountry(startCountry);
+        setStart(end);
+        setEnd(start);
+        axios.post('http://localhost:9000/chatbot/searchAirplane', { airNumber, airNumStartDate })
+            .then((res) => {
+                if (res.data.result === 1) {
+                    setAirNumClick(true);
+                    setNoneAirNumClick(false);
+                    axios.post('http://localhost:9000/chatbot/getSchedule', { airNumber, airNumStartDate })
+                        .then(res => setGetFlightList(res.data.result))
+                        .catch(error => console.log(error));
+                } else {
+                    setNoneAirNumClick(true);
+                    setAirNumClick(false);
+                }
+            })
+            .catch(error => console.log(error));
     }
-
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+    const reservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date));
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('oneWay'));
+    }
     return (
         <div className='airplane-all-box'>
             <div className='schedule-all-box'>
                 <p>출도착조회를 선택하셨습니다. 조회하실 방법을 선택해주세요.</p>
                 <div>
-                    <button onClick={()=>{setAirNum(true)}}>편명으로 조회</button>
-                    <button onClick={() => { setCountry(true) }}>출도착지로 조회</button>
+                    <button onClick={() => { setAirNum(true); setCountry(false); }}>편명으로 조회</button>
+                    <button onClick={() => {
+                        setCountry(true); setAirNum(false); setAirNumClick(false);
+                        setNoneAirNumClick(false);
+                    }}>출도착지로 조회</button>
                 </div>
             </div>
             {airNum &&
@@ -99,16 +163,22 @@ export default function Airplane() {
                     </div>
                     <div className='schedule-calendar-check-box'>
                         <span>편명</span>
-                        <input type="text" placeholder='LJ001 형식으로 입력해주세요' 
-                           onChange={handleAirnumber} ref={airnumRef}/>
+                        <input type="text" placeholder='LJ001 형식으로 입력해주세요'
+                            onChange={handleAirnumber} ref={airnumRef} />
                     </div>
                     <div className='schedule-calendar-check-box'>
                         <span>가는날</span>
-                        <input type="date" onChange={handleAirnumDate} ref={airnumDateRef}/>
+                        <input type="date" onChange={handleAirnumDate} ref={airnumDateRef} />
                     </div>
                     <div>
                         <button onClick={() => { handleAirNum() }}>확인</button>
                     </div>
+                </div>
+            }
+            {airNum && noneAirNumClick &&
+                <div className='schedule-all-box'>
+                    <p>해당 날짜에 일치하는 출도착 정보가 없습니다. <br />
+                        다른 날짜, 다른 여행지를 조회 해 보시는건 어떤가요?!</p>
                 </div>
             }
             {airNumClick &&
@@ -117,24 +187,16 @@ export default function Airplane() {
                         <p>[출발일:{airNumStartDate}, 편명:{airNumber}] <br />출도착 정보를 조회하였습니다.</p>
                         <table>
                             <tr>
-                                <td>서울/인천(ICN)</td>
+                                <td>{getFlightList.Departure_location}({getFlightList.Dcode})</td>
                                 <td><IoAirplane className='schedule-exist-top-icon' /></td>
-                                <td>서울/인천(ICN)</td>
+                                <td>{getFlightList.Arrive_location}({getFlightList.Acode})</td>
                             </tr>
                             <tr>
-                                <td>스케줄 10:30</td>
+                                <td>스케줄 {getFlightList.Dtime}</td>
                                 <td></td>
-                                <td>스케줄 10:30</td>
-                            </tr>
-                            <tr>
-                                <td>예상 시각 11:30</td>
-                                <td></td>
-                                <td>예상 시각 11:30</td>
+                                <td>스케줄 {getFlightList.Atime}</td>
                             </tr>
                         </table>
-                        <div>
-                            <button>출도착지 바꾸기</button>
-                        </div>
                     </div>
                 </div>
             }
@@ -147,13 +209,13 @@ export default function Airplane() {
                     <div className='schedule-country-check-box'>
                         <span>출발/도착</span>
                         <select name="" onChange={handleStartCountry} ref={startRef}>
-                        <option value='default'>선택</option>
+                            <option value='default'>선택</option>
                             {processedList.map((data) => (
                                 <option value={data}>{data}</option>
                             ))}
                         </select>
                         <select name="" onChange={handleEndCountry} ref={endRef}>
-                        <option value='default'>선택</option>
+                            <option value='default'>선택</option>
                             {processedList.map((data) => (
                                 <option value={data}>{data}</option>
                             ))}
@@ -161,7 +223,7 @@ export default function Airplane() {
                     </div>
                     <div className='schedule-calendar-check-box'>
                         <span>가는날</span>
-                        <input type="date" ref={countryRef} onChange={handleCountryDate}/>
+                        <input type="date" ref={countryRef} onChange={handleCountryDate} />
                     </div>
                     <div className='schedule-button-box'>
                         <button onClick={() => { handleCountry() }}>확인</button>
@@ -172,12 +234,12 @@ export default function Airplane() {
                 <>
                     <div className='schedule-all-box'>
                         <div className='schedule-exist-box'>
-                            <p>[출발일:{countryDate}, 출발지:ICN, 도착지:nod] <br />스케줄 정보를 조회하였습니다.</p>
+                            <p>[출발일:{date}, 출발지:{getFlightList.Dcode}, 도착지:{getFlightList.Acode}] <br />스케줄 정보를 조회하였습니다.</p>
                             <table className='airplane-country-table'>
                                 <tr>
-                                    <td>{startCountry}(icd)</td>
+                                    <td>{start}({getFlightList.Dcode})</td>
                                     <td><IoAirplane className='schedule-exist-top-icon' /></td>
-                                    <td>{endCountry}(icd)</td>
+                                    <td>{end}({getFlightList.Acode})</td>
                                 </tr>
                                 <tr>
                                     <td>편명</td>
@@ -185,28 +247,28 @@ export default function Airplane() {
                                     <td>도착</td>
                                 </tr>
                                 <tr>
-                                    <td>LJ231</td>
-                                    <td>01:20</td>
-                                    <td>02:20</td>
+                                    <td>{getFlightList.fnum}</td>
+                                    <td>{getFlightList.Dtime}</td>
+                                    <td>{getFlightList.Atime}</td>
                                 </tr>
                             </table>
                             <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
                             <div>
-                                <button>예약하기</button>
-                                <button onClick={()=>{exchangeCountry()}}>출도착지 바꾸기</button>
+                                <button onClick={() => { reservation(); scrollToTop() }}>예약하기</button>
+                                <button onClick={() => { exchangeCountry() }}>출도착지 바꾸기</button>
                             </div>
                             {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
                                         // 출도착지 변경은 걍 두개 변경해주면댐*/}
                         </div>
                     </div>
-                    <div className='schedule-all-box'>
-                        {!countryClick &&
-                            <div className='schedule-none-exist-box'>
-                                <p>[출발일:{countryDate}, 출발지:ICN, 도착지:BKK] <br />일치하는 스케줄 정보가 없습니다.</p>
-                            </div>
-                        }
-                    </div>
                 </>}
+            {noneCountryClick &&
+                <div className='schedule-all-box'>
+                    <div className='schedule-none-exist-box'>
+                        <p>[출발일:{date}, 출발지:{start}, 도착지:{end}] <br />일치하는 스케줄 정보가 없습니다.</p>
+                    </div>
+                </div>
+            }
         </div>
     );
 }

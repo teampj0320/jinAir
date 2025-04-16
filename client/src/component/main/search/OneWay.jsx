@@ -4,8 +4,11 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getModalOpen, getPeopleModal, getCalendar,getType } from '../../../service/searchApi.js';
+import { getModalOpen, getPeopleModal, getCalendar3,getType } from '../../../service/searchApi.js';
+import {useNavigate} from 'react-router-dom';
+
 export default function OneWay({ exchangeCountry }) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
@@ -46,7 +49,8 @@ export default function OneWay({ exchangeCountry }) {
     }
     const handleCheck = () => {
         if (validate()) {
-            alert('조회하기');
+            // alert('조회하기');
+            navigate('/booking/availabilityList/oneWay');
         }
     }
 
@@ -73,7 +77,7 @@ export default function OneWay({ exchangeCountry }) {
                 </div>
                 <div ref={date}>
                     <h5>일정 선택</h5>
-                    <div onClick={() => { dispatch(getCalendar(true)) }}>
+                    <div onClick={() => { dispatch(getCalendar3(true))}}>
                         <span>
                             <FaCalendarCheck />
                             {startDate !== '' ? <h3 className='active-calendar-date'>{startDate}</h3>

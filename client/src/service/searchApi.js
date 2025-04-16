@@ -1,12 +1,16 @@
-import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,
-    setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList
+import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,setTab,setSearchTab,
+    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setCalendar3,setChatbotModalOpen,
+    setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList,setCalendarType
   } from "../features/search/searchSlice.js";
 import { axiosPost } from "./api.js";
 
 export const getModalOpen = (data) => (dispatch) => {
     data === true && dispatch(setModalOpen(data));
     data === false && dispatch(setModalOpen(data));
+}
+export const getChatbotModalOpen = (data) => (dispatch) => {
+    data === true && dispatch(setChatbotModalOpen(data));
+    data === false && dispatch(setChatbotModalOpen(data));
 }
 export const getPeopleModal = (data) => (dispatch) => {
     data === true && dispatch(setPeopleModal(data));
@@ -19,6 +23,10 @@ export const getCalendar = (data) => (dispatch) => {
 export const getCalendar2 = (data) => (dispatch) => {
     data === true && dispatch(setCalendar2(data));
     data === false && dispatch(setCalendar2(data));
+}
+export const getCalendar3 = (data) => (dispatch) => {
+    data === true && dispatch(setCalendar3(data));
+    data === false && dispatch(setCalendar3(data));
 }
 
 export const getAdultNum = (num) => (dispatch) => {
@@ -52,6 +60,9 @@ export const getType = (type) => (dispatch) => {
     dispatch(setType(type));
 }
 
+export const getCalendarType = (type) => (dispatch) => {
+    dispatch(setCalendarType(type));
+}
 
 /** 
  * 나라데이터 가져오기
@@ -63,4 +74,11 @@ export const getCountry = () => async(dispatch) => {
     if(result) {
         dispatch(setCountryList(result));
     }
+}
+
+export const getTab = (tab) => (dispatch) => {
+    dispatch(setTab(tab));
+}
+export const getSearchTab = (tab) => (dispatch) => {
+    dispatch(setSearchTab(tab));
 }

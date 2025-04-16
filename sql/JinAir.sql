@@ -12,7 +12,7 @@ select * from qna;
 select * from reservation;
 select * from sub_category;
 select * from product;
-select * from view_cart_list;
+select * from view_my_reservation;
 
 
 
@@ -42,11 +42,11 @@ UPDATE customer
 SET profile_img = NULL
 WHERE id = 'test1';
 
--- customer 테이블 phone 데이터 수정하기 010-0000-0000 -> 01000000000
+-- customer 테이블 값 수정 : phone 데이터 수정하기 010-0000-0000 -> 01000000000, 관심 지역 2개정도 넣어놓기 , 관심테마는 삭제해도 될듯
 
 
 
--- 예약 테이블 탑승객 이름 (passenger_name) 컬럼 추가
+-- 예약 테이블 탑승객 이름 (passenger_name) 컬럼 추가, JSON으로 타입 변경
 DROP TABLE reservation;
 
 CREATE TABLE `reservation` (
@@ -54,7 +54,7 @@ CREATE TABLE `reservation` (
   `ID` varchar(20) NOT NULL,
   `fNUM` varchar(20) NOT NULL,
   `RES_NUM` varchar(20) NOT NULL, 
-  `passenger_name` varchar(20) not null ,
+  `passenger_name` json not null ,
   `RES_DATE` datetime NOT NULL,
   KEY `SUB_RESERVATION_FK_fnum` (`fNUM`),
   KEY `SUB_RESERVATION_FK_id` (`ID`),
@@ -63,4 +63,8 @@ CREATE TABLE `reservation` (
 );
 
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
-VALUES ('test1', 'LJ100', '11111-11111', '홍길순' , now());
+VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희') , now()),
+      ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now());
+
+
+

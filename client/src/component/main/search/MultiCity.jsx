@@ -5,9 +5,11 @@ import { IoPersonSharp } from "react-icons/io5";
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import { getModalOpen, getPeopleModal, getCalendar, getCalendar2 ,getType} from '../../../service/searchApi.js';
+import {useNavigate} from 'react-router-dom';
 
 export default function MultiCity({ startDate2,  multiArr,multiDepart }) {  
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
     const babyNum = useSelector(state => state.search.babyNum);
@@ -68,7 +70,8 @@ export default function MultiCity({ startDate2,  multiArr,multiDepart }) {
     }
     const handleCheck = () => {
         if (validate()) {
-            alert('조회하기');
+            // alert('조회하기');
+            navigate('/booking/availabilityList/go');
         }
     }
 

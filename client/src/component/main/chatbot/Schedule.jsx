@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCountry } from '../../../service/searchApi.js';
+import axios from 'axios';
+import {getChatbotModalOpen, getDeparture,getArrive, getStartDate, getTab,getSearchTab} from '../../../service/searchApi.js';
 
 export default function Schedule() {
     const dispatch = useDispatch();
@@ -10,18 +12,22 @@ export default function Schedule() {
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
     const [date, setDate] = useState('');
+    const [getFlightList , setGetFlightList] = useState([]);
     const resultRef = useRef(null); // 👈 결과 영역 참조용
     const countryList = useSelector(state => state.search.countryList);
-    // console.log(countryList);
-    
+
     useEffect(() => {
         dispatch(getCountry());
+    }, [])
+    console.log(countryList);
+
+    useEffect(() => {
         if (click && resultRef.current) {
             resultRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [click]);
 
-    const processedList = countryList.map(item => item.city.split('(')[0]);
+    const processedList = countryList.map(item => item.city.split(' (')[0]);
     const startRef = useRef(null);
     const endRef = useRef(null);
     const dateRef = useRef(null);
@@ -36,6 +42,21 @@ export default function Schedule() {
     const changeCountry = () => {
         setStart(end);
         setEnd(start);
+        axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+            .then(res => {
+                if (res.data.result === 1) {
+                    setClick(true);
+                    axios.post('http://localhost:9000/chatbot/getSchedule', { start, end, date })
+                            .then(res => 
+                                setGetFlightList(res.data.result)
+                                )
+                            .catch(error => console.log(error));
+                    } else {
+                        setClick(false);
+                        setScheduleExist(true);
+                    }
+                })
+                .catch(error => console.log(error));
     }
     const handleDate = (e) => {
         setDate(e.target.value);
@@ -53,13 +74,38 @@ export default function Schedule() {
         }
         return true;
     }
-
+    const scrollToTop = ()=>{
+        window.scrollTo({ 
+            top: 0,
+            behavior : 'smooth'
+        })
+    }
+    const reservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date)); 
+        dispatch(getTab('main'));        
+        dispatch(getSearchTab('oneWay'));        
+    }
+    
     const ScheduleCheck = () => {
         if (validate()) { // 스케쥴이 잇으면
-            setClick(true);
-        } else { //스케쥴이 없으면
-            setClick(false);
-            setScheduleExist(true);
+            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+            .then(res => {
+                if (res.data.result === 1) {
+                    setClick(true);
+                    axios.post('http://localhost:9000/chatbot/getSchedule', { start, end, date })
+                            .then(res => 
+                                setGetFlightList(res.data.result)
+                                )
+                            .catch(error => console.log(error));
+                    } else {
+                        setClick(false);
+                        setScheduleExist(true);
+                    }
+                })
+                .catch(error => console.log(error));
         }
     }
 
@@ -97,7 +143,7 @@ export default function Schedule() {
                 <div className='schedule-all-box'>
                     <>
                         <div className='schedule-exist-box'>
-                            <p>[출발일:{date}, 출발지:ICN, 도착지:BKK] <br />스케줄 정보를 조회하였습니다.</p>
+                            <p>[출발일:{date}, 출발지:{getFlightList.Dcode}, 도착지:{getFlightList.Acode}] <br />스케줄 정보를 조회하였습니다.</p>
                             <table>
                                 <tr>
                                     <td>{start}</td>
@@ -110,14 +156,14 @@ export default function Schedule() {
                                     <td>도착</td>
                                 </tr>
                                 <tr>
-                                    <td>LJ231</td>
-                                    <td>01:20</td>
-                                    <td>02:20</td>
+                                    <td>{getFlightList.fnum}</td>
+                                    <td>{getFlightList.Dtime}</td>
+                                    <td>{getFlightList.Atime}</td>
                                 </tr>
                             </table>
                             <div>화면에 표시되는 시각은 현지 시각 기준입니다.</div>
                             <div>
-                                <button>예약하기</button>
+                                <button onClick={()=>{reservation();scrollToTop()}}>예약하기</button>
                                 <button onClick={changeCountry}>출도착지 바꾸기</button>
                             </div>
                             {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
@@ -129,7 +175,7 @@ export default function Schedule() {
             {scheduleExist && !click &&
                 <div className='schedule-all-box'>
                     <div className='schedule-none-exist-box'>
-                        <p>[출발일:2025-04-13, 출발지:ICN, 도착지:BKK] <br />일치하는 스케줄 정보가 없습니다.</p>
+                        <p>[출발일:{date}&nbsp;&nbsp;출발지:{start}&nbsp;&nbsp;도착지:{end}] <br />일치하는 스케줄 정보가 없습니다.</p>
                     </div>
                 </div>
             }

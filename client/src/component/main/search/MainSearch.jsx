@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { FaGift } from "react-icons/fa6";
 import { GiCarSeat } from "react-icons/gi";
 import { GiForkKnifeSpoon } from "react-icons/gi";
@@ -12,9 +12,13 @@ import MainSearchReservation from './MainSearchReservation.jsx';
 import MainSearchCheckIn from './MainSearchCheckIn.jsx';
 import MainSearchReservationCheck from './MainSearchReservationCheck.jsx';
 import SendEmail from '../../order/SendEmail.jsx';
+import { getTab } from '../../../service/searchApi.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function MainSearch() {
-    const [tab, setTab] = useState('main');
+    const dispatch = useDispatch();
+    const tab = useSelector(state => state.search.tab);
+
     const tabList = [
         {
             tabNm: 'main',
@@ -56,7 +60,7 @@ export default function MainSearch() {
     ];
 
     return (
-        <div  style={{ width: "1500px" }}>
+        <div style={{ width: "1500px" }}>
             <div className='main-top-box'>
                 <div className={tab === 'main' ? 'main-top-img' : 'main-top-img2'}>
                     <img src="/images/main.jpg" alt="벚꽃이미지" />
@@ -66,7 +70,7 @@ export default function MainSearch() {
                     <div className='main-top-search-btns'>
                         {
                             tabList && tabList.map((item) =>
-                                <button onClick={() => { setTab(item.tabNm) }}
+                                <button onClick={() => { dispatch(getTab(item.tabNm)) }}
                                     className={tab === item.tabNm ? 'main-top-search-btns-active' : 'main-top-search-btns-none'}>
                                     {item.icon}<span>{item.title}</span>
                                 </button>
@@ -74,8 +78,8 @@ export default function MainSearch() {
                         }
                     </div>
                     {tab === 'main' && <MainSearchReservation />}
-                    {tab === 'checkIn' && <MainSearchCheckIn/>}
-                    {tab === 'reservationCheck' && <MainSearchReservationCheck />}                   
+                    {tab === 'checkIn' && <MainSearchCheckIn />}
+                    {tab === 'reservationCheck' && <MainSearchReservationCheck />}
                     <div className='main-bottom-depart-check-middle'>
                         <div>
                             <h4>출발 전 체크!</h4>

@@ -26,10 +26,12 @@ import Admin from'./component/admin/Admin.jsx';
 import AdminFlightList from'./component/admin/AdminFlightList.jsx';
 import AdminFlightAdd from'./component/admin/AdminFlightAdd.jsx';
 import AdminNotice from'./component/admin/AdminNotice.jsx';
+import ScrollToTop from './pages/ScrollToTop.jsx'
 
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
     <Routes>
       <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />

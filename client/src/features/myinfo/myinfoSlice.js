@@ -2,11 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     myinfo: {
-        id: '',
-        name: '',
-        nameKor: { last: '', first: '' },
-        nameEng: { last: '', first: '' },
-        birth: '',
         phone: '',
         email: '',
         nationality: '',
@@ -14,14 +9,10 @@ const initialState = {
         zipcode: '',
         address: '',
         address_detail: '',
-        marketingConsent: {
-            email: false,
-            sms: false,
-            app: false,
-        },
         profile_img: '',
     },
-    isLoggedIn: false, // 로그인 전
+    isLoggedIn: false,
+    myinterest: [] 
 };
 
 
@@ -31,30 +22,34 @@ const myinfoSlice = createSlice({
     reducers: {
         setMyInfo: (state, action) => {
             state.myinfo = action.payload;
-            // state.isLoggedIn = true;
         },
-        updateMyInfoField: (state, action) => {
-            const { field, value } = action.payload;
-            state.myinfo[field] = value;
-        },
-        // updateMarketing: (state, action) => {
-        //     state.myinfo.marketingConsent = {
-        //         ...state.myinfo.marketingConsent,
-        //         ...action.payload,
-        //     };
+        // deleteAccount: (state) => {
+        //     state.myinfo = initialState.myinfo; 
+        //     state.isLoggedIn = false;                       
         // },
-        deleteAccount: (state) => {
-            state.myinfo = initialState.myinfo; 
-            state.isLoggedIn = false;                       
+        setMyInterest: (state, action) => { 
+            state.myinterest = action.payload; 
         },
+        toggleInterestItem: (state, action) => {
+            const value = action.payload;
+            const exists = state.myinterest.includes(value);
+
+            if (exists) {
+                state.myinterest = state.myinterest.filter(item => item !== value);
+            } else if (state.myinterest.length < 3) {
+                state.myinterest.push(value);
+            } else {
+                alert("최대 3개까지 선택할 수 있습니다.");
+            }
+        },
+
     },
 });
 
 export const {
     setMyInfo,
-    updateMyInfoField,
-    updateMarketing,
-    deleteAccount,
+    setMyInterest,
+    toggleInterestItem
 } = myinfoSlice.actions;
 
 export default myinfoSlice.reducer;
