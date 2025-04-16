@@ -22,7 +22,11 @@ export default function Chatbots() {
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
     const [message, setMessage] = useState('');
-    const [message1, setMessage1] = useState('');
+    const [message1, setMessage1] = useState('');  // reservation 으로 넘길값
+    const [message2, setMessage2] = useState('');
+    const [message3, setMessage3] = useState('');// reservation 으로 넘길값
+    const [msg1, setMsg1] = useState(true);
+    const [msg2, setMsg2] = useState(false);
 
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
@@ -66,9 +70,23 @@ export default function Chatbots() {
         if (e.key === "Enter") {
             handleMessage(e);
             setMessage('');
+            setMsg1(false);
+            setMsg2(true);
         }
     }
-    console.log(message);
+    const handleMessage2 = (e) => {
+        // const { name, value } = e.target;
+        setMessage2(e.target.value);
+        setMessage3(e.target.value);
+    }
+    const activeEnter2 = (e) => {
+        if (e.key === "Enter") {
+            handleMessage2(e);
+            setMessage2('');
+            setMsg1(false);
+            setMsg2(false);
+        }
+    }
 
 
     return (
@@ -99,7 +117,7 @@ export default function Chatbots() {
                     <div ref={componentRef}>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
-                        {chatTab === 'reservation' && <Reservation message1={message1}/>}
+                        {chatTab === 'reservation' && <Reservation message1={message1} message3={message3}/>}
                         {chatTab === 'food' && goFood()}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
@@ -108,7 +126,7 @@ export default function Chatbots() {
                         {chatTab === 'notice' && goNotice()}
                         {buyAirTicket && <BuyTicket />}
                     </div>
-                {/* <div className='real-chatbot-box'>
+                    {/* <div className='real-chatbot-box'>
                     <Chatbot
                         config={config}
                         messageParser={MessageParser}
@@ -132,11 +150,20 @@ export default function Chatbots() {
                         </li>
                     </ul>
                 </div>
-                <div className='chatbot-bottom-box'>
-                    <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
-                    value={message}
-                        onKeyDown={activeEnter} onChange={handleMessage}/>
-                </div>
+                {msg1 &&
+                    <div className='chatbot-bottom-box'>
+                        <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
+                            value={message}
+                            onKeyDown={activeEnter} onChange={handleMessage} />
+                    </div>
+                }
+                {msg2 &&
+                    <div className='chatbot-bottom-box'>
+                        <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
+                            value={message2}
+                            onKeyDown={activeEnter2} onChange={handleMessage2} />
+                    </div>
+                }
             </div >
         </div>
     );
