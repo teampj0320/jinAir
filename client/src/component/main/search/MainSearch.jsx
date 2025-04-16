@@ -12,7 +12,7 @@ import MainSearchReservation from './MainSearchReservation.jsx';
 import MainSearchCheckIn from './MainSearchCheckIn.jsx';
 import MainSearchReservationCheck from './MainSearchReservationCheck.jsx';
 import SendEmail from '../../order/SendEmail.jsx';
-import { getTab } from '../../../service/searchApi.js';
+import { getTab, getCheckinDate ,getCheckinFirstNm,getCheckinResnum,getCheckinLastNm } from '../../../service/searchApi.js';
 import { useDispatch, useSelector } from 'react-redux';
 import config from "../chatbot/config.js";
 
@@ -71,7 +71,10 @@ export default function MainSearch() {
                     <div className='main-top-search-btns'>
                         {
                             tabList && tabList.map((item) =>
-                                <button onClick={() => { dispatch(getTab(item.tabNm)) }}
+                                <button onClick={() => { dispatch(getTab(item.tabNm));
+                                    dispatch(getCheckinDate('')) ;dispatch(getCheckinFirstNm(''));
+                                    dispatch(getCheckinResnum(''));dispatch(getCheckinLastNm(''))
+                                 }}
                                     className={tab === item.tabNm ? 'main-top-search-btns-active' : 'main-top-search-btns-none'}>
                                     {item.icon}<span>{item.title}</span>
                                 </button>

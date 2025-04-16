@@ -1,7 +1,7 @@
 import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,setTab,setSearchTab,
     setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setCalendar3,setChatbotModalOpen,
     setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList,setCalendarType,
-    setMessage,setReserMessage,setReserMessage1,
+    setMessage,setReserMessage,setReserMessage1, setCheckinDate,setCheckinFirstNm,setCheckinLastNm,setCheckinResnum,
   } from "../features/search/searchSlice.js";
 import { axiosPost } from "./api.js";
 
@@ -92,4 +92,17 @@ export const getReserMessage = (tab) => (dispatch) => {
 }
 export const getReserMessage1 = (tab) => (dispatch) => {
     dispatch(setReserMessage1(tab));
+}
+
+export const getCheckinDate = (tab) => (dispatch) => {
+    dispatch(setCheckinDate(tab));
+}
+export const getCheckinLastNm = (tab) => (dispatch) => {
+    dispatch(setCheckinLastNm(tab));
+}
+export const getCheckinFirstNm = (tab) => (dispatch) => {
+    dispatch(setCheckinFirstNm(tab));
+}
+export const getCheckinResnum = (tab) => (dispatch) => {
+    dispatch(setCheckinResnum(tab));
 }
