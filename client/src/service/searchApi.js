@@ -1,5 +1,5 @@
 import {setModalOpen, setPeopleModal ,setCalendar, setCalendar2,
-    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,
+    setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setCalendar3,
     setDeparture,setArrive,  setStartDate,setEndDate,setType,setCountryList,setCalendarType
   } from "../features/search/searchSlice.js";
 import { axiosPost } from "./api.js";
@@ -19,6 +19,10 @@ export const getCalendar = (data) => (dispatch) => {
 export const getCalendar2 = (data) => (dispatch) => {
     data === true && dispatch(setCalendar2(data));
     data === false && dispatch(setCalendar2(data));
+}
+export const getCalendar3 = (data) => (dispatch) => {
+    data === true && dispatch(setCalendar3(data));
+    data === false && dispatch(setCalendar3(data));
 }
 
 export const getAdultNum = (num) => (dispatch) => {
