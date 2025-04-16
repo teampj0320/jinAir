@@ -126,3 +126,19 @@ export const updateInterest = async ({ id, checkList }) => {
 
   return result;
 };
+
+
+
+/************************************
+ *        나의 사용가능 쿠폰 조회
+************************************/
+
+
+export const getMyCoupon = async ({ id}) => {
+  const sql = `select * from coupon where id = ?`;
+  const [result] = await db.execute(sql, [id]);
+
+  return result;
+};
+
+

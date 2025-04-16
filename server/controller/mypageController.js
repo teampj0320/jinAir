@@ -60,3 +60,14 @@ export const updateInterest = async(req, res) => {
   res.json(result);
   res.end();
 };
+
+/************************************
+ *        나의 사용가능 쿠폰 조회
+************************************/
+
+
+export const getMyCoupon = async(req, res) => {
+  const result = await repository.getMyCoupon(req.body); 
+  res.json(result);
+  res.end();
+};

@@ -1,21 +1,23 @@
 
 import { axiosGet, axiosPost } from './api';
 
-import {  setMyInfo,
-        setMyInterest,
-} from  '../features/myinfo/myinfoSlice.js';
+import {
+    setMyInfo,
+    setMyInterest,
+    setMyCoupon
+} from '../features/myinfo/myinfoSlice.js';
 
 // 회원 정보 불러오기
 export const getMyInfo = (data) => async (dispatch) => {
     const url = 'http://localhost:9000/mypage/getMyInfo';
     const id = localStorage.getItem("user_id");
 
-    const getMyInfoResult = await axiosPost({url, data:{id}});
+    const getMyInfoResult = await axiosPost({ url, data: { id } });
 
     const result_rows = getMyInfoResult.result_rows;
 
     if (result_rows) {
-        dispatch(setMyInfo( result_rows[0])); 
+        dispatch(setMyInfo(result_rows[0]));
     };
 
 }
@@ -28,9 +30,9 @@ export const updateMyInfo = (formData) => async (dispatch) => {
     const url = 'http://localhost:9000/mypage/updateMyInfo';
     const result = await axiosPost({ url, data: formData });
     if (result.success) {
-      dispatch(setMyInfo(result.updatedInfo)); 
+        dispatch(setMyInfo(result.updatedInfo));
     }
-  };
+};
 
 
 // 관심지역 저장
@@ -41,9 +43,7 @@ export const updateInterest = (checkList) => async (dispatch) => {
 
     const result = await axiosPost({ url, data: { id, checkList } });
 
-    if (result) {
-        dispatch(setMyInterest(checkList));
-    }
+    result && dispatch(setMyInterest(checkList))
 };
 
 
@@ -60,3 +60,18 @@ export const getInterest = () => async (dispatch) => {
         dispatch(setMyInterest([]));
     }
 };
+
+
+// 나의 사용가능 쿠폰 불러오기
+export const getMyCoupon = () => async (dispatch) => {
+    const url = 'http://localhost:9000/mypage/getMyCoupon';
+    const id = localStorage.getItem("user_id");
+
+    const result = await axiosPost({ url, data: { id } });
+
+    result &&  dispatch(setMyCoupon(result));
+
+};
+
+
+// 나의 쿠폰 사용

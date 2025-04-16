@@ -68,3 +68,25 @@ VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영
 
 
 
+-- coupon 테이블 (신규)
+DROP TABLE coupon;
+
+CREATE TABLE `coupon` (
+  `NO` int auto_increment PRIMARY KEY, 
+  `ID` varchar(20) NOT NULL,  
+  `coupon_name` varchar(50) NOT NULL,  -- 쿠폰명 예) 국내선 1천원 깜짝쿠폰
+  `coupon_code` varchar(20) NOT NULL,  -- 쿠폰 코드 예)asxd7124
+  `discount_price` int NOT NULL,   -- 할인 금액
+  `start_date` date NOT NULL,  -- 쿠폰 유효기간 시작일 
+  `end_date` date NOT NULL,  -- 쿠폰 유효기간 종료일
+  `used` TINYINT(1) NOT NULL DEFAULT 0 ,  -- 쿠폰 사용 여부 (미사용 0, 사용 1)
+  KEY `sub_coupon_fk_id` (`ID`),
+  CONSTRAINT `sub_coupon_FK_id` FOREIGN KEY (`ID`) REFERENCES `customer` (`id`)
+);
+INSERT INTO coupon (id, coupon_name, coupon_code, discount_price , start_date, end_date, used )
+VALUES ('test1', '[온라인 전용] 1천원 깜짝쿠폰' , 'cl0001', 1000 , '2025-04-01', '2025-12-31', 0),
+		('test1',  '[온라인 전용] 2천원 깜짝쿠폰', 'cl0002', 2000 ,'2025-04-01', '2025-12-31', 0);
+
+
+
+
