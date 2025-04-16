@@ -1,21 +1,18 @@
 import React, { useState, useRef } from 'react';
 import { FaCalendarCheck } from "react-icons/fa";
-import MainSearchCalendar from './MainSearchCalendar.jsx';
+import OnewaySearchCalendar from './OnewaySearchCalendar.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCalendar } from '../../../service/searchApi.js';
+import { getCalendar3 } from '../../../service/searchApi.js';
 
 export default function MainSearchReservationCheck() {
     const dispatch = useDispatch();
-    const calendar = useSelector(state => state.search.calendar);
+    const calendar3 = useSelector(state => state.search.calendar3);
 
     const [startDate, setStartDate] = useState('');
     const [err, setErr] = useState({});
 
     const startCalendar = (data) => {
         setStartDate(data);
-    }
-    const endCalendar = (data) => {
-        // setEndDate(data);
     }
     const refs = {
         rnumRef: useRef(null),
@@ -59,7 +56,7 @@ export default function MainSearchReservationCheck() {
     }
     return (
         <form onSubmit={handleCheckIn}>
-            {calendar && <MainSearchCalendar startCalendar={startCalendar} endCalendar={endCalendar} />}
+            {calendar3 && <OnewaySearchCalendar startCalendar={startCalendar} />}
             <div className='main-top-search-bottom3'>
                 <ul>
                     <li>
@@ -82,7 +79,7 @@ export default function MainSearchReservationCheck() {
                         <div>
                             <input type='textonly' name="departDay" ref={refs.departDayRef}
                                 className='active-calendar-input' value={startDate} />
-                            <FaCalendarCheck onClick={() => { dispatch(getCalendar(true)) }}
+                            <FaCalendarCheck onClick={() => { dispatch(getCalendar3(true)) }}
                                 className='main-top-search-bottom3-icon' />
                         </div>
                         {err.departDay ? <p style={{ color: 'red' }} ref={departErr}>{err.departDay}</p> : <p>흠</p>}

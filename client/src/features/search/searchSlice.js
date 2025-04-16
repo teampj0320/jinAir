@@ -5,6 +5,7 @@ const initialState = {
      peopleModal : false,
      calendar : false,
      calendar2 : false ,
+     calendar3 : false ,
      type : 'n',
      departure : '' , // 출발지
      arrive : '', // 도착지
@@ -43,6 +44,9 @@ export const searchSlice = createSlice({
         setCalendar2(state, action){ 
             state.calendar2 = action.payload;
         },
+        setCalendar3(state, action){ 
+            state.calendar3 = action.payload;
+        },
         setAdultNum(state, action){
             state.adultNum = action.payload;
             
@@ -74,7 +78,7 @@ export const searchSlice = createSlice({
     },
 })
 
-export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,
+export const {setModalOpen ,setPeopleModal ,setCalendar, setCalendar2,setCalendar3,
     setAdultNum,  setPediatricNum,  setBabyNum, setTotal,setDeparture,setArrive,
     setStartDate,setEndDate,setType, resetSearch,setCountryList,setCalendarType
  } = searchSlice.actions
