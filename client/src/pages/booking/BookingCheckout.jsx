@@ -19,9 +19,6 @@ export default function BookingCheckout() {
     const myinfo = useSelector(state => state.myinfo.myinfo);
 
     const hasCheckedLogin = useRef(false);
-    const nameRef = useRef();
-    const way1Ref = useRef();
-    const way2Ref = useRef();
 
     useEffect(() => {
         if (hasCheckedLogin.current) return;
@@ -52,16 +49,15 @@ export default function BookingCheckout() {
 
     const discountAmount = getDiscountAmount();
     const finalAmount = totalFare - discountAmount;
+    const { backFlightNum, goFlightNum } = useSelector(state => state.booking);
 
     const handlePayment = () => {
-        const id = myinfo.id;
-        const name = nameRef.current.textContent.trim();
-        const way1 = way1Ref.current.textContent.trim();
-        const way2 = way2Ref.current.textContent.trim();
+        const id = myinfo.id; 
+        const name = myinfo.name; 
 
         axios.post("http://localhost:9000/payment/res", {
             id,
-            fnum: [way1, way2],
+            fnum: [goFlightNum, backFlightNum],
             passenger_name: name,
             discount_amount: discountAmount,
             final_amount: finalAmount,
@@ -81,16 +77,7 @@ export default function BookingCheckout() {
             </div>
 
             <div className="booking-passenger-contents">
-                <p className="booking-page-title">4. 결제</p>
-
-                <div>
-                    <span>name:</span>
-                    <span ref={nameRef}>홍길동</span>
-                    <span>plite-way1:</span>
-                    <span ref={way1Ref}>LJ100</span>
-                    <span>plite-way2:</span>
-                    <span ref={way2Ref}>LJ190</span>
-                </div>
+                <p className="booking-page-title">4. 결제</p> 
 
                 {/* 할인 영역 */}
                 <section className="noneExtras">

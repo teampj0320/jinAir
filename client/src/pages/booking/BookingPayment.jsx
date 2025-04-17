@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef} from "react";
-import { useSelector } from "react-redux"; 
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import BookingStep from "../../component/booking/BookingStep.jsx";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,16 +9,17 @@ import {
   FaAngleDown,
   FaRegSquareCheck,
   FaSquareCheck,
-  FaArrowRightLong
+  FaArrowRightLong,
+  FaPlus
 } from "react-icons/fa6";
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
-import { FaPlus } from "react-icons/fa6";
 import { BiSolidPlaneTakeOff } from "react-icons/bi";
 
 export default function BookingPayment() {
   const nav = useNavigate();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-  
+  const { flightNum } = useSelector(state => state.booking);
+
   const [openStates, setOpenStates] = useState({
     segment1: true,
     segment2: true,
@@ -31,20 +32,18 @@ export default function BookingPayment() {
     addition3: false,
     addition4: false,
   });
+
   const hasCheckedLogin = useRef(false);
 
   useEffect(() => {
-    if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
+    if (hasCheckedLogin.current) return;
     hasCheckedLogin.current = true;
 
-    if (isLoggedIn) {
-        // dispatch(getCartList());
-    } else {
-        const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-        select ? nav('/login') : nav('/'); 
+    if (!isLoggedIn) {
+      const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+      select ? nav('/login') : nav('/');
     }
-}, [isLoggedIn]);
-
+  }, [isLoggedIn]);
 
   const toggleList = (segmentKey) => {
     setOpenStates((prev) => ({
@@ -53,7 +52,6 @@ export default function BookingPayment() {
     }));
   };
 
-  // 전체선택
   const handleCheckAll = () => {
     const newValue = !openStates.additionall;
     setOpenStates((prev) => ({
@@ -66,7 +64,6 @@ export default function BookingPayment() {
     }));
   };
 
-  // 주문하기 버튼
   const orderClick = () => {
     if (Object.values(openStates).slice(-4).includes(false)) {
       alert("이용약관을 모두 동의해주셔야 결제가 가능합니다.");
@@ -84,188 +81,56 @@ export default function BookingPayment() {
       <div className="booking-passenger-contents">
         <p className="booking-page-title">4. 결제 (항공운임/부가서비스 확인)</p>
 
-        {/* 여행 정보 - 왕복 */}
+        {/* 여행 정보 - 조건부 렌더링 */}
         <section className="booking-payment-section">
-          <article className="payment-agreement-top">
-            <h3>
-              <p>여행정보</p>
-            </h3>
-            <div className="noneExtras-warp">
-              <div className="noneExtras-icon">
-                <p>
-                  <FaArrowRightArrowLeft />
-                </p>
-                <p>왕복</p>
-              </div>
-              <div className="noneExtras-way-warp">
-                <div className="noneExtras-way1">
-                  <div className="noneExtras-way-title">구간1</div>
-                  <div>서울/김포GMP</div>
-                  <BiSolidPlaneTakeOff />
-                  <div>제주CJU</div>
-                  <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
+          { !flightNum ? (
+            // 왕복 정보
+            <article className="payment-agreement-top">
+              <h3><p>여행정보</p></h3>
+              <div className="noneExtras-warp">
+                <div className="noneExtras-icon">
+                  <p><FaArrowRightArrowLeft /></p>
+                  <p>왕복</p>
                 </div>
-                <div className="noneExtras-way2">
-                  <div className="noneExtras-way-title">구간2</div>
-                  <div>제주CJU</div>
-                  <BiSolidPlaneTakeOff />
-                  <div>서울/김포GMP</div>
-                  <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-        {/* 여행 정보 - 편도 */} 
-          <article className="payment-agreement-top">
-            <h3>
-              <p>여행정보</p>
-            </h3>
-            <div className="noneExtras-warp">
-              <div className="noneExtras-icon">
-                <p>
-                  <FaArrowRightLong />
-                </p>
-                <p>편도</p>
-              </div>
-              <div className="noneExtras-way-warp">
-                <div className="noneExtras-way1">
-                  <div className="noneExtras-way-title">구간1</div>
-                  <div>서울/김포GMP</div>
-                  <BiSolidPlaneTakeOff />
-                  <div>제주CJU</div>
-                  <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
+                <div className="noneExtras-way-warp">
+                  <div className="noneExtras-way1">
+                    <div className="noneExtras-way-title">구간1</div>
+                    <div>서울/김포GMP</div>
+                    <BiSolidPlaneTakeOff />
+                    <div>제주CJU</div>
+                    <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
+                  </div>
+                  <div className="noneExtras-way2">
+                    <div className="noneExtras-way-title">구간2</div>
+                    <div>제주CJU</div>
+                    <BiSolidPlaneTakeOff />
+                    <div>서울/김포GMP</div>
+                    <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
-
-          {/* 탑승객 정보 */}
-          <article className="payment-agreement-bottom">
-            <div className="noneExtras-warp2">
-              <h3>
-                <p>탑승객 정보</p>
-              </h3>
-            </div>
-            <table className="paymentPassenger-info">
-              <colgroup>
-                <col style={{ width: "200px" }} />
-                <col style={{ width: "180px" }} />
-                <col style={{ width: "180px" }} />
-                <col style={{ width: "250px" }} />
-                <col style={{ width: "400px" }} />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>성명</th>
-                  <th>구분</th>
-                  <th>성별</th>
-                  <th>생년월일</th>
-                  <th>국적</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>홍길동</td>
-                  <td>성인</td>
-                  <td>남자</td>
-                  <td>1661.13.32</td>
-                  <td>한국(REPUBLIC OF KOREA)</td>
-                </tr>
-              </tbody>
-            </table>
-          </article>
-        </section>
-
-        {/* 항공운임 정보 */}
-        <section className="booking-payment-section">
-          <article className="payment-tax-warp">
-            <h3>
-              <p>항공운임 정보</p>
-            </h3>
-            <div className="payment-table-head">
-              <span>구분</span>
-              <span>항공운임</span>
-              <span>유류할증료</span>
-              <span>세금</span>
-              <span>합계</span>
-            </div>
-
-            <ul>
-              <li>
-                <button
-                  type="button"
-                  className="payment-table-button"
-                  onClick={() => toggleList("segment1")}
-                >
-                  <span>구간1</span>
-                  <span>krw 39,900</span>
-                  <span>krw 7,700</span>
-                  <span>krw 4,000</span>
-                  <span>
-                    krw 51,600
-                    {openStates.segment1 ? <FaAngleDown /> : <FaAngleUp />}
-                  </span>
-                </button>
-                <ul>
-                  <li
-                    className={
-                      openStates.segment1
-                        ? "payment-table-text"
-                        : "payment-table-hide"
-                    }
-                  >
-                    <span>구간1</span>
-                    <span>krw 39,900</span>
-                    <span>krw 7,700</span>
-                    <span>krw 4,000</span>
-                    <span>krw 51,600</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
-            {/* 구간2 */}
-            <ul>
-              <li>
-                <button
-                  type="button"
-                  className="payment-table-button"
-                  onClick={() => toggleList("segment2")}
-                >
-                  <span>구간2</span>
-                  <span>krw 27,900</span>
-                  <span>krw 7,700</span>
-                  <span>krw 4,000</span>
-                  <span>
-                    krw 39,600
-                    {openStates.segment2 ? <FaAngleDown /> : <FaAngleUp />}
-                  </span>
-                </button>
-                <ul>
-                  <li
-                    className={
-                      openStates.segment2
-                        ? "payment-table-text"
-                        : "payment-table-hide"
-                    }
-                  >
-                    <span>구간2</span>
-                    <span>krw 27,900</span>
-                    <span>krw 7,700</span>
-                    <span>krw 4,000</span>
-                    <span>krw 39,600</span>
-                  </li>
-                  <li className="payment-table-total">
-                    <div>
-                      <strong>항공요금 합계</strong>
-                    </div>
-                    <span>KRW 91,200</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </article>
+            </article>
+          ) : (
+            // 편도 정보
+            <article className="payment-agreement-top">
+              <h3><p>여행정보</p></h3>
+              <div className="noneExtras-warp">
+                <div className="noneExtras-icon">
+                  <p><FaArrowRightLong /></p>
+                  <p>편도</p>
+                </div>
+                <div className="noneExtras-way-warp">
+                  <div className="noneExtras-way1">
+                    <div className="noneExtras-way-title">구간1</div>
+                    <div>서울/김포GMP</div>
+                    <BiSolidPlaneTakeOff />
+                    <div>제주CJU</div>
+                    <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          )}
         </section>
 
         {/* 부가서비스 정보 */}
