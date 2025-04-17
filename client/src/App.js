@@ -26,6 +26,7 @@ import Admin from'./component/admin/Admin.jsx';
 import AdminFlightList from'./component/admin/AdminFlightList.jsx';
 import AdminFlightAdd from'./component/admin/AdminFlightAdd.jsx';
 import AdminNotice from'./component/admin/AdminNotice.jsx';
+import AdminQna from'./component/admin/AdminQna.jsx';
 import ScrollToTop from './pages/ScrollToTop.jsx'
 
 export default function App() {
@@ -64,6 +65,7 @@ export default function App() {
         <Route path='/admin/flight' element={<AdminFlightList />} />
         <Route path='/admin/flight/add' element={<AdminFlightAdd />} />
         <Route path='/admin/notice' element={<AdminNotice />} />
+        <Route path='/admin/qna' element={<AdminQna />} />
       </Route>
     </Routes>
   </BrowserRouter>
