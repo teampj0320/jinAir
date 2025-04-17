@@ -27,6 +27,7 @@ import AdminFlightList from'./component/admin/AdminFlightList.jsx';
 import AdminFlightAdd from'./component/admin/AdminFlightAdd.jsx';
 import AdminNotice from'./component/admin/AdminNotice.jsx';
 import ScrollToTop from './pages/ScrollToTop.jsx'
+import QnaUpload from './pages/Mypage/QnaUpload.jsx';
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
         <Route path='/mypage/myInterest' element={<MyInterest />} />
         <Route path='/mypage/myQna' element={<MyQna />} />
         <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
+        <Route path='/mypage/qnaUpload' element={<QnaUpload />} />
         <Route path='/booking/availabilityList/oneWay' element={<BookingOneWay />} />
         <Route path='/booking/availabilityList/go' element={<BookingGo />} />
         <Route path='/booking/availabilityList/back' element={<BookingBack />} />
