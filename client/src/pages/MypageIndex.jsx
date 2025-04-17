@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import '../scss/ryeong.scss';
 import { useNavigate } from 'react-router-dom';
-import { getMyInfo, getInterest } from '../service/myinfoApi.js';
+import { getMyInfo, getInterest, couponCount } from '../service/myinfoApi.js';
 import { Modal } from 'antd';
 import MyCoupon from '../component/mypage/MyCoupon.jsx';
 
@@ -14,7 +14,7 @@ export default function MypageIndex() {
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const myinfo = useSelector((state) => state.myinfo.myinfo); // 로그인 유저 정보
     const interestArea = useSelector((state) => state.myinfo.myinterest);
-
+    const myCouponCnt = useSelector((state) => state.myinfo.couponcount);
 
 
     /* 회원 정보 불러오기 */
@@ -23,6 +23,7 @@ export default function MypageIndex() {
         if (isLoggedIn) {
             dispatch(getMyInfo())
             dispatch(getInterest());
+            dispatch(couponCount());
             
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
@@ -105,15 +106,16 @@ export default function MypageIndex() {
                                     <span className='w300'>나비포인트</span>
                                 </div>
                                 <div className='cursor-pointer' onClick={handleCouponTogle}>
-                                    <b>0개</b>
+                                    
+                                    <b>{
+                                        couponCount ? `${myCouponCnt[0].coupon_count}개` : '0개'
+                                    }</b>
                                     <span className='w300'>할인쿠폰</span>
                                 </div>
                                 {/* 할인쿠폰 div 클릭시 모달창 오픈 */}
                                 {
                                     couponModalOpen && (
-                                        <Modal open onCancel={handleCouponTogle} footer={null} width={550}>
-
-
+                                        <Modal open onCancel={handleCouponTogle} footer={null} width={550} >
                                             <MyCoupon onClose={handleCouponTogle} />
                                         </Modal>
 

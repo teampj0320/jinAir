@@ -13,6 +13,7 @@ select * from reservation;
 select * from sub_category;
 select * from product;
 select * from view_my_reservation;
+select * from coupon;
 
 
 
@@ -83,10 +84,10 @@ CREATE TABLE `coupon` (
   KEY `sub_coupon_fk_id` (`ID`),
   CONSTRAINT `sub_coupon_FK_id` FOREIGN KEY (`ID`) REFERENCES `customer` (`id`)
 );
+
 INSERT INTO coupon (id, coupon_name, coupon_code, discount_price , start_date, end_date, used )
 VALUES ('test1', '[온라인 전용] 1천원 깜짝쿠폰' , 'cl0001', 1000 , '2025-04-01', '2025-12-31', 0),
 		('test1',  '[온라인 전용] 2천원 깜짝쿠폰', 'cl0002', 2000 ,'2025-04-01', '2025-12-31', 0);
-
 
 
 

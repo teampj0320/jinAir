@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
-import { getMyCoupon } from '../../service/myinfoApi.js';
+import { getMyCoupon, applyCoupon  } from '../../service/myinfoApi.js';
 import { useDispatch, useSelector } from "react-redux";
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 
 export default function MyCoupon() {
 
     const dispatch = useDispatch();
-
+    const myCouponList = useSelector((state) => state.myinfo.mycoupon);
+    dayjs.locale('ko');  // 날짜 포맷
+    
+    /* 쿠폰 목록 불러오기 */
     useEffect(() => {
         dispatch(getMyCoupon());
     }, [])
 
-    const MyCouponList = useSelector((state) => state.myinfo.mycoupon);
+    /* 해당 쿠폰 사용 버튼 */
+    // const handleUseCoupon = (couponCode) => {
+    //     dispatch(applyCoupon(couponCode));
+    // };
 
 
     return (
@@ -22,25 +30,32 @@ export default function MyCoupon() {
             </div> {/* 타이틀 끝 */}
             <ul className='coupon-list'>
                 {
-                    MyCouponList && MyCouponList.map((coupon) =>
+                    myCouponList && myCouponList.map((coupon) =>
                         <li className='coupon-wrap'>
                             <div className='coupon-top'>
-                                <span className='f16'>{coupon.coupon_name}</span>
+                                <span className='f16'>항공권 할인 쿠폰</span>
                             </div>
                             <div className='coupon-contents'>
-                                <p className='coupon-name' >[APP 전용] 국내선 1천원 깜짝쿠폰</p>
-                                <p className='f12 w300'>[사용 유효기간] 2025.04.14(월) ~ 2099.04.23(수)</p>
+                                <p className='coupon-name' >{coupon.coupon_name}</p>
+                                <p className='f12 w300'>[사용 유효기간]
+                                     {dayjs(coupon.start_date).format('YYYY.MM.DD (ddd)')}
+                                    ~ {dayjs(coupon.end_date).format('YYYY.MM.DD (ddd)')}
+                                    </p>
                                 <p className='f12 w300'>[사용가능 구간] 왕복, 편도</p>
                             </div>
                             <div className='coupon-bottom'>
-                                <b className='f18'>KRW 1,000</b>
+                                <b className='f18'>KRW {`${coupon.discount_price.toLocaleString()}원`}</b>
                                 <p className='f14'>사용가능</p>
+                                {/* 
+                                쿠폰 사용 테스트
+                                <button onClick={() => handleUseCoupon(coupon.coupon_code)}>쿠폰 사용</button> */}
                             </div>
                         </li>
 
                     )
                 }
             </ul>
+            
         </div>
 
 

@@ -1,4 +1,4 @@
-import React, { useState,useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IoMdClose } from "react-icons/io";
 import Schedule from './Schedule.jsx';
 import Reservation from './Reservation.jsx';
@@ -10,13 +10,25 @@ import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {getChatbotModalOpen} from '../../../service/searchApi.js';
+import { getChatbotModalOpen, getMessage, getReserMessage, getReserMessage1,
+    
+ } from '../../../service/searchApi.js';
+import config from "./config.js";
+import MessageParser from "./MessageParser.jsx";
+import ActionProvider from "./ActionProvider.jsx";
+import Chatbot from "react-chatbot-kit";
+import 'react-chatbot-kit/build/main.css';
 
-export default function Chatbot() {
+export default function Chatbots() {
     const dispatch = useDispatch();
     const [chatTab, setChatTab] = useState('');
     const [buyAirTicket, setBuyAirTicket] = useState(false);
+    const [msg1, setMsg1] = useState(true);
+    const [msg2, setMsg2] = useState(false);
+    const [msg3, setMsg3] = useState(false);
+    const message = useSelector(state => state.search.message);
     
+
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
         { tab: 'airplane', img: "/images/chatbot/icon_02_de.png" },
@@ -50,12 +62,47 @@ export default function Chatbot() {
         // 로그인 일때
         // qna 페이지로 이동됨
     }
+    const handleMessage = (e) => {
+        dispatch(getMessage(e.target.value));
+        dispatch(getReserMessage(e.target.value));
+    }
+    const activeEnter = (e) => {
+        if (e.key === "Enter") {
+            handleMessage(e);
+            dispatch(getMessage(''));
+            setMsg1(false);
+            setMsg2(true);
+        }
+    }
+    const handleMessage2 = (e) => {
+        dispatch(getMessage(e.target.value));
+        dispatch(getReserMessage1(e.target.value));
+    }
+    const activeEnter2 = (e) => {
+        if (e.key === "Enter") {
+            handleMessage2(e);
+            dispatch(getMessage(''));
+            setMsg1(false);
+            setMsg2(false);
+        }
+    }
+
+    const closeAll = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getMessage(''));
+        dispatch(getReserMessage(''));
+        dispatch(getReserMessage1(''));
+        setMsg1(true);
+        setMsg2(false);
+        setMsg3(false);
+    }
+
     return (
         <div className='chat-modal-content'>
             <div className='chat-country-all'>
                 <div className='chatbot-top'>
                     <span>제이드(Jaid)</span>
-                    <IoMdClose onClick={() => dispatch(getChatbotModalOpen(false))} className='main-search-country-icon2' />
+                    <IoMdClose onClick={() => { closeAll() }} className='main-search-country-icon2' />
                 </div>
                 <div className='chatbot-main'>
                     <div className='chatbot-main-top-box'>
@@ -75,18 +122,25 @@ export default function Chatbot() {
                             }
                         </ul>
                     </div>
-                    <div ref={componentRef}>                        
+                    <div ref={componentRef}>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
-                        {chatTab === 'reservation' && <Reservation />}
+                        {chatTab === 'reservation' && <Reservation/>}
                         {chatTab === 'food' && goFood()}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
                         {chatTab === 'ticket' && <Ticket />}
                         {chatTab === 'check' && <Check />}
                         {chatTab === 'notice' && goNotice()}
-                        {buyAirTicket && <BuyTicket/>}
+                        {buyAirTicket && <BuyTicket />}
                     </div>
+                    {/* <div className='real-chatbot-box'>
+                    <Chatbot
+                        config={config}
+                        messageParser={MessageParser}
+                        actionProvider={ActionProvider}
+                    />
+                </div> */}
                 </div>
                 <div className='chatbot-main-bottom-box'>
                     <ul>
@@ -96,7 +150,7 @@ export default function Chatbot() {
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_02.png" alt="챗봇스몰아이콘" />
-                            <span onClick={()=>{setBuyAirTicket(true)}}>항공권구매</span>
+                            <span onClick={() => { setBuyAirTicket(true) }}>항공권구매</span>
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_03.png" alt="챗봇스몰아이콘" />
@@ -104,9 +158,20 @@ export default function Chatbot() {
                         </li>
                     </ul>
                 </div>
-                <div className='chatbot-bottom-box'>
-                    <input type="text" placeholder='궁금하신 사항을 입력해 주세요~' />
-                </div>
+                {chatTab === 'reservation' && msg1 &&
+                    <div className='chatbot-bottom-box'>
+                        <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
+                            value={message}
+                            onKeyDown={activeEnter} onChange={handleMessage} />
+                    </div>
+                }
+                {chatTab === 'reservation' && msg2 &&
+                    <div className='chatbot-bottom-box'>
+                        <input name='myMessage' type="text" placeholder='궁금하신 사항을 입력해 주세요~'
+                            value={message}
+                            onKeyDown={activeEnter2} onChange={handleMessage2} />
+                    </div>
+                }
             </div >
         </div>
     );

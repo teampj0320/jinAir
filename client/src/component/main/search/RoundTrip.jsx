@@ -17,8 +17,7 @@ export default function RoundTrip({ exchangeCountry }) {
     const departure = useSelector(state => state.search.departure);
     const arrive = useSelector(state => state.search.arrive);
     const startDate = useSelector(state => state.search.startDate);
-    const endDate = useSelector(state => state.search.endDate);
-
+    const endDate = useSelector(state => state.search.endDate);    
     const depart = useRef(null);
     const arr = useRef(null);
     const date = useRef(null);

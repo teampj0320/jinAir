@@ -68,7 +68,7 @@ export const updateMyInfo = async (data) => {
   export const getMyRes = async ({id}) => {
     const sql = `
     
-              SELECT 
+              select 
                   r.id,
                   r.fnum,
                   r.res_num,
@@ -80,10 +80,10 @@ export const updateMyInfo = async (data) => {
                   f.arrive_location,
                   f.a_acode,
                   f.arrive_date
-          FROM reservation r
-          JOIN flight f ON r.fnum = f.fnum
-          WHERE r.id = ?
-        ORDER BY r.res_num, f.departure_date
+          from reservation r
+          join flight f ON r.fnum = f.fnum
+          where r.id = ?
+        order by r.res_num, f.departure_date
     
     `;
 
@@ -110,7 +110,7 @@ export const updateMyInfo = async (data) => {
 ************************************/
 
   export const getInterest = async({id}) => {
-    const sql = `SELECT interest_area FROM customer WHERE id = ?`
+    const sql = `select interest_area from customer where id = ?`
     const [result] = await db.execute(sql, [id]);
     return result
 };
@@ -135,10 +135,39 @@ export const updateInterest = async ({ id, checkList }) => {
 
 
 export const getMyCoupon = async ({ id}) => {
-  const sql = `select * from coupon where id = ?`;
+  const sql = `select * from coupon where id = ? and used = 0`;
   const [result] = await db.execute(sql, [id]);
 
   return result;
 };
 
 
+/************************************
+ *      나의 쿠폰 카운트
+************************************/
+
+export const couponCount = async ({ id}) => {
+  const sql = `
+  SELECT COUNT(*) AS coupon_count
+    FROM coupon
+    WHERE id = ? and used = 0`;
+  const [result] = await db.execute(sql, [id]);
+
+  return result;
+};
+
+
+/************************************
+ *      나의 쿠폰 사용 (특정 쿠폰)
+************************************/
+
+export const applyCoupon = async ({ id, couponCode }) => {
+  const sql = `
+  UPDATE coupon
+    SET used = 1
+    WHERE id = ? AND coupon_code = ? `
+
+  const [result] = await db.execute(sql, [id, couponCode]);
+
+  return result;
+};

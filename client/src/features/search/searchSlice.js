@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+    message: '',   // 인풋 초기화
+    reserMessage: '', // 전달할 값1
+    reserMessage1: '', // 전달할 값2
     searchTab: 'roundTrip' ,// MainSearch 왕복편도다구간 탭
     tab: 'main',  
     chatbotModalOpen: false,
@@ -22,13 +25,42 @@ const initialState = {
     startDate2: '',
     endDate: '', // 도착일
     countryList: [],
-    calendarType: ''
+    calendarType: '',
+    checkinResnum : '',  //체크인 예약번호
+    checkinLastNm : '', // 체크인 성
+    checkinFirstNm : '', //체크인 이름
+    checkinDate : '', //체크인 출발일
 }
 
 export const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
+        setCheckinResnum(state, action){
+            state.checkinResnum = action.payload;
+
+        },
+        setCheckinLastNm(state, action){
+            state.checkinLastNm = action.payload;
+
+        },
+        setCheckinFirstNm(state, action){
+            state.checkinFirstNm = action.payload;
+
+        },
+        setCheckinDate(state, action){
+            state.checkinDate = action.payload;
+
+        },
+        setMessage(state, action){
+            state.message = action.payload;
+        },
+        setReserMessage(state, action){
+            state.reserMessage = action.payload;
+        },
+        setReserMessage1(state, action){
+            state.reserMessage1 = action.payload;
+        },
         setSearchTab(state, action){
             state.searchTab = action.payload;
         },
@@ -91,6 +123,8 @@ export const searchSlice = createSlice({
 })
 
 export const { setModalOpen, setPeopleModal, setCalendar, setCalendar2, setCalendar3,
+    setMessage,setReserMessage,setReserMessage1,
+    setCheckinDate,setCheckinFirstNm,setCheckinLastNm,setCheckinResnum,
     setAdultNum, setPediatricNum, setBabyNum, setTotal, setDeparture, setArrive,setTab,setSearchTab,
     setStartDate, setEndDate, setType, resetSearch, setCountryList, setCalendarType, setChatbotModalOpen
 } = searchSlice.actions

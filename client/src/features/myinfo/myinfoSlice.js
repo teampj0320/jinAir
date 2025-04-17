@@ -14,7 +14,8 @@ const initialState = {
     },
     isLoggedIn: false,
     myinterest: [],
-    mycoupon:[]
+    mycoupon:[],
+    couponcount:0
 };
 
 
@@ -47,6 +48,9 @@ const myinfoSlice = createSlice({
         setMyCoupon: (state, action) => { 
             state.mycoupon = action.payload; 
         },
+        setCouponCount: (state, action) => { 
+            state.couponcount = action.payload; 
+        },
 
     },
 });
@@ -55,7 +59,8 @@ export const {
     setMyInfo,
     setMyInterest,
     toggleInterestItem,
-    setMyCoupon
+    setMyCoupon,
+    setCouponCount
 } = myinfoSlice.actions;
 
 export default myinfoSlice.reducer;
