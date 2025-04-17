@@ -13,6 +13,7 @@ import CheckIn from './pages/Mypage/CheckIn.jsx';
 import MyInterest from './pages/Mypage/MyInterest.jsx';
 import MyQna from './pages/Mypage/MyQna.jsx';
 import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
+import CustomTicket from './pages/CustomTicket.jsx';
 import BookingOneWay from './pages/booking/BookingOneWay.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
 import BookingSelectSeat from './pages/booking/BookingSelectSeat.jsx';
@@ -45,6 +46,7 @@ export default function App() {
         <Route path='/mypage/myQna' element={<MyQna />} />
         <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
         <Route path='/mypage/qnaUpload' element={<QnaUpload />} />
+        <Route path='/CustomTicket' element={<CustomTicket />} />
         <Route path='/booking/availabilityList/oneWay' element={<BookingOneWay />} />
         <Route path='/booking/availabilityList/go' element={<BookingGo />} />
         <Route path='/booking/availabilityList/back' element={<BookingBack />} />
