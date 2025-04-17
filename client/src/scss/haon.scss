@@ -1740,6 +1740,69 @@ h2.react-datepicker__current-month {
 // *******************************
 
 .reservation-all-box {
+    >div:last-child{
+        // padding: 0 10px;
+        p{
+            margin-top: 10px;
+        }
+        .cheap-button-box {
+            padding: 0 10px;
+            margin-bottom: 10px;
+            
+            button {
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px 0;
+                border: 1px solid rgb(0, 255, 255);
+                background-color: white;
+                border-radius: 8px;
+            }
+            
+            button:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    >div:nth-child(2) {
+        // border: 1px solid gainsboro;
+        width: 450px;
+        border-radius: 5px;
+        margin: 0 auto;
+        margin-top: 20px;
+
+        div {
+            padding: 5px 0;
+
+            span {
+                border: 1px solid gainsboro;
+                font-size: 15px;
+                width: auto;
+                padding: 5px 8px;
+                border-radius: 8px;
+            }
+
+            p {
+                border: 1px solid gainsboro;
+                font-size: 15px;
+                width: 340px;
+                padding: 5px 8px;
+                border-radius: 8px;
+            }
+        }
+
+        div:nth-child(1),
+        div:nth-child(3),
+        div:nth-child(5) {
+            text-align: left;
+        }
+
+        div:nth-child(2),
+        div:nth-child(4),
+        div:nth-child(6) {
+            text-align: right;
+        }
+    }
+
     >div:first-child {
         p {
             margin-top: 10px;
@@ -1791,9 +1854,10 @@ h2.react-datepicker__current-month {
 // chatbot cheap
 // *******************************
 .cheap-all-box {
-    >div:nth-child(1){
+    >div:nth-child(1) {
         border: 1px solid red;
     }
+
     >div:nth-child(6) {
         >div:last-child {
             margin-top: 20px;
@@ -2337,6 +2401,7 @@ h2.react-datepicker__current-month {
             cursor: pointer;
         }
     }
+
     .cheap-button-box1 {
         padding: 0 10px;
         margin-top: 10px;
@@ -2357,10 +2422,11 @@ h2.react-datepicker__current-month {
     }
 
 }
+
 //***********************************
 // chatbot check
 // *******************************
-.chatbot-check-all-box{
+.chatbot-check-all-box {
     .schedule-all-box {
         p {
             margin-top: 10px;
@@ -2386,10 +2452,127 @@ h2.react-datepicker__current-month {
             cursor: pointer;
         }
     }
-    >div:nth-child(3){
+
+    >div:nth-child(3) {
+
         // border: 1px solid red;
-        p{
+        p {
             margin-bottom: 10px;
         }
     }
 }
+
+// 일대일 챗봇
+.real-chatbot-box {
+    width: 450px;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 20px;
+    // border: 1px solid red;
+}
+
+.react-chatbot-kit-chat-container {
+    // 전체
+    width: 100% !important;
+}
+
+.react-chatbot-kit-chat-inner-container {
+    width: 100% !important;
+    // 전체
+    // border: 1px solid orange;
+
+}
+
+.react-chatbot-kit-chat-header {
+    background-color: white !important;
+    border: none !important;
+    color: white !important;
+    // 챗봇채팅창 이름
+    // border: 1px solid yellow;
+}
+
+.react-chatbot-kit-chat-input-container {
+    //메세지입력창 아이콘전체
+    width: 100% !important;
+}
+
+.react-chatbot-kit-chat-message-container {
+    // 봇과 내가 대화한 전체
+}
+
+.react-chatbot-kit-chat-input {
+    // 입력 인풋창
+    width: 400px;
+}
+
+.react-chatbot-kit-chat-input-form {
+    // 입력인풋창과 메세지전송아이콘 전체박스
+}
+
+.react-chatbot-kit-chat-input::placeholder {
+    // 입력 인풋창
+}
+
+.react-chatbot-kit-chat-btn-send {
+    // border: 3px solid green !important;
+    background-color: var(--jinairgreen) !important;
+    // 전송버튼아이콘
+}
+
+.react-chatbot-kit-chat-btn-send-icon {
+    // 전송버튼아이콘
+    color: var(--color-nav-main) !important;
+    font-size: 12px;
+    width: 50px;
+}
+
+.react-chatbot-kit-chat-bot-message-container {
+    // border: 3px solid blueviolet !important;  
+    // 챗봇이 보낸 메세지랑 챗봇이름이랑 포함된 한줄한줄
+}
+
+.react-chatbot-kit-chat-bot-avatar-container {
+    background-color: var(--color-nav-main) !important;
+    // 챗봇의 이름B
+}
+
+.react-chatbot-kit-chat-bot-avatar-icon {
+    border: 3px solid red !important;
+}
+
+.react-chatbot-kit-chat-bot-avatar-letter {
+    color: white !important;
+    // 챗봇의 이름B
+}
+
+.react-chatbot-kit-chat-bot-message {
+    margin: 0 !important; 
+    white-space: pre-line !important;
+    // 챗봇이 보낸 메세지 한줄한줄
+}
+
+.react-chatbot-kit-chat-bot-message-arrow {
+    
+}
+
+.react-chatbot-kit-chat-bot-loading-icon-container {
+    
+}
+
+.chatbot-loader-container {
+    
+}
+
+#chatbot-loader #chatbot-loader-dot1 {}
+
+#chatbot-loader #chatbot-loader-dot2 {}
+
+#chatbot-loader #chatbot-loader-dot3 {}
+
+.react-chatbot-kit-error {}
+
+.react-chatbot-kit-error-container {}
+
+.react-chatbot-kit-error-header {}
+
+.react-chatbot-kit-error-docs {}

@@ -128,3 +128,18 @@ concat(substring(Departure_date,6,2),'월') as month
   const [result] = await db.execute(sql, [start, end, month]);
   return { 'result': result[0] };
 }
+
+/***************************** 
+ * // 예약번호 아이디로 예약조회
+*****************************/
+export const searchReservation = async ({reserMessage1,reserMessage}) => {
+  const sql = `    
+  select count(*) as result_rows
+  from flight 
+  where RES_NUM = ? and
+    ID = ?
+     
+    `;
+    const [result] = await db.execute(sql, [reserMessage,reserMessage1]);
+   return { "result": result[0].result_rows };
+}

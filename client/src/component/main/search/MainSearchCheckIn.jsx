@@ -1,8 +1,21 @@
 import React, { useRef, useState } from 'react';
-
+import {useDispatch, useSelector} from 'react-redux';
+import { getCheckinDate ,getCheckinFirstNm,getCheckinResnum,getCheckinLastNm} from '../../../service/searchApi.js';
 export default function MainSearchCheckIn() {
+    const dispatch = useDispatch();
     const [err, setErr] = useState({});
-
+    const [form, setForm] = useState({});
+    const handleData = (e) => {
+        const {name, value} = e.target;
+        setForm({...form, [name]:value});
+    }
+    
+    dispatch(getCheckinDate(form.rnum));
+    dispatch(getCheckinFirstNm(form.firstNm));
+    dispatch(getCheckinLastNm(form.lastNm));
+    dispatch(getCheckinResnum(form.departDay));
+    // console.log(form.rnum);
+    
     const refs = {
         rnumRef: useRef(null),
         lastNmRef: useRef(null),
@@ -64,22 +77,23 @@ export default function MainSearchCheckIn() {
                 <ul>
                     <li>
                         <label htmlFor="">진에어 예약번호</label>
-                        <input type="text" name='rnum' ref={refs.rnumRef} placeholder='숫자와 영문으로 조합된 6자리' />
+                        <input type="text" name='rnum' 
+                        onChange={handleData} ref={refs.rnumRef} placeholder='숫자와 영문으로 조합된 6자리' />
                         {err.rnum ? <p style={{ color: 'red' }} ref={rnumErr}>{err.rnum}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">성(LAST NAME)</label>
-                        <input type="text" name='lastNm' ref={refs.lastNmRef} />
+                        <input type="text" name='lastNm' ref={refs.lastNmRef}  onChange={handleData}/>
                         {err.lastNm ? <p style={{ color: 'red' }} ref={lastErr}>{err.lastNm}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">이름(FIRST NAME)</label>
-                        <input type="text" name='firstNm' ref={refs.firstNmRef} />
+                        <input type="text" name='firstNm' ref={refs.firstNmRef}  onChange={handleData} />
                         {err.firstNm ? <p style={{ color: 'red' }} ref={firstErr}>{err.firstNm}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">출발일</label>
-                        <select name="departDay" ref={refs.departDayRef}>
+                        <select name="departDay" ref={refs.departDayRef}  onChange={handleData}>
                             <option value="default">선택</option>
                             <option value={TodayFull}>{TodayFull}</option>
                             <option value={tomorrow}>{tomorrow}</option>
