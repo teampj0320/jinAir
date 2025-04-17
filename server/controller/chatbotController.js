@@ -120,6 +120,8 @@ export const QnaUpload = (req, res) => {
 
 // 상품 메인, 슬라이드 이미지 등록
 export const registerQna = async(req,res) => {
+  // console.log(req.body);
+  
     const result = await repository.registerQna(req.body);
     res.json(result); 
     res.end();

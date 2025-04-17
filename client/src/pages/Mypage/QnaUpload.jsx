@@ -14,19 +14,15 @@ import { useNavigate } from 'react-router-dom';
 export default function QnaUpload() {
     const navigate = useNavigate();
     const [fnames, setFnames] = useState({}); //여기에 데이터가 들어온댕{[],[]}
-    let [formData, setFormData] = useState({
-    });
-    const [preview, setPreview] = useState('');
-    const productNameRef = useRef(null);
+    let [formData, setFormData] = useState({});
+    const [inputData, setInputData] = useState({});    
+    const [all, setAll] = useState({});    
     const [previewList, setPreviewList] = useState([]);
 
     const getFileName = (filesNames) => {
         setFnames(filesNames);
-        // setPreview(`http://localhost:9000/${filesNames.uploadFileName}`);
-        console.log('newProduct===fileNames', filesNames);
         setPreviewList(filesNames.uploadFileName);
     }
-
     useEffect(() => {
         dispatch(getCountry());
     }, []);
@@ -60,8 +56,8 @@ export default function QnaUpload() {
         setEnd(refs.endRef.current.value);
     }
     const handleForm = (e) => {
-        // const { name, value } = e.target;
-        // setFormData({ ...formData, [name]: value });
+        const { name, value } = e.target;
+        setInputData({ ...inputData, [name]: value });
     }
     const validate = () => {
         if (refs.typeRef.current.value === 'default') {
@@ -89,15 +85,15 @@ export default function QnaUpload() {
         return true;
     }
     const handleClick = () => {
-        // if (validate()) {
+        if (validate()) {
             formData = ({
                 ...formData,
                 'upload_file': fnames.uploadFileName,
-                'source_file': fnames.sourceFileName
+                inputData
             });
             // console.log('fdfd',formData);
             
-            axios.post('http://localhost:9000/chatbot/dbQnaupload', formData)
+            axios.post('http://localhost:9000/chatbot/dbQnaupload',formData )
                 .then(res => {
                     if (res.data.result_rows === 1) {
                         alert('질문등록완료');
@@ -111,7 +107,7 @@ export default function QnaUpload() {
                     alert('질문등록실패');
                     console.log(error);
                 });
-        // }
+        }
     }
 
     return (
