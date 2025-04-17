@@ -6,6 +6,7 @@ import mypageRouter from './router/mypageRouter.js'
 import uploadRouter from './router/uploadRouter.js'
 import loginRouter from './router/loginRouter.js';
 import chatbotRouter from './router/chatbotRouter.js';
+import adminRouter from './router/adminRouter.js';
 import bookingRouter from './router/bookingRouter.js';
 import paynmentsRouter from './router/paymentsRouter.js'
 import paynmentRouter from './router/paymentRouter.js' 
@@ -28,6 +29,9 @@ server.use("/images", express.static(path.join("images")));
 
 // login
 server.use('/member', loginRouter);
+
+// admin
+server.use('/admin', adminRouter);
 
 // middle ware
 server.use('/mypage', mypageRouter)

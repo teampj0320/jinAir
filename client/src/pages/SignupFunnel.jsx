@@ -8,7 +8,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function SignupFunnel() {
   const params = useParams();
   const navigate = useNavigate();
-  const [ registerData, setRegisterData ] = useState([]);
   const [ stepHistory, setStepHistory ] = useState(['terms']);
 
   const step = params.part;

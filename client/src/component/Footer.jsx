@@ -6,6 +6,12 @@ import { FaSquareYoutube } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa6";
 
 export default function Footer() {
+
+    const handleClick = () =>{
+        alert('두둥');
+        window.open('/admin/login', '_blank')
+    };
+
     return (
         <div className='footer_outline'>
             <div className='footer'>
@@ -97,7 +103,8 @@ export default function Footer() {
                             <img src="https://images.jinair.com/newHom/images/web/common/logo2.svg"
                                 alt=""
                                 className='home_main_logo' />
-                            <span> (주) 진에어</span>
+                            <span> <a href="#" onClick={handleClick}>(주)</a> </span>
+                            <span>진에어</span>
                         </div>
                         <div>
                             <span>대표이사 박병률</span><span>사업자등록번호 121-81-89086</span>

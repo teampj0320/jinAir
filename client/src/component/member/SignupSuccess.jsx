@@ -1,6 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RiHomeLine } from "react-icons/ri";
-import { useEffect } from 'react';
 
 export default function SignupSuccess() {
   const navigate = useNavigate();

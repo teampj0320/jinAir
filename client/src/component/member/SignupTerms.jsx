@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { RiHomeLine } from "react-icons/ri";
 import axios from 'axios';
