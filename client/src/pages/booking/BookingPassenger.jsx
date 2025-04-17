@@ -21,12 +21,12 @@ export default function BookingPassenger() {
 
     const [passengers, setPassengers] = useState(
         Array.from({ length: total }, (_, i) => {
-            if (i === 0) {
+            if (userInfo && i === 0) {
                 return {
                     kname_first: userInfo.kname_first,
                     kname_last: userInfo.kname_last,
-                    birth: userInfo.birth?.replace(/\./g, ''),
-                    id: userInfo.id?.toUpperCase(),
+                    birth: userInfo.birth,
+                    id: userInfo.id,
                     gender: userInfo.gender
                 };
             } else {
@@ -277,14 +277,14 @@ export default function BookingPassenger() {
                     <ul className='passenger-reservant-form'>
                         <li>
                             <label>이메일<span>*</span></label>
-                            <input type="text" defaultValue={userInfo.email.toLowerCase()} />
+                            <input type="text" defaultValue={userInfo.email} />
                         </li>
                         <li>
                             <label>휴대전화번호<span>*</span></label>
                             <select name="country-num" id="">
                                 <option value="default">한국 (+82)</option>
                             </select>
-                            <input type="text" defaultValue={userInfo.phone.replace(/\-/g, '')} />
+                            <input type="text" defaultValue={userInfo.phone} />
                         </li>
                     </ul>
                     <ul className='passenger-reservant-desc'>

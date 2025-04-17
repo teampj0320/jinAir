@@ -15,9 +15,13 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
 
     /* 상속 받은 다음단계 버튼 클릭 이벤트 */
     // click();
+    console.log("아이디 체크 --> ", typeof userInfo.id);
+    console.log("생일 체크 --> ", typeof userInfo.birth);
+    console.log("폰 체크 --> ", typeof userInfo.phone);
+    console.log("이메일 체크 --> ", typeof userInfo.email);
 
     return (
-        type === '성인' && index === 0
+        userInfo && type === '성인' && index === 0
             ? (
                 <div className='booking-user-form'>
                     <div className='booking-user-form-top'>
@@ -35,11 +39,11 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
                             </li>
                             <li>
                                 <label>생년월일<span>*</span></label>
-                                <div>{userInfo.birth.replace(/\./g, '')}</div>
+                                <div>{userInfo.birth}</div>
                             </li>
                             <li>
                                 <label>회원아이디</label>
-                                <div>{userInfo.id.toUpperCase()}</div>
+                                <div>{userInfo.id}</div>
                             </li>
                         </ul>
                         <ul className='booking-user-info-right'>
@@ -119,7 +123,7 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
                                 <label>생년월일<span>*</span></label>
                                 <input type="text"
                                     name='birth'
-                                    defaultValue={index === 0 && type === '성인' ? userInfo.birth.replace(/\./g, '') : ''}
+                                    defaultValue={index === 0 && type === '성인' ? userInfo.birth : ''}
                                     placeholder='YYYYMMDD (예, 20000101)'
                                     onChange={(e) => {
                                         onChange(index, 'birth', e.target.value);
@@ -140,7 +144,7 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
                                 <label>회원아이디</label>
                                 <input
                                     type="text"
-                                    defaultValue={index === 0 && type === '성인' ? userInfo.id.toUpperCase() : ''}
+                                    defaultValue={index === 0 && type === '성인' ? userInfo.id : ''}
                                     onChange={(e) => onChange(index, 'id', e.target.value)}
                                 />
                                 <div>확인</div>
