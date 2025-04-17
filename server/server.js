@@ -26,7 +26,7 @@ server.use(express.json());
 server.use(express.urlencoded());
 server.use(cors());
 server.use("/images", express.static(path.join("images")));
-
+server.use('/upload_files', express.static(path.join("upload_files")));
 // login
 server.use('/member', loginRouter);
 
