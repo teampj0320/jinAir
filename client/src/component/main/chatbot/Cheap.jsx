@@ -3,7 +3,7 @@ import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import {
     getCountry, getChatbotModalOpen, getDeparture, getArrive, getStartDate, getTab, getSearchTab,
-    getAdultNum, getPediatricNum, getBabyNum,getEndDate
+    getAdultNum, getPediatricNum, getBabyNum, getEndDate
 } from '../../../service/searchApi.js';
 import axios from 'axios';
 export default function Cheap() {
@@ -20,10 +20,12 @@ export default function Cheap() {
     const [adult, setAdult] = useState(1); // 편도
     const [child, setChild] = useState(0); // 편도
     const [baby, setBaby] = useState(0); // 편도
+    const [onewayNone, setOnewayNone] = useState(false); // 편도
     const [peopleClick, setPeopleClick] = useState(false); // 편도
     const [peopleRoundClick, setPeopleRoundClick] = useState(false);  // 왕복
     const [onewayScheduleClick, setOneWayScheduleClick] = useState(false);
     const [lastRoundtripClick, setLastRoundtripClick] = useState(false);
+    const [roundNone, setRoundNone] = useState(false); // 왕복
     const dispatch = useDispatch();
     const countryList = useSelector(state => state.search.countryList);
     const processedList = countryList.map(item => item.city.split(' (')[0]);
@@ -34,6 +36,7 @@ export default function Cheap() {
     const adultRef = useRef(null);
     const childRef = useRef(null);
     const babyRef = useRef(null);
+    const btnRef = useRef(null);
     const [getFlightList, setGetFlightList] = useState([]);
 
     useEffect(() => {
@@ -96,6 +99,8 @@ export default function Cheap() {
                 .then(res => {
                     if (res.data.result === 1) {
                         setOnewayClick(true);
+                    }else{
+                        setOnewayNone(true);
                     }
                 })
                 .catch(error => console.log(error));
@@ -107,6 +112,8 @@ export default function Cheap() {
                 .then(res => {
                     if (res.data.result === 1) {
                         setRoundtripClick(true);
+                    }else{
+                        setRoundNone(true);
                     }
                 })
                 .catch(error => console.log(error));
@@ -201,17 +208,55 @@ export default function Cheap() {
         dispatch(getPediatricNum(child));
         dispatch(getBabyNum(baby));
     }
+    useEffect(() => {
+        if (period && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else if (dateSelect && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (roundtripClick && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (roundtrip && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (peopleRoundClick && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (lastRoundtripClick && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (oneway && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (onewayClick && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (peopleClick && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (onewayScheduleClick && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }else if (onewayNone && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }else if (roundNone && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [period, dateSelect, roundtripClick, roundtrip, peopleRoundClick, lastRoundtripClick,
+        oneway, onewayClick, peopleClick, onewayScheduleClick, onewayNone, roundNone]
+    )
+
     return (
         <div className='cheap-all-box'>
             <div>
                 <p>최저가조회를 선택하셨습니다!<br />아래에서 검색방법을 선택해 주세요!</p>
                 <div className='schedule-button-box'>
-                    <button onClick={() => { setDateSelect(true) }}>날짜지정조회</button>
-                    <button onClick={() => { setPeriod(true) }}>기간지정조회</button>
+                    <button onClick={() => { setDateSelect(true); setPeriod(false) }}>날짜지정조회</button>
+                    <button onClick={() => { setPeriod(true); setDateSelect(false) }}>기간지정조회</button>
                 </div>
             </div>
             {period &&
-                <div className='schedule-all-box'>
+                <div className='schedule-all-box' ref={btnRef}>
                     <p>항공권 구매를 선택하셨습니다!<br />아래에서 ‘편도’, '왕복’중 여정을 선택해주세요 ^^</p>
                     <div className='cheap-button-box'>
                         <button onClick={() => { setOneway(true) }}>편도</button>
@@ -221,7 +266,7 @@ export default function Cheap() {
             }
             {dateSelect && //날짜지정조회 클릭시
                 <>
-                    <div>
+                    <div ref={btnRef}>
                         <p>항공권 구매를 선택하셨습니다!<br />아래에서 여정을 선택해주세요 ^^</p>
                         <div className='cheap-button-box'>
                             <button onClick={() => { setOneway(true) }}>편도</button>
@@ -231,7 +276,7 @@ export default function Cheap() {
                 </>}
             {roundtrip &&  //왕복클릭시
                 <>
-                    <div className='schedule-all-box'>
+                    <div ref={btnRef} className='schedule-all-box'>
                         <p>츨/도착지와 날짜를 선택해주세요!</p>
                         <div className='schedule-country-check-box'>
                             <span>출발/도착</span>
@@ -260,8 +305,16 @@ export default function Cheap() {
                             <button onClick={() => { ScheduleCheckRound() }}>확인</button>
                         </div>
                     </div>
+                    {roundNone &&
+                        <div className='schedule-all-box'  ref={btnRef}>
+                            <div className='schedule-none-exist-box'>
+                                <p>출발지:{start}&nbsp;&nbsp;도착지:{end} <br/> 
+                                출발일:{date}&nbsp;&nbsp;도착일:{endDate}&nbsp;&nbsp; <br />일치하는 스케줄 정보가 없습니다.</p>
+                            </div>
+                        </div>
+                    }
                     {roundtripClick &&//확인클릭시
-                        <div className='schedule-all-box'>
+                        <div className='schedule-all-box' ref={btnRef}>
                             <p>예약 인원을 선택해 주세요</p>
                             <ul>
                                 {peopleList.map((item) => (
@@ -282,7 +335,7 @@ export default function Cheap() {
                             </div>
                         </div>}
                     {peopleRoundClick &&//확인 클릭시
-                        <div className='schedule-all-box'>
+                        <div className='schedule-all-box' ref={btnRef}>
                             <ul>
                                 <li>▣ 가는 항공편</li>
                                 <li>◈ 경로 : {start} &#10132; {end}</li>
@@ -305,7 +358,7 @@ export default function Cheap() {
                             </div>
                         </div>}
                     {lastRoundtripClick && //예 클릭시
-                        <div className='schedule-all-box'>
+                        <div className='schedule-all-box' ref={btnRef}>
                             <div className='cheap-round-before-select'>
                                 <span>가는날 : <span>{date}</span></span>
                                 <span>오는날 : <span>{endDate}</span></span>
@@ -364,7 +417,7 @@ export default function Cheap() {
             }
             {oneway &&//편도클릭시
                 <>
-                    <div className='schedule-all-box'>
+                    <div className='schedule-all-box' ref={btnRef}>
                         <p>츨/도착지와 날짜를 선택해주세요!</p>
                         <div className='schedule-country-check-box'>
                             <span>출발/도착</span>
@@ -389,8 +442,15 @@ export default function Cheap() {
                             <button onClick={() => { ScheduleCheck() }}>확인</button>
                         </div>
                     </div>
+                    {onewayNone &&
+                        <div className='schedule-all-box'  ref={btnRef}>
+                            <div className='schedule-none-exist-box'>
+                                <p>[출발일:{date}&nbsp;&nbsp;출발지:{start}&nbsp;&nbsp;도착지:{end}] <br />일치하는 스케줄 정보가 없습니다.</p>
+                            </div>
+                        </div>
+                    }
                     {onewayClick && //확인클릭시
-                        <div className='schedule-all-box'>
+                        <div className='schedule-all-box' ref={btnRef}>
                             <p>예약 인원을 선택해 주세요</p>
                             <ul>
                                 {peopleList.map((item) => (
@@ -411,7 +471,7 @@ export default function Cheap() {
                             </div>
                         </div>}
                     {peopleClick &&//확인 클릭시
-                        <div className='schedule-all-box'>
+                        <div className='schedule-all-box' ref={btnRef}>
                             <ul>
                                 <li>▣ 가는 항공편</li>
                                 <li>◈ 경로 : {start}&#10132;{end}</li>
@@ -431,7 +491,7 @@ export default function Cheap() {
                             </div>
                         </div>}
                     {onewayScheduleClick && //예 클릭시
-                        <div className='schedule-all-box'>
+                        <div className='schedule-all-box' ref={btnRef}>
                             <div>
                                 <span>출발일 : <span>{date}</span></span>
                             </div>

@@ -11,7 +11,6 @@ import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getChatbotModalOpen, getMessage, getReserMessage, getReserMessage1,
-    
  } from '../../../service/searchApi.js';
 import config from "./config.js";
 import MessageParser from "./MessageParser.jsx";

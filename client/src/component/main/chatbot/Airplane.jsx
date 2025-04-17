@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountry,getChatbotModalOpen, getDeparture,getArrive, getStartDate, getTab,getSearchTab } from '../../../service/searchApi.js';
+import { getCountry, getChatbotModalOpen, getDeparture, getArrive, getStartDate, getTab, getSearchTab } from '../../../service/searchApi.js';
 import axios from 'axios';
 
 export default function Airplane() {
@@ -24,6 +24,8 @@ export default function Airplane() {
     const dispatch = useDispatch();
     const [getFlightList, setGetFlightList] = useState([]);
     const countryList = useSelector(state => state.search.countryList);
+    const btnRef = useRef(null);
+
 
     useEffect(() => {
         dispatch(getCountry());
@@ -143,6 +145,25 @@ export default function Airplane() {
         dispatch(getTab('main'));
         dispatch(getSearchTab('oneWay'));
     }
+
+    useEffect(() => {
+        if (airNum && btnRef.current) {
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }else if(country && btnRef.current){
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+
+        }else if(airNumClick && btnRef.current){
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if(noneAirNumClick && btnRef.current){
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        }else if(countryClick && btnRef.current){
+            btnRef.current.scrollIntoView({ behavior: 'smooth' });
+
+        }
+    }, [airNum,country,airNumClick,noneAirNumClick,countryClick]
+    )
+
     return (
         <div className='airplane-all-box'>
             <div className='schedule-all-box'>
@@ -156,7 +177,7 @@ export default function Airplane() {
                 </div>
             </div>
             {airNum &&
-                <div className='schedule-all-box'>
+                <div className='schedule-all-box' ref={btnRef}>
                     <div>
                         <p>진에어 항공편의 출도착 조회를 도와드릴게요~</p>
                         <p>편명과 날짜를 입력해주세요!</p>
@@ -176,13 +197,13 @@ export default function Airplane() {
                 </div>
             }
             {airNum && noneAirNumClick &&
-                <div className='schedule-all-box'>
+                <div className='schedule-all-box' ref={btnRef}>
                     <p>해당 날짜에 일치하는 출도착 정보가 없습니다. <br />
                         다른 날짜, 다른 여행지를 조회 해 보시는건 어떤가요?!</p>
                 </div>
             }
             {airNumClick &&
-                <div className='airplane-airNumClick'>
+                <div className='airplane-airNumClick' ref={btnRef}>
                     <div className='schedule-all-box'>
                         <p>[출발일:{airNumStartDate}, 편명:{airNumber}] <br />출도착 정보를 조회하였습니다.</p>
                         <table>
@@ -201,7 +222,7 @@ export default function Airplane() {
                 </div>
             }
             {country &&
-                <div className='schedule-all-box'>
+                <div className='schedule-all-box' ref={btnRef}>
                     <div className='schedule-top-box'>
                         <p>진에어 항공편의 스케줄 조회를 도와드릴게요~</p>
                         <p>출발지, 도착지와 가는날을 선택해주세요!</p>
@@ -232,7 +253,7 @@ export default function Airplane() {
             }
             {countryClick &&
                 <>
-                    <div className='schedule-all-box'>
+                    <div className='schedule-all-box' ref={btnRef}>
                         <div className='schedule-exist-box'>
                             <p>[출발일:{date}, 출발지:{getFlightList.Dcode}, 도착지:{getFlightList.Acode}] <br />스케줄 정보를 조회하였습니다.</p>
                             <table className='airplane-country-table'>
@@ -257,8 +278,6 @@ export default function Airplane() {
                                 <button onClick={() => { reservation(); scrollToTop() }}>예약하기</button>
                                 <button onClick={() => { exchangeCountry() }}>출도착지 바꾸기</button>
                             </div>
-                            {/* 여기서 예약하기 누르면 그냥 메인페이지로 넘어감 ( 이거 좀 바꿀필요가잇다고 생각)
-                                        // 출도착지 변경은 걍 두개 변경해주면댐*/}
                         </div>
                     </div>
                 </>}
