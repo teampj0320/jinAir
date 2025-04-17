@@ -38,7 +38,7 @@ server.use('/booking', bookingRouter);
 server.use('/chatbot', chatbotRouter);
 
 //payment
-server.use('/payment', paynmentRouter);
+server.use('/payment', paynmentRouter); 
 
 //order
 server.use('/sandbox-dev/api/v1/payments', paynmentsRouter);

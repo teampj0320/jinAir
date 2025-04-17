@@ -7,4 +7,4 @@ router.post('/res', controller.payment);
 
 export default router;
 
-
+ 

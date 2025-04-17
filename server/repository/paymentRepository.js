@@ -11,7 +11,7 @@ export const payment = ({ id, fnum, passenger_name }) => {
       CHAR(FLOOR(RAND() * 26) + 65),
       LPAD(FLOOR(RAND() * 10), 1, '0'),
       CHAR(FLOOR(RAND() * 26) + 65)
-    );
+    ); 
   `;
 
     const insert = `
