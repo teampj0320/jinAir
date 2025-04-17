@@ -22,7 +22,6 @@ import 'react-chatbot-kit/build/main.css';
 export default function Chatbots() {
     const dispatch = useDispatch();
     const [chatTab, setChatTab] = useState('');
-    const [buyAirTicket, setBuyAirTicket] = useState(false);
     const [msg1, setMsg1] = useState(true);
     const [msg2, setMsg2] = useState(false);
     const [msg3, setMsg3] = useState(false);
@@ -54,7 +53,6 @@ export default function Chatbots() {
     }, [chatTab]);
     const handleResetHome = () => {
         setChatTab('');
-        setBuyAirTicket(false);
     }
     const handleQna = () => {
         // 로그인 아닐때
@@ -115,7 +113,14 @@ export default function Chatbots() {
                         <ul>
                             {
                                 list.map((item) => (
-                                    <li onClick={() => setChatTab(item.tab)}>
+                                    <li onClick={() => {setChatTab(item.tab);
+                                        dispatch(getMessage(''));
+                                        dispatch(getReserMessage(''));
+                                        dispatch(getReserMessage1(''));
+                                        setMsg1(true);
+                                        setMsg2(false);
+                                        setMsg3(false);
+                                    }}>
                                         <img src={item.img} alt="챗봇아이콘" />
                                     </li>
                                 ))
@@ -129,10 +134,10 @@ export default function Chatbots() {
                         {chatTab === 'food' && goFood()}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
-                        {chatTab === 'ticket' && <Ticket />}
-                        {chatTab === 'check' && <Check />}
+                        {chatTab === 'ticket' && alert('준비중 입니다')}
+                        {chatTab === 'check' && alert('준비중 입니다')}
                         {chatTab === 'notice' && goNotice()}
-                        {buyAirTicket && <BuyTicket />}
+                        {chatTab === 'buyTicket' && <BuyTicket />}
                     </div>
                     {/* <div className='real-chatbot-box'>
                     <Chatbot
@@ -150,7 +155,7 @@ export default function Chatbots() {
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_02.png" alt="챗봇스몰아이콘" />
-                            <span onClick={() => { setBuyAirTicket(true) }}>항공권구매</span>
+                            <span onClick={() => { setChatTab('buyTicket') }}>항공권구매</span>
                         </li>
                         <li>
                             <img src="/images/chatbot/small_icon_03.png" alt="챗봇스몰아이콘" />

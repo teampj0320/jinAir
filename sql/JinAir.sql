@@ -15,9 +15,6 @@ select * from product;
 select * from view_my_reservation;
 select * from coupon;
 
-
-
-
 -- 테이블 데이터 타입 조희
 desc admin;
 desc country;
@@ -66,7 +63,7 @@ CREATE TABLE `reservation` (
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
 VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희') , now()),
       ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now());
-
+ delete from reservation where fNUM = 'LJ279' ;
 
 
 -- coupon 테이블 (신규)
@@ -89,5 +86,6 @@ INSERT INTO coupon (id, coupon_name, coupon_code, discount_price , start_date, e
 VALUES ('test1', '[온라인 전용] 1천원 깜짝쿠폰' , 'cl0001', 1000 , '2025-04-01', '2025-12-31', 0),
 		('test1',  '[온라인 전용] 2천원 깜짝쿠폰', 'cl0002', 2000 ,'2025-04-01', '2025-12-31', 0);
 
-
-
+-- 4/17 영문성 컬럼명 변경 ename_firtst -> ename_first
+alter table customer
+		rename column ename_firtst to ename_first ;

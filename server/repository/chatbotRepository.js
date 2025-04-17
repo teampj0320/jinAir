@@ -133,9 +133,12 @@ concat(substring(Departure_date,6,2),'월') as month
  * // 예약번호 아이디로 예약조회
 *****************************/
 export const searchReservation = async ({reserMessage1,reserMessage}) => {
+  console.log(reserMessage1);
+  console.log(reserMessage);
+  
   const sql = `    
   select count(*) as result_rows
-  from flight 
+  from reservation 
   where RES_NUM = ? and
     ID = ?
      
