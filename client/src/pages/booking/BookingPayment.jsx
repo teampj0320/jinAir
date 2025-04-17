@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef} from "react";
+import { useSelector } from "react-redux"; 
 import BookingStep from "../../component/booking/BookingStep.jsx";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,6 +17,8 @@ import { BiSolidPlaneTakeOff } from "react-icons/bi";
 
 export default function BookingPayment() {
   const nav = useNavigate();
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+  
   const [openStates, setOpenStates] = useState({
     segment1: true,
     segment2: true,
@@ -28,6 +31,20 @@ export default function BookingPayment() {
     addition3: false,
     addition4: false,
   });
+  const hasCheckedLogin = useRef(false);
+
+  useEffect(() => {
+    if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
+    hasCheckedLogin.current = true;
+
+    if (isLoggedIn) {
+        // dispatch(getCartList());
+    } else {
+        const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+        select ? nav('/login') : nav('/'); 
+    }
+}, [isLoggedIn]);
+
 
   const toggleList = (segmentKey) => {
     setOpenStates((prev) => ({
@@ -338,7 +355,7 @@ export default function BookingPayment() {
                   {openStates.additionall ? (
                     <FaSquareCheck size="28" className="check-icon" />
                   ) : (
-                    <FaRegSquareCheck size="25" className="check-icon" />
+                    <FaRegSquareCheck size="28" className="check-icon" />
                   )}
                 </label>
                 <label className="all">전체 선택</label>
