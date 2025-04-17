@@ -1,29 +1,52 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import BookingStep from "../../component/booking/BookingStep.jsx";
 import { FaEquals, FaMinus } from "react-icons/fa6";
-import axios from 'axios';
+import axios from "axios";
 import { CheckoutPage } from "../../component/payments/Checkout.jsx";
 
 export default function BookingCheckout() {
     const [radio, setRadio] = useState("coupon");
-    const [discountValue, setDiscountValue] = useState("default");
-    const totalFare = 121950;
+    const [selectedDiscount, setSelectedDiscount] = useState("default");
+    const [appliedDiscount, setAppliedDiscount] = useState("default");
+    const couponList = useSelector((state) => state.myinfo.mycoupon);
 
-    const idRef = useRef();
+
+    const totalFare = 121950;
+    const nav = useNavigate();
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+    const myinfo = useSelector(state => state.myinfo.myinfo);
+
+    const hasCheckedLogin = useRef(false);
     const nameRef = useRef();
     const way1Ref = useRef();
     const way2Ref = useRef();
 
-    const getDiscountAmount = () => {
-        if (!discountValue || discountValue === "default") return 0;
+    useEffect(() => {
+        if (hasCheckedLogin.current) return;
+        hasCheckedLogin.current = true;
 
-        if (discountValue.endsWith("%")) {
-            const percent = parseFloat(discountValue.replace("%", ""));
+        if (!isLoggedIn) {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ? nav("/login") : nav("/");
+        }
+    }, [isLoggedIn]);
+
+    const applyDiscount = () => {
+        setAppliedDiscount(selectedDiscount);
+    };
+
+    const getDiscountAmount = () => {
+        if (!appliedDiscount || appliedDiscount === "default") return 0;
+
+        if (appliedDiscount.endsWith("%")) {
+            const percent = parseFloat(appliedDiscount.replace("%", ""));
             const discount = (totalFare * percent) / 100;
             return Math.min(discount, totalFare);
         }
 
-        const discount = parseInt(discountValue, 10);
+        const discount = parseInt(appliedDiscount, 10);
         return Math.min(discount, totalFare);
     };
 
@@ -31,180 +54,155 @@ export default function BookingCheckout() {
     const finalAmount = totalFare - discountAmount;
 
     const handlePayment = () => {
-        const id = idRef.current.textContent.trim();
+        const id = myinfo.id;
         const name = nameRef.current.textContent.trim();
         const way1 = way1Ref.current.textContent.trim();
         const way2 = way2Ref.current.textContent.trim();
 
-        console.log({ id, name, way1, way2 }); // 전송 전 데이터 확인
-
-        axios.post('http://localhost:9000/payment/res', {
+        axios.post("http://localhost:9000/payment/res", {
             id,
             fnum: [way1, way2],
-            passenger_name: name
+            passenger_name: name,
+            discount_amount: discountAmount,
+            final_amount: finalAmount,
         })
-            .then(response => {
-                console.log(response);
-                if (response.data?.success === true && response.data.data?.[0]?.affectedRows >= 1) {
-                    alert("예약이 완료되었습니다.");
-                } else {
-                    alert("예약 실패");
-                }
+            .then(res => {
+                const success = res.data?.success;
+                const affected = res.data?.data?.[0]?.affectedRows >= 1;
+                alert(success && affected ? "예약이 완료되었습니다." : "예약 실패");
             })
-            .catch(err => {
-                alert("예약 중 오류 발생");
-            });
+            .catch(() => alert("예약 중 오류 발생"));
     };
 
     return (
         <div className="booking-payment">
             <div className="booking-payment-wrap">
-                <BookingStep text={"payment"} />
+                <BookingStep text="payment" />
             </div>
-            <div>
-                <div className="booking-passenger-contents">
-                    <p className="booking-page-title">4. 결제</p>
 
-                    {/**테스트용 임시 정보 */}
-                    <div>
-                        <span>ID:</span>
-                        <span ref={idRef}>test1</span>
-                        <span>name:</span>
-                        <span ref={nameRef}>홍길동</span>
-                        <span>plite-way1:</span>
-                        <span ref={way1Ref}>LJ100</span>
-                        <span>plite-way2:</span>
-                        <span ref={way2Ref}>LJ190</span>
+            <div className="booking-passenger-contents">
+                <p className="booking-page-title">4. 결제</p>
+
+                <div>
+                    <span>name:</span>
+                    <span ref={nameRef}>홍길동</span>
+                    <span>plite-way1:</span>
+                    <span ref={way1Ref}>LJ100</span>
+                    <span>plite-way2:</span>
+                    <span ref={way2Ref}>LJ190</span>
+                </div>
+
+                {/* 할인 영역 */}
+                <section className="noneExtras">
+                    <h3><span>쿠폰/카드 제휴 할인</span></h3>
+                    <div className="check-out-page">
+                        <div className="radio-wrapper">
+                            <span>
+                                <input
+                                    type="radio"
+                                    name="discount"
+                                    value="coupon"
+                                    checked={radio === "coupon"}
+                                    onChange={(e) => setRadio(e.target.value)}
+                                />
+                                <label>쿠폰할인</label>
+                            </span>
+                            <span>
+                                <input
+                                    type="radio"
+                                    name="discount"
+                                    value="card"
+                                    checked={radio === "card"}
+                                    onChange={(e) => setRadio(e.target.value)}
+                                />
+                                <label>카드 제휴 할인</label>
+                            </span>
+                        </div>
+
+                        {radio === "coupon" && (
+                            <div className="check-out-coupon">
+                                <div className="select-warpper">
+                                    <select
+                                        value={selectedDiscount}
+                                        onChange={(e) => setSelectedDiscount(e.target.value)}
+                                    >
+                                        <option value="default">선택</option>
+                                        {couponList && couponList.map(coupon => (
+                                            <option
+                                                key={coupon.coupon_code}
+                                                value={coupon.discount_price}
+                                            >
+                                                {coupon.coupon_name} (₩{Number(coupon.discount_price).toLocaleString()})
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div>
+                                        <button className="sale-button" onClick={applyDiscount}>선택</button>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>- 쿠폰 금액이 항공운임보다 크면 잔액 소멸</li>
+                                    <li>- 유효기간, 사용 조건 확인 필요</li>
+                                    <li>- 중복 할인 불가</li>
+                                    <li>- 비정상 사용 시 예약 취소</li>
+                                </ul>
+                            </div>
+                        )}
+
+
+                        {radio === "card" && (
+                            <div className="check-out-card">
+                                <div className="select-warpper">
+                                    <select
+                                        value={selectedDiscount}
+                                        onChange={(e) => setSelectedDiscount(e.target.value)}
+                                    >
+                                        <option value="default">선택</option>
+                                        <option value="5%">5% 카카오페이 할인쿠폰</option>
+                                        <option value="15%">15% 토스페이 할인쿠폰</option>
+                                    </select>
+                                    <div>
+                                        <button className="sale-button" onClick={applyDiscount}>선택</button>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>- 부분 취소 불가</li>
+                                    <li>- 혜택 카드로 결제 필요</li>
+                                    <li>- 카드사 검증 실패 시 예약 초기화</li>
+                                    <li>- KB국민카드 홈페이지 참고</li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                </section>
+
+                {/* 결제 정보 */}
+                <section className="checkout-totalprice">
+                    <h3><span>결제정보</span></h3>
+                    <div className="calc-warp">
+                        <div className="calc-item">
+                            <span>총 운임</span>
+                            <strong>KRW <span>{totalFare.toLocaleString()}</span></strong>
+                        </div>
+                        <div className="operation"><FaMinus /></div>
+                        <div className="calc-item">
+                            <span>총 할인 금액</span>
+                            <strong>KRW <span>{discountAmount.toLocaleString()}</span></strong>
+                        </div>
+                        <div className="operation"><FaEquals /></div>
+                        <div className="calc-item">
+                            <span>총 예상 결제 금액</span>
+                            <strong>KRW <span>{finalAmount.toLocaleString()}</span></strong>
+                        </div>
                     </div>
 
-                    {/* 쿠폰 / 카드 할인 영역 */}
-                    <section className="noneExtras">
-                        <h3><span>쿠폰/카드 제휴 할인</span></h3>
-                        <div className="check-out-page">
-                            <div className="radio-wrapper">
-                                <span>
-                                    <input
-                                        type="radio"
-                                        name="discount"
-                                        value="coupon"
-                                        checked={radio === "coupon"}
-                                        onChange={(e) => setRadio(e.target.value)}
-                                    />
-                                    <label>쿠폰할인</label>
-                                </span>
-                                <span>
-                                    <input
-                                        type="radio"
-                                        name="discount"
-                                        value="card"
-                                        checked={radio === "card"}
-                                        onChange={(e) => setRadio(e.target.value)}
-                                    />
-                                    <label>카드 제휴 할인</label>
-                                </span>
-                            </div>
-
-                            {/* 쿠폰 선택 시 표시 */}
-                            {radio === "coupon" && (
-                                <div className="check-out-coupon">
-                                    <div className="select-warpper">
-                                        <select
-                                            value={discountValue}
-                                            onChange={(e) => setDiscountValue(e.target.value)}
-                                        >
-                                            <option value="default">선택</option>
-                                            <option value="1000">깜짝 천원 할인쿠폰</option>
-                                            <option value="10000">깜짝 만원 할인쿠폰</option>
-                                            <option value="100000">선착순 십만원 할인쿠폰</option>
-                                        </select>
-                                        <div>
-                                            <button className="sale-button">선택</button>
-                                        </div>
-                                    </div>
-                                    <ul>
-                                        <li>
-                                            - 쿠폰 금액이 항공운임 혹은 부가서비스 결제금액보다 크면
-                                            잔액은 자동 소멸됩니다.
-                                        </li>
-                                        <li>
-                                            - 발급 시 사용 조건을 확인해주세요. (유효기간,
-                                            사용가능노선 등)
-                                        </li>
-                                        <li>- 기타 제휴 할인과 중복 적용 불가합니다.</li>
-                                        <li>
-                                            - 비정상적인 쿠폰 사용 시 예약 건 취소될 수 있습니다.
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
-
-                            {/* 카드 선택 시 표시 */}
-                            {radio === "card" && (
-                                <div className="check-out-card">
-                                    <div className="select-warpper">
-                                        <select
-                                            value={discountValue}
-                                            onChange={(e) => setDiscountValue(e.target.value)}
-                                        >
-                                            <option value="default">선택</option>
-                                            <option value="5%">5% 카카오페이 할인쿠폰</option>
-                                            <option value="15%">15% 토스페이 할인쿠폰</option>
-                                        </select>
-                                        <div>
-                                            <button className="sale-button">선택</button>
-                                        </div>
-                                    </div>
-                                    <ul>
-                                        <li>
-                                            - 할인 적용된 부가서비스는 부분 취소 불가, 전체 취소 필요
-                                        </li>
-                                        <li>- 혜택 카드로 결제 시에만 적용</li>
-                                        <li>- 결제 시 카드사 검증 실패 시 예약 초기화될 수 있음</li>
-                                        <li>- 항공권 청구할인 서비스와 중복 제공</li>
-                                        <li>- 자세한 내용은 KB국민카드 홈페이지 참고</li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
-                    </section>
-
-                    {/* 결제정보 영역 */}
-                    <section className="checkout-totalprice">
-                        <h3><span>결제정보</span></h3>
-                        <div className="calc-warp">
-                            <div className="calc-item">
-                                <span>총 운임</span>
-                                <strong>
-                                    KRW <span>{totalFare.toLocaleString()}</span>
-                                </strong>
-                            </div>
-                            <div className="operation">
-                                <FaMinus />
-                            </div>
-                            <div className="calc-item">
-                                <span>총 할인 금액</span>
-                                <strong>
-                                    KRW <span>{discountAmount.toLocaleString()}</span>
-                                </strong>
-                            </div>
-                            <div className="operation">
-                                <FaEquals />
-                            </div>
-                            <div className="calc-item">
-                                <span>총 예상 결제 금액</span>
-                                <strong>
-                                    KRW <span>{finalAmount.toLocaleString()}</span>
-                                </strong>
-                            </div>
-                        </div>
-                        <div className="pay-wrapper">
-                            <CheckoutPage />
-                        </div>
-                    </section>
-
-                    <div className="order-button-warp">
-                        <button onClick={handlePayment}>결제</button>
+                    <div className="pay-wrapper">
+                        <CheckoutPage finalAmount={finalAmount} />
                     </div>
+                </section>
+
+                <div className="order-button-warp">
+                    <button onClick={handlePayment}>결제</button>
                 </div>
             </div>
         </div>
