@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
+import Modal from 'react-modal';
 import { IoIosAirplane } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";
+import { LiaRestroomSolid } from "react-icons/lia";
+import { TbRectangleVertical } from "react-icons/tb";
+import { TbRectangleVerticalFilled } from "react-icons/tb";
+import { FaRegSquare } from "react-icons/fa6";
+import { FaSquare } from "react-icons/fa6";
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingSeatDesc from '../../component/booking/BookingSeatDesc.jsx';
-import Modal from 'react-modal';
-import { Tooltip } from 'react-tooltip';
+import { getSeats } from '../../service/bookingApi.js';
 import 'react-tooltip/dist/react-tooltip.css';
 
 
 export default function BookingSelectSeat() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const flightNum = useSelector(state => state.booking.flightNum);
+    const oneWayBseats = useSelector(state => state.booking.oneWayBseats); // 편도 베이직석 리스트
+    const oneWayPseats = useSelector(state => state.booking.oneWayPseats); // 편도 프리미엄석 리스트
+
+    // const passengers = useSelector(state => state.booking.passengers);
+
+    // console.log("베이직석 --> ", oneWayBseats);
+    // console.log("프리미엄석 --> ", oneWayPseats);
+    // console.log("탑승자정보확인 --> ", passengers);
+    
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const seatGrade = [
+        {
+            color: "#192547",
+            name: "지니비즈",
+            charge: 0
+        },
         {
             color: "#7e0049",
             name: "지니스트레치",
@@ -49,6 +75,12 @@ export default function BookingSelectSeat() {
         },
     ];
 
+    const premiumList = ["7A", "7B", "7C", "7D", "8A", "8B", "8C", "8D"];
+
+    useEffect(() => {
+        dispatch(getSeats(flightNum)); // 편도일 때
+    }, []);
+
     /* 모달창 스타일 */
     const customModalStyles = {
         overlay: {
@@ -76,6 +108,11 @@ export default function BookingSelectSeat() {
             padding: "0"
         }
     };
+
+    /* 좌석 선택 이벤트 */
+    const setSeatNum = (seat) => {
+        console.log("좌석 : ", seat);
+    }
 
     return (
         <div className='booking-selectSeat-wrap'>
@@ -163,6 +200,100 @@ export default function BookingSelectSeat() {
                                 <BookingSeatDesc setModalIsOpen={setModalIsOpen} />
                             </Modal>
                         </div>
+                    </div>
+                    <div className='selectSeat-select-seat'>
+                        <p><LiaRestroomSolid /></p>
+                        <p><span>비상구</span><span>비상구</span></p>
+                        <div><div></div><div></div></div>
+                        <div>
+                            <span>A</span>
+                            <span>B</span>
+                            <span>C</span>
+                            <span>D</span>
+                        </div>
+                        <ul className='select-premium-seat'>
+                            { oneWayPseats.map((item) => (
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#192547"}}
+                                >
+                                    <TbRectangleVertical />
+                                </li>
+                            )) }
+                        </ul>
+                        <div><div></div><div></div></div>
+                        <div>
+                            <span>A</span>
+                            <span>B</span>
+                            <span>C</span>
+                            <span>D</span>
+                            <span>E</span>
+                            <span>F</span>
+                        </div>
+                        <ul className='select-basic-seat'>
+                            { oneWayBseats.map((item, i) => (
+                                i <= 5 &&
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#7e0049"}}
+                                >
+                                    <FaRegSquare />
+                                </li>
+                            )) }
+                            { oneWayBseats.map((item, i) => (
+                                i > 5 && i <= 29 &&
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#077fac"}}
+                                >
+                                    <FaRegSquare />
+                                </li>
+                            )) }
+                            { oneWayBseats.map((item, i) => (
+                                i > 29 && i <= 65 &&
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#c2d832"}}
+                                >
+                                    <FaRegSquare />
+                                </li>
+                            )) }
+                        </ul>
+                        <p><span>비상구</span><span>비상구</span></p>
+                        <ul className='select-basic-seat'>
+                            { oneWayBseats.map((item, i) => (
+                                i > 65 && i <= 71 &&
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#dfa93e"}}
+                                >
+                                    <FaRegSquare />
+                                </li>
+                            )) }
+                        </ul>
+                        <p><span>비상구</span><span>비상구</span></p>
+                        <ul className='select-basic-seat'>
+                            { oneWayBseats.map((item, i) => (
+                                i > 71 && i <= 77 &&
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#dc383b"}}
+                                >
+                                    <FaRegSquare />
+                                </li>
+                            )) }
+                            { oneWayBseats.map((item, i) => (
+                                i > 77 &&
+                                <li id={item}
+                                    onClick={() => setSeatNum(item)}
+                                    style={{color: "#6d7348"}}
+                                >
+                                    <FaRegSquare />
+                                </li>
+                            )) }
+                        </ul>
+                        <p><span><LiaRestroomSolid /></span><span><LiaRestroomSolid /></span></p>
+                        <p><span>비상구</span><span>비상구</span></p>
                     </div>
                 </div>
             </div>

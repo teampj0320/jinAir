@@ -67,3 +67,45 @@ export const getLowPrice = async({start, end, departure, arrive}) => {
 
     // console.log("결과 확인 --> ", result);
 }
+
+/***************************** 
+ * 탑승객 정보 입력 페이지
+ * 예매자 정보 호출
+*****************************/
+export const getUserInfo = async({id}) => {
+    // console.log("아이디 확인 --> ", id);
+    
+    const sql = `
+    select id,
+            email,
+            phone,
+            kname_first,
+            kname_last,
+            birth,
+            gender
+    from customer
+    where id = ?
+    `;
+    
+    const [result] = await db.execute(sql, [id]);
+
+    // console.log("정보 확인 --> ", result);
+    return {"result": result[0]};
+}
+
+/***************************** 
+ * 좌석 선택 페이지
+ * 좌석 정보 호출
+*****************************/
+export const getSeats = async({fnum}) => {
+    const sql = `
+    select *
+    from seats
+    where fNUM = ?
+    `;
+    
+    const [result] = await db.execute(sql, [fnum]);
+
+    // return result;
+    return {"result": result[0]};
+}

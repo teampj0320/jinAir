@@ -706,12 +706,132 @@ ul {
 .booking-passenger-wrap {
     background-color: rgb(249, 249, 249);
     
-    .booking-passenger-contents {        
+    .booking-passenger-contents {
+        .booking-user-form {
+            border-radius: 10px;
+            background-color: var(--color-242);
+            padding-bottom: 5px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            .booking-user-form-top {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                height: 54px;
+                padding: 0 34px;
+                > span {
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+            }
+            .booking-user-info {
+                padding: 24px 34px;
+                border-radius: 10px;
+                background-color: #fff;
+                margin: 0 2px;
+                display: flex;
+                justify-content: space-between;
+                .booking-user-info-left > li,
+                .booking-user-info-right > li {
+                    display: flex;
+                    align-items: center;
+                    height: 44px;
+                    > label {
+                        width: 104px;
+                        font-weight: 700;
+                        > span {
+                            color: #d93939;
+                        }
+                    }
+                    > div, select {
+                        display: flex;
+                        align-items: center;
+                        height: 44px;
+                        padding: 0 24px;
+                        border: 1px solid var(--color-242);
+                        border-radius: 6px;
+                        font-size: 14px;
+                    }
+                }
+                .booking-user-info-left {
+                    > li:first-child > div {
+                        display: flex;
+                        align-items: center;
+                        border: none;
+                        padding: 0;
+                        > div {
+                            display: flex;
+                            align-items: center;
+                            height: 44px;
+                            padding: 0 24px;
+                            margin-right: 8px;
+                            border: 1px solid var(--color-242);
+                            border-radius: 6px;
+                            font-size: 14px;
+                            background-color: var(--color-242);
+                        }
+                        div:first-child {
+                            width: 120px;
+                        }
+                        div:last-child {
+                            width: 246px;
+                        }
+                    }
+                    > li:not(:first-child) {
+                        > div {
+                            width: 424px;
+                            background-color: var(--color-242);
+                        }
+                    }
+                }
+                .booking-user-info-right {
+                    > li:first-child {
+                        > div {
+                            border: none;
+                            display: flex;
+                            gap: 8px;
+                            padding: 0;
+                            > div {
+                                border: 1px solid rgb(193, 193, 193);
+                                border-radius: 6px;
+                                width: 158px;
+                                height: 44px;
+                                padding: 0 24px;
+                                display: flex;
+                                align-items: center;
+                                font-size: 14px;
+
+                                display: flex;
+                                justify-content: space-between;
+                                > span {
+                                    display: flex;
+                                    align-items: center;
+                                    font-size: 20px;
+                                    color: var(--color-181);
+                                }
+                            }
+                        }
+                    } 
+                    > li:not(:first-child) {
+                        > select {
+                            width: 424px;
+                            border: 1px solid rgb(193, 193, 193);
+                        }
+                    }
+                }
+                .booking-user-info-left > li:not(:last-child),
+                .booking-user-info-right > li:not(:last-child) {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
         .booking-passenger-form {
             border-radius: 10px;
             background-color: var(--color-242);
             padding-bottom: 5px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
 
             .booking-passenger-form-top {
                 display: flex;
@@ -753,6 +873,10 @@ ul {
                     }
                 }
                 .booking-passenger-info-left {
+                    > .selected-gender {
+                        // border: 1px solid red;
+                        color: red;
+                    }
                     > li:first-child > div {
                         input:first-child {
                             width: 120px;
@@ -765,6 +889,24 @@ ul {
                     > li:not(:first-child) {
                         > input {
                             width: 424px;
+                        }
+                    }
+                    > li:last-child {
+                        > input {
+                            width: 316px;
+                            margin-right: 8px;
+                        }
+                        > div {
+                            width: 100px;
+                            height: 44px;
+                            border-radius: 6px;
+                            border: 1px solid var(--jinairnav);
+                            background: var(--jinairnav);
+                            color: #fff;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            cursor: pointer;
                         }
                     }
                 }
@@ -781,6 +923,18 @@ ul {
                             display: flex;
                             align-items: center;
                             font-size: 14px;
+                            cursor: pointer;
+                        }
+                        .selected-gender {
+                            border: 1px solid var(--jinairnav);
+                            display: flex;
+                            justify-content: space-between;
+                            > span {
+                                display: flex;
+                                align-items: center;
+                                font-size: 20px;
+                                color: var(--jinairnav);
+                            }
                         }
                     }
                     > li:not(:first-child) {
@@ -913,6 +1067,45 @@ ul {
             width: auto;
             font-size: 16px;
             cursor: pointer;
+        }
+    }
+}
+.booking-passenger-info-left {
+    > li:first-child {
+        position: relative;
+        .passengerForm-error-msg {
+            display: flex;
+            position: absolute;
+            z-index: 10;
+            top: 45px;
+            left: 105px;
+            gap: 85px;
+        }
+    }
+    > li:nth-child(2) {
+        position: relative;
+        .passengerForm-error-msg {
+            // border: 1px solid red;
+            // display: flex;
+            position: absolute;
+            z-index: 10;
+            top: 45px;
+            left: 105px;
+            // gap: 85px;
+        }
+    }
+}
+.booking-passenger-info-right {
+    > li:first-child {
+        position: relative;
+        .passengerForm-error-msg {
+            // border: 1px solid red;
+            display: flex;
+            position: absolute;
+            z-index: 10;
+            top: 45px;
+            left: 105px;
+            gap: 85px;
         }
     }
 }
@@ -1210,6 +1403,55 @@ ul {
                             background-color: var(--jinairgreen);
                             border-radius: 50%;
                         }
+                    }
+                }
+            }
+            .selectSeat-select-seat {
+                border: 1px solid red;
+                width: 250px;
+                margin: 0 auto;
+                height: 1678px;
+
+                .select-premium-seat {
+                    border: 1px solid green;
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    margin: 0 10px;
+                    > li {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        // border-radius: 5px;
+                        // width: 27px;
+                        // height: 35px;
+                        font-size: 45px;
+                        cursor: pointer;
+                    }
+                    > li:nth-child(4n+2) {
+                        margin-right: 10px;
+                    }
+                    > li:nth-child(4n+3) {
+                        margin-left: 10px;
+                    }
+                }
+                .select-basic-seat {
+                    display: grid;
+                    grid-template-columns: repeat(6, 1fr);
+                    // margin: 0 10px;
+                    > li {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 35px;
+                        cursor: pointer;
+                    }
+                    > li:nth-child(6n+3) {
+                        // border: 1px solid blue;
+                        margin-right: 10px;
+                    }
+                    > li:nth-child(6n+4) {
+                        // border: 1px solid blue;
+                        margin-left: 10px;
                     }
                 }
             }
