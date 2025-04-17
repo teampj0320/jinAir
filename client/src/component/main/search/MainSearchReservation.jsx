@@ -58,6 +58,11 @@ export default function MainSearchReservation() {
         { 'tabNm': 'oneWay', 'Nm': '편도' },
         { 'tabNm': 'multiCity', 'Nm': '다구간' }
     ];
+    const handleNone = () => {
+        alert('준비중입니다');
+        dispatch(getSearchTab('roundTrip'));
+
+    }
     return (
         <div className='main-top-search-bottom1'>
             {modalOpen && <MainSearchCountryModal mom2={mom2} mom={mom}
@@ -93,11 +98,14 @@ export default function MainSearchReservation() {
             {searchTab === 'oneWay' &&
                 <OneWay exchangeCountry={exchangeCountry}/>                                   
             }
-            {searchTab === 'multiCity' &&
-                <MultiCity 
-                    exchangeCountry={exchangeCountry}
-                    multiDepart={multiDepart} multiArr={multiArr}
-                    startDate2={startDate2} />
+            {searchTab === 'multiCity' ?
+                handleNone()
+                 :
+                ''
+                // <MultiCity 
+                //     exchangeCountry={exchangeCountry}
+                //     multiDepart={multiDepart} multiArr={multiArr}
+                //     startDate2={startDate2} />
             }
         </div>
     );
