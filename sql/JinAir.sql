@@ -100,3 +100,5 @@ CREATE TABLE `seats` (
   KEY `SUB_SEATS_FK_fnum` (`fNUM`),
   CONSTRAINT `SUB_SEATS_FK_fnum` FOREIGN KEY (`fNUM`) REFERENCES `flight` (`fNUM`)
 );
+-- qna 테이블에 이미지 추가
+alter table qna add column qnaImg json null ;
