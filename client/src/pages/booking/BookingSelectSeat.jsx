@@ -77,9 +77,9 @@ export default function BookingSelectSeat() {
 
     const premiumList = ["7A", "7B", "7C", "7D", "8A", "8B", "8C", "8D"];
 
-    useEffect(() => {
-        dispatch(getSeats(flightNum)); // 편도일 때
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getSeats(flightNum)); // 편도일 때
+    // }, []);
 
     /* 모달창 스타일 */
     const customModalStyles = {
@@ -112,6 +112,11 @@ export default function BookingSelectSeat() {
     /* 좌석 선택 이벤트 */
     const setSeatNum = (seat) => {
         console.log("좌석 : ", seat);
+    }
+
+    /* 신청하기 버튼 클릭 이벤트 */
+    const clickNext = () => {
+        navigate('/booking/beforePayment');
     }
 
     return (
@@ -299,7 +304,7 @@ export default function BookingSelectSeat() {
             </div>
             <div className='booking-selectSeat-buttons'>
                 <button>나중에 선택</button>
-                <button>신청하기</button>
+                <button onClick={clickNext}>신청하기</button>
             </div>
         </div>
     );

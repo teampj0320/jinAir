@@ -5,11 +5,6 @@ import { db } from './db.js';
  * 예약 가능 항공권 조회
 *****************************/
 export const getOnewayList = async({departure, arrive, startDate}) => {
-    // console.log("출발지 확인 : ", departure);
-    // console.log("도착지 확인 : ", arrive);
-    // console.log("출발일 확인 : ", startDate);
-    
-    // 출발일 수정 : 2025.04.01(화) -> 2025-04-01
     const date = startDate.replace(/\(.*\)/g, '').trim().replace(/\./g, '-');
 
     const sql = `

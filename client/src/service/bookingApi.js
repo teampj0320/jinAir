@@ -65,8 +65,9 @@ export const setBackFlightInfo = (resevationType, fnum, seatType, seatPrice) => 
  * BookingPassengerForm
 *****************************/
 export const getUserInfo = () => async(dispatch) => {
+    const id = localStorage.getItem('user_id');
     const url = 'http://localhost:9000/booking/user';
-    const data = { 'id': 'test1' };
+    const data = { 'id': id };
 
     const result = await axiosPost({url, data});
     const userInfo = result.result;
