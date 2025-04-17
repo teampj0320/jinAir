@@ -367,7 +367,9 @@
         flex-direction: column;
     }
 
-
+    .cursor-pointer {
+        cursor: pointer;
+    }
 
     .block {
         display: block;
@@ -1566,16 +1568,39 @@
         border-radius: 10px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
 
-        > div:nth-of-type(1) { flex: 2; }  /* 예약번호 */
-        > div:nth-of-type(2) { flex: 6.2; }  /* 여정 */
-        > div:nth-of-type(3) { flex: 2; }  /* 예약일 */
-        > div:nth-of-type(4) { flex: 1; }  /* 구분 */
-        > div:nth-of-type(5) { flex: 1; }  /* 탑승객수 */
-        > div:nth-of-type(6) { flex: 2; }  /* 예약상태 */
+        >div:nth-of-type(1) {
+            flex: 2;
+        }
 
-        > div:first-child, 
-        > div:nth-of-type(n+3):nth-of-type(-n+5)
-         {
+        /* 예약번호 */
+        >div:nth-of-type(2) {
+            flex: 6.2;
+        }
+
+        /* 여정 */
+        >div:nth-of-type(3) {
+            flex: 2;
+        }
+
+        /* 예약일 */
+        >div:nth-of-type(4) {
+            flex: 1;
+        }
+
+        /* 구분 */
+        >div:nth-of-type(5) {
+            flex: 1;
+        }
+
+        /* 탑승객수 */
+        >div:nth-of-type(6) {
+            flex: 2;
+        }
+
+        /* 예약상태 */
+
+        >div:first-child,
+        >div:nth-of-type(n+3):nth-of-type(-n+5) {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1583,9 +1608,9 @@
             background: #f9f9f9;
             border-radius: 10px;
         }
-        
-        
-        > div:last-child {
+
+
+        >div:last-child {
             background: #192547;
             border-radius: 10px;
             margin-left: 5PX;
@@ -1594,26 +1619,27 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            
+
         }
 
-        
+
     }
 
     .itinerary {
 
         padding: 0 20px;
 
-        .empty{
+        .empty {
             width: 5px;
             height: auto;
             background: none;
         }
-        
+
         li+li {
-            border-top: 1px dashed #b4b4b4; ;
+            border-top: 1px dashed #b4b4b4;
+            ;
         }
-        
+
         li {
             display: flex;
             gap: 20px;
@@ -1631,21 +1657,22 @@
                 flex-direction: column;
                 gap: 3px;
                 text-align: center;
-                
-                b, span {
+
+                b,
+                span {
                     font-size: 12px;
                 }
-    
-                b{
+
+                b {
                     padding: 4px 8px;
                     background: #d3e92e;
                     border-radius: 4px;
-                
+
                 }
 
-        }
+            }
 
-            
+
 
         }
 
@@ -1666,8 +1693,69 @@
         color: #192547;
         background: white url('/assets/svg/airport.svg') no-repeat 40%;
         padding: 0 5px;
-    
+
     }
 
+    /* 나의 쿠폰 */
+    .coupon-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+        margin: 30px 0 20px 0;
+
+        .coupon-wrap {
+            position: relative;
+            padding: 10px 24px;
+            width: 360px;
+            border: 1px solid #cecdcd;
+            border-radius: 10px;
+            overflow: hidden;
+
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.06);
+
+            .coupon-top {
+                padding: 20px 20px 20px 20px;
+
+                span {
+                    padding: 15px;
+                }
+
+                span::before {
+                    content: "";
+                    position: absolute;
+                    width: 24px;
+                    height: 24px;
+                    left: 6%;
+                    top: 15%;
+                    transform: translateY(-50%);
+                    background: url('/assets/svg/miniairport.svg') no-repeat;
+                }
+            }
+
+            .coupon-contents {
+                padding: 18px 10px 30px;
+                line-height: 24px;
+                border-width: 1px 0 1px 0;
+                border-style: dashed;
+                border-color: #b4b4b4;
+                
+                .coupon-name{
+                    font-size: 18px;
+                    font-weight: 600;
+                    padding-bottom: 10px;
+                }
+
+            }
+
+            .coupon-bottom{
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 24px ;
+                align-items: center
+            }
+
+        }
+    }
 
 }

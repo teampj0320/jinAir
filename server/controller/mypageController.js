@@ -60,3 +60,37 @@ export const updateInterest = async(req, res) => {
   res.json(result);
   res.end();
 };
+
+/************************************
+ *        나의 사용가능 쿠폰 조회
+************************************/
+
+
+export const getMyCoupon = async(req, res) => {
+  const result = await repository.getMyCoupon(req.body); 
+  res.json(result);
+  res.end();
+};
+
+
+/************************************
+ *      나의 쿠폰 카운트
+************************************/
+
+
+export const couponCount = async(req, res) => {
+  const result = await repository.couponCount(req.body); 
+  res.json(result);
+  res.end();
+};
+
+
+/************************************
+ *      나의 쿠폰 사용
+************************************/
+
+export const applyCoupon = async(req, res) => {
+  const result = await repository.applyCoupon(req.body); 
+  res.json(result);
+  res.end();
+};

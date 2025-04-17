@@ -2,14 +2,29 @@ import React, { useState, useRef } from 'react';
 import { FaCalendarCheck } from "react-icons/fa";
 import OnewaySearchCalendar from './OnewaySearchCalendar.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCalendar3 } from '../../../service/searchApi.js';
+import { getCalendar3,getCheckinDate ,getCheckinFirstNm,getCheckinResnum,getCheckinLastNm } from '../../../service/searchApi.js';
 
 export default function MainSearchReservationCheck() {
     const dispatch = useDispatch();
     const calendar3 = useSelector(state => state.search.calendar3);
-
     const [startDate, setStartDate] = useState('');
     const [err, setErr] = useState({});
+
+    const [form, setForm] = useState({});
+    const handleData = (e) => {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+    }
+
+    dispatch(getCheckinDate(form.rnum));
+    dispatch(getCheckinFirstNm(form.firstNm));
+    dispatch(getCheckinLastNm(form.lastNm));
+    dispatch(getCheckinResnum(startDate));
+    // console.log(form.rnum);
+    // console.log(form.firstNm);
+    // console.log(form.lastNm);
+    // console.log(startDate);
+    
 
     const startCalendar = (data) => {
         setStartDate(data);
@@ -61,23 +76,23 @@ export default function MainSearchReservationCheck() {
                 <ul>
                     <li>
                         <label htmlFor="">진에어 예약번호</label>
-                        <input type="text" name='rnum' ref={refs.rnumRef} placeholder='숫자와 영문으로 조합된 6자리' />
+                        <input type="text" onChange={handleData} name='rnum' ref={refs.rnumRef} placeholder='숫자와 영문으로 조합된 6자리' />
                         {err.rnum ? <p style={{ color: 'red' }} ref={rnumErr}>{err.rnum}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">성(LAST NAME)</label>
-                        <input type="text" name='lastNm' ref={refs.lastNmRef} />
+                        <input type="text"onChange={handleData}  name='lastNm' ref={refs.lastNmRef} />
                         {err.lastNm ? <p style={{ color: 'red' }} ref={lastErr}>{err.lastNm}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">이름(FIRST NAME)</label>
-                        <input type="text" name='firstNm' ref={refs.firstNmRef} />
+                        <input type="text" onChange={handleData} name='firstNm' ref={refs.firstNmRef} />
                         {err.firstNm ? <p style={{ color: 'red' }} ref={firstErr}>{err.firstNm}</p> : <p>흠</p>}
                     </li>
                     <li>
                         <label htmlFor="">출발일</label>
                         <div>
-                            <input type='textonly' name="departDay" ref={refs.departDayRef}
+                            <input onChange={handleData} type='textonly' name="departDay" ref={refs.departDayRef}
                                 className='active-calendar-input' value={startDate} />
                             <FaCalendarCheck onClick={() => { dispatch(getCalendar3(true)) }}
                                 className='main-top-search-bottom3-icon' />

@@ -8,6 +8,8 @@ import loginRouter from './router/loginRouter.js';
 import chatbotRouter from './router/chatbotRouter.js';
 import adminRouter from './router/adminRouter.js';
 import bookingRouter from './router/bookingRouter.js';
+import paynmentsRouter from './router/paymentsRouter.js'
+import paynmentRouter from './router/paymentRouter.js' 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -39,7 +41,15 @@ server.use('/booking', bookingRouter);
 // chatbot
 server.use('/chatbot', chatbotRouter);
 
+//payment
+server.use('/payment', paynmentRouter); 
+
+//order
+server.use('/sandbox-dev/api/v1/payments', paynmentsRouter);
+
 
 server.listen(port, () => {
     console.log('start ----->>', port);
 });  
+
+

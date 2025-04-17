@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import MyCoupon from '../../component/mypage/MyCoupon';
 
 const initialState = {
     myinfo: {
@@ -12,7 +13,9 @@ const initialState = {
         profile_img: '',
     },
     isLoggedIn: false,
-    myinterest: [] 
+    myinterest: [],
+    mycoupon:[],
+    couponcount:0
 };
 
 
@@ -42,6 +45,12 @@ const myinfoSlice = createSlice({
                 alert("최대 3개까지 선택할 수 있습니다.");
             }
         },
+        setMyCoupon: (state, action) => { 
+            state.mycoupon = action.payload; 
+        },
+        setCouponCount: (state, action) => { 
+            state.couponcount = action.payload; 
+        },
 
     },
 });
@@ -49,7 +58,9 @@ const myinfoSlice = createSlice({
 export const {
     setMyInfo,
     setMyInterest,
-    toggleInterestItem
+    toggleInterestItem,
+    setMyCoupon,
+    setCouponCount
 } = myinfoSlice.actions;
 
 export default myinfoSlice.reducer;

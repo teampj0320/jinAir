@@ -7,5 +7,7 @@ router.post('/searchSchedule',controller.searchSchedule);
 router.post('/getSchedule',controller.getSchedule);
 router.post('/searchAirplane',controller.searchAirplane);
 router.post('/searchMonthCheap',controller.searchMonthCheap);
+router.post('/searchReservation',controller.searchReservation);
+router.post('/getReservation',controller.getReservation);
 
 export default router;

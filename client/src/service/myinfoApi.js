@@ -1,21 +1,24 @@
 
 import { axiosGet, axiosPost } from './api';
 
-import {  setMyInfo,
-        setMyInterest,
-} from  '../features/myinfo/myinfoSlice.js';
+import {
+    setMyInfo,
+    setMyInterest,
+    setMyCoupon,
+    setCouponCount
+} from '../features/myinfo/myinfoSlice.js';
 
 // 회원 정보 불러오기
 export const getMyInfo = (data) => async (dispatch) => {
     const url = 'http://localhost:9000/mypage/getMyInfo';
     const id = localStorage.getItem("user_id");
 
-    const getMyInfoResult = await axiosPost({url, data:{id}});
+    const getMyInfoResult = await axiosPost({ url, data: { id } });
 
     const result_rows = getMyInfoResult.result_rows;
 
     if (result_rows) {
-        dispatch(setMyInfo( result_rows[0])); 
+        dispatch(setMyInfo(result_rows[0]));
     };
 
 }
@@ -28,9 +31,9 @@ export const updateMyInfo = (formData) => async (dispatch) => {
     const url = 'http://localhost:9000/mypage/updateMyInfo';
     const result = await axiosPost({ url, data: formData });
     if (result.success) {
-      dispatch(setMyInfo(result.updatedInfo)); 
+        dispatch(setMyInfo(result.updatedInfo));
     }
-  };
+};
 
 
 // 관심지역 저장
@@ -41,9 +44,7 @@ export const updateInterest = (checkList) => async (dispatch) => {
 
     const result = await axiosPost({ url, data: { id, checkList } });
 
-    if (result) {
-        dispatch(setMyInterest(checkList));
-    }
+    result && dispatch(setMyInterest(checkList))
 };
 
 
@@ -60,3 +61,49 @@ export const getInterest = () => async (dispatch) => {
         dispatch(setMyInterest([]));
     }
 };
+
+
+// 나의 사용가능 쿠폰 불러오기
+export const getMyCoupon = () => async (dispatch) => {
+    const url = 'http://localhost:9000/mypage/getMyCoupon';
+    const id = localStorage.getItem("user_id");
+
+    const result = await axiosPost({ url, data: { id } });
+
+    result &&  dispatch(setMyCoupon(result));
+
+};
+
+
+// 나의 쿠폰 카운트
+export const couponCount = () => async (dispatch) => {
+    const url = 'http://localhost:9000/mypage/couponCount';
+    const id = localStorage.getItem("user_id");
+
+    const result = await axiosPost({ url, data: { id } });
+
+    result &&  dispatch(setCouponCount(result));
+
+};
+
+
+// 나의 쿠폰 사용 처리 (사용처: 결제 페이지)
+// 사용 테스트 MyCoupon.jsx에서 해봤음 해당 부분 주석 처리 되어있음(버튼) 참고할 것
+// 테스트 함수 : handleUseCoupon
+// 쿠폰 하나만 적용하여 사용하는 로직으로 쿠폰 2개 이상 선택할 시에는 리듀서 추가해야함
+
+export const applyCoupon = (couponCode) => async (dispatch) => {
+    const url = 'http://localhost:9000/mypage/applyCoupon';
+    const id = localStorage.getItem("user_id");
+  
+    const result = await axiosPost({ url, data: { id, couponCode } });
+  
+    // if (result?.affectedRows > 0) {
+    //   dispatch(getMyCoupon());  // 사용 후 쿠폰 목록 새로고침 //필요없을시 삭제하기
+      
+    // }
+     if (result && result[0]) {
+        dispatch(setCouponCount(result[0].coupon_count));
+    }
+  };
+  
