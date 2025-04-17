@@ -170,15 +170,17 @@ export const getReservation = async ({ reserMessage, reserMessage1 }) => {
 
 
 export const registerQna = async(formData) => {    
-// console.log('formData',formData);
+console.log('formData',formData.inputData.email);
   
 const sql = `
              insert into qna(
                 TYPE, TITLE,CONTENT,REG_DATE,qnaImg
                       )
-                      values('a','test','이미지들어가는지테스트',now(),json_array(?))                     
+                      values('a',?,?,now(),json_array(?))                     
             `;
 const values = [
+    formData.inputData.title,
+    formData.inputData.content,
     formData.upload_file  || null,
 ];
 
