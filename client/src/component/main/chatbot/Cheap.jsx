@@ -352,7 +352,7 @@ export default function Cheap() {
                                         </ul>
                                     </div>
                                     <div >
-                                        <button onClick={() => { onewayReservation(); scrollToTop() }}>예약하기</button>
+                                        <button onClick={() => { RoundReservation(); scrollToTop() }}>예약하기</button>
                                     </div>
                                 </div>
                                 <div className='cheap-round-desc'>
