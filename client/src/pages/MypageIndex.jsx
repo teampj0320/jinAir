@@ -107,9 +107,9 @@ export default function MypageIndex() {
                                 </div>
                                 <div className='cursor-pointer' onClick={handleCouponTogle}>
                                     
-                                    <b>{
-                                        couponCount ? `${myCouponCnt[0].coupon_count}개` : '0개'
-                                    }</b>
+                                    <b>
+                                        {/* {couponCount ? `${myCouponCnt[0].coupon_count}개` : '0개'} */}
+                                    </b>
                                     <span className='w300'>할인쿠폰</span>
                                 </div>
                                 {/* 할인쿠폰 div 클릭시 모달창 오픈 */}
