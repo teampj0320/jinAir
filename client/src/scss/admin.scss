@@ -105,7 +105,7 @@
   font-weight: bold;
 }
 /********************************
-어드민 항공권 등록
+어드민 항공권 등록 리스트
 *********************************/
 .admin-airlist-content{
   width: 1100px;
@@ -131,13 +131,13 @@
   display: flex;
   justify-content: space-between;
 }
-.admin-airlist-controls>div>button{
+.admin-select-option{
   width: 100px;
   margin-right: 10px;
   padding: 6px 10px;
   background-color: #fff;
   border: 1px solid rgb(190, 190, 190);
-  
+  outline: none;
 }  
 .admin-search{
   width: 200px;
@@ -152,6 +152,7 @@
 }
 .admin-airlist>thead>tr>th{
   font-size: 13px;
+  // border: 1px solid red;
 }
 .admin-airlist tr th{
   background-color: rgb(239, 239, 239);
@@ -178,8 +179,9 @@
   justify-content: space-between;
   margin-top: 15px;
 }
-.admin-delete-btn button{
-  padding: 5px 12px;
+.admin-delete-btn button,
+.admin-back-btn button{
+  padding: 7px 15px;
   background-color: #fff;
   border: 2px solid purple;
   border-radius: 3px;
@@ -188,7 +190,7 @@
   cursor: pointer;
 }
 .admin-insert-btn button{
-  padding: 6px 12px;
+  padding: 8px 15px;
   border: 1px solid purple;
   border-radius: 3px;
   background-color: purple;
@@ -197,23 +199,219 @@
   cursor: pointer;
 }
 /********************************
-어드민 항공권 등록 페이지네이션
+어드민 페이지네이션
 *********************************/
-.pagination{
-  margin-top: 2rem;
-  width: 100%;
+.custom-pagination {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  >*{
-    cursor: pointer; 
-  }  
+  gap: 6px;
+  margin-top: 20px;
+}
+.custom-pagination button {
+  border: none;
+  padding: 6px 8px;
+  background-color: white;
+  cursor: pointer;
+}
+.custom-pagination button.active {
+  color: purple;
+  text-decoration: underline;
+  text-underline-offset: 3.5px;
+  font-weight: bold;
+  font-size: 15px;
+}
+/********************************
+어드민 항공권 등록 
+*********************************/
+.add-flight-info{
+  // border: 1px solid red;
+  width: 700px;
+  margin: 0 auto;
+}
+.add-input-wrapper {
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.add-info,
+.add-info1 {
+  display: flex;
+  gap: 20px;
+  width: 700px;
+}
+.add-info .add-input-wrapper,
+.add-info1 .add-input-wrapper,
+.add-info2 .add-input-wrapper {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+}
+.add-info .add-input-wrapper:first-child{
+  width: 214px;
+}
+.add-info .add-input-wrapper:nth-child(2){
+  width: 470px;
+}
+.add-info .add-input-wrapper .prefix-label, 
+.add-info1 .prefix-label,
+.add-info2 .prefix-label {
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  width: 80px;
+  flex-shrink: 0;
+  font-size: 14px;
+  padding-left: 10px;
+  color: #666;
+  border-radius: 6px 0 0 6px;
+  background: #f0f0ff
+}
+.add-info1 .prem,
+.add-info2 .prem{
+  width: 105px;
+}
+.admin-add-air .add-fnum,
+.add-info .add-input-wrapper .add-fnum,
+.add-info1 .add-input-wrapper .add-fnum1 {
+  font-size: 14px;
+  border: none;
+  width: 100%;
+  padding: 13px;
+  padding-left: 0px;
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
 }
 
-.pagination__item .active{
-  background-color: #bbb;
-  color: #fefefe;
+.admin-add-air .add-input-wrapper .add-fnum {
+  font-size: 14px;
+  border: none;
 }
+
+.admin-air-addbtn{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+
+
+
+.add-contry,
+.add-flight-info{
+  margin: 0 auto;
+}
+.add-flight-info{
+  margin-top: 50px;
+}
+
+
+
+
+
+
+.contry-check{
+  // border: 1px solid red;
+  width: 500px;
+}
+.check-time{
+  padding-top: 15px;
+  width: 700px;
+}
+
+.main-top-search-bottom-main-middle2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .active-calendar-date {
+      color: var(--color-nav-main);
+      font-size: 16px;
+      font-weight: 100;
+      margin-left: 10px;
+  }
+
+  .main-top-search-bottom-main-middle-icon2 {
+      font-size: 25px;
+      padding-top: 20px;
+  }
+
+  .main-top-search-bottom-main-middle-icon2:hover {
+      cursor: pointer;
+  }
+
+  >div:first-child {
+      color: var(--color-153);
+  }
+
+  >div:nth-child(3) {
+      color: var(--color-153);
+  }
+
+  >div:nth-child(4) {
+      h3:not(.active-calendar-date) {
+          font-size: 16px;
+          // font-weight: 100;
+          color: var(--color-153);
+          margin-left: 10px;
+      }
+  }
+
+  >div:nth-child(5) {
+      h3:not(.active-calendar-date) {
+          font-size: 15px;
+          font-weight: 600;
+          // color: var(--color-153);
+          margin-left: 10px;
+      }
+  }
+
+  >div {
+      border-bottom: 1px solid var(--color-153);
+      width: 230px;
+
+      >h5 {
+          font-size: 14.5px;
+          font-weight: 100;
+          margin-bottom: 3px;
+      }
+
+      >div:hover {
+          cursor: pointer;
+      }
+
+      >div {
+          // border: 1px solid blue;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 40px;
+
+          span {
+              display: flex;
+              align-items: center;
+              padding-bottom: 10px;
+          }
+
+          >h3:not(.active-calendar-date) {
+              font-size: 20px;
+              padding-bottom: 10px;
+          }
+
+          .main-top-search-bottom-main-middle-icon {
+              font-size: 25px;
+              margin-right: 20px;
+              color: var(--color-153);
+          }
+      }
+  }
+}
+
 /********************************
 어드민 로그인 페이지 
 *********************************/

@@ -59,7 +59,7 @@ export default function App() {
         <Route path='/join/:part' element={<SignupFunnel />} />
       </Route>
       <Route element={<AdminLayout />}>
-        <Route path='/admin' element={<Admin />} />
+        {/* <Route index element={<AdminLogin />} /> */}
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/flight' element={<AdminFlightList />} />
         <Route path='/admin/flight/add' element={<AdminFlightAdd />} />

@@ -12,7 +12,11 @@ export default function AdminAirRegister() {
   const [ departure, setDeparture] = useState('');
   const [ showDeparture, setShowDeparture] = useState(false);
   const [ page, setPage ] = useState(1); 
+  const [block, setBlock] = useState(0);
   const itemsPerPage = 10; // 페이지당 개수
+  const pageBlockSize = 10;
+  const totalPages = Math.ceil(formData.length / itemsPerPage);
+
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
    
@@ -29,13 +33,31 @@ export default function AdminAirRegister() {
          .catch((error)=>console.log(error))
   },[]);
 
-  const handleSelectDeparture = (data) => {
-    setDeparture(data);
-    setShowDeparture(false);
+
+  const getPageNumbers = () => {
+    const start = block * pageBlockSize + 1;
+    const end = Math.min(start + pageBlockSize - 1, totalPages);
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
   };
 
-  const handlePageNation = (page) => {
-    setPage(page);
+  const goToPrevBlock = () => {
+    if (block > 0) {
+      const newBlock = block - 1;
+      setBlock(newBlock);
+      setPage(newBlock * pageBlockSize + 1);
+    }
+  };
+
+  const goToNextBlock = () => {
+    if ((block + 1) * pageBlockSize < totalPages) {
+      const newBlock = block + 1;
+      setBlock(newBlock);
+      setPage(newBlock * pageBlockSize + 1);
+    }
   };
 
   return (
@@ -45,15 +67,13 @@ export default function AdminAirRegister() {
           항공권 관리
         </div>
         <div className='admin-airlist-controls'>
-          <div onClick={handleSelectDeparture}>
-            <button className='admin-location-button'>출발지</button>
-            {/* <input type="text" value={departure} readOnly placeholder='출발지 선택'/> */}
-          </div>
-          <div>
-            <button className='admin-location-button'>도착지</button>
-            {/* <input type="text" value={departure} readOnly placeholder='도착지 선택'/> */}
-          </div>
-          <input type="text" className='admin-search' placeholder='비행번호를 입력하세요'/>
+          <select className='admin-select-option'>
+            <option value="default">선택</option>
+            <option value="출발지">출발지</option>
+            <option value="도착지">도착지</option>
+            <option value="도착지">비행번호</option>
+          </select>
+          <input type="text" className='admin-search' placeholder='검색어를 입력하세요'/>
           <IoMdSearch className='admin-search-icon'/>
         </div>
       </div> 
@@ -88,19 +108,16 @@ export default function AdminAirRegister() {
         <div className='admin-delete-btn'>
           <button>삭제</button>
         </div>
-        <div className='admin-pagenation'>
-          <ReactPaginate previousLabel={<FiChevronLeft/>}
-                         nextLabel={<FiChevronRight />}
-                         breakLabel={'..'}
-                         pageCount={Math.ceil(formData.length/itemsPerPage)} // pagnation에 나타낼 페이지 범위
-                         itemsCountPerPage={itemsPerPage} // 한페이지 당 보여줄 아이템 개수
-                         marginPagesDisplayed={0}
-                         pageRangeDisplayed={10} // 한 페이지에 표시할 게시글 수 
-                         onPageChange={(selected)=>setPage(selected.selected + 1)}
-                         containerClassName={'pagination'}
-                         pageClassName={'pagination__item'}
-                         activeClassName={'active'} 
-                         forcePage={page - 1}/>
+        <div className='custom-pagination'>
+          <button onClick={goToPrevBlock} disabled={block === 0}><FiChevronLeft /></button>
+          {getPageNumbers().map((num) => (
+            <button key={num}
+                    onClick={() => setPage(num)}
+                    className={page === num ? 'active' : ''}>{num}</button>
+          ))}
+          <button onClick={goToNextBlock} disabled={(block + 1) * pageBlockSize >= totalPages}>
+            <FiChevronRight />
+          </button>
         </div>
         <div className='admin-insert-btn'>
           <button onClick={()=>navigate('/admin/flight/add')}>등록</button>

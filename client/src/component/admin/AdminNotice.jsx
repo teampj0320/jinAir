@@ -10,9 +10,7 @@ export default function AdminNotice() {
          공지사항
         </div>
         <div className='admin-airlist-controls'>
-          <button>출발지</button>
-          <button>도착지</button>
-          <input type="text" className='admin-search' placeholder='비행번호를 입력하세요'/>
+          <input type="text" className='admin-search' placeholder='검색어를 입력하세요'/>
           <IoMdSearch className='admin-search-icon'/>
         </div>
       </div> 
@@ -22,19 +20,13 @@ export default function AdminNotice() {
           <tr>
             <th style={{width:'20px'}}><input type="checkbox" /></th>
             <th style={{width:'50px'}}>No</th>
-            <th style={{width:'200px'}}>출발지</th>
-            <th style={{width:'200px'}}>도착지</th>
-            <th style={{width:'230px'}}>비행번호</th>
-            <th style={{width:'200px'}}>출발날짜</th>
-            <th style={{width:'150px'}}>가격</th>
+            <th style={{width:'300px'}}>제목</th>
+            <th style={{width:'130px'}}>등록일</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><input type="checkbox" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
             <td></td>
             <td></td>
             <td></td>
