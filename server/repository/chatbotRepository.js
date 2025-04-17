@@ -163,3 +163,25 @@ export const getReservation = async ({ reserMessage, reserMessage1 }) => {
   const [result] = await db.execute(sql, [reserMessage, reserMessage1]);
   return { 'result': result[0] };
 }
+
+
+
+
+
+
+export const registerQna = async(formData) => {    
+// console.log('formData',formData);
+  
+const sql = `
+             insert into qna(
+                TYPE, TITLE,CONTENT,REG_DATE,qnaImg
+                      )
+                      values('a','test','이미지들어가는지테스트',now(),json_array(?))                     
+            `;
+const values = [
+    formData.upload_file  || null,
+];
+
+const [result] = await db.execute(sql,values);   
+return {"result_rows":result.affectedRows};
+}
