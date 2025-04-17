@@ -28,7 +28,7 @@ export const searchSchedule = async ({ start, end, date, endDate }) => {
           left(Arrive_date,10) = ?
          
   `;
-    const [result] = await db.execute(sql, [start, end, date,endDate]);
+    const [result] = await db.execute(sql, [start, end, date, endDate]);
     // console.log('✅ 쿼리 결과:', result[0].result_rows);
     return { "result": result[0].result_rows };
   } else {
@@ -132,10 +132,10 @@ concat(substring(Departure_date,6,2),'월') as month
 /***************************** 
  * // 예약번호 아이디로 예약조회
 *****************************/
-export const searchReservation = async ({reserMessage1,reserMessage}) => {
+export const searchReservation = async ({ reserMessage1, reserMessage }) => {
   console.log(reserMessage1);
   console.log(reserMessage);
-  
+
   const sql = `    
   select count(*) as result_rows
   from reservation 
@@ -143,6 +143,23 @@ export const searchReservation = async ({reserMessage1,reserMessage}) => {
     ID = ?
      
     `;
-    const [result] = await db.execute(sql, [reserMessage,reserMessage1]);
-   return { "result": result[0].result_rows };
+  const [result] = await db.execute(sql, [reserMessage, reserMessage1]);
+  return { "result": result[0].result_rows };
+}
+
+
+/***************************** 
+ *예약정보 가져오기
+*****************************/
+export const getReservation = async ({ reserMessage, reserMessage1 }) => {
+  const sql = `    
+  select  c.ename_first as eFirst, c.ename_last as eLast, RES_NUM as rnum, 
+  left(Departure_date,10) as Ddate
+ from customer as c, reservation as r   , flight as f  
+		where c.id = r.ID and f.fNUM = r.fNUM and
+      RES_NUM = ? and
+    r.ID = ?      
+    `;
+  const [result] = await db.execute(sql, [reserMessage, reserMessage1]);
+  return { 'result': result[0] };
 }

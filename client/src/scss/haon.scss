@@ -1740,6 +1740,27 @@ h2.react-datepicker__current-month {
 // *******************************
 
 .reservation-all-box {
+    .reservation-exist{
+        margin: 0 auto;
+        margin-top: 10px;
+        text-align: center;
+        li:first-child{
+            margin-top: 5px;
+        }
+        li{
+            list-style-type: none;
+            padding: 3px 0;
+            width: 250px;
+            margin-left: 120px;
+            display: flex;
+        }
+        span:first-child{
+            // border: 1px solid red;
+            color: var(--chatBlue);
+            width: 70px;
+            margin-right: 10px;
+        }
+    }
     >div:last-child{
         // padding: 0 10px;
         p{
@@ -1773,7 +1794,7 @@ h2.react-datepicker__current-month {
         div {
             padding: 5px 0;
 
-            span {
+            span:not(.reservation-exist) {
                 border: 1px solid gainsboro;
                 font-size: 15px;
                 width: auto;
