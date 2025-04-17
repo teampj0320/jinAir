@@ -3,24 +3,22 @@ import { useSelector } from "react-redux";
 import { getOnewayList } from '../../service/bookingApi.js';
 import { IoIosAirplane } from 'react-icons/io';
 
-export default function BookingTicketList({seatSelect, setSeatSelect}) {
-    const onewayList = useSelector(state => state.booking.onewayList); // 예약 가능 항공권 리스트
-    // const [seatSelect, setSeatSelect] = useState('');
-
-    
+export default function BookingTicketList({type, seatSelect, setSeatSelect, setFlightNum, setSeatPrice}) {
+    const ticketList = useSelector(state => state.booking.ticketList); // 예약 가능 항공권 리스트
 
     /* 좌석 선택(일반석/프리미엄석) 클릭 이벤트 */
-    const clickSelectSeat = (type) => {
-        seatSelect === type ? setSeatSelect('') : setSeatSelect(type);
+    /* 일단 좌석타입, 비행편 번호, 가격 저장 */
+    const clickSelectSeat = (fnum, seatType, price) => {
+        seatSelect === seatType ? setSeatSelect('') : setSeatSelect(seatType);
+        setFlightNum(fnum);
+        setSeatPrice(price);
     }
-
-    console.log("항공권 목록 -->" , onewayList);
 
     return (
         <div className='booking-select-flight-list'>
-            { onewayList && onewayList.length > 0
+            { ticketList && ticketList.length > 0
                 ? (
-                    onewayList.map((list) =>
+                    ticketList.map((list) =>
                         <div className='booking-select-flight-section'
                             style={{ backgroundColor: seatSelect !== '' ? "rgb(211, 233, 46)" : "rgb(242, 242, 242)" }}
                         >
@@ -46,12 +44,12 @@ export default function BookingTicketList({seatSelect, setSeatSelect}) {
                                 </div>
                             </div>
                             <div className='booking-flight-buttons'>
-                                <button onClick={() => clickSelectSeat('basic')}
+                                <button onClick={() => clickSelectSeat(list.fNUM, 'basic',  list.basic_price)}
                                     className={seatSelect === 'basic' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
                                     <p>일반석</p>
                                     <span>KRW <b>{list.basic_price.toLocaleString()}</b></span>
                                 </button>
-                                <button onClick={() => clickSelectSeat('premium')}
+                                <button onClick={() => clickSelectSeat(list.fNUM, 'premium', list.premium_price)}
                                     className={seatSelect === 'premium' ? 'booking-flight-selected-seat' : "booking-flight-seat"}>
                                     <p>프리미엄석</p>
                                     <span>KRW <b>{list.premium_price.toLocaleString()}</b></span>

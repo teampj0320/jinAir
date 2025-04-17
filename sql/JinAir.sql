@@ -89,3 +89,14 @@ VALUES ('test1', '[온라인 전용] 1천원 깜짝쿠폰' , 'cl0001', 1000 , '2
 -- 4/17 영문성 컬럼명 변경 ename_firtst -> ename_first
 alter table customer
 		rename column ename_firtst to ename_first ;
+        
+-- 좌석 테이블 생성
+CREATE TABLE `seats` (
+  `fNUM` varchar(20)	not null	PRIMARY KEY,
+  `basic_seats` json NOT NULL,
+  `reserved_basic` json NULL, 
+  `premium_seat` json NOT NULL,
+  `reserved_premium` json NULL,
+  KEY `SUB_SEATS_FK_fnum` (`fNUM`),
+  CONSTRAINT `SUB_SEATS_FK_fnum` FOREIGN KEY (`fNUM`) REFERENCES `flight` (`fNUM`)
+);
