@@ -9,5 +9,7 @@ router.post('/searchAirplane',controller.searchAirplane);
 router.post('/searchMonthCheap',controller.searchMonthCheap);
 router.post('/searchReservation',controller.searchReservation);
 router.post('/getReservation',controller.getReservation);
+router.post('/QnaUpload',controller.QnaUpload);
+router.post('/dbQnaupload',controller.registerQna );
 
 export default router;
