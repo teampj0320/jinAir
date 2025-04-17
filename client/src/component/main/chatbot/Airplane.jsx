@@ -159,8 +159,11 @@ export default function Airplane() {
             btnRef.current.scrollIntoView({ behavior: 'smooth' });
         }else if(countryClick && btnRef.current){
             btnRef.current.scrollIntoView({ behavior: 'smooth' });
-
         }
+        // 얘를 간단히 쓸수없낭
+        // if(){
+        //     btnRef.current.scrollIntoView({ behavior: 'smooth' });
+        // }
     }, [airNum,country,airNumClick,noneAirNumClick,countryClick]
     )
 
