@@ -36,7 +36,7 @@ server.use('/booking', bookingRouter);
 server.use('/chatbot', chatbotRouter);
 
 //order
-app.use('/sandbox-dev/api/v1/payments', router);
+// server.use('/sandbox-dev/api/v1/payments', router);
 
 server.listen(port, () => {
     console.log('start ----->>', port);

@@ -2171,6 +2171,11 @@ h2.react-datepicker__current-month {
 // chatbot Buyticket
 // *******************************
 .chatbot-buyticket-all-box {
+    .buyticket-none{
+        p{
+            margin-bottom: 10px;
+        }
+    }
     .schedule-all-box {
         p {
             margin-top: 10px;
@@ -2284,7 +2289,6 @@ h2.react-datepicker__current-month {
 
         >p {
             margin-top: 10px;
-            font-size: 13px;
             font-weight: 100;
         }
 

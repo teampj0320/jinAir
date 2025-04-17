@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountry } from '../../../service/searchApi.js';
+import {
+    getCountry, getChatbotModalOpen, getDeparture, getArrive, getStartDate, getTab, getSearchTab,
+    getAdultNum, getPediatricNum, getBabyNum, getEndDate
+} from '../../../service/searchApi.js';
+import axios from 'axios';
 
 export default function BuyTicket() {
     const dispatch = useDispatch();
@@ -25,11 +29,12 @@ export default function BuyTicket() {
     const [onewayClick, setOnewayClick] = useState(false);
     const [exist, setExist] = useState(false);
     const countryList = useSelector(state => state.search.countryList);
+    const [getFlightList, setGetFlightList] = useState([]);
 
     useEffect(() => {
         dispatch(getCountry());
     }, []);
-    const processedList = countryList.map(item => item.split("(")[0]);
+    const processedList = countryList.map(item => item.city.split(' (')[0]);
 
     const handleStart = () => {
         setStart(startRef.current.value);
@@ -67,8 +72,17 @@ export default function BuyTicket() {
     }
     const ScheduleCheckOneway = () => { // 왕복
         if (validate()) {
-            setOnewayClick(true);
-            setExist(true);
+            axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+                .then(res => {
+                    if (res.data.result) {
+                        setGetFlightList(res.data.result);
+                        setOnewayClick(true);
+                        setExist(false);
+                    } else {
+                        setExist(true);
+                    }
+                })
+                .catch(err => console.log(err));
         }
     }
     const vali = () => {
@@ -89,18 +103,59 @@ export default function BuyTicket() {
     }
     const ScheduleCheckRound = () => { // 왕복
         if (vali()) {
-            setRoundtripClick(true);
+            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date, endDate })
+                .then(res => {
+                    if (res.data.result === 1) {
+                        setRoundtripClick(true);
+                    }
+                })
+                .catch(err => console.log(err));
+            axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+                .then(res => {
+                    // if (res.data.result === 1) {
+                    setGetFlightList(res.data.result);
+                }
+                )
+                .catch(error => console.log(error));
         }
     }
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+    const onewayReservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date));
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('oneWay'));
+        dispatch(getAdultNum(adult));
+        dispatch(getPediatricNum(child));
+        dispatch(getBabyNum(baby));
+    }
+    const RoundReservation = () => {
+        dispatch(getChatbotModalOpen(false));
+        dispatch(getDeparture(start));
+        dispatch(getArrive(end));
+        dispatch(getStartDate(date));
+        dispatch(getEndDate(endDate));
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('roundTrip'));
+        dispatch(getAdultNum(adult));
+        dispatch(getPediatricNum(child));
+        dispatch(getBabyNum(baby));
+    }
     return (
         <div className='chatbot-buyticket-all-box'>
             <div className='schedule-all-box'>
                 <p>항공권 구매를 선택하셨습니다!<br />아래에서 ‘편도’, '왕복’중 여정을 선택해주세요 ^^</p>
                 <div className='cheap-button-box'>
-                    <button onClick={() => { setOneway(true) }}>편도</button>
-                    <button onClick={() => { setRoundtrip(true) }}>왕복</button>
+                    <button onClick={() => { setOneway(true);setRoundtrip(false) }}>편도</button>
+                    <button onClick={() => { setRoundtrip(true);setOneway(false) }}>왕복</button>
                 </div>
             </div>
             {oneway &&
@@ -159,7 +214,7 @@ export default function BuyTicket() {
                     </div>
                 </div>
             }
-            {onewayClick && exist &&
+            {onewayClick &&
                 <div className='schedule-all-box'>
                     <div>
                         <span>출발일 : <span>{date}</span></span>
@@ -175,20 +230,22 @@ export default function BuyTicket() {
                             <ul>
                                 <li>
                                     <span>항공운임</span>
-                                    <span>65,500 원</span>
+                                    <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                        getFlightList.basic_price * baby).toLocaleString()}원</span>
                                 </li>
                                 <li>
                                     <span>유류할증료 + 세금</span>
-                                    <span>65,500 원</span>
+                                    <span>{(getFlightList.basic_price * 0.1).toLocaleString()}원</span>
                                 </li>
                                 <li>
                                     <span>총 금액</span>
-                                    <span>65,500 원</span>
+                                    <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                        getFlightList.basic_price * baby + getFlightList.basic_price * 0.1).toLocaleString()}원</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <button>예약하기</button>
+                            <button onClick={() => { onewayReservation(); scrollToTop() }}>예약하기</button>
                         </div>
                     </div>
                     <p>*상기 운임은 참고사항으로, 공항 사정이나 일정에 따라 수시로 변동 될 수 있습니다.</p>
@@ -197,9 +254,9 @@ export default function BuyTicket() {
                         <div className='cheap-cheap-month-middle'>
                             <div>
                                 <ul>
-                                    <li>4월 16일</li>
+                                    <li>{getFlightList.date}</li>
                                     <li>성인 1명 기준</li>
-                                    <li>144.333원</li>
+                                    <li>{getFlightList.basic_price.toLocaleString()}원</li>
                                     <li>(항공운임, 유류할증료, 세금 포함 금액)</li>
                                 </ul>
                             </div>
@@ -213,9 +270,9 @@ export default function BuyTicket() {
                     </div>
                 </div>
             }
-            {onewayClick && !exist &&
-                <div className='schedule-all-box'>
-                    <p>조회하신 날짜는 현재 예약이 마감되었거나, 운항편이 존재하지 않습니다.
+            {exist &&
+                <div className='schedule-all-box buyticket-none'>
+                    <p>조회하신 날짜는 현재 예약이 마감되었거나,<br /> 운항편이 존재하지 않습니다.
                         <br /> 다른 날짜로 일정을 조회해 주세요.</p>
                 </div>
             }
@@ -290,26 +347,28 @@ export default function BuyTicket() {
                         <IoAirplane className='cheap-icon' />
                         <span>{end}</span>
                     </div>
-                    <div>성인 1명, 소아0명, 유아0명</div>
+                    <div>{adult}명, 소아{child}명, 유아{baby}명</div>
                     <div className='cheap-reservation'>
                         <div >
                             <ul>
                                 <li>
                                     <span>항공운임</span>
-                                    <span>65,500 원</span>
+                                    <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                        getFlightList.basic_price * baby).toLocaleString()}원</span>
                                 </li>
                                 <li>
                                     <span>유류할증료 + 세금</span>
-                                    <span>65,500 원</span>
+                                    <span>{(getFlightList.basic_price * 0.1).toLocaleString()}원</span>
                                 </li>
                                 <li>
                                     <span>총 금액</span>
-                                    <span>65,500 원</span>
+                                    <span>{(getFlightList.basic_price * adult + getFlightList.basic_price * child +
+                                        getFlightList.basic_price * baby + getFlightList.basic_price * 0.1).toLocaleString()}원</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <button>예약하기</button>
+                            <button onClick={() => { RoundReservation(); scrollToTop() }}>예약하기</button>
                         </div>
                     </div>
                     <p>*상기 운임은 참고사항으로, 공항 사정이나 일정에 따라 수시로 변동 될 수 있습니다.</p>
@@ -318,14 +377,14 @@ export default function BuyTicket() {
                         <div className='cheap-cheap-month-middle'>
                             <div>
                                 <ul>
-                                    <li>4월 16일 ~ 4월 23일</li>
+                                    <li>{getFlightList.date} ~ {getFlightList.endDate}</li>
                                     <li>성인 1명 기준</li>
-                                    <li>144.333원</li>
+                                    <li>{getFlightList.basic_price.toLocaleString()}원</li>
                                     <li>(항공운임, 유류할증료, 세금 포함 금액)</li>
                                 </ul>
                             </div>
                             <div >
-                                <button>예약하기</button>
+                                <button onClick={() => { RoundReservation(); scrollToTop() }}>예약하기</button>
                             </div>
                         </div>
                         <div className='cheap-round-desc'>
