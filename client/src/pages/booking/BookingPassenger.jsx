@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import BookingStep from '../../component/booking/BookingStep';
 import { MdArrowOutward } from "react-icons/md";
 import '../../scss/yuna.scss';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BookingPassengerForm from '../../component/booking/BookingPassengerForm';
-import { setPassengerInfo } from '../../service/bookingApi.js';
+import { getUserInfo, setPassengerInfo } from '../../service/bookingApi.js';
 
 export default function BookingPassenger() {
     const navigate = useNavigate();
@@ -16,8 +16,22 @@ export default function BookingPassenger() {
     const babyNum = useSelector(state => state.search.babyNum); // 유아 수
     const total = useSelector(state => state.search.total); // 전체 인원수
     const userInfo = useSelector(state => state.booking.userInfo);
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+    const hasCheckedLogin = useRef(false);
 
     const [genders, setGenders] = useState([]); // 탑승객 여러 명일 때 성별 관리
+
+    useEffect(() => {
+        if (hasCheckedLogin.current) return;
+        hasCheckedLogin.current = true;
+    
+        if (isLoggedIn) {
+            dispatch(getUserInfo());
+        } else {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ? navigate('/login') : navigate('/'); 
+        }
+    }, [isLoggedIn]);
 
     const [passengers, setPassengers] = useState(
         Array.from({ length: total }, (_, i) => {
@@ -277,7 +291,7 @@ export default function BookingPassenger() {
                     <ul className='passenger-reservant-form'>
                         <li>
                             <label>이메일<span>*</span></label>
-                            <input type="text" defaultValue={userInfo.email} />
+                            <input type="text" defaultValue={userInfo.email.toLowerCase()} />
                         </li>
                         <li>
                             <label>휴대전화번호<span>*</span></label>

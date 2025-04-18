@@ -1,29 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserInfo } from '../../service/bookingApi.js';
+// import { getUserInfo } from '../../service/bookingApi.js';
 import { FaCircleCheck } from "react-icons/fa6";
 
 export default function BookingPassengerForm({ type, num, index, onChange, refs, msgRefs }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const userInfo = useSelector(state => state.booking.userInfo);
-    const hasCheckedLogin = useRef(false);
+    // const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+    // const hasCheckedLogin = useRef(false);
     const [gender, setGender] = useState('');
 
-    useEffect(() => {
-        if (hasCheckedLogin.current) return;
-        hasCheckedLogin.current = true;
+    // useEffect(() => {
+    //     if (hasCheckedLogin.current) return;
+    //     hasCheckedLogin.current = true;
     
-        if (isLoggedIn) {
-            dispatch(getUserInfo());
-        } else {
-            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-            select ? navigate('/login') : navigate('/'); 
-        }
-    }, [isLoggedIn]);
+    //     if (isLoggedIn) {
+    //         dispatch(getUserInfo());
+    //     } else {
+    //         const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+    //         select ? navigate('/login') : navigate('/'); 
+    //     }
+    // }, [isLoggedIn]);
 
     return (
         userInfo && type === '성인' && index === 0
