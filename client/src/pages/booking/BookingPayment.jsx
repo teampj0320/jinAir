@@ -34,6 +34,7 @@ export default function BookingPayment() {
   useEffect(() => {
     const total_payment_price =
       (goTicketPrice * passengers.length) + (backTicketPrice * passengers.length);
+console.log(passengers);
 
     // 리덕스에 total_payment_price 저장
     dispatch(setTotalPaymentPrice(total_payment_price));
@@ -156,9 +157,7 @@ export default function BookingPayment() {
                     <div>{selectedFlights[0]?.Departure_location} {selectedFlights[0]?.D_acode}</div>
                     <BiSolidPlaneTakeOff />
                     <div>{selectedFlights[0]?.Arrive_location} {selectedFlights[0]?.A_acode}</div>
-                    <div>{formatDate(selectedFlights[0]?.Departure_date)}
-
-                    </div>
+                    <div>{formatDate(selectedFlights[0]?.Arrive_date)} ~ {formatDate(selectedFlights[0]?.Departure_date)}</div> 
                   </div>
                 </div>
               </div>
@@ -178,14 +177,14 @@ export default function BookingPayment() {
                     <div>{selectedFlights[0]?.Departure_location} {selectedFlights[0]?.D_acode}</div>
                     <BiSolidPlaneTakeOff />
                     <div>{selectedFlights[0]?.Arrive_location} {selectedFlights[0]?.A_acode}</div>
-                    <div>{formatDate(selectedFlights[0]?.Departure_date)}</div>
+                    <div>{formatDate(selectedFlights[0]?.Arrive_date)} ~ {formatDate(selectedFlights[0]?.Departure_date)}</div>
                   </div>
                   <div className="noneExtras-way2">
                     <div className="noneExtras-way-title">구간2</div>
                     <div>{selectedFlights[1]?.Departure_location} {selectedFlights[1]?.D_acode}</div>
                     <BiSolidPlaneTakeOff />
                     <div>{selectedFlights[1]?.Arrive_location} {selectedFlights[1]?.A_acode}</div>
-                    <div>{formatDate(selectedFlights[1]?.Departure_date)}</div>
+                    <div>{formatDate(selectedFlights[1]?.Arrive_date)} ~ {formatDate(selectedFlights[1]?.Departure_date)}</div>
                   </div>
                 </div>
               </div>
