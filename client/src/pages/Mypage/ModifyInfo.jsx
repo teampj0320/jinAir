@@ -221,7 +221,7 @@ export default function ModifyInfo() {
                             <div className='field-row info-user-name-eng'>
                                 <div className='field-group'>
                                     <label >성(영문)<span className='input-required-label W300'> *</span></label>
-                                    <input className='w300' type="text" disabled value={myinfo.ename_firtst} />
+                                    <input className='w300' type="text" disabled value={myinfo.ename_first} />
                                 </div>
                                 <div className='field-group'>
                                     <label className='info-field-title'>이름(영문)<span className='input-required-label W300'> *</span></label>
