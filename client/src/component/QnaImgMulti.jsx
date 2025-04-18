@@ -28,10 +28,10 @@ export default function QnaImaMulti({getFileName}) {
     
 
     return (
-        <div>
+        <>
             <Form.Control type='file' 
                 onChange={(e)=>{handleFileUploadMultiple(e)}}   
                 multiple   />
-        </div>
+        </>
     );
 }

@@ -102,3 +102,10 @@ CREATE TABLE `seats` (
 );
 -- qna 테이블에 이미지 추가
 alter table qna add column qnaImg json null ;
+
+-- qna 테이블 컬럼 추가 고객아이디, 문의유형컬럼
+ALTER TABLE qna
+ADD COLUMN customer_id varchar(20),
+ADD CONSTRAINT fk_customer
+FOREIGN KEY (customer_id) REFERENCES customer(id);
+alter table qna add column category varchar(30) not null;
