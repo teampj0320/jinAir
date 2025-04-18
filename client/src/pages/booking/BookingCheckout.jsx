@@ -13,7 +13,7 @@ export default function BookingCheckout() {
     const couponList = useSelector((state) => state.myinfo.mycoupon);
 
 
-    const totalFare = 121950;
+    const totalPaymentPrice = useSelector((state) => state.payment.total_payment_price); //예상 가격
     const nav = useNavigate();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const myinfo = useSelector(state => state.myinfo.myinfo);
@@ -39,16 +39,16 @@ export default function BookingCheckout() {
 
         if (appliedDiscount.endsWith("%")) {
             const percent = parseFloat(appliedDiscount.replace("%", ""));
-            const discount = (totalFare * percent) / 100;
-            return Math.min(discount, totalFare);
+            const discount = (totalPaymentPrice * percent) / 100;
+            return Math.min(discount, totalPaymentPrice);
         }
 
         const discount = parseInt(appliedDiscount, 10);
-        return Math.min(discount, totalFare);
+        return Math.min(discount, totalPaymentPrice);
     };
 
     const discountAmount = getDiscountAmount();
-    const finalAmount = totalFare - discountAmount;
+    const finalAmount = totalPaymentPrice - discountAmount;
     const { backFlightNum, goFlightNum } = useSelector(state => state.booking);
 
     const handlePayment = () => {
@@ -169,7 +169,7 @@ export default function BookingCheckout() {
                     <div className="calc-warp">
                         <div className="calc-item">
                             <span>총 운임</span>
-                            <strong>KRW <span>{totalFare.toLocaleString()}</span></strong>
+                            <strong>KRW <span>{totalPaymentPrice.toLocaleString()}</span></strong>
                         </div>
                         <div className="operation"><FaMinus /></div>
                         <div className="calc-item">

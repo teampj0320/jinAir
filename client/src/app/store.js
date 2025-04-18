@@ -4,6 +4,7 @@ import authSlice  from '../features/auth/authSlice.js';
 // import customerReducer  from '../features/customer/customerSlice.js';
 import myinfoReducer  from '../features/myinfo/myinfoSlice.js';
 import bookingReducer from '../features/booking/bookingSlice.js';
+import paymentReducer from '../features/booking/paymentSlice.js';
 
 //로컬 스토리지에 저장된 리덕스 상태값 읽어보기
 const loadState = () => {
@@ -25,6 +26,7 @@ export const store = configureStore({
         search : searchReducer,
         myinfo: myinfoReducer,
         booking: bookingReducer,
+        payment: paymentReducer,
     },
     preloadedState: loadState(),
 })

@@ -1,37 +1,19 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-// const initialState = {
-//     userInfo: {
-//         name: '',
-//         email: '',
-//         phone: '',
-//         nationality: '',
-//         address: '',
-//     },
-//     isLoggedIn: false,
-// };
+const initialState = {
+  total_payment_price: 0, 
+};
 
-// const paymentSlice = createSlice({
-//     name: 'payment',
-//     initialState,
-//     reducers: {
-//         setUserInfo(state, action) {
-//             state.userInfo = action.payload;
-//         },
-//         setLoginStatus(state, action) {
-//             state.isLoggedIn = action.payload;
-//         },
-//         clearUserInfo(state) {
-//             state.userInfo = initialState.userInfo;
-//             state.isLoggedIn = false;
-//         },
-//     },
-// });
+const paymentSlice = createSlice({
+  name: 'payment',
+  initialState,
+  reducers: {
+    setTotalPaymentPrice(state, action) {
+      state.total_payment_price = action.payload;
+    },
+  },
+});
 
-// export const {
-//     setUserInfo,
-//     setLoginStatus,
-//     clearUserInfo,
-// } = paymentSlice.actions;
+export const { setTotalPaymentPrice } = paymentSlice.actions;
 
-// export default paymentSlice.reducer;
+export default paymentSlice.reducer;

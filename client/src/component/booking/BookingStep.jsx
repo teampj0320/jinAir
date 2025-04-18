@@ -5,8 +5,11 @@ import { IoIosAirplane } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import '../../scss/yuna.scss';
 
-export default function BookingStep({text, type}) {
+export default function BookingStep({ text, type }) {
     const navigate = useNavigate();
+
+    const totalPaymentPrice = useSelector((state) => state.payment.total_payment_price); //예상 가격
+
     const departure = useSelector(state => state.search.departure); // 출발지
     const arrive = useSelector(state => state.search.arrive); // 도착지
     const startDate = useSelector(state => state.search.startDate); // 출발일
@@ -40,7 +43,7 @@ export default function BookingStep({text, type}) {
                         <span>{startDate} ~ {endDate}</span>
                     </div>
                     <div>
-                        <span>{adultNum >= 1 && `성인 ${adultNum}`} {pediatricNum >=1 && `소아 ${pediatricNum}`} {babyNum >=1 && `유아 ${babyNum}`}</span>
+                        <span>{adultNum >= 1 && `성인 ${adultNum}`} {pediatricNum >= 1 && `소아 ${pediatricNum}`} {babyNum >= 1 && `유아 ${babyNum}`}</span>
                         {/* { text === "avaliability" && <button>수정하기</button> } */}
                     </div>
                 </div>
@@ -63,7 +66,9 @@ export default function BookingStep({text, type}) {
                     <div className='booking-step-total'>
                         <div>
                             <p className='thin'>예상 결제 총액</p>
-                            <span className='thin'>KRW <b>0</b></span>
+                            <span className='thin'>
+                                KRW <b>{text === 'payment' ? `${totalPaymentPrice.toLocaleString()}원` : '0원'}</b>
+                            </span>
                         </div>
                         <button><IoIosArrowBack /></button>
                     </div>
