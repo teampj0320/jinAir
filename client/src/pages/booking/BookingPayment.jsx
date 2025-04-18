@@ -19,6 +19,9 @@ export default function BookingPayment() {
   const nav = useNavigate();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const { flightNum } = useSelector(state => state.booking);
+  const userInfo = useSelector((state) => state.booking.userInfo);
+  const ticketList = useSelector((state) => state.booking.ticketList);
+  const { resevationType } = useSelector(state => state.booking);
 
   const [openStates, setOpenStates] = useState({
     segment1: true,
@@ -34,7 +37,6 @@ export default function BookingPayment() {
   });
 
   const hasCheckedLogin = useRef(false);
-
   useEffect(() => {
     if (hasCheckedLogin.current) return;
     hasCheckedLogin.current = true;
@@ -83,35 +85,8 @@ export default function BookingPayment() {
 
         {/* 여행 정보 - 조건부 렌더링 */}
         <section className="booking-payment-section">
-          { !flightNum ? (
-            // 왕복 정보
-            <article className="payment-agreement-top">
-              <h3><p>여행정보</p></h3>
-              <div className="noneExtras-warp">
-                <div className="noneExtras-icon">
-                  <p><FaArrowRightArrowLeft /></p>
-                  <p>왕복</p>
-                </div>
-                <div className="noneExtras-way-warp">
-                  <div className="noneExtras-way1">
-                    <div className="noneExtras-way-title">구간1</div>
-                    <div>서울/김포GMP</div>
-                    <BiSolidPlaneTakeOff />
-                    <div>제주CJU</div>
-                    <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
-                  </div>
-                  <div className="noneExtras-way2">
-                    <div className="noneExtras-way-title">구간2</div>
-                    <div>제주CJU</div>
-                    <BiSolidPlaneTakeOff />
-                    <div>서울/김포GMP</div>
-                    <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ) : (
-            // 편도 정보
+          {resevationType === "oneWay" ? (
+            // 편도
             <article className="payment-agreement-top">
               <h3><p>여행정보</p></h3>
               <div className="noneExtras-warp">
@@ -122,17 +97,175 @@ export default function BookingPayment() {
                 <div className="noneExtras-way-warp">
                   <div className="noneExtras-way1">
                     <div className="noneExtras-way-title">구간1</div>
-                    <div>서울/김포GMP</div>
+                    <div>{ticketList[0]?.Departure_location || "출발지"}</div>
                     <BiSolidPlaneTakeOff />
-                    <div>제주CJU</div>
-                    <div>2025.04.04(수) 06:15 ~ 2025.04.04(수) 07:30</div>
+                    <div>{ticketList[0]?.Arrive_location || "도착지"}</div>
+                    <div>
+                      {ticketList[0]?.Departure_date} {ticketList[0]?.Departure_time} ~ {ticketList[0]?.Arrive_date} {ticketList[0]?.Arrive_time}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ) : (
+            // 왕복
+            <article className="payment-agreement-top">
+              <h3><p>여행정보</p></h3>
+              <div className="noneExtras-warp">
+                <div className="noneExtras-icon">
+                  <p><FaArrowRightArrowLeft /></p>
+                  <p>왕복</p>
+                </div>
+                <div className="noneExtras-way-warp">
+                  <div className="noneExtras-way1">
+                    <div className="noneExtras-way-title">구간1</div>
+                    <div>{ticketList[0]?.Departure_location}</div>
+                    <BiSolidPlaneTakeOff />
+                    <div>{ticketList[0]?.Arrive_location}</div>
+                    <div>
+                      {ticketList[0]?.Departure_date} {ticketList[0]?.Departure_time} ~ {ticketList[0]?.Arrive_date} {ticketList[0]?.Arrive_time}
+                    </div>
+                  </div>
+                  <div className="noneExtras-way2">
+                    <div className="noneExtras-way-title">구간2</div>
+                    <div>{ticketList[1]?.Departure_location}</div>
+                    <BiSolidPlaneTakeOff />
+                    <div>{ticketList[1]?.Arrive_location}</div>
+                    <div>
+                      {ticketList[1]?.Departure_date} {ticketList[1]?.Departure_time} ~ {ticketList[1]?.Arrive_date} {ticketList[1]?.Arrive_time}
+                    </div>
                   </div>
                 </div>
               </div>
             </article>
           )}
-        </section>
 
+
+          <article className="payment-agreement-bottom">
+            <div className="noneExtras-warp2">
+              <h3>
+                <p>탑승객 정보</p>
+              </h3>
+            </div>
+            <table className="paymentPassenger-info">
+              <colgroup>
+                <col style={{ width: "200px" }} />
+                <col style={{ width: "180px" }} />
+                <col style={{ width: "180px" }} />
+                <col style={{ width: "250px" }} />
+                <col style={{ width: "400px" }} />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>성명</th>
+                  <th>구분</th>
+                  <th>성별</th>
+                  <th>생년월일</th>
+                  <th>국적</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{userInfo.kname_first}{userInfo.kname_last}</td>
+                  <td>성인</td>
+                  <td>{userInfo.gender}</td>
+                  <td>{userInfo.birth}</td>
+                  <td>한국(REPUBLIC OF KOREA)</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </section>
+        {/* 항공운임 정보 */}
+        <section className="booking-payment-section">
+          <article className="payment-tax-warp">
+            <h3>
+              <p>항공운임 정보</p>
+            </h3>
+            <div className="payment-table-head">
+              <span>구분</span>
+              <span>항공운임</span>
+              <span>유류할증료</span>
+              <span>세금</span>
+              <span>합계</span>
+            </div>
+
+            <ul>
+              <li>
+                <button
+                  type="button"
+                  className="payment-table-button"
+                  onClick={() => toggleList("segment1")}
+                >
+                  <span>구간1</span>
+                  <span>krw 39,900</span>
+                  <span>krw 7,700</span>
+                  <span>krw 4,000</span>
+                  <span>
+                    krw 51,600
+                    {openStates.segment1 ? <FaAngleDown /> : <FaAngleUp />}
+                  </span>
+                </button>
+                <ul>
+                  <li
+                    className={
+                      openStates.segment1
+                        ? "payment-table-text"
+                        : "payment-table-hide"
+                    }
+                  >
+                    <span>구간1</span>
+                    <span>krw 39,900</span>
+                    <span>krw 7,700</span>
+                    <span>krw 4,000</span>
+                    <span>krw 51,600</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            {/* 구간2 */}
+            <ul>
+              <li>
+                <button
+                  type="button"
+                  className="payment-table-button"
+                  onClick={() => toggleList("segment2")}
+                >
+                  <span>구간2</span>
+                  <span>krw 27,900</span>
+                  <span>krw 7,700</span>
+                  <span>krw 4,000</span>
+                  <span>
+                    krw 39,600
+                    {openStates.segment2 ? <FaAngleDown /> : <FaAngleUp />}
+                  </span>
+                </button>
+                <ul>
+                  <li
+                    className={
+                      openStates.segment2
+                        ? "payment-table-text"
+                        : "payment-table-hide"
+                    }
+                  >
+                    <span>구간2</span>
+                    <span>krw 27,900</span>
+                    <span>krw 7,700</span>
+                    <span>krw 4,000</span>
+                    <span>krw 39,600</span>
+                  </li>
+                  <li className="payment-table-total">
+                    <div>
+                      <strong>항공요금 합계</strong>
+                    </div>
+                    <span>KRW 91,200</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </article>
+        </section>
         {/* 부가서비스 정보 */}
         <section className="booking-payment-section">
           <article>
@@ -144,7 +277,7 @@ export default function BookingPayment() {
                 <span>합계</span>
               </div>
 
-              {/* 구간1 추가 서비스 */}
+              {/* 추가 서비스 */}
               <div className="payment-addition-warp">
                 <table className="payment-addition-table">
                   <colgroup>
@@ -182,7 +315,6 @@ export default function BookingPayment() {
             </div>
           </article>
         </section>
-
         {/* 결제 가격 안내 */}
         <section className="payment-information">
           <h3>결제정보</h3>
@@ -713,8 +845,7 @@ export default function BookingPayment() {
           <button>결제진행</button>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
-
 
