@@ -30,6 +30,7 @@ import AdminNotice from'./component/admin/AdminNotice.jsx';
 import AdminQna from'./component/admin/AdminQna.jsx';
 import ScrollToTop from './pages/ScrollToTop.jsx'
 import QnaUpload from './pages/Mypage/QnaUpload.jsx';
+import AdminQnaComment from './component/admin/AdminQnaComment.jsx';
 
 export default function App() {
   return (
@@ -70,6 +71,7 @@ export default function App() {
         <Route path='/admin/flight/add' element={<AdminFlightAdd />} />
         <Route path='/admin/notice' element={<AdminNotice />} />
         <Route path='/admin/qna' element={<AdminQna />} />
+        <Route path='/admin/qnaComment/:qid' element={<AdminQnaComment />} />
       </Route>
     </Routes>
   </BrowserRouter>

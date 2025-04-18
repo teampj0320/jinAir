@@ -128,8 +128,25 @@ export const registerQna = async(req,res) => {
 
 //qna 테이블 정보 전체 가져오기
 export const getQnaAll = async(req,res) => {
-  console.log(req.body);
     const result = await repository.getQnaAll(req.body);
     res.json(result); 
     res.end();
 }
+
+// qna 상세 정보 조회
+export const getQna = async(req,res) => {  
+  const result = await repository.getQna(req.body.qid);  
+  res.json(result); 
+  res.end();
+}
+
+
+// qna 답변여부 업데이트
+export const updateComment = async(req,res) => {  
+  // console.log(req.body);
+  
+  const result = await repository.updateComment(req.body);  
+  res.json(result); 
+  res.end();
+}
+

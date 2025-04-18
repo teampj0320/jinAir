@@ -109,3 +109,8 @@ ADD COLUMN customer_id varchar(20),
 ADD CONSTRAINT fk_customer
 FOREIGN KEY (customer_id) REFERENCES customer(id);
 alter table qna add column category varchar(30) not null;
+
+
+alter table qna add column comment varchar(10) null ;
+alter table qna add column adminTitle varchar(100) null ;
+alter table qna add column adminContent varchar(100) null ;
