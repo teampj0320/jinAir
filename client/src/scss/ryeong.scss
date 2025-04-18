@@ -455,10 +455,7 @@
         padding: 45px 0;
     }
 
-    .user-info-row {
-        display: flex;
 
-    }
 
     .user-info-col {
 
@@ -470,9 +467,20 @@
         .default-profile-img {
             margin-bottom: 30px;
         }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 20px 0;
+
+            li {
+                font-size: 12px;
+            }
+        }
     }
 
-
+    // 공통 
     .user-info-col,
     .user-info-row {
 
@@ -494,20 +502,6 @@
             background: #efefef url('/assets/svg/noneprofile.svg') no-repeat 50% 50%;
             overflow: hidden;
         }
-
-
-
-        ul {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 20px 0;
-
-            li {
-                font-size: 12px;
-            }
-        }
-
 
         .modify-info {
             position: relative;
@@ -1797,6 +1791,7 @@
         margin-bottom: 2px;
     }
 
+
     .user-info-row {
         display: flex;
         align-items: center;
@@ -1807,6 +1802,10 @@
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
         z-index: 80;
         gap: 30px;
+
+        ul {
+            padding-top: 20px;
+        }
 
     }
 
@@ -1828,6 +1827,7 @@
         padding-left: 42px;
         border-left: 1px solid #d8d8d8;
         text-align: left;
+        
 
         .theme-wrap {
 
@@ -1835,7 +1835,7 @@
                 padding-left: 28px;
                 font-weight: 700;
                 font-size: 20px;
-                background: url('/assets/svg/icon_filter.svg') no-repeat left center / 14px;
+                background: url('/assets/svg/icon_filter2.svg') no-repeat left center / 14px;
             }
 
             .checkd-interest {
@@ -1844,6 +1844,7 @@
                 flex-direction: row !important;
                 flex-wrap: wrap;
                 max-width: 600px;
+                align-items: center;
 
                 li {
                     padding: 4px 12px;
@@ -1857,7 +1858,7 @@
 
                 }
 
-                li:hover {
+                li.active {
                     padding: 4px 12px;
                     font-size: 12px;
                     font-weight: 700;

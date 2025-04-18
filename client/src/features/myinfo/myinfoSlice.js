@@ -38,8 +38,10 @@ const myinfoSlice = createSlice({
             const exists = state.myinterest.includes(value);
 
             if (exists) {
+                // 선택한 항목이면 제거
                 state.myinterest = state.myinterest.filter(item => item !== value);
             } else if (state.myinterest.length < 3) {
+                // 3개까지만 추가
                 state.myinterest.push(value);
             } else {
                 alert("최대 3개까지 선택할 수 있습니다.");

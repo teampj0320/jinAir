@@ -94,3 +94,13 @@ export const applyCoupon = async(req, res) => {
   res.json(result);
   res.end();
 };
+
+/************************************
+ *      맞춤 항공권
+************************************/
+
+// export const customTicket = async(req, res) => {
+//   const result = await repository.customTicket(req.body); 
+//   res.json(result);
+//   res.end();
+// };

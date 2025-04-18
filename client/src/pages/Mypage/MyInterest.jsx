@@ -17,6 +17,7 @@ export default function MyInterest() {
     }, []);
 
 
+    // 관심 지역 선택, 해제
     const handleTagClick = (value) => {
         dispatch(toggleInterestItem(value));
     };
@@ -53,7 +54,9 @@ export default function MyInterest() {
                             <div className='f13'>최대 3개까지 선택이 가능합니다.</div>
                         </div>
                         <ul className='interest-tag'>
+                            
                             {
+                                //관심지역 json 리스트 가져오기
                                 areaList.map((area)=>(
 
                                     <li

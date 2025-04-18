@@ -5,6 +5,7 @@ import { getMyInfo, getInterest } from '../service/myinfoApi.js';
 import { useNavigate } from 'react-router-dom';
 import { areaList } from '../component/mypage/interestList.js';
 import { toggleInterestItem } from '../features/myinfo/myinfoSlice.js';
+import axios from 'axios';
 
 export default function CustomTicket() {
 
@@ -12,12 +13,13 @@ export default function CustomTicket() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-    const myinfo = useSelector((state) => state.myinfo.myinfo);
-
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn); // 로그인 정보
+    const myinfo = useSelector((state) => state.myinfo.myinfo); // 나의 정보 
+    const selectedAreas = useSelector(state => state.myinfo.myinterest); // 내가 선택한 관심지역
 
     useEffect(() => {
         if (isLoggedIn) {
+            console.log("선택된 관심지역", selectedAreas);
             dispatch(getMyInfo()) // 유저 정보
             dispatch(getInterest()); // 나의 관심 지역 
 
@@ -27,6 +29,20 @@ export default function CustomTicket() {
         //     select ? navigate('/login') : navigate('/');
         // }
     }, [])
+
+
+    const [filterTheme, setFilterTheme] = useState([])
+
+    useEffect(()=>{
+        axios('/data/customticket.json')
+            .then((res)=> {
+                    console.log(res.data);
+                    setFilterTheme(res.data)
+                    
+                    })
+            .catch(err => console.log(err))
+    },[])
+
 
     return (
         <div className='r-common mp-container'>
@@ -52,16 +68,11 @@ export default function CustomTicket() {
                         <div className='theme-wrap' >
                             <b>원하시는 지역을 선택해보세요.</b>
                             <ul className='checkd-interest'>
-                                {
-                                    areaList.map((area) => (
-
-                                        <li
-                                            key={area}
-                                            // className={selectedAreas.includes(area) ? 'active' : ''}
-                                        >{area}</li>
-                                    ))
-                                }
-
+                              <li>HOT</li>
+                              <li>쇼핑</li>
+                              <li>도시</li>
+                              <li>해변</li>
+                              <li>⭐ 관심지역</li>
                             </ul>
                         </div>
                     </div>

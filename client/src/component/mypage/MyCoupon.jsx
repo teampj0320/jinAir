@@ -29,8 +29,8 @@ export default function MyCoupon() {
                 <div className="border-line" />
             </div> {/* 타이틀 끝 */}
             <ul className='coupon-list'>
-                {
-                    myCouponList && myCouponList.map((coupon) =>
+            {myCouponList && myCouponList.length > 0 ? (
+    myCouponList.map((coupon) => (
                         <li className='coupon-wrap'>
                             <div className='coupon-top'>
                                 <span className='f16'>항공권 할인 쿠폰</span>
@@ -51,7 +51,13 @@ export default function MyCoupon() {
                                 <button onClick={() => handleUseCoupon(coupon.coupon_code)}>쿠폰 사용</button> */}
                             </div>
                         </li>
-
+                     ))
+                    ) : (
+                        <li className='coupon-wrap'>
+                        <div className='coupon-contents' style={{ textAlign: 'center', width: '100%' }}>
+                          <p className='f16'>사용 가능한 쿠폰이 없습니다.</p>
+                        </div>
+                      </li>
                     )
                 }
             </ul>

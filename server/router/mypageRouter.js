@@ -12,5 +12,6 @@ router
     .post('/getMyCoupon', controller.getMyCoupon )
     .post('/couponCount', controller.couponCount )
     .post('/applyCoupon', controller.applyCoupon );
+    // .post('/customTicket', controller.customTicket );
 
 export default router;

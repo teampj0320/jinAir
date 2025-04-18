@@ -171,3 +171,14 @@ export const applyCoupon = async ({ id, couponCode }) => {
 
   return result;
 };
+
+
+/************************************
+ *     항공권 불러오기
+************************************/
+// export const customTicket = async (airportCodes) => {
+//   const placeholders = airportCodes.map(() => '?').join(','); // ['?', '?', '?']
+//   const sql = `SELECT * FROM flight WHERE A_acode IN (${placeholders})`;
+//   const [result] = await db.execute(sql, airportCodes);
+//   return result;
+// };

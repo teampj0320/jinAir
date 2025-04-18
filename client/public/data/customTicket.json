@@ -1,0 +1,58 @@
+{
+    "다낭": {
+      "categories": ["hot", "beach"],
+      "image": "/promo_imgs/danang.jpg",
+      "airport": "DAD"
+    },
+    "세부": {
+      "categories": ["hot", "beach"],
+      "image": "/promo_imgs/cebu.jpg",
+      "airport": "CEB"
+    },
+    "오사카/간사이": {
+      "categories": ["hot", "shopping", "city"],
+      "image": "/promo_imgs/osaka.jpg",
+      "airport": "KIX"
+    },
+    "홍콩": {
+      "categories": ["hot", "shopping"],
+      "image": "/promo_imgs/hongkong.jpg",
+      "airport": "HKG"
+    },
+    "괌": {
+      "categories": ["hot", "beach"],
+      "image": "/promo_imgs/guam.jpg",
+      "airport": "GUM"
+    },
+    "푸껫": {
+      "categories": ["hot", "beach"],
+      "image": "/promo_imgs/phuket.jpg",
+      "airport": "HKT"
+    },
+    "코타키나발루": {
+      "categories": ["hot", "beach"],
+      "image": "/promo_imgs/kotakinabalu.jpg",
+      "airport": "BKI"
+    },
+    "방콕": {
+      "categories": ["shopping"],
+      "image": "/promo_imgs/bangkok.jpg",
+      "airport": "BKK"
+    },
+    "상하이/푸둥": {
+      "categories": ["shopping", "city"],
+      "image": "/promo_imgs/shanghaipudong.jpg",
+      "airport": "PVG"
+    },
+    "도쿄/나리타": {
+      "categories": ["shopping", "city"],
+      "image": "/promo_imgs/tokyonarita.jpg",
+      "airport": "NRT"
+    },
+    "오키나와": {
+      "categories": ["beach"],
+      "image": "/promo_imgs/okinawa.jpg",
+      "airport": "OKA"
+    }
+  }
+  
