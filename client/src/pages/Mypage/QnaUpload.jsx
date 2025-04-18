@@ -85,10 +85,12 @@ export default function QnaUpload() {
         return true;
     }
     const handleClick = () => {
+        const id = localStorage.getItem('user_id');
         if (validate()) {
             formData = ({
                 ...formData,
                 'upload_file': fnames.uploadFileName,
+                'id':id,
                 inputData
             });
             // console.log('fdfd',formData);
@@ -97,7 +99,7 @@ export default function QnaUpload() {
                 .then(res => {
                     if (res.data.result_rows === 1) {
                         alert('질문등록완료');
-                        navigate('/mypage/index');
+                        navigate('/');
                     } else {
                         alert('질문등록실패');
                     }
@@ -184,8 +186,6 @@ export default function QnaUpload() {
                                     <td>파일첨부</td>
                                     <td>
                                         <div>
-                                            <span>여기에 파일을 드래그 & 드롭하세요.</span>
-                                            <button>파일찾기</button>
                                             <QnaImgMulti getFileName={getFileName} />
                                             {previewList && previewList.map((preview) =>
                                                 <img src={`http://localhost:9000/${preview}`} alt="미리보기" style={{ 'width': '200px' }} />

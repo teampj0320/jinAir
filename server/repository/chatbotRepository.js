@@ -165,25 +165,38 @@ export const getReservation = async ({ reserMessage, reserMessage1 }) => {
 }
 
 
-
-
-
-
+// qna 이미지 등록
 export const registerQna = async(formData) => {    
 console.log('formData',formData.inputData.email);
   
 const sql = `
              insert into qna(
-                TYPE, TITLE,CONTENT,REG_DATE,qnaImg
+                TYPE, TITLE,CONTENT,REG_DATE,qnaImg,category,customer_id
                       )
-                      values('a',?,?,now(),json_array(?))                     
+                      values('a',?,?,now(),json_array(?),?,?)                     
             `;
 const values = [
     formData.inputData.title,
     formData.inputData.content,
     formData.upload_file  || null,
+    formData.inputData.type,
+    formData.id,
 ];
 
 const [result] = await db.execute(sql,values);   
 return {"result_rows":result.affectedRows};
 }
+
+/***************************** 
+ *qna 가져오기
+*****************************/
+export const getQnaAll = async () => {
+  const sql = `    
+  select NO as no, TYPE as type, category, customer_id as id,
+    TITLE as title, CONTENT as content, left(REG_DATE,10) as reg_date
+   from qna    
+    `;
+  const [result] = await db.execute(sql);
+  return { 'result': result };
+}
+
