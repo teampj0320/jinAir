@@ -2956,3 +2956,125 @@ h2.react-datepicker__current-month {
 
 
 
+//***********************************
+// admin qna
+// *******************************
+.admin-qna-comment-all-box{
+    // border: 1px solid red;
+    >div{
+        // border: 1px solid red;
+    }
+    >div:first-child{
+        margin-bottom: 30px;
+        height: auto;
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            td{
+                border: 1px solid gainsboro;
+                padding: 10px 0;
+                padding-left: 5px;
+            }
+            td:first-child{
+                width: 100px;
+            }
+        }
+    }
+    >div:nth-child(2){
+        height: auto;
+        border: 1px solid var(--color-nav-main);
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            td{
+                border: 1px solid gainsboro;
+                // padding: 10px 0;
+                padding-left: 5px;
+            }
+            td:first-child{
+                width: 100px;
+            }
+            input{
+                border: none;
+                width: 1000px;
+                padding: 10px;
+            }
+            tr:nth-child(2){
+                input{
+                    height: 130px;
+                }
+            }
+        }
+        >div{
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            button{
+                padding: 10px 15px;
+                background-color: var(--color-nav-main);
+                color:white;
+                font-size: 14px;
+            }
+        }
+    }
+}
+.admin-qna-comment-active {
+    background-color: #e6f4ff; // 기본 배경색
+    color: #007acc; // 기본 텍스트 색상
+  
+    &:hover {
+      background-color: #d0eaff; // hover 시 배경색
+      color: #007acc; // hover 시에도 같은 텍스트 색 유지
+    }
+  }
+.admin-qna-pagenation{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .page-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .page-link {
+    padding: 8px 12px;
+    border-radius: 4px;
+    // border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .page-link:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .active .page-link {
+    // background-color: #007bff;
+    color: black;
+    // border-color: #007bff;
+  }
+  
+  .prev, .next {
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }

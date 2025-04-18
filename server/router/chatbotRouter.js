@@ -12,5 +12,6 @@ router.post('/getReservation',controller.getReservation);
 router.post('/QnaUpload',controller.QnaUpload);
 router.post('/dbQnaupload',controller.registerQna );
 router.post('/getQnaAll',controller.getQnaAll );
-
+router.post('/detail',controller.getQna);
+router.post('/updateComment',controller.updateComment);
 export default router;
