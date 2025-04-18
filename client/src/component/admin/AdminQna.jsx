@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import axios from 'axios';
+import { Link } from "react-router-dom";
+import '../../scss/haon.scss';
+import { useNavigate } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 export default function AdminQna() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState([]); //db 에서 가져온 qna 리스트들
-  // const [currentList, setCurrentList] = useState(formData); // pageNation
-  // const itemsPerPage = 10; // 페이지당 개수
-  // const pageBlockSize = 10;
-  // const totalPages = Math.ceil(formData.length / itemsPerPage);
 
-  // const indexOfLastItem = page * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   useEffect(() => {
     axios.post('http://localhost:9000/chatbot/getQnaAll')
       .then(res => {
@@ -20,19 +20,26 @@ export default function AdminQna() {
       })
       .catch(err => console.log(err));
   }, []);
+  /* 페이지네이션 */
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 10;
 
-  const openqna = () => {
-    
-  }
+  // 페이지네이션 관련 로직
+  const endOffset = itemOffset + itemsPerPage;
+
+  const currentItems = formData.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(formData.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % formData.length;
+    setItemOffset(newOffset);
+  };
+
   return (
     <div className='admin-airlist-content'>
       <div className='admin-airlist-top'>
         <div className='admin-airlist-title'>
           1:1 문의
-        </div>
-        <div className='admin-airlist-controls'>
-          <input type="text" className='admin-search' placeholder='검색어를 입력하세요' />
-          <IoMdSearch className='admin-search-icon' />
         </div>
       </div>
       <table className='admin-airlist'>
@@ -48,27 +55,41 @@ export default function AdminQna() {
           </tr>
         </thead>
         <tbody>
-          {formData.map((data) => (
-            <tr onClick={openqna}>
+          {currentItems.map((data) => (
+            <tr
+              onClick={() => navigate(`/admin/qnaComment/${data.no}`)}
+              style={{ cursor: 'pointer' }}
+              className={data.comment === '답변완료' ? 'admin-qna-comment-active' : 'admin-qna-comment-none'}>
               <td><input type="checkbox" /></td>
               <td>{data.no}</td>
               <td>{data.category}</td>
-              <td>{data.title}</td>
+              <td>
+                {data.title}
+              </td>
               <td>{data.id}</td>
               <td>{data.reg_date}</td>
-              <td>부</td>
+              <td>{data.comment}</td>
             </tr>
           ))
           }
         </tbody>
       </table>
-      <div className='admin-airlist-bottom'>
-        <div className='admin-delete-btn'>
-        </div>
-        <div className='admin-pagenation'>페이지네이션</div>
-        <div className='admin-insert-btn'>
-          <button>답변</button>
-        </div>
+      <div className='admin-qna-pagenation'>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={<MdNavigateNext />}
+          previousLabel={<MdNavigateBefore />}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={10}
+          pageCount={pageCount}
+          containerClassName="pagination"
+          activeClassName="active"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="prev"
+          nextClassName="next"
+          disabledClassName="disabled"
+        />
       </div>
     </div>
   );
