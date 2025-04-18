@@ -7,18 +7,26 @@ import axios from "axios";
 import { CheckoutPage } from "../../component/payments/Checkout.jsx";
 
 export default function BookingCheckout() {
+    const nav = useNavigate();
     const [radio, setRadio] = useState("coupon");
     const [selectedDiscount, setSelectedDiscount] = useState("default");
     const [appliedDiscount, setAppliedDiscount] = useState("default");
-    const couponList = useSelector((state) => state.myinfo.mycoupon);
-
-
-    const totalPaymentPrice = useSelector((state) => state.payment.total_payment_price); //예상 가격
-    const nav = useNavigate();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-    const myinfo = useSelector(state => state.myinfo.myinfo);
-
+    const userInfo = useSelector(state => state.booking.userInfo);
     const hasCheckedLogin = useRef(false);
+    const couponList = useSelector((state) => state.myinfo.mycoupon);
+    const totalPaymentPrice = useSelector((state) => state.payment.total_payment_price); //할인 반영 전 예상 가격
+    const backFlightNum = useSelector((state) => state.booking.backFlightNum);
+    const goFlightNum = useSelector((state) => state.booking.goFlightNum);
+
+    // 승객 정보 가져오기
+    const passengers = useSelector((state) => state.booking.passengers);
+
+    // 승객 이름을 공백 없이 배열로 변환
+    const passenger_names = passengers && passengers.length > 0
+        ? passengers.map(passenger => `${passenger.kname_first}${passenger.kname_last}`)
+        : []; // 공백 없이 첫 이름과 마지막 이름 결합
+
 
     useEffect(() => {
         if (hasCheckedLogin.current) return;
@@ -30,6 +38,7 @@ export default function BookingCheckout() {
         }
     }, [isLoggedIn]);
 
+    // 할인 정보 시작
     const applyDiscount = () => {
         setAppliedDiscount(selectedDiscount);
     };
@@ -49,18 +58,17 @@ export default function BookingCheckout() {
 
     const discountAmount = getDiscountAmount();
     const finalAmount = totalPaymentPrice - discountAmount;
-    const { backFlightNum, goFlightNum } = useSelector(state => state.booking);
+    // 할인 정보 끝
+
 
     const handlePayment = () => {
-        const id = myinfo.id; 
-        const name = myinfo.name; 
+        const id = userInfo.id;
 
+        // passenger_names 배열을 그대로 전달
         axios.post("http://localhost:9000/payment/res", {
             id,
+            passenger_names,  // 승객 이름을 배열로 전달
             fnum: [goFlightNum, backFlightNum],
-            passenger_name: name,
-            discount_amount: discountAmount,
-            final_amount: finalAmount,
         })
             .then(res => {
                 const success = res.data?.success;
@@ -77,7 +85,7 @@ export default function BookingCheckout() {
             </div>
 
             <div className="booking-passenger-contents">
-                <p className="booking-page-title">4. 결제</p> 
+                <p className="booking-page-title">4. 결제</p>
 
                 {/* 할인 영역 */}
                 <section className="noneExtras">
@@ -136,7 +144,6 @@ export default function BookingCheckout() {
                             </div>
                         )}
 
-
                         {radio === "card" && (
                             <div className="check-out-card">
                                 <div className="select-warpper">
@@ -178,7 +185,7 @@ export default function BookingCheckout() {
                         </div>
                         <div className="operation"><FaEquals /></div>
                         <div className="calc-item">
-                            <span>총 예상 결제 금액</span>
+                            <span>최종 결제 금액</span>
                             <strong>KRW <span>{finalAmount.toLocaleString()}</span></strong>
                         </div>
                     </div>

@@ -12,7 +12,6 @@ export default function BookingPayment() {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-
   const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
   const { resevationType } = useSelector(state => state.booking);
   const backFlightNum = useSelector((state) => state.booking.backFlightNum);
@@ -251,11 +250,11 @@ console.log(passengers);
                   onClick={() => toggleList("segment1")}
                 >
                   <span>구간1</span>
-                  <span>KRW  {(goTicketPrice * 0.75 * passengers.length).toLocaleString()}</span>
-                  <span>KRW  {(goTicketPrice * 0.15 * passengers.length).toLocaleString()}</span>
-                  <span>KRW  {(goTicketPrice * 0.1 * passengers.length).toLocaleString()}</span>
+                  <span>KRW&nbsp;{(goTicketPrice * 0.75 * passengers.length).toLocaleString()}</span>
+                  <span>KRW&nbsp;{(goTicketPrice * 0.15 * passengers.length).toLocaleString()}</span>
+                  <span>KRW&nbsp;{(goTicketPrice * 0.1 * passengers.length).toLocaleString()}</span>
                   <span>
-                    KRW  {(goTicketPrice * passengers.length).toLocaleString()}
+                    KRW&nbsp;{(goTicketPrice * passengers.length).toLocaleString()}
                     {openStates.segment1 ? <FaAngleDown /> : <FaAngleUp />}
                   </span>
                 </button>
@@ -290,11 +289,11 @@ console.log(passengers);
                     onClick={() => toggleList("segment2")}
                   >
                     <span>구간2</span>
-                    <span>KRW  {(backTicketPrice * 0.75 * passengers.length).toLocaleString()}</span>
-                    <span>KRW  {(backTicketPrice * 0.15 * passengers.length).toLocaleString()}</span>
-                    <span>KRW  {(backTicketPrice * 0.1 * passengers.length).toLocaleString()}</span>
+                    <span>KRW&nbsp;{(backTicketPrice * 0.75 * passengers.length).toLocaleString()}</span>
+                    <span>KRW&nbsp;{(backTicketPrice * 0.15 * passengers.length).toLocaleString()}</span>
+                    <span>KRW&nbsp;{(backTicketPrice * 0.1 * passengers.length).toLocaleString()}</span>
                     <span>
-                      KRW  {(backTicketPrice * passengers.length).toLocaleString()}
+                      KRW&nbsp;{(backTicketPrice * passengers.length).toLocaleString()}
                       {openStates.segment2 ? <FaAngleDown /> : <FaAngleUp />}
                     </span>
                   </button>
@@ -319,7 +318,7 @@ console.log(passengers);
                       <div>
                         <strong>항공요금 합계</strong>
                       </div>
-                      <span>KRW  {((goTicketPrice * passengers.length) + (backTicketPrice * passengers.length)).toLocaleString()} </span>
+                      <span>KRW&nbsp;{((goTicketPrice * passengers.length) + (backTicketPrice * passengers.length)).toLocaleString()} </span>
                     </li>
                   </ul>
                 </li>
@@ -370,7 +369,7 @@ console.log(passengers);
                   <div>
                     <strong>부가서비스 합계</strong>
                   </div>
-                  <span>KRW  0</span>
+                  <span>KRW&nbsp;0</span>
                 </div>
               </div>
             </div>
@@ -382,21 +381,21 @@ console.log(passengers);
           <article>
             <div className="calc-warp calc-item">
               <span>항공운임</span>
-              <strong>KRW  {totalPaymentPrice.toLocaleString()}</strong>
+              <strong>KRW&nbsp;{totalPaymentPrice.toLocaleString()}</strong>
             </div>
             <strong className="operation">
               <FaPlus />
             </strong>
             <div className="calc-warp calc-item">
               <span>부가서비스</span>
-              <strong>KRW  0</strong>
+              <strong>KRW&nbsp;0</strong>
             </div>
             <strong className="operation">
               <FaEquals />
             </strong>
             <div className="calc-warp calc-result">
               <span>총 예상 결제 금액</span>
-              <strong>KRW  {totalPaymentPrice.toLocaleString()}</strong>
+              <strong>KRW&nbsp;{totalPaymentPrice.toLocaleString()}</strong>
             </div>
           </article>
         </section>
