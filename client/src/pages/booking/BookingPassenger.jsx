@@ -291,7 +291,7 @@ export default function BookingPassenger() {
                     <ul className='passenger-reservant-form'>
                         <li>
                             <label>이메일<span>*</span></label>
-                            <input type="text" defaultValue={userInfo.email.toLowerCase()} />
+                            <input type="text" defaultValue={userInfo.email} />
                         </li>
                         <li>
                             <label>휴대전화번호<span>*</span></label>
