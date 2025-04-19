@@ -98,12 +98,26 @@ export const applyCoupon = (couponCode) => async (dispatch) => {
   
     const result = await axiosPost({ url, data: { id, couponCode } });
   
-    // if (result?.affectedRows > 0) {
-    //   dispatch(getMyCoupon());  // 사용 후 쿠폰 목록 새로고침 //필요없을시 삭제하기
-      
-    // }
      if (result && result[0]) {
         dispatch(setCouponCount(result[0].coupon_count));
     }
   };
   
+
+  // 맞춤 항공권 정보
+  export const customTheme = async (category) => {
+    const url = 'http://localhost:9000/mypage/customTheme';
+    const result = await axiosPost({ url, data: { category } });
+    return result;
+  };
+
+
+  export const customArea = async () => {
+    const id = localStorage.getItem('user_id');
+    const url = 'http://localhost:9000/mypage/customArea';
+
+    const result = await axiosPost({ url, data: { id } });
+    return result;
+  };
+
+

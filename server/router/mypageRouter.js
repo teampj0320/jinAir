@@ -11,7 +11,8 @@ router
     .post('/updateInterest', controller.updateInterest )
     .post('/getMyCoupon', controller.getMyCoupon )
     .post('/couponCount', controller.couponCount )
-    .post('/applyCoupon', controller.applyCoupon );
-    // .post('/customTicket', controller.customTicket );
+    .post('/applyCoupon', controller.applyCoupon )
+    .post('/customTheme', controller.customTheme )
+    .post('/customArea', controller.customArea );
 
 export default router;

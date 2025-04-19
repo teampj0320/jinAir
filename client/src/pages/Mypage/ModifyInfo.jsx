@@ -130,6 +130,7 @@ export default function ModifyInfo() {
         const updatedData = {
             id: myinfo.id,
             ...formData,
+            password: formData.password || myinfo.password
         };
 
         console.log('최종 업데이트 데이터 👉', updatedData); // ✅ 여기!

@@ -28,6 +28,7 @@ export default function MyCoupon() {
                 <p className='layer-header-title'>사용 가능 쿠폰 내역</p>
                 <div className="border-line" />
             </div> {/* 타이틀 끝 */}
+                <p className='coupon-desc'>* 쿠폰은 결제 시에 적용 가능합니다.</p>
             <ul className='coupon-list'>
             {myCouponList && myCouponList.length > 0 ? (
     myCouponList.map((coupon) => (
