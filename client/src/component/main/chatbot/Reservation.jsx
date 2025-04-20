@@ -150,7 +150,7 @@ export default function Reservation() {
                         상세 예약내역을 조회 하시려면 아래 버튼을 클릭해주세요.
                     </p>
                     <div className='cheap-button-box'>
-                        <button onClick={() => { navigate('/login') }}>예약조회 하러가기</button>
+                        <button onClick={() => { navigate('/mypage/getReservation') }}>예약조회 하러가기</button>
                     </div>
                 </div>}
         </div>
