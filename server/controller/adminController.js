@@ -96,9 +96,7 @@ export const getSearchFlightList = async(req, res) =>{
  * 공지사항 리스트 조회
  ***************************/
 export const getNoticeList = async(req, res) =>{
-  console.log('컨트롤러1');
   const result = await repository.getNoticeList(req.body);
-  console.log('컨트롤러2',result);
   res.json(result);
   res.end();
 }

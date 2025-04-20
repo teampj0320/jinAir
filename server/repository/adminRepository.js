@@ -127,6 +127,5 @@ export const getNoticeList = async() =>{
       where type = 'n';    `;
 
   const [result] = await db.execute(sql);
-  console.log('레파지토리2',result);
   return result;
 }; 
