@@ -3078,3 +3078,19 @@ h2.react-datepicker__current-month {
     opacity: 0.5;
     pointer-events: none;
   }
+  
+  .exchange-all-box{
+    background-color: white;
+    text-align: right;
+    width: 100%;
+    h2{
+        font-size: 16px;
+    }
+    ul{
+        margin-top: 5px;
+        // border: 1px solid red;
+        width: 130px;
+        text-align: left;
+        margin-left: 1010px;
+    }
+}
