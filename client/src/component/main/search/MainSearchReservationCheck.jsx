@@ -3,9 +3,11 @@ import { FaCalendarCheck } from "react-icons/fa";
 import OnewaySearchCalendar from './OnewaySearchCalendar.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalendar3,getCheckinDate ,getCheckinFirstNm,getCheckinResnum,getCheckinLastNm } from '../../../service/searchApi.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function MainSearchReservationCheck() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const calendar3 = useSelector(state => state.search.calendar3);
     const [startDate, setStartDate] = useState('');
     const [err, setErr] = useState({});
@@ -20,11 +22,7 @@ export default function MainSearchReservationCheck() {
     dispatch(getCheckinFirstNm(form.firstNm));
     dispatch(getCheckinLastNm(form.lastNm));
     dispatch(getCheckinResnum(startDate));
-    // console.log(form.rnum);
-    // console.log(form.firstNm);
-    // console.log(form.lastNm);
-    // console.log(startDate);
-    
+   
 
     const startCalendar = (data) => {
         setStartDate(data);
@@ -66,7 +64,7 @@ export default function MainSearchReservationCheck() {
         e.preventDefault();
         if (validate()) {
             setErr('');
-            alert('서버로 보내서 조회하기');
+            navigate('/mypage/getReservation');
         }
     }
     return (
