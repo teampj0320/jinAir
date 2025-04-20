@@ -220,10 +220,6 @@ export default function BookingCheckout() {
             <CheckoutPage finalAmount={finalAmount} />
           </div>
         </section>
-
-        <div className="order-button-warp">
-          <button onClick={handlePayment}>결제</button>
-        </div>
       </div>
     </div>
   );
