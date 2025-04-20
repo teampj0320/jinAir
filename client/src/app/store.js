@@ -20,9 +20,6 @@ const loadState = () => {
 export const store = configureStore({
     reducer: {
         login: authSlice,
-        // cart: cartSlice,
-        // order: orderSlice,
-        // product: productSlice
         search : searchReducer,
         myinfo: myinfoReducer,
         booking: bookingReducer,

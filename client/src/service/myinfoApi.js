@@ -5,7 +5,8 @@ import {
     setMyInfo,
     setMyInterest,
     setMyCoupon,
-    setCouponCount
+    setCouponCount,
+    setCustomTheme 
 } from '../features/myinfo/myinfoSlice.js';
 
 // 회원 정보 불러오기
@@ -104,14 +105,16 @@ export const applyCoupon = (couponCode) => async (dispatch) => {
   };
   
 
-  // 맞춤 항공권 정보
-  export const customTheme = async (category) => {
+  // 맞춤 항공권 정보 (테마별)
+
+export const customTheme = (category) => async (dispatch) => {
     const url = 'http://localhost:9000/mypage/customTheme';
     const result = await axiosPost({ url, data: { category } });
-    return result;
+    if (result) dispatch(setCustomTheme(result));
   };
+  
 
-
+  // 맞춤 항공권 정보 (유저 설정 관심지역)
   export const customArea = async () => {
     const id = localStorage.getItem('user_id');
     const url = 'http://localhost:9000/mypage/customArea';
