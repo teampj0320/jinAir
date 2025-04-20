@@ -339,8 +339,7 @@
     }
 
     .slick-dots {
-        li button:before {
-            border: solid 1px tomato;
+        li button:before { 
             display: none;
             border-radius: 100%;
         }
@@ -1031,4 +1030,31 @@ display: flex ;
     background: #192547;
     font-size: 14px;
     color: #ffffff;
+}
+
+/****************
+* payments 
+****************/
+
+.success-wqarp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 200px 0 100px 0;
+    .payment-button{ 
+        button{ 
+            margin-top: 20px; 
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        font-family: "NotoSans-B";
+        font-size: 1.2rem;
+        align-items: center;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 50px;
+        background: var(--color-nav-main);
+        color: #fff;
+    }
+    }
 }
