@@ -1740,36 +1740,42 @@ h2.react-datepicker__current-month {
 // *******************************
 
 .reservation-all-box {
-    .reservation-exist{
+    .reservation-exist {
         margin: 0 auto;
         margin-top: 10px;
         text-align: center;
-        li:first-child{
+
+        li:first-child {
             margin-top: 5px;
         }
-        li{
+
+        li {
             list-style-type: none;
             padding: 3px 0;
             width: 250px;
             margin-left: 120px;
             display: flex;
         }
-        span:first-child{
+
+        span:first-child {
             // border: 1px solid red;
             color: var(--chatBlue);
             width: 70px;
             margin-right: 10px;
         }
     }
-    >div:last-child{
+
+    >div:last-child {
+
         // padding: 0 10px;
-        p{
+        p {
             margin-top: 10px;
         }
+
         .cheap-button-box {
             padding: 0 10px;
             margin-bottom: 10px;
-            
+
             button {
                 margin-top: 10px;
                 width: 100%;
@@ -1778,12 +1784,13 @@ h2.react-datepicker__current-month {
                 background-color: white;
                 border-radius: 8px;
             }
-            
+
             button:hover {
                 cursor: pointer;
             }
         }
     }
+
     >div:nth-child(2) {
         // border: 1px solid gainsboro;
         width: 450px;
@@ -2192,11 +2199,12 @@ h2.react-datepicker__current-month {
 // chatbot Buyticket
 // *******************************
 .chatbot-buyticket-all-box {
-    .buyticket-none{
-        p{
+    .buyticket-none {
+        p {
             margin-bottom: 10px;
         }
     }
+
     .schedule-all-box {
         p {
             margin-top: 10px;
@@ -2571,22 +2579,16 @@ h2.react-datepicker__current-month {
 }
 
 .react-chatbot-kit-chat-bot-message {
-    margin: 0 !important; 
+    margin: 0 !important;
     white-space: pre-line !important;
     // 챗봇이 보낸 메세지 한줄한줄
 }
 
-.react-chatbot-kit-chat-bot-message-arrow {
-    
-}
+.react-chatbot-kit-chat-bot-message-arrow {}
 
-.react-chatbot-kit-chat-bot-loading-icon-container {
-    
-}
+.react-chatbot-kit-chat-bot-loading-icon-container {}
 
-.chatbot-loader-container {
-    
-}
+.chatbot-loader-container {}
 
 #chatbot-loader #chatbot-loader-dot1 {}
 
@@ -2601,3 +2603,494 @@ h2.react-datepicker__current-month {
 .react-chatbot-kit-error-header {}
 
 .react-chatbot-kit-error-docs {}
+
+
+//***********************************
+// mypage qnaUpload
+// *******************************
+.r-common {
+
+
+
+    @font-face {
+        font-family: "Pretendard-Regular";
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+        font-weight: 400 500 600;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "Pretendard-SemiBold";
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff") format("woff");
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "Pretendard-Bold";
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff") format("woff");
+        font-weight: 700;
+        font-style: normal;
+    }
+
+
+    @font-face {
+        font-family: "Pretendard";
+        font-weight: 300;
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff") format('woff');
+    }
+
+    @font-face {
+        font-family: "Pretendard";
+        font-weight: 200;
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraLight.woff") format('woff');
+    }
+
+    @font-face {
+        font-family: "Pretendard";
+        font-weight: 100;
+        src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1//Pretendard-Thin.woff") format('woff');
+    }
+}
+.mypage-qnaUpload-container {
+    background-color: rgba(250, 250, 250);
+    padding: 0 0 30px 0;
+    margin: 0;
+    color: var(--color-nav-main);
+    .mypage-qnaUpload-content {
+        margin: 0 auto;
+        width: 1200px;
+        .mypage-qnaUpload-bottom-box{
+            margin-top: 30px;
+            >div{
+                text-align: center;
+                margin: 0 auto;
+                margin-bottom: 50px;
+                button{
+                    background-color: var(--color-nav-main);
+                    padding: 15px 60px;
+                    border-radius: 8px;
+                    color: white;
+                    font-size: 17px;
+                }
+            }
+            ul{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                text-align: center;
+                justify-content: space-between;
+                li:first-child{
+                   padding: 37px 20px;
+                }
+                li:nth-child(2){
+                    padding: 24px 20px;
+                }
+                li{
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                    width: 360px;
+                    border: 1px solid white;
+                    background-color: white;
+                    border-radius: 8px;
+                    padding: 20px;
+                    >div:nth-child(2){
+                        margin-top: 5px;
+                        margin-left: 60px;
+                        display: flex;
+                        font-size: 13px;
+                        align-items: center;
+                        border: 2px solid var(--jinairgreen);
+                        width: 80px;
+                        padding: 5px;
+                        border-radius: 5px;
+                        span{
+                            margin-right: 5px;
+                        }
+                    }
+                    >div:first-child{
+                        display: flex;
+                        align-items: center;
+                        >span{
+                            border: 1px solid var(--color-nav-main);
+                            display: inline-block;
+                            width: 50px;
+                            height: 50px;
+                            display: flex;
+                            align-items: center;
+                            border-radius: 100%;
+                            background-color: var(--color-nav-main);
+                            margin-right: 10px;
+                            .mypage-qnaUpload-icon{
+                                margin-left: 12px;
+                                color: #d3e92e;
+                                text-align: center;
+                                font-size: 25px;
+                            }
+                        }
+                        >div{
+                            h4{
+                                text-align: left;
+                                font-size: 14px;
+                                margin-bottom: 4px;
+                            }
+                            h5{
+                                text-align: left;
+                                font-size: 12px;
+                                font-weight: 100;
+                            }                           
+                        }
+                    }
+                }
+                margin-bottom: 50px;
+            }
+        }
+        .mypage-qnaUpload-middle-box{
+            display: flex;
+            width: 100%;
+            padding: 30px 0;
+            >div:first-child{
+                width: 300px;
+                padding: 0 30px;
+                font-weight: 500;
+            }
+            >div:nth-child(2){
+                width: 830px;
+                line-height: 2;
+                >div:first-child{
+                    border: 1px solid var(--color-181);
+                    border-radius: 5px;
+                    padding: 8px 15px;
+                    height: 130px;
+                    overflow-y: scroll;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+                }
+                >div:nth-child(2){
+                    margin-bottom: 20px;
+
+                }
+                ul{
+                    font-size: 14px;
+                    li{
+                        padding: 3px;
+                    }
+                }
+            }
+        }
+        .mypage-qnaUpload-all-box {
+            table{
+                border-collapse: collapse;
+                width: 100%;
+                tr{
+                    td:first-child{
+                        width: 300px;
+                        border-right: 1px solid var(--color-181);
+                        font-weight: 600;
+                    }
+                    td{                        
+                        border-bottom: 1px solid var(--color-181);
+                        padding: 20px 20px ;
+                    }
+                }
+                tr:nth-child(5){
+                    div{
+                        border: 1px solid var(--color-181);
+                        background-color: var(--color-242);
+                        border-radius: 8px;
+                        height: 80px;
+                        text-align: center;
+                        padding: 35px 0;
+                        margin-bottom: 20px;
+                        span{
+                            display: block;
+                        }
+                        button{
+                            margin-top: 20px;
+                            background-color: var(--color-nav-main);
+                            color: white;
+                            padding: 13px 30px;
+                            border-radius: 5px;
+                        }
+                    }
+                    ul{
+                        li{
+                            font-size: 14px;
+                            padding: 2px 0;
+                            span{
+                                text-decoration: underline;
+                                font-weight: 900;
+                            }
+                        }
+                    }
+                }
+                tr:first-child{
+                    select{
+                        width: 400px;
+                        padding: 13px;
+                        border: 1px solid var(--color-181);
+                        color: gray;
+                        background-color: white;
+                        border-radius: 8px;
+                    }
+                    select:first-child{
+                        margin-right: 10px;
+                    }
+                }
+                tr:last-child{
+                    li:not(:last-child){
+                        padding-bottom: 10px;
+                    }
+                    li{
+                        display: flex;
+                        align-items: center;
+                        label{
+                            // border: 1px solid red;
+                            width: 130px;
+                            display: inline-block;
+                        }
+                        input{
+                            background-color: white;
+                            border: 1px solid var(--color-181);
+                            padding: 10px;
+                            width: 250px;
+                            border-radius: 5px;
+                        }
+                    }
+                    p{
+                        font-size: 14px;
+                        padding-top: 20px;
+                    }
+                }
+                tr:nth-child(3){
+                    input{
+                        background-color: white;
+                        border: 1px solid var(--color-181);
+                        padding: 10px;
+                        border-radius: 5px;
+                        width: 800px;
+                    }
+                }
+                tr:nth-child(4){
+                    input{
+                        width: 800px;
+                        background-color: white;
+                        border: 1px solid var(--color-181);
+                        padding: 10px;
+                        border-radius: 8px;
+                        height: 250px;
+                    }
+                }
+                tr:nth-child(2){
+                    div{
+                        font-weight: 100;
+                        font-size: 14px;
+                        margin-bottom: 20px;
+                        button{
+                            border: 1.5px solid var(--jinairgreen);
+                            padding: 4px 13px;
+                            border-radius: 5px;
+                            margin-right: 10px;
+                        }
+                    }
+                    li:not(:last-child){
+                        padding-bottom: 10px;
+                    }
+                    li{
+                        display: flex;
+                        align-items: center;
+                        label{
+                            // border: 1px solid red;
+                            width: 130px;
+                            display: inline-block;
+                        }
+                        select{
+                            padding: 10px;
+                            border-radius: 5px;
+                            width: 190px; 
+                            margin-right: 15px;
+                            border: 1px solid var(--color-181);
+                            background-color: white;
+                        }
+                        input{
+                            background-color: white;
+                            border: 1px solid var(--color-181);
+                            padding: 10px;
+                            width: 250px;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .mypage-qnaUpload-text-box {
+            display: flex;
+            justify-content: space-between;
+            span{
+                font-size: 24px;
+                position: relative;
+                z-index: 100;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+            span::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 8%;
+                margin-top: 0;
+                width: 100%;
+                height: 7px;
+                border-radius: 2px;
+                z-index: -1;
+                background: linear-gradient(to right, rgba(189, 214, 0, 0.7) 0%, rgba(211, 233, 46, 0) 100%);
+                .mypage-qnaUpload-text {
+                    color: red;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+//***********************************
+// admin qna
+// *******************************
+.admin-qna-comment-all-box{
+    // border: 1px solid red;
+    >div{
+        // border: 1px solid red;
+    }
+    >div:first-child{
+        margin-bottom: 30px;
+        height: auto;
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            td{
+                border: 1px solid gainsboro;
+                padding: 10px 0;
+                padding-left: 5px;
+            }
+            td:first-child{
+                width: 100px;
+            }
+        }
+    }
+    >div:nth-child(2){
+        height: auto;
+        border: 1px solid var(--color-nav-main);
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            td{
+                border: 1px solid gainsboro;
+                // padding: 10px 0;
+                padding-left: 5px;
+            }
+            td:first-child{
+                width: 100px;
+            }
+            input{
+                border: none;
+                width: 1000px;
+                padding: 10px;
+            }
+            tr:nth-child(2){
+                input{
+                    height: 130px;
+                }
+            }
+        }
+        >div{
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            button{
+                padding: 10px 15px;
+                background-color: var(--color-nav-main);
+                color:white;
+                font-size: 14px;
+            }
+        }
+    }
+}
+.admin-qna-comment-active {
+    background-color: #e6f4ff; // 기본 배경색
+    color: #007acc; // 기본 텍스트 색상
+  
+    &:hover {
+      background-color: #d0eaff; // hover 시 배경색
+      color: #007acc; // hover 시에도 같은 텍스트 색 유지
+    }
+  }
+.admin-qna-pagenation{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .page-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .page-link {
+    padding: 8px 12px;
+    border-radius: 4px;
+    // border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .page-link:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .active .page-link {
+    // background-color: #007bff;
+    color: black;
+    // border-color: #007bff;
+  }
+  
+  .prev, .next {
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  .exchange-all-box{
+    background-color: white;
+    text-align: right;
+    width: 100%;
+    h2{
+        font-size: 16px;
+    }
+    ul{
+        margin-top: 5px;
+        // border: 1px solid red;
+        width: 130px;
+        text-align: left;
+        margin-left: 1010px;
+    }
+}

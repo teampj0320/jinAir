@@ -133,9 +133,6 @@ concat(substring(Departure_date,6,2),'월') as month
  * // 예약번호 아이디로 예약조회
 *****************************/
 export const searchReservation = async ({ reserMessage1, reserMessage }) => {
-  console.log(reserMessage1);
-  console.log(reserMessage);
-
   const sql = `    
   select count(*) as result_rows
   from reservation 
@@ -162,4 +159,77 @@ export const getReservation = async ({ reserMessage, reserMessage1 }) => {
     `;
   const [result] = await db.execute(sql, [reserMessage, reserMessage1]);
   return { 'result': result[0] };
+}
+
+
+// qna 이미지 등록
+export const registerQna = async (formData) => {
+
+  const sql = `
+             insert into qna(
+                TYPE, TITLE,CONTENT,REG_DATE,qnaImg,category,customer_id
+                      )
+                      values('a',?,?,now(),json_array(?),?,?)                     
+            `;
+  const values = [
+    formData.inputData.title,
+    formData.inputData.content,
+    formData.upload_file || null,
+    formData.inputData.type,
+    formData.id,
+  ];
+
+  const [result] = await db.execute(sql, values);
+  return { "result_rows": result.affectedRows };
+}
+
+/***************************** 
+ *qna 가져오기
+*****************************/
+export const getQnaAll = async () => {
+  const sql = `    
+  select NO as no, TYPE as type, category, customer_id as id,comment,adminTitle,adminContent,
+    TITLE as title, CONTENT as content, left(REG_DATE,10) as reg_date
+   from qna    
+    `;
+  const [result] = await db.execute(sql);
+  return { 'result': result };
+}
+
+export const getQna = async (qid) => {
+  // console.log('qid===>',qid);
+  const sql = `
+         select NO as no, TYPE as type, category, customer_id as id,comment,adminTitle,adminContent,
+           CONCAT('http://localhost:9000/', jt.img) AS image,
+    TITLE as title, CONTENT as content, left(REG_DATE,10) as reg_date
+          from qna ,
+          JSON_TABLE(
+  JSON_UNQUOTE(qna.qnaImg->>'$[0]'),
+  '$[*]' COLUMNS (
+    img VARCHAR(255) PATH '$'
+  )
+) AS jt
+ where no = ?
+              `;
+  const [result, field] = await db.execute(sql, [qid]);
+
+  return result[0];
+}
+
+
+// qna 답변여부 업데이트
+
+export const updateComment = async ({ no, inputData }) => {
+  // console.log(no);
+  // console.log(inputData);
+  
+  const sql = `
+             UPDATE qna
+            SET comment = '답변완료',
+                adminTitle = ?,
+                adminContent = ?
+            WHERE no = ?;
+              `;
+  const [result] = await db.execute(sql, [inputData.title, inputData.content, no]);
+  return { 'result_rows': result.affectedRows };
 }

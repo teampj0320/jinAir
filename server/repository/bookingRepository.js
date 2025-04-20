@@ -5,11 +5,6 @@ import { db } from './db.js';
  * 예약 가능 항공권 조회
 *****************************/
 export const getOnewayList = async({departure, arrive, startDate}) => {
-    // console.log("출발지 확인 : ", departure);
-    // console.log("도착지 확인 : ", arrive);
-    // console.log("출발일 확인 : ", startDate);
-    
-    // 출발일 수정 : 2025.04.01(화) -> 2025-04-01
     const date = startDate.replace(/\(.*\)/g, '').trim().replace(/\./g, '-');
 
     const sql = `
@@ -66,4 +61,46 @@ export const getLowPrice = async({start, end, departure, arrive}) => {
     // const [result] = await db.execute(sql, values);
 
     // console.log("결과 확인 --> ", result);
+}
+
+/***************************** 
+ * 탑승객 정보 입력 페이지
+ * 예매자 정보 호출
+*****************************/
+export const getUserInfo = async({id}) => {
+    // console.log("아이디 확인 --> ", id);
+    
+    const sql = `
+    select id,
+            email,
+            phone,
+            kname_first,
+            kname_last,
+            birth,
+            gender
+    from customer
+    where id = ?
+    `;
+    
+    const [result] = await db.execute(sql, [id]);
+
+    // console.log("정보 확인 --> ", result);
+    return {"result": result[0]};
+}
+
+/***************************** 
+ * 좌석 선택 페이지
+ * 좌석 정보 호출
+*****************************/
+export const getSeats = async({fnum}) => {
+    const sql = `
+    select *
+    from seats
+    where fNUM = ?
+    `;
+    
+    const [result] = await db.execute(sql, [fnum]);
+
+    // return result;
+    return {"result": result[0]};
 }

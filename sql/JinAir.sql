@@ -28,7 +28,9 @@ desc sub_category;
 
 -- ******** db 수정 테스트 **************** 
 
-
+UPDATE customer
+SET interest_area = NULL
+WHERE id = 'test1';
 
 -- customer 테이블 test1 아이디에 프사 넣기 (서령)
 UPDATE customer
@@ -63,7 +65,6 @@ CREATE TABLE `reservation` (
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
 VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희') , now()),
       ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now());
- delete from reservation where fNUM = 'LJ279' ;
 
 
 -- coupon 테이블 (신규)
@@ -89,3 +90,70 @@ VALUES ('test1', '[온라인 전용] 1천원 깜짝쿠폰' , 'cl0001', 1000 , '2
 -- 4/17 영문성 컬럼명 변경 ename_firtst -> ename_first
 alter table customer
 		rename column ename_firtst to ename_first ;
+        
+-- 좌석 테이블 생성
+CREATE TABLE `seats` (
+  `fNUM` varchar(20)	not null	PRIMARY KEY,
+  `basic_seats` json NOT NULL,
+  `reserved_basic` json NULL, 
+  `premium_seat` json NOT NULL,
+  `reserved_premium` json NULL,
+  KEY `SUB_SEATS_FK_fnum` (`fNUM`),
+  CONSTRAINT `SUB_SEATS_FK_fnum` FOREIGN KEY (`fNUM`) REFERENCES `flight` (`fNUM`)
+);
+-- qna 테이블에 이미지 추가
+alter table qna add column qnaImg json null ;
+
+-- qna 테이블 컬럼 추가 고객아이디, 문의유형컬럼
+ALTER TABLE qna
+ADD COLUMN customer_id varchar(20),
+ADD CONSTRAINT fk_customer
+FOREIGN KEY (customer_id) REFERENCES customer(id);
+alter table qna add column category varchar(30) not null;
+
+
+alter table qna add column comment varchar(10) null ;
+alter table qna add column adminTitle varchar(100) null ;
+alter table qna add column adminContent varchar(100) null ;
+
+
+-- promotion 테이블 (신규/서령)
+
+DROP TABLE promotion;
+
+CREATE TABLE promotion (
+  `no` INT AUTO_INCREMENT PRIMARY KEY,
+  `promo_area` VARCHAR(50) NOT NULL,
+  `category` JSON NULL,  
+  `images` VARCHAR(255) NULL, 
+  `A_acode` VARCHAR(10) NOT NULL  -- 도착지 공항 코드
+);
+INSERT INTO promotion (promo_area, category, images, A_acode) VALUES
+('다낭', '["hot", "beach"]', 'http://localhost:3000/promo_imgs/danang.jpg', 'DAD'),
+('세부', '["hot", "beach"]', 'http://localhost:3000/promo_imgs/cebu.jpg', 'CEB'),
+('오사카/간사이', '["hot", "shopping", "city"]', 'http://localhost:3000/promo_imgs/osaka.jpg', 'KIX'),
+('홍콩', '["hot", "shopping"]', 'http://localhost:3000/promo_imgs/hongkong.jpg', 'HKG'),
+('괌', '["hot", "beach"]', 'http://localhost:3000/promo_imgs/guam.jpg', 'GUM'),
+('푸껫', '["hot", "beach"]', 'http://localhost:3000/promo_imgs/phuket.jpg', 'HKT'),
+('코타키나발루', '["hot", "beach"]', 'http://localhost:3000/promo_imgs/kotakinabalu.jpg', 'BKI'),
+('방콕', '["shopping"]', 'http://localhost:3000/promo_imgs/bangkok.jpg', 'BKK'),
+('상하이/푸둥', '["shopping", "city"]', 'http://localhost:3000/promo_imgs/shanghaipudong.jpg', 'PVG'),
+('도쿄/나리타', '["shopping", "city"]', 'http://localhost:3000/promo_imgs/tokyonarita.jpg', 'NRT'),
+('나고야', '["hot", "city"]', 'http://localhost:3000/promo_imgs/nagoya.jpg', 'NGO'),
+('오키나와', '["beach"]', 'http://localhost:3000/promo_imgs/okinawa.jpg', 'OKA'),
+('다카마쓰', '["forest"]' , 'http://localhost:3000/promo_imgs/takamatsu.jpg', 'TAK'),
+('삿포로',  '["hot"]' , 'http://localhost:3000/promo_imgs/sapporo.jpg', 'CTS'),
+('후쿠오카',  '["hot", "city"]' , 'http://localhost:3000/promo_imgs/fukuoka.jpg', 'FUK'),
+('이시가키지마', '["forest"]' , 'http://localhost:3000/promo_imgs/ishigakijima.jpg', 'ISG'),
+('기타큐슈',  '["city"]' , 'http://localhost:3000/promo_imgs/kitakyushu.jpg', 'KKJ'),
+('보흘',  '["forest"]' , 'http://localhost:3000/promo_imgs/bohol.jpg', 'TAG'),    
+('클락',  '["forest"]' , 'http://localhost:3000/promo_imgs/clark.jpg', 'CRK'),    
+('나트랑',  '["beach", "hot"]' , 'http://localhost:3000/promo_imgs/nhatrang.jpg', 'CXR'),    
+('푸꾸옥',  '["beach", "hot"]' , 'http://localhost:3000/promo_imgs/phuquoc.jpg', 'PQC'),    
+('타이중',  '["forest", "city"]' , 'http://localhost:3000/promo_imgs/taichung.jpg', 'RMQ'),    
+('타이베이/타오위안',  '["shopping", "city"]' , 'http://localhost:3000/promo_imgs/taipeitaoyuan.jpg', 'TPE'),    
+('마카오',  '["city", "shopping"]' , 'http://localhost:3000/promo_imgs/macau.jpg', 'MFM'),    
+('정저우',  '["forest"]' , 'http://localhost:3000/promo_imgs/zhengzhou.jpg', 'CGO');
+
+        
+	

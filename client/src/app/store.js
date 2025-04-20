@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import searchReducer  from '../features/search/searchSlice.js';
-import authReducer  from '../features/auth/authSlice.js';
+import authSlice  from '../features/auth/authSlice.js';
 import adSearchReducer  from '../features/search/adminSearchSlice.js';
 // import customerReducer  from '../features/customer/customerSlice.js';
 import myinfoReducer  from '../features/myinfo/myinfoSlice.js';
 import bookingReducer from '../features/booking/bookingSlice.js';
+import paymentReducer from '../features/booking/paymentSlice.js';
 
 //로컬 스토리지에 저장된 리덕스 상태값 읽어보기
 const loadState = () => {
@@ -19,14 +20,12 @@ const loadState = () => {
 
 export const store = configureStore({
     reducer: {
-        login: authReducer,
+        login: authSlice,
         adSearch: adSearchReducer,
-        // cart: cartSlice,
-        // order: orderSlice,
-        // product: productSlice
         search : searchReducer,
         myinfo: myinfoReducer,
         booking: bookingReducer,
+        payment: paymentReducer,
     },
     preloadedState: loadState(),
 })

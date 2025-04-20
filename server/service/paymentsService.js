@@ -5,7 +5,7 @@ export async function confirmPayment(paymentInfo = {}) {
 
     const encryptedSecretKey = 'Basic ' + Buffer.from(secretKey + ':').toString('base64');
 
-    const response = await fetch('https://api.tosspayments.com/v1/payments/confirm', {
+    const response = await fetch('http://localhost:3000/booking/success', {
         method: 'POST',
         headers: {
             Authorization: encryptedSecretKey,

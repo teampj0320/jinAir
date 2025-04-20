@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getLogout } from "../service/authApi.js";
 import axios from "axios";
+import ExchangeRate from "./main/ExchangeRate.jsx";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ export default function Header() {
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const [menuData, setMenuData] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null); // activeMenu 상태로 각 메뉴 hover를 관리합니다.
+  const [isHover, setIsHover] = useState(true);
+  const handleEnter = () => { setIsHover(false) }
+  const handleLeave = () => { setIsHover(true) }
 
   const handleLoginToggle = () => {
     if (isLoggedIn) {
@@ -60,14 +64,30 @@ export default function Header() {
               <button>
                 <span>고객센터</span>
               </button>
-              <button>
+              {isHover &&
+              <button className="test">
                 <span>
                   <FaEarthAmericas />
                 </span>
-                <span style={{ paddingLeft: "5px" }}>한국(한국어)/KRW</span>
-              </button>
+                 <span style={{ paddingLeft: "5px" }}
+                  onMouseEnter={handleEnter} > 환율
+                </span>               
+              </button>              
+                }
+                {!isHover && 
+                   <button className="test">
+                   <span>
+                     <FaEarthAmericas />
+                   </span>
+                    <span style={{ paddingLeft: "5px" }}
+                     onMouseEnter={handleEnter} > 환율
+                   </span>               
+                 </button>
+                }
             </div>
-
+           {!isHover && <div onMouseLeave={handleLeave}>
+              <ExchangeRate />
+            </div>}
             <div className="header_top_menu">
               <div className="home_main_logo" onClick={() => handleNav("/")}>
                 <img
@@ -126,9 +146,8 @@ export default function Header() {
 
           {/* 각 메뉴의 hover 상태에 따라 메뉴를 보이게 설정 */}
           <div
-            className={`header_bottom_menu_warp1 ${
-              activeMenu === "menu1" ? "show" : ""
-            }`}
+            className={`header_bottom_menu_warp1 ${activeMenu === "menu1" ? "show" : ""
+              }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu1">
@@ -170,9 +189,8 @@ export default function Header() {
           </div>
 
           <div
-            className={`header_bottom_menu_warp2 ${
-              activeMenu === "menu2" ? "show" : ""
-            }`}
+            className={`header_bottom_menu_warp2 ${activeMenu === "menu2" ? "show" : ""
+              }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu2">
@@ -200,9 +218,8 @@ export default function Header() {
           </div>
 
           <div
-            className={`header_bottom_menu_warp3 ${
-              activeMenu === "menu3" ? "show" : ""
-            }`}
+            className={`header_bottom_menu_warp3 ${activeMenu === "menu3" ? "show" : ""
+              }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu3">
@@ -248,9 +265,8 @@ export default function Header() {
           </div>
 
           <div
-            className={`header_bottom_menu_warp4 ${
-              activeMenu === "menu4" ? "show" : ""
-            }`}
+            className={`header_bottom_menu_warp4 ${activeMenu === "menu4" ? "show" : ""
+              }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu4">

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getMyInfo, getInterest, couponCount } from '../service/myinfoApi.js';
 import { Modal } from 'antd';
 import MyCoupon from '../component/mypage/MyCoupon.jsx';
+import MypageNavigation from '../component/mypage/MypageNavigation.jsx';
 
 export default function MypageIndex() {
 
@@ -17,13 +18,13 @@ export default function MypageIndex() {
     const myCouponCnt = useSelector((state) => state.myinfo.couponcount);
 
 
-    /* 회원 정보 불러오기 */
+    /* 정보 불러오기 */
     useEffect(() => {
         console.log('불러온 회원 정보:', myinfo);
         if (isLoggedIn) {
-            dispatch(getMyInfo())
-            dispatch(getInterest());
-            dispatch(couponCount());
+            dispatch(getMyInfo()) // 유저 정보
+            dispatch(getInterest()); // 나의 관심 지역 
+            dispatch(couponCount()); // 쿠폰 카운트
             
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
@@ -42,12 +43,13 @@ export default function MypageIndex() {
     return (
         <div className='r-common mp-container'>
             <div className='mp-content'>
-                <section className='mypage-subtitle'>
+                {/* <section className='mypage-subtitle'>
                     <p className='f30'>마이페이지</p>
-                </section>
+                </section> */}
+                 <MypageNavigation />
                 <div className='mypage-index'>
                     <section className='mp-left box-style'>
-                        <article className='user-info'>
+                        <article className='user-info-col'>
                             <span>
                                 {myinfo.profile_img?.[0] ? (
                                     <img src={`http://localhost:9000${myinfo.profile_img[0]}`} />
@@ -108,7 +110,9 @@ export default function MypageIndex() {
                                 <div className='cursor-pointer' onClick={handleCouponTogle}>
                                     
                                     <b>
-                                        {couponCount ? `${myCouponCnt[0].coupon_count}개` : '0개'}
+                                    {myCouponCnt?.[0]?.coupon_count !== undefined
+    ? `${myCouponCnt[0].coupon_count}개`
+    : '0개'}
                                     </b>
                                     <span className='w300'>할인쿠폰</span>
                                 </div>

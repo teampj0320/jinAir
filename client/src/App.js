@@ -13,6 +13,7 @@ import CheckIn from './pages/Mypage/CheckIn.jsx';
 import MyInterest from './pages/Mypage/MyInterest.jsx';
 import MyQna from './pages/Mypage/MyQna.jsx';
 import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
+import CustomTicket from './pages/CustomTicket.jsx';
 import BookingOneWay from './pages/booking/BookingOneWay.jsx';
 import BookingPassenger from './pages/booking/BookingPassenger.jsx';
 import BookingSelectSeat from './pages/booking/BookingSelectSeat.jsx';
@@ -28,6 +29,9 @@ import AdminNotice from'./component/admin/AdminNotice.jsx';
 import AdminQna from'./component/admin/AdminQna.jsx';
 import ScrollToTop from './pages/ScrollToTop.jsx'
 import QnaUpload from './pages/Mypage/QnaUpload.jsx';
+import AdminQnaComment from './component/admin/AdminQnaComment.jsx';
+import SuccessPage from './component/payments/Success.jsx';
+import FailPage from './component/payments/Fail.jsx'; 
 
 export default function App() {
   return (
@@ -44,6 +48,7 @@ export default function App() {
         <Route path='/mypage/myQna' element={<MyQna />} />
         <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
         <Route path='/mypage/qnaUpload' element={<QnaUpload />} />
+        <Route path='/CustomTicket' element={<CustomTicket />} />
         <Route path='/booking/availabilityList/oneWay' element={<BookingOneWay />} />
         <Route path='/booking/availabilityList/go' element={<BookingGo />} />
         <Route path='/booking/availabilityList/back' element={<BookingBack />} />
@@ -51,6 +56,8 @@ export default function App() {
         <Route path='/booking/selectSeat' element={<BookingSelectSeat />} />
         <Route path='/booking/beforePayment' element={<BookingPayment />} />
         <Route path='/booking/afterPayment' element={<BookingCheckout />} />
+        <Route path='/booking/success' element={<SuccessPage />} />
+        <Route path='/booking/fail' element={<FailPage />} />
         {/* <Route path='/payment' element={<Payment />} />
         <Route path='/admin' element={<Admin />} />  */}
       </Route>
@@ -66,6 +73,7 @@ export default function App() {
         <Route path='/admin/flight/add' element={<AdminFlightAdd />} />
         <Route path='/admin/notice' element={<AdminNotice />} />
         <Route path='/admin/qna' element={<AdminQna />} />
+        <Route path='/admin/qnaComment/:qid' element={<AdminQnaComment />} />
       </Route>
     </Routes>
   </BrowserRouter>

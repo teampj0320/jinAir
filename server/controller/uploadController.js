@@ -1,7 +1,7 @@
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
-import { db } from '../repository/db.js'; // DB 연결
+import { db } from '../repository/db.js';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -23,7 +23,7 @@ export const fileUpload = (req, res) => {
             return res.status(500).json({ error: "파일 업로드 실패" });
         }
 
-        // 기존 이미지 삭제
+        // 기존 이미지 삭제 조건
         const oldFile = req.body.oldFile;
         if (oldFile) {
             const oldFilePath = path.join("images", oldFile);
@@ -46,7 +46,7 @@ export const fileUpload = (req, res) => {
             [newPath, id]
         );
 
-        // ✅ 클라이언트로 응답
+        // 클라이언트로 응답
         res.json({
             success: true,
             filename: req.file.filename,

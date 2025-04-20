@@ -399,6 +399,7 @@
 
     }
 
+
     .mypage-subtitle:after {
         content: "";
         display: block;
@@ -448,14 +449,45 @@
         gap: 12px;
     }
 
-    .user-info {
+    .user-info-col {
         display: flex;
         flex-flow: column;
-        text-align: center;
         padding: 45px 0;
+    }
+
+
+
+    .user-info-col {
 
         img {
             margin-bottom: 30px;
+
+        }
+
+        .default-profile-img {
+            margin-bottom: 30px;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 20px 0;
+
+            li {
+                font-size: 12px;
+            }
+        }
+    }
+
+    // 공통 
+    .user-info-col,
+    .user-info-row {
+
+        text-align: center;
+
+
+        img {
             border-radius: 100%;
             width: 80px;
             height: 80px;
@@ -468,23 +500,8 @@
             display: inline-block;
             border-radius: 100%;
             background: #efefef url('/assets/svg/noneprofile.svg') no-repeat 50% 50%;
-            margin-bottom: 30px;
             overflow: hidden;
         }
-
-
-
-        ul {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 20px 0;
-
-            li {
-                font-size: 12px;
-            }
-        }
-
 
         .modify-info {
             position: relative;
@@ -1060,6 +1077,7 @@
         box-sizing: border-box;
         justify-content: space-between;
         margin-top: 15px;
+        cursor: pointer;
 
         p {
             position: relative;
@@ -1697,12 +1715,19 @@
     }
 
     /* 나의 쿠폰 */
+
+    .coupon-desc{
+        padding: 20px 0 0 40px;
+    }
+
+
     .coupon-list {
         display: flex;
         flex-direction: column;
         gap: 25px;
         align-items: center;
-        margin: 30px 0 20px 0;
+        margin: 20px 0 20px 0;
+        
 
         .coupon-wrap {
             position: relative;
@@ -1739,8 +1764,8 @@
                 border-width: 1px 0 1px 0;
                 border-style: dashed;
                 border-color: #b4b4b4;
-                
-                .coupon-name{
+
+                .coupon-name {
                     font-size: 18px;
                     font-weight: 600;
                     padding-bottom: 10px;
@@ -1748,14 +1773,157 @@
 
             }
 
-            .coupon-bottom{
+            .coupon-bottom {
                 display: flex;
                 justify-content: space-between;
-                padding: 20px 24px ;
+                padding: 20px 24px;
                 align-items: center
             }
 
         }
     }
+
+
+    /* 맞춤 항공권 */
+
+
+    .customticket-subtitle {
+        display: flex;
+        align-items: center;
+        height: 120px;
+        padding: 0 40px;
+        border-radius: 10px 10px 0 0;
+        background: #ffffff;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+        z-index: 80;
+        margin-bottom: 2px;
+    }
+
+
+    .user-info-row {
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+        height: auto;
+        padding: 28px 50px;
+        border-radius: 10px 10px 0 0;
+        background: #ffffff;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+        z-index: 80;
+        gap: 130px;
+
+        ul {
+            padding-top: 20px;
+        }
+
+        .user-info-detail {
+            display: flex;
+            gap: 30px;
+        }
+
+    }
+
+
+    .customticket-user-name {
+        display: flex;
+        gap: 12px;
+        flex-flow: column;
+        text-align: left;
+        padding-right: 20px;
+
+
+
+    }
+
+    .customticket-user-interest-wrap {
+        display: flex;
+        gap: 18px;
+        padding-left: 80px;
+        border-left: 1px solid #d8d8d8;
+        text-align: left;
+
+
+        .theme-wrap {
+
+            b {
+                padding-left: 28px;
+                font-weight: 700;
+                font-size: 20px;
+                background: url('/assets/svg/icon_filter2.svg') no-repeat left center / 14px;
+            }
+
+            .checkd-interest-category {
+                display: flex;
+                gap: 12px 10px;
+                flex-direction: row !important;
+                flex-wrap: wrap;
+                max-width: 600px;
+                align-items: center;
+
+                li {
+                    padding: 4px 12px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    border: 1px solid #efefef;
+                    background: #efefef;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    transition: 0.2s all 0s ease-in-out, 0s border;
+
+                }
+
+                li.active {
+                    padding: 4px 12px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    background: #192547;
+                    color: #d3e92e;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    border: 1px solid #192547;
+                }
+            }
+        }
+
+    }
+
+
+    .customticket-list-title {
+
+       font-size: 22px;
+       padding: 40px 0 10px 0;
+       border-bottom: 1px solid;
+    }
+
+    .customticket-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin: 50px auto;
+
+        img {
+            align-self: center; 
+            border-radius: 10px;
+        }
+        .card-text {
+            
+            text-align: left; 
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 25px;
+            padding-top: 15px;
+
+            div {
+                display: flex;
+                gap: 5px;
+                padding-top: 5px;
+            }
+
+        }
+
+    }
+
+
 
 }

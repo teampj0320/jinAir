@@ -1,15 +1,153 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import BookingStep from '../../component/booking/BookingStep';
 import { MdArrowOutward } from "react-icons/md";
 import '../../scss/yuna.scss';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import BookingPassengerForm from '../../component/booking/BookingPassengerForm';
+import { getUserInfo, setPassengerInfo } from '../../service/bookingApi.js';
 
 export default function BookingPassenger() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const clickNextBtn = () => {
-        navigate('/booking/selectSeat');
+    const adultNum = useSelector(state => state.search.adultNum); // 성인 수
+    const pediatricNum = useSelector(state => state.search.pediatricNum); // 소아 수
+    const babyNum = useSelector(state => state.search.babyNum); // 유아 수
+    const total = useSelector(state => state.search.total); // 전체 인원수
+    const userInfo = useSelector(state => state.booking.userInfo);
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+    const hasCheckedLogin = useRef(false);
+
+    const [genders, setGenders] = useState([]); // 탑승객 여러 명일 때 성별 관리
+
+    useEffect(() => {
+        if (hasCheckedLogin.current) return;
+        hasCheckedLogin.current = true;
+    
+        if (isLoggedIn) {
+            dispatch(getUserInfo());
+        } else {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ? navigate('/login') : navigate('/'); 
+        }
+    }, [isLoggedIn]);
+
+    const [passengers, setPassengers] = useState(
+        Array.from({ length: total }, (_, i) => {
+            if (userInfo && i === 0) {
+                return {
+                    kname_first: userInfo.kname_first,
+                    kname_last: userInfo.kname_last,
+                    birth: userInfo.birth,
+                    id: userInfo.id,
+                    gender: userInfo.gender
+                };
+            } else {
+                return {
+                    kname_first: '',
+                    kname_last: '',
+                    birth: '',
+                    id: '',
+                    gender: '',
+                };
+            }
+        })
+    );
+
+    console.log("탑승객 정보 --> ", passengers);
+
+    /* 탑승객 정보 입력 이벤트 */
+    const handlePassengerChange = (index, field, value) => {
+        // const realIndex = index + 1;
+
+        setPassengers(prev => {
+            const updated = [...prev];
+            updated[index] = {
+                ...updated[index],
+                [field]: value,
+            };
+            return updated;
+        });
+    };
+
+    /* 유효성 체크 */
+    const actualInputFormCount = (adultNum > 0 ? adultNum - 1 : 0) + pediatricNum + babyNum;
+    // 탑승객별 ref 목록 생성
+    const refsList = useRef([]);
+    const msgRefsList = useRef([]);
+
+    if (refsList.current.length !== actualInputFormCount) {
+        refsList.current = Array.from({ length: actualInputFormCount }, () => ({
+            firstNameRef: React.createRef(),
+            lastNameRef: React.createRef(),
+            birthRef: React.createRef(),
+            genderRef: React.createRef()
+        }));
+
+        msgRefsList.current = Array.from({ length: actualInputFormCount }, () => ({
+            firstNameMsgRef: React.createRef(),
+            lastNameMsgRef: React.createRef(),
+            birthMsgRef: React.createRef(),
+            genderMsgRef: React.createRef()
+        }));
     }
+
+    // 유효성 검사 함수
+    const validate = () => {
+        let result = true;
+        for (let i = 0; i < actualInputFormCount; i++) {
+            const refs = refsList.current[i];
+            const msgRefs = msgRefsList.current[i];
+            const passengerIndex = i + 1; // 0번은 로그인 유저라 제외
+
+
+            if (refs.firstNameRef.current.value.trim() === '') {
+                msgRefs.firstNameMsgRef.current.style.display = 'block';
+                refs.firstNameRef.current.focus();
+                result = false;
+            } else {
+                msgRefs.firstNameMsgRef.current.style.display = 'none';
+            }
+
+            if (refs.lastNameRef.current.value.trim() === '') {
+                msgRefs.lastNameMsgRef.current.style.display = 'block';
+                if (result) refs.lastNameRef.current.focus();
+                result = false;
+            } else {
+                msgRefs.lastNameMsgRef.current.style.display = 'none';
+            }
+
+            if (refs.birthRef.current.value.trim() === '') {
+                msgRefs.birthMsgRef.current.style.display = 'block';
+                if (result) refs.birthRef.current.focus();
+                result = false;
+            } else {
+                msgRefs.birthMsgRef.current.style.display = 'none';
+            }
+
+            if (!passengers[passengerIndex].gender || passengers[passengerIndex].gender.trim() === '') {
+                msgRefs.genderMsgRef.current.style.display = 'block';
+                result = false;
+            } else {
+                msgRefs.genderMsgRef.current.style.display = 'none';
+            }
+        }
+
+        return result;
+    }
+
+    /* 버튼 클릭 이벤트 */
+    const clickNextBtn = () => {
+        if (validate()) {
+            console.log("전체 탑승객 정보 -> ", passengers);
+            dispatch(setPassengerInfo(passengers));
+            navigate('/booking/selectSeat');
+        }
+    }
+
+    let refIndex = 0; // input 필드가 있는 폼만 추적
+    let formRenderIndex = 0; // ref index용 (로그인 유저 제외한 탑승객 수만큼)
 
     return (
         <div className='booking-passenger-wrap'>
@@ -18,55 +156,117 @@ export default function BookingPassenger() {
             <div className='booking-passenger-contents'>
                 <p className='booking-page-title'>2. 탑승객 정보</p>
 
-                <div className='booking-passenger-form'>
-                    <div className='booking-passenger-form-top'>
-                        <span>성인 1(인원수)</span>
-                        <div> {/* 삭제 고민해볼 것 */}
-                            <input type="checkbox" />
-                            <span>직접 입력</span>
-                        </div>
-                    </div>
-                    <div className='booking-passenger-info'>
-                        <ul className='booking-passenger-info-left'>
-                            <li>
-                                <label>이름<span>*</span></label>
-                                <div>
-                                    <input type="text" defaultValue="홍" />
-                                    <input type="text" defaultValue="길동" />
-                                </div>
-                            </li>
-                            <li>
-                                <label>생년월일<span>*</span></label>
-                                <input type="text" defaultValue="19890704" />
-                            </li>
-                            <li>
-                                <label>회원아이디</label>
-                                <input type="text" defaultValue="GILDONG" />
-                            </li>
-                        </ul>
-                        <ul className='booking-passenger-info-right'>
-                            <li>
-                                <label>성별<span>*</span></label>
-                                <div>
-                                    <div>남자</div>
-                                    <div>여자</div>
-                                </div>
-                            </li>
-                            <li>
-                                <label>국적<span>*</span></label>
-                                <select name="country" id="">
-                                    <option value="default">한국(REPUBLIC OF KOREA)</option>
-                                </select>
-                            </li>
-                            <li> {/* 삭제 고민해볼 것 */}
-                                <label>추가할인</label>
-                                <select name="discount" id="">
-                                    <option value="default">선택</option>
-                                </select>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                {/* 순회 - 인원수에 따라 */}
+                {/* {adultNum > 0 &&
+                    Array.from({ length: adultNum }).map((_, index) => (
+                        <BookingPassengerForm
+                            type={'성인'}
+                            index={index}
+                            click={clickNextBtn}
+                            onChange={handlePassengerChange}
+                            refs={refs.current[index]}
+                            msgRefs={msgRefs.current[index]}
+                        />
+                    ))
+                }
+                {pediatricNum > 0 &&
+                    Array.from({ length: pediatricNum }).map((_, index) => (
+                        <BookingPassengerForm
+                            type={'소아'}
+                            index={index}
+                            click={clickNextBtn}
+                            onChange={handlePassengerChange}
+                            refs={refs.current[index]}
+                            msgRefs={msgRefs.current[index]}
+                        />
+                    ))
+                }
+                {babyNum > 0 &&
+                    Array.from({ length: babyNum }).map((_, index) => (
+                        <BookingPassengerForm
+                            type={'유아'}
+                            index={index}
+                            click={clickNextBtn}
+                            onChange={handlePassengerChange}
+                            refs={refs.current[index]}
+                            msgRefs={msgRefs.current[index]}
+                        />
+                    ))
+                } */}
+
+                {/* 성인 */}
+                {Array.from({ length: adultNum }).map((_, i) => {
+                    const isFirstAdult = i === 0;
+                    const currentIndex = isFirstAdult ? 0 : formRenderIndex + 1;
+                    const refProps = !isFirstAdult
+                        ? {
+                            refs: refsList.current[formRenderIndex],
+                            msgRefs: msgRefsList.current[formRenderIndex],
+                        }
+                        : {};
+
+                    if (!isFirstAdult) {
+                        formRenderIndex++
+                        refIndex++
+                    };
+
+                    return (
+                        <BookingPassengerForm
+                            type="성인"
+                            index={currentIndex}
+                            onChange={handlePassengerChange}
+                            click={clickNextBtn}
+                            {...refProps}
+                        />
+                    );
+                })}
+
+                {/* 소아 */}
+                {Array.from({ length: pediatricNum }).map((_, i) => {
+                    const currentIndex = formRenderIndex + 1; // 로그인 유저 이후 index
+                    const refProps = {
+                        refs: refsList.current[refIndex],
+                        msgRefs: msgRefsList.current[refIndex],
+                    };
+
+                    formRenderIndex++;
+                    refIndex++;
+
+                    return (
+                        <BookingPassengerForm
+                            type="소아"
+                            num={0}
+                            index={currentIndex}
+                            onChange={handlePassengerChange}
+                            click={clickNextBtn}
+                            {...refProps}
+                        />
+                    );
+                })}
+
+                {/* 유아 */}
+                {Array.from({ length: babyNum }).map((_, i) => {
+                    const currentIndex = formRenderIndex + 1;
+                    const refProps = {
+                        refs: refsList.current[refIndex],
+                        msgRefs: msgRefsList.current[refIndex],
+                    };
+
+                    formRenderIndex++;
+                    refIndex++;
+
+                    return (
+                        <BookingPassengerForm
+                            type="유아"
+                            num={0}
+                            index={currentIndex}
+                            onChange={handlePassengerChange}
+                            click={clickNextBtn}
+                            {...refProps}
+                        />
+                    );
+                })}
+
                 <div className='booking-passenger-info-desc'>
                     <div>
                         <p>&#60;탑승객 정보&#62;</p>
@@ -91,14 +291,14 @@ export default function BookingPassenger() {
                     <ul className='passenger-reservant-form'>
                         <li>
                             <label>이메일<span>*</span></label>
-                            <input type="text" defaultValue="gildong@gmail.com" />
+                            <input type="text" defaultValue={userInfo.email} />
                         </li>
                         <li>
                             <label>휴대전화번호<span>*</span></label>
                             <select name="country-num" id="">
                                 <option value="default">한국 (+82)</option>
                             </select>
-                            <input type="text" defaultValue="01012345678" />
+                            <input type="text" defaultValue={userInfo.phone} />
                         </li>
                     </ul>
                     <ul className='passenger-reservant-desc'>
