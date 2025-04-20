@@ -19,9 +19,9 @@ export default function MypageNavigation() {
                         menuOpen && (
                     <ul className='mp-menu-drop-down'>
                         <li onClick={()=>{navigate('../mypage/index')}} >마이페이지 홈</li>
-                        <li>나의 예약</li>
+                        <li onClick={()=>{navigate('../mypage/getReservation')}}>나의 예약</li>
                         <li onClick={()=>{navigate('../mypage/checkIn')}}>체크인 / 탑승권</li>
-                        <li onClick={()=>{navigate('../mypage/index')}}>나비포인트</li>
+                        {/* <li onClick={()=>{navigate('../mypage/index')}}>나비포인트</li> */}
                         <li onClick={()=>{navigate('../mypage/index')}}>할인쿠폰</li>
                         <li onClick={()=>{navigate('../mypage/myInterest')}}>관심 지역/테마</li>
                         <li onClick={()=>{navigate('../mypage/myQna')}}>고객문의</li>

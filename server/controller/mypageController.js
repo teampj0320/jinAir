@@ -96,11 +96,21 @@ export const applyCoupon = async(req, res) => {
 };
 
 /************************************
- *      맞춤 항공권
+ *    테마별 항공권 가져오기
 ************************************/
 
-// export const customTicket = async(req, res) => {
-//   const result = await repository.customTicket(req.body); 
-//   res.json(result);
-//   res.end();
-// };
+export const customTheme = async(req, res) => {
+  const result = await repository.customTheme(req.body); 
+  res.json(result);
+  res.end();
+};
+
+/************************************
+ * 유저가 설정한 관심지역 항공권 리스트 가져오기
+************************************/
+
+export const customArea = async(req, res) => {
+  const result = await repository.customArea(req.body); 
+  res.json(result);
+  res.end();
+};

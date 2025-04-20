@@ -10,8 +10,9 @@ import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getChatbotModalOpen, getMessage, getReserMessage, getReserMessage1,
- } from '../../../service/searchApi.js';
+import {
+    getChatbotModalOpen, getMessage, getReserMessage, getReserMessage1,
+} from '../../../service/searchApi.js';
 import config from "./config.js";
 import MessageParser from "./MessageParser.jsx";
 import ActionProvider from "./ActionProvider.jsx";
@@ -20,12 +21,14 @@ import 'react-chatbot-kit/build/main.css';
 
 export default function Chatbots() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [chatTab, setChatTab] = useState('');
     const [msg1, setMsg1] = useState(true);
     const [msg2, setMsg2] = useState(false);
     const [msg3, setMsg3] = useState(false);
     const message = useSelector(state => state.search.message);
-    
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+
 
     const list = [
         { tab: 'schedule', img: "/images/chatbot/icon_01_de.png" },
@@ -54,10 +57,12 @@ export default function Chatbots() {
         setChatTab('');
     }
     const handleQna = () => {
-        // 로그인 아닐때
-        // navigate('/login');
-        // 로그인 일때
-        // qna 페이지로 이동됨
+        if(isLoggedIn){
+            navigate('/mypage/qnaUpload');
+        }else{
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ? navigate('/login') : navigate('/');
+        }        
     }
     const handleMessage = (e) => {
         dispatch(getMessage(e.target.value));
@@ -112,7 +117,8 @@ export default function Chatbots() {
                         <ul>
                             {
                                 list.map((item) => (
-                                    <li onClick={() => {setChatTab(item.tab);
+                                    <li onClick={() => {
+                                        setChatTab(item.tab);
                                         dispatch(getMessage(''));
                                         dispatch(getReserMessage(''));
                                         dispatch(getReserMessage1(''));
@@ -129,7 +135,7 @@ export default function Chatbots() {
                     <div ref={componentRef}>
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
-                        {chatTab === 'reservation' && <Reservation/>}
+                        {chatTab === 'reservation' && <Reservation />}
                         {chatTab === 'food' && goFood()}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
