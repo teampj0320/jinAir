@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { getCheckinDate ,getCheckinFirstNm,getCheckinResnum,getCheckinLastNm} from '../../../service/searchApi.js';
+import { useNavigate } from 'react-router-dom';
 export default function MainSearchCheckIn() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [err, setErr] = useState({});
     const [form, setForm] = useState({});
     const handleData = (e) => {
@@ -53,7 +55,7 @@ export default function MainSearchCheckIn() {
         e.preventDefault();
         if (validate()) {
             setErr('');
-            alert('서버로 보내서 조회하기');
+            navigate('/mypage/checkIn');
         }
     }
 
