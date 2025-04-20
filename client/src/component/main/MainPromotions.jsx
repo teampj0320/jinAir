@@ -41,17 +41,17 @@ export default function MainPromotions() {
             </div>
             <div
               className="main_home_promotion_title_2"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/login")}
             >
               <span>
                 {isLoggedIn ? (
                   <>
                     #{user.kname_first}
-                    {user.kname_last}님을 위한 맞춤 프로모션 <LuArrowUpRight />
+                    {user.kname_last}님을_위한_맞춤_프로모션 <LuArrowUpRight />
                   </>
                 ) : (
                   <>
-                    #회원가입_추가정보입력_맞춤_최저가_항공권_정보_겟겟!{" "}
+                    #로그인_회원가입_후_맞춤_최저가_항공권_정보_겟겟!{" "}
                     <LuArrowUpRight />
                   </>
                 )}
