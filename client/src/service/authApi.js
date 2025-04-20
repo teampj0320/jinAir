@@ -1,4 +1,4 @@
-import { setIsLoggedIn, setLoginReset, setIsLogout } from '../features/auth/authSlice.js';
+import { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout } from '../features/auth/authSlice.js';
 import { axiosPost } from'./api.js';
 
 /***************************** 
@@ -35,3 +35,38 @@ export const getLogout = () => async(dispatch) =>{
   localStorage.clear();
   dispatch(setIsLogout());
 };
+
+
+/***************************** 
+ * 어드민 로그인 
+*****************************/
+export const getAdminLogin = (formData) => async(dispatch) => {
+  const url = `http://localhost:9000/admin/login`;
+  const data = formData; 
+
+  const loginResult = await axiosPost({url, data});
+  const cnt = loginResult.cnt;
+
+  if(loginResult.cnt){
+    localStorage.setItem("admin_id",formData.id);
+    localStorage.setItem("token",loginResult.token);
+    dispatch(setAdminIsLoggedIn({cnt}))
+  }else{
+    dispatch(setAdminIsLoggedIn({cnt}))
+  }
+};
+
+/***************************** 
+ * 어드민 로그인 리셋
+*****************************/
+export const getAdminLoginResest = () => async(dispatch) =>{
+  dispatch(setAdminLoginResest());
+};
+
+/***************************** 
+ * 어드민 로그아웃
+*****************************/
+export const getAdminLogout = () => async(dispatch) =>{
+  localStorage.clear();
+  dispatch(setAdminLogout());
+}

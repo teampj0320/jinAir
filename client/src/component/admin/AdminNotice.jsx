@@ -1,8 +1,21 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 
 export default function AdminNotice() {
-  
+  const [ formData, setFormData ] = useState([]);
+  const [ currentList, setCurrentList ] = useState(formData);
+
+  useEffect(()=>{
+    axios.post('http://localhost:9000/admin/noticeList')
+         .then((res)=>setFormData(res.data))
+         .catch((error)=>console.log(error))
+  },[]);
+
+  useEffect(() => {
+    setCurrentList(formData);
+  }, [formData]);
+
   return (
     <div className='admin-airlist-content'>
       <div className='admin-airlist-top'>
@@ -18,19 +31,23 @@ export default function AdminNotice() {
       <table className='admin-airlist'>
         <thead>
           <tr>
-            <th style={{width:'20px'}}><input type="checkbox" /></th>
+            <th style={{width:'20px'}}>
+              <input type="checkbox" />
+            </th>
             <th style={{width:'50px'}}>No</th>
             <th style={{width:'300px'}}>제목</th>
             <th style={{width:'130px'}}>등록일</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {currentList && currentList.map((data, idx)=>(
+            <tr key={idx}>
+              <td><input type="checkbox" /></td>
+              <td>{data.no}</td>
+              <td>{data.title}</td>
+              <td>{data.reg_date}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div className='admin-airlist-bottom'>

@@ -59,6 +59,7 @@
   position: relative;
 }
 .admin-content {
+  min-height: 700px;
   flex: 1;
   padding: 20px;
   background-color: #fff;
@@ -110,7 +111,7 @@
 .admin-airlist-content{
   width: 1100px;
   margin: 0 auto;
-  border: 1px solid red;
+  // border: 1px solid red;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -223,13 +224,13 @@
 /********************************
 어드민 항공권 등록 
 *********************************/
-.add-flight-info{
+.admin-add-air{
   // border: 1px solid red;
   width: 700px;
   margin: 0 auto;
 }
 .add-input-wrapper {
-  margin-bottom: 16px;
+  // margin-bottom: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
   box-sizing: border-box;
@@ -247,6 +248,9 @@
   justify-content: left;
   align-items: center;
   gap: 10px;
+}
+.admin-num-info-text{
+  margin-bottom: 16px;
 }
 .add-info .add-input-wrapper:first-child{
   width: 214px;
@@ -283,48 +287,53 @@
   border-radius: 8px;
   outline: none;
   box-sizing: border-box;
+  color: #666;
 }
-
 .admin-add-air .add-input-wrapper .add-fnum {
   font-size: 14px;
   border: none;
 }
-
 .admin-air-addbtn{
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 40px;
 }
-
-
-
-
 .add-contry,
-.add-flight-info{
+.add-flight-info,
+.admin-info-text,
+.admin-info-date-text{
   margin: 0 auto;
 }
 .add-flight-info{
   margin-top: 50px;
 }
-
-
-
-
-
-
-.contry-check{
-  // border: 1px solid red;
+.contry-check,
+.admin-info-text{
   width: 500px;
 }
 .check-time{
   padding-top: 15px;
   width: 700px;
 }
-
+.active-departure-country,
+.active-arrive-country {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px; 
+  display: inline-block; 
+  color: #000;
+}
+.validate-text {
+  margin: 0px 0px 15px 5px;
+  font-size: 12px;
+}
+.validate-text.error {
+  color: red;
+}
 .main-top-search-bottom-main-middle2 {
   margin-top: 10px;
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -352,66 +361,221 @@
   >div:nth-child(3) {
       color: var(--color-153);
   }
-
-  >div:nth-child(4) {
-      h3:not(.active-calendar-date) {
-          font-size: 16px;
-          // font-weight: 100;
-          color: var(--color-153);
-          margin-left: 10px;
-      }
-  }
-
-  >div:nth-child(5) {
-      h3:not(.active-calendar-date) {
-          font-size: 15px;
-          font-weight: 600;
-          // color: var(--color-153);
-          margin-left: 10px;
-      }
-  }
-
   >div {
-      border-bottom: 1px solid var(--color-153);
-      width: 230px;
+    border-bottom: 1px solid var(--color-153);
+    width: 230px;
 
-      >h5 {
-          font-size: 14.5px;
-          font-weight: 100;
-          margin-bottom: 3px;
-      }
+    >h5 {
+        font-size: 14.5px;
+        font-weight: 100;
+        margin-bottom: 3px;
+    }
 
-      >div:hover {
-          cursor: pointer;
-      }
+    >div:hover {
+        cursor: pointer;
+    }
 
-      >div {
-          // border: 1px solid blue;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          height: 40px;
+    >div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
 
-          span {
-              display: flex;
-              align-items: center;
-              padding-bottom: 10px;
-          }
+        span {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+        }
 
-          >h3:not(.active-calendar-date) {
-              font-size: 20px;
-              padding-bottom: 10px;
-          }
+        >h3:not(.active-calendar-date) {
+            font-size: 20px;
+            // color: var(--color-153);
+            padding-bottom: 10px;
+        }
 
-          .main-top-search-bottom-main-middle-icon {
-              font-size: 25px;
-              margin-right: 20px;
-              color: var(--color-153);
-          }
-      }
+        .main-top-search-bottom-main-middle-icon {
+            font-size: 25px;
+            margin-right: 20px;
+            color: var(--color-153);
+        }
+    }
   }
 }
+.admin-time-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 12px;
+  padding: 20px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 1001;
+
+  .time-modal-header {
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .time-select-body {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    select {
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+  }
+
+  .time-select-actions {
+    margin-top: 16px;
+    text-align: center;
+
+    button {
+      padding: 6px 12px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+}
+.admin-time-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  font-family: 'Pretendard', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+  }
+
+  .time-modal-header {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    padding: 16px;
+    border-bottom: 1px solid #c8d400;
+  }
+
+  .time-select-body {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 0;
+
+    select {
+      width: 70px;
+      padding: 6px 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      appearance: none;
+      text-align: center;
+      outline: none;
+      
+    }
+  }
+  .time-select-actions {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    button {
+      padding: 6px 14px;
+      font-size: 14px;
+      color: purple;
+      background-color: #fff;
+      border: 2px solid purple;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: #f6f6f6;
+      }
+    }
+  }
+}
+
 
 /********************************
 어드민 로그인 페이지 
 *********************************/
+.admin-login-content{
+  width: 500px;
+  min-height: 600px;
+  margin: 50px auto;
+  padding-right: 20px;
+}
+.admin-login-top{
+  width: 200px;
+  margin: 10px auto;
+  padding-right: 30px;
+  position: relative;
+}
+.admin-login-top img{
+  width: 250px;
+}
+.admin-login-top p {
+  position: absolute;
+  top: 50px;
+  left: 70px;
+  font-size: 20px;
+  color: rgb(173, 173, 173);
+}
+.admin-login-bottom{
+  width: 400px;
+  display: block;
+  margin: 100px auto;
+}
+.admin-login-bottom>div>input{
+  width: 400px;
+  padding: 15px 10px;
+  margin-top: 0px;
+  border: 1px solid rgb(173, 173, 173);
+  border-radius: 8px;
+  outline: none;
+}
+.admin-login-bottom>div:first-child>input{
+  margin-bottom: 20px;
+}
+.admin-login-btn,
+.admin-signup-btn{
+  width: 420px;
+  margin: 0 auto;
+  color: #ffffff;
+  background-color: var(--color-main);
+  border: none;
+  border-radius: 30px;
+  padding: 15px 120px;
+  margin: 45px 0px 0px;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.admin-signup-btn{
+  background-color: #f0f0f0;
+  color: purple;
+  margin-top: 25px;
+}
+.admin-find-userinfo{
+  display: block;
+  margin-top: 20px;
+  margin-left:  60px;
+  font-size: 13px;
+  color: #666;
+}

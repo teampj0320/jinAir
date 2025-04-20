@@ -22,7 +22,6 @@ import BookingBack from './pages/booking/BookingBack.jsx';
 import BookingCheckout from './pages/booking/BookingCheckout.jsx';
 import AdminLayout from'./pages/AdminLayout.jsx';
 import AdminLogin from'./component/admin/AdminLogin.jsx';
-import Admin from'./component/admin/Admin.jsx';
 import AdminFlightList from'./component/admin/AdminFlightList.jsx';
 import AdminFlightAdd from'./component/admin/AdminFlightAdd.jsx';
 import AdminNotice from'./component/admin/AdminNotice.jsx';
@@ -62,7 +61,6 @@ export default function App() {
         <Route path='/join/:part' element={<SignupFunnel />} />
       </Route>
       <Route element={<AdminLayout />}>
-        {/* <Route index element={<AdminLogin />} /> */}
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/flight' element={<AdminFlightList />} />
         <Route path='/admin/flight/add' element={<AdminFlightAdd />} />

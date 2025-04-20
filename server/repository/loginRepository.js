@@ -104,7 +104,7 @@ export const getIdCheck = async({id})=>{
 *****************************/
 export const setSignup = async(formData)=>{
   const sql =`
-    insert into customer (id, password, kname_first, kname_last, ename_firtst, ename_last
+    insert into customer (id, password, kname_first, kname_last, ename_first, ename_last
                         , phone, email, gender, birth, reg_date)
     values(?,?,?,?,?,?,?,?,?,?, now());
   `;

@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import searchReducer  from '../features/search/searchSlice.js';
-import authSlice  from '../features/auth/authSlice.js';
+import authReducer  from '../features/auth/authSlice.js';
+import adSearchReducer  from '../features/search/adminSearchSlice.js';
 // import customerReducer  from '../features/customer/customerSlice.js';
 import myinfoReducer  from '../features/myinfo/myinfoSlice.js';
 import bookingReducer from '../features/booking/bookingSlice.js';
@@ -18,7 +19,8 @@ const loadState = () => {
 
 export const store = configureStore({
     reducer: {
-        login: authSlice,
+        login: authReducer,
+        adSearch: adSearchReducer,
         // cart: cartSlice,
         // order: orderSlice,
         // product: productSlice
