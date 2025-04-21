@@ -12,7 +12,7 @@ export default function BookingPayment() {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const { resevationType } = useSelector(state => state.booking);
   const backFlightNum = useSelector((state) => state.booking.backFlightNum);
   const goFlightNum = useSelector((state) => state.booking.goFlightNum);
@@ -33,7 +33,7 @@ export default function BookingPayment() {
   useEffect(() => {
     const total_payment_price =
       (goTicketPrice * passengers.length) + (backTicketPrice * passengers.length);
-console.log(passengers);
+    console.log(passengers);
 
     // 리덕스에 total_payment_price 저장
     dispatch(setTotalPaymentPrice(total_payment_price));
@@ -156,7 +156,7 @@ console.log(passengers);
                     <div>{selectedFlights[0]?.Departure_location} {selectedFlights[0]?.D_acode}</div>
                     <BiSolidPlaneTakeOff />
                     <div>{selectedFlights[0]?.Arrive_location} {selectedFlights[0]?.A_acode}</div>
-                    <div>{formatDate(selectedFlights[0]?.Arrive_date)} ~ {formatDate(selectedFlights[0]?.Departure_date)}</div> 
+                    <div>{formatDate(selectedFlights[0]?.Arrive_date)} ~ {formatDate(selectedFlights[0]?.Departure_date)}</div>
                   </div>
                 </div>
               </div>
@@ -215,16 +215,19 @@ console.log(passengers);
                 </tr>
               </thead>
               <tbody>
-                {passengers && passengers.map((passenger, index) => (
-                  <tr key={index}>
-                    <td>{passenger.kname_first}{passenger.kname_last}</td>
-                    <td>성인</td> {/* 현재는 모두 성인으로 표시 */}
-                    <td>{passenger.gender}</td>
-                    <td>{passenger.birth}</td>
-                    <td>한국(REPUBLIC OF KOREA)</td>
-                  </tr>
-                ))}
+                {passengers && passengers.map((passenger, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{passenger.kname_first}{passenger.kname_last}</td>
+                      <td>성인</td>
+                      <td>{passenger.gender}</td>
+                      <td>{passenger.birth}</td>
+                      <td>한국(REPUBLIC OF KOREA)</td>
+                    </tr>
+                  );
+                })}
               </tbody>
+
             </table>
           </article>
         </section>
