@@ -19,7 +19,7 @@ export default function BookingGoSelectSeat() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const flightNum = useSelector(state => state.booking.flightNum);
+    const goFlightNum = useSelector(state => state.booking.goFlightNum);
     const ticketPrice = useSelector(state => state.booking.ticketPrice);
     const passengers = useSelector((state) => state.booking.passengers);
     const goSeatType = useSelector(state => state.booking.goSeatType); // 왕복 가는 편 좌석 타입
@@ -39,7 +39,7 @@ export default function BookingGoSelectSeat() {
     }, []);
 
     useEffect(() => {
-        dispatch(getSeats(flightNum)); // 편도일 때
+        dispatch(getSeats(goFlightNum));
     }, []);
 
     /* 모달창 스타일 */
