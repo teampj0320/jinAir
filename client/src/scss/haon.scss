@@ -3127,6 +3127,8 @@ h2.react-datepicker__current-month {
     width: 190px;
     border: 1px solid var(--color-nav-main);  
     border-radius: 5px;
+    z-index: 10000000000;
+    background-color: #d0eaff;
     h2{
         font-size: 15px;
         margin-bottom: 5px;
