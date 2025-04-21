@@ -92,16 +92,16 @@ export default function CheckIn() {
                                         {dayjs(itemGroup[0].departure_date).isSame(dayjs(), 'day') ? (
                                             <>
                                                 가능
-                                                <p className='f12 w300 text-center'>항공기 출발 24시간 <br/>
-                                                전부터 가능</p>
+                                                <p className='f12 w300 text-center'>항공기 출발 24시간 <br />
+                                                    전부터 가능</p>
                                                 b
                                             </>
                                         ) : (
                                             <>불가능
-                                                <p className='f12 w300 text-center'>항공기 출발 24시간 <br/>
-                                                전부터 가능</p>
-                                               <button className='w600'>탑승권 발행</button>
-                                                </>
+                                                <p className='f12 w300 text-center'>항공기 출발 24시간 <br />
+                                                    전부터 가능</p>
+                                                <button className='w600'>탑승권 발행</button>
+                                            </>
                                         )}
                                     </div>
                                 </section>

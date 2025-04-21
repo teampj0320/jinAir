@@ -8,17 +8,17 @@ import 'dayjs/locale/ko';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function MyQna() {
-
+    dayjs.locale('ko');  // 날짜 포맷
     const navigate = useNavigate();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const [qnaData, setQnaData] = useState(null);
-    
+
     // qna 테이블 불러오기
     useEffect(() => {
 
         if (isLoggedIn) {
             const id = localStorage.getItem('user_id');
-            
+
             axios.post('http://localhost:9000/mypage/getMyQna', { id })
                 .then((res) => {
                     console.log('서버 응답 데이터:', res.data);
@@ -44,38 +44,65 @@ export default function MyQna() {
                         </div>
                     </div>
                     <div className='mp-table-wrap'>
-                    <ul className='myRes-thead'>
+                        <ul className='myRes-thead'>
                             <li style={{ flex: '2' }}>카테고리</li>
                             <li style={{ flex: '6' }}>제목</li>
                             <li style={{ flex: '1' }}>아이디</li>
                             <li style={{ flex: '2' }}>작성일</li>
                             <li style={{ flex: '1' }}>조회수</li>
                         </ul>
-                        <section className='myQna-tbody'>
-                        <div>
-                            ddd
-                        </div>
-                        <div>
-                            ddd
-                        </div>
-                        <div>
-                            ddd
-                        </div>
-                        <div>
-                            ddd
-                        </div>
-                        <div>
-                            ddd
-                        </div>
-                        </section>
-                        
-                        
-                        
-                        
-                        <div className='res-list-none' style={{display:'none'}}>
+                        {
+                            qnaData ? qnaData.map((item) =>
+                            (
+
+                                <section className='myQna-tbody'>
+                                    <div className='myQna-title-wrap'>
+                                        <div>
+                                            {item.category}
+                                        </div>
+                                        <div>
+                                            {item.TITLE}
+                                        </div>
+                                        <div>
+                                            {item.id}
+                                        </div>
+                                        <div>
+                                        {dayjs(item.REG_DATE).format('YYYY.MM.DD HH:mm')}
+                                        </div>
+                                        <div>
+                                            0
+                                        </div>
+                                    </div>
+                                    <div className='myQna-content'>
+                                        <div className='myQna-content-user'>
+                                        <p> <b className='f20'>Q.</b>
+                                            {item.TITLE}</p>
+                                        <p>{item.CONTENT}</p>
+                                            
+                                            <img src={item.image} alt="" />
+
+                                        </div>
+                                        <div className='myQna-content-admin'> 
+                                            <p> <b className='f20'>A.</b>
+                                            {item.adminTitle}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+
+                                </section>
+
+                            )) : (
+                        <div className='res-list-none'>
                             <span></span>
                             <p>문의내역이 없습니다.</p>
                         </div>
+                            )
+                        }
+
+
+
+
                     </div>
                 </section>
             </div> {/* 해당 컴포넌트 가운데 정렬*/}
