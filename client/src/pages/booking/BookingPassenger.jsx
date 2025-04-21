@@ -96,7 +96,7 @@ export default function BookingPassenger() {
         });
     };
 
-    console.log("탑승객 정보 --> ", passengers);
+    console.log("타입 체크 --> ", resevationType);
     /* 유효성 체크 */
     const actualInputFormCount = (adultNum > 0 ? adultNum - 1 : 0) + pediatricNum + babyNum;
     // 탑승객별 ref 목록 생성
@@ -166,10 +166,8 @@ export default function BookingPassenger() {
     /* 버튼 클릭 이벤트 */
     const clickNextBtn = () => {
         if (validate()) {
-            console.log("전체 탑승객 정보 -> ", passengers);
             dispatch(setPassengerInfo(passengers));
             resevationType === 'oneWay' ? navigate('/booking/selectSeat') : navigate('/booking/selectGoSeat');
-            navigate('/booking/selectSeat');
         }
     }
 
