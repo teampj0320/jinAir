@@ -3115,14 +3115,32 @@ h2.react-datepicker__current-month {
 
 .exchange-box{
     position: fixed;
-    padding: 3px;
+    padding: 7px;
     right: 0px;
     bottom: 180px;
-    width: 120px;
+    width: 190px;
     border: 1px solid var(--color-nav-main);  
     border-radius: 5px;
     h2{
         font-size: 15px;
         margin-bottom: 5px;
     }
+}
+.header_exchange{
+    >div{
+        border-top: 1px solid var(--color-nav-main);
+        padding: 3px;
+        ul{
+            display: flex;
+            margin-bottom: 5px;
+            li{
+                display: flex;
+                list-style-type: none;
+                input{
+                    width: 60px;
+                }
+            }
+        }
+    }
+    
 }
