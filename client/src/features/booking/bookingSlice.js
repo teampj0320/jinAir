@@ -5,12 +5,12 @@ const initialState = {
 
     ticketList : [], // 예약 가능 항공권 목록
     resevationType : '', // 예약 타입(편도/왕복)
+    oneWayBseats: [], // 베이직석 리스트
+    oneWayPseats: [], // 프리미엄석 리스트
     
     flightNum: '', // 편도 비행편 번호(fNUM)
     seatType: '', // 편도 좌석 타입(일반석/프리미엄석)
     ticketPrice: 0, // 편도 좌석 가격
-    oneWayBseats: [], // 편도 베이직석 리스트
-    oneWayPseats: [], // 편도 프리미엄석 리스트
     oneWaySeats: [], // 편도 선택 좌석 리스트
 
     goFlightNum: '', // 왕복 가는 비행편 번호(fNUM)

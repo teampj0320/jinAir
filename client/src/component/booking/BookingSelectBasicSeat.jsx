@@ -8,22 +8,15 @@ import BookingSeatAlert from '../../component/booking/BookingSeatAlert.jsx';
 import Modal from 'react-modal';
 
 export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNum}) {
-    const dispatch = useDispatch();
-
     const adultNum = useSelector(state => state.search.adultNum);
     const pediatricNum = useSelector(state => state.search.pediatricNum);
     const babyNum = useSelector(state => state.search.babyNum);
-    const flightNum = useSelector(state => state.booking.flightNum);
     const oneWayBseats = useSelector(state => state.booking.oneWayBseats); // 편도 베이직석 리스트
     const oneWayPseats = useSelector(state => state.booking.oneWayPseats); // 편도 프리미엄석 리스트
 
     const total = adultNum + pediatricNum + babyNum;
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    useEffect(() => {
-        dispatch(getSeats(flightNum)); // 편도일 때
-    }, []);
 
     /* 좌석 선택 이벤트 */
     const setSeatNum = (seat) => {
