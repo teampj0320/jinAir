@@ -155,5 +155,8 @@ INSERT INTO promotion (promo_area, category, images, A_acode) VALUES
 ('마카오',  '["city", "shopping"]' , 'http://localhost:3000/promo_imgs/macau.jpg', 'MFM'),    
 ('정저우',  '["forest"]' , 'http://localhost:3000/promo_imgs/zhengzhou.jpg', 'CGO');
 
-        
+-- 4/21 qna 관리자 제목,답변,답변여부 컬럼 추가
+alter table qna add column comment varchar(10) null;
+alter table qna add column adminTitle varchar(100) null;
+alter table qna add column adminContent varchar(100) null;
 	
