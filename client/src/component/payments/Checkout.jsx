@@ -80,7 +80,7 @@ export function CheckoutPage() {
                  */
                 await widgets?.requestPayment({
                   orderId: generateRandomString(),
-                  orderName: "토스 티셔츠 외 2건",
+                  orderName: "진에어 항공권",
                   customerName: "김토스",
                   customerEmail: "customer123@gmail.com",
                   successUrl:

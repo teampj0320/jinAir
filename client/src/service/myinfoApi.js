@@ -93,14 +93,33 @@ export const couponCount = () => async (dispatch) => {
 // 테스트 함수 : handleUseCoupon
 // 쿠폰 하나만 적용하여 사용하는 로직으로 쿠폰 2개 이상 선택할 시에는 리듀서 추가해야함
 
+// export const applyCoupon = (couponCode) => async (dispatch) => {
+//     const url = 'http://localhost:9000/mypage/applyCoupon';
+//     const id = localStorage.getItem("user_id");
+  
+//     const result = await axiosPost({ url, data: { id, couponCode } });
+  
+//      if (result && result[0]) {
+//         dispatch(setCouponCount(result[0].coupon_count));
+//     }
+//   };
+  
 export const applyCoupon = (couponCode) => async (dispatch) => {
     const url = 'http://localhost:9000/mypage/applyCoupon';
     const id = localStorage.getItem("user_id");
   
     const result = await axiosPost({ url, data: { id, couponCode } });
   
-     if (result && result[0]) {
-        dispatch(setCouponCount(result[0].coupon_count));
+    if (result && result[0]) {
+      dispatch(setCouponCount(result[0].coupon_count));
+  
+      // ✅ 쿠폰 다시 불러오기
+      const refreshUrl = 'http://localhost:9000/mypage/getMyCoupon';
+      const refreshResult = await axiosPost({ url: refreshUrl, data: { id } });
+  
+      if (refreshResult) {
+        dispatch(setMyCoupon(refreshResult));
+      }
     }
   };
   

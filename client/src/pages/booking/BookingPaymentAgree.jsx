@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     FaAngleUp,
     FaAngleDown,
@@ -8,6 +8,7 @@ import {
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
 
 export default function BookingPaymentAgree() {
+    // 열려있는 동의란 관리
     const [openStates, setOpenStates] = useState({
         more1: false,
         more2: true,
@@ -19,6 +20,17 @@ export default function BookingPaymentAgree() {
         addition4: false,
     });
 
+    // 이용약관 중 위험 물질 관리
+    const [dangerousItems, setDangerousItems] = useState([]);
+
+    useEffect(() => {
+        fetch("/data/agree.json")
+            .then((response) => response.json())
+            .then((data) => setDangerousItems(data))
+            .catch((error) => console.error("Error loading the JSON file", error));
+    }, []);
+
+    //전체선택
     const handleCheckAll = () => {
         const newValue = !openStates.additionall;
         setOpenStates((prev) => ({
@@ -30,7 +42,7 @@ export default function BookingPaymentAgree() {
             addition4: newValue,
         }));
     };
-
+    // 개별선택 => 전체선택 관여
     const updateAllCheckStatus = (updatedStates) => {
         const allChecked =
             updatedStates.addition1 &&
@@ -219,214 +231,19 @@ export default function BookingPaymentAgree() {
 
                 {openStates.more2 && (
                     <div className="bottom-more-goods">
-                        {/* 위험물 이미지 블럭 전체 출력 */}
-                        <div>
-                            <strong>폭발물</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/ammunition.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        탄약 <br /> Ammunition
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/fireworks.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        폭죽 <br /> Fireworks
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>가스류</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/aerosols.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        에어로졸 <br /> Aerosols
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/butane-gas.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        부탄가스 <br /> Butane Gas
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>인화성 액체</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/paint.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        페인트 <br /> Paint
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/alcohol.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        알코올 <br /> Alcohol
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>인화성 고체</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/solid-fuel.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        고체연료 <br /> Solid Fuel
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/ignition-coal.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        번개탄 <br /> Ignition Coal
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>산화성 물질</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/crorox.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        락스 <br /> Crorox
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/bleaching-poxer.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        표백제 <br /> Bleaching Poxer
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>독성 및 전염성 물질</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/herbcide.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        제초제 <br /> Herbcide
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/pesticide.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        살충제 <br /> Pesticide
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>방사성 물질</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/radioisotope.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        방사성 동위원소 <br /> Radioisotope
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/radiographic-test-equipmenr.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        방사선 투과검사 장비 <br /> Radiographic Test Equipmenr
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>부식성 물질</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/wet-battery.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        습식 배터리 <br /> Wet Battery
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/mercury-thermometer.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        수은 온도계 <br /> Mercury Thermometer
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>기타 위험 물질</strong>
-                            <ul>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/spare-liion-batteries.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        여분의 리튬 <br /> Spare Li-ion Batteries
-                                    </p>
-                                </li>
-                                <li>
-                                    <img
-                                        src="https://images.jinair.com/newHom/images/web/reservation/dangerous/dry-ice.png"
-                                        alt=""
-                                    />
-                                    <p>
-                                        드라이아이스 <br /> Dry Ice
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
+                        {dangerousItems.map((category, index) => (
+                            <div key={index} className="dangerous-item-category">
+                                <strong>{category.category}</strong>
+                                <ul>
+                                    {category.items.map((item, idx) => (
+                                        <li key={idx} className="dangerous-item">
+                                            <img src={item.img} alt={item.name} />
+                                            <p>{item.name} <br /> {item.name_en}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
                     </div>
                 )}
 
