@@ -25,7 +25,7 @@ export default function MypageIndex() {
             dispatch(getMyInfo()) // 유저 정보
             dispatch(getInterest()); // 나의 관심 지역 
             dispatch(couponCount()); // 쿠폰 카운트
-            
+
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
             select ? navigate('/login') : navigate('/');
@@ -46,7 +46,7 @@ export default function MypageIndex() {
                 {/* <section className='mypage-subtitle'>
                     <p className='f30'>마이페이지</p>
                 </section> */}
-                 <MypageNavigation />
+                <MypageNavigation />
                 <div className='mypage-index'>
                     <section className='mp-left box-style'>
                         <article className='user-info-col'>
@@ -108,11 +108,11 @@ export default function MypageIndex() {
                                     <span className='w300'>나비포인트</span>
                                 </div>
                                 <div className='cursor-pointer' onClick={handleCouponTogle}>
-                                    
+
                                     <b>
-                                    {myCouponCnt?.[0]?.coupon_count !== undefined
-    ? `${myCouponCnt[0].coupon_count}개`
-    : '0개'}
+                                        {myCouponCnt?.[0]?.coupon_count !== undefined
+                                            ? `${myCouponCnt[0].coupon_count}개`
+                                            : '0개'}
                                     </b>
                                     <span className='w300'>할인쿠폰</span>
                                 </div>

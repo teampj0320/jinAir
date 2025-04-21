@@ -46,7 +46,7 @@ export const updateMyInfo = async (data) => {
     WHERE id = ?
   `;
 
- 
+
   const values = [
     data.email ?? null,
     data.phone ?? null,
@@ -245,11 +245,11 @@ export const customArea = async ({ id }) => {
     "태국": ["BKK", "HKT"]
   };
 
-    // 관심국가를 A_acode(도착지 공항코드) 목록으로 변환
+  // 관심국가를 A_acode(도착지 공항코드) 목록으로 변환
   const acodeList = interest.flatMap(country => areaList[country] || []);
   if (!acodeList.length) return [];
 
-   // A_acode(도착지 공항코드)에 해당하는 항공편 정보 조회
+  // A_acode(도착지 공항코드)에 해당하는 항공편 정보 조회
   const questionMarks = acodeList.map(() => '?').join(',');
 
   const sql = `
@@ -279,8 +279,22 @@ export const customArea = async ({ id }) => {
 
 
 export const getMyQna = async ({ id }) => {
-  const sql = `select * from qna where id = ?`;
+  const sql = `SELECT TITLE, CONTENT, REG_DATE, 
+    category, comment, adminTitle, adminContent, customer_id AS id,
+     (
+    SELECT CONCAT('http://localhost:9000/', jt.img)
+    FROM JSON_TABLE(
+      JSON_UNQUOTE(qnaImg->>'$[0]'),
+      '$[*]' COLUMNS (
+        img VARCHAR(255) PATH '$'
+      )
+    ) AS jt
+    LIMIT 1
+  ) AS image
+FROM qna 
+WHERE customer_id = ? `;
   const [result] = await db.execute(sql, [id]);
 
   return result;
+
 };

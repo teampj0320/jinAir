@@ -1638,7 +1638,7 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-
+            padding: 10px 0;
         }
 
 
@@ -1717,7 +1717,7 @@
 
     /* 나의 쿠폰 */
 
-    .coupon-desc{
+    .coupon-desc {
         padding: 20px 0 0 40px;
     }
 
@@ -1728,7 +1728,7 @@
         gap: 25px;
         align-items: center;
         margin: 20px 0 20px 0;
-        
+
 
         .coupon-wrap {
             position: relative;
@@ -1891,9 +1891,9 @@
 
     .customticket-list-title {
 
-       font-size: 22px;
-       padding: 40px 0 10px 0;
-       border-bottom: 1px solid;
+        font-size: 22px;
+        padding: 40px 0 10px 0;
+        border-bottom: 1px solid;
     }
 
     .customticket-list {
@@ -1903,12 +1903,13 @@
         margin: 50px auto;
 
         img {
-            align-self: center; 
+            align-self: center;
             border-radius: 10px;
         }
+
         .card-text {
-            
-            text-align: left; 
+
+            text-align: left;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -1927,42 +1928,84 @@
 
     // 나의 문의, 
     // myres tbody랑 합치기
-    
+
     .myQna-tbody {
         width: 100%;
         display: flex;
         gap: 6px;
-        padding: 15px 0;
+        align-items: center;
+        flex-direction: column;
         background: #ffffff;
         border-radius: 10px;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
         margin-bottom: 5px;
         text-align: center;
+        color: var(--color-nav-main);
+        
+        .myQna-title-wrap {
+            width: 100%;
+            display: flex;
+            
+            gap: 6px;
+            padding: 15px 0;
 
-        >div:nth-of-type(1) {
-            flex: 2;
+            >div:not(:first-child) {
+                border-left: 1px dashed #b4b4b4;
+            }
+    
+            >div:nth-of-type(1) {
+                flex: 2;
+            }
+    
+            /* 카테고리 */
+            >div:nth-of-type(2) {
+                flex: 6;
+                text-align: left;
+                padding-left: 20px;
+            }
+    
+            /* 제목 */
+            >div:nth-of-type(3) {
+                flex: 1;
+            }
+    
+            /* 작성일 */
+            >div:nth-of-type(4) {
+                flex: 2;
+            }
+    
+            /* 조회수 */
+            >div:nth-of-type(5) {
+                flex: 1;
+            }
         }
 
-        /* 카테고리 */
-        >div:nth-of-type(2) {
-            flex: 6;
-        }
 
-        /* 제목 */
-        >div:nth-of-type(3) {
-            flex: 1;
-        }
+    }
 
-        /* 작성일 */
-        >div:nth-of-type(4) {
-            flex: 2;
-        }
+    .myQna-content{
+        background-color: #efefef ;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        width: 95%;
+        height: 300px;
+        padding: 15px;
+        text-align: left;
 
-        /* 조회수 */
-        >div:nth-of-type(5) {
-            flex: 1;
-        }
+        .myQna-content-user {
+            
 
+            img {
+                width: 100px;
+                height: 100px;
+                border-radius: 10px;
+                margin: 10px;
+            }
+
+            .myQna-content-admin{
+                
+            }
+        }
     }
 
 }
