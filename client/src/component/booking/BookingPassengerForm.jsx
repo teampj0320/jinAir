@@ -3,27 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // import { getUserInfo } from '../../service/bookingApi.js';
 import { FaCircleCheck } from "react-icons/fa6";
+import axios from 'axios';
 
 export default function BookingPassengerForm({ type, num, index, onChange, refs, msgRefs }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const userInfo = useSelector(state => state.booking.userInfo);
-    // const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-    // const hasCheckedLogin = useRef(false);
+    const [countryList, setCountryList] = useState([]);
     const [gender, setGender] = useState('');
 
-    // useEffect(() => {
-    //     if (hasCheckedLogin.current) return;
-    //     hasCheckedLogin.current = true;
-    
-    //     if (isLoggedIn) {
-    //         dispatch(getUserInfo());
-    //     } else {
-    //         const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-    //         select ? navigate('/login') : navigate('/'); 
-    //     }
-    // }, [isLoggedIn]);
+    useEffect(() => {
+        axios.get('/data/countryInfo.json')
+            .then((res) => setCountryList(res.data))
+            .catch((error) => console.log(error));
+    }, []);
 
     return (
         userInfo && type === '성인' && index === 0
@@ -61,8 +55,12 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
                             </li>
                             <li>
                                 <label>국적<span>*</span></label>
-                                <select name="country" id="">
-                                    <option value="default">한국(REPUBLIC OF KOREA)</option>
+                                <select name="country" id=""
+                                    onChange={(e) => onChange(index, 'country', e.target.value)}
+                                >
+                                    { countryList && countryList.map((item) => (
+                                        <option value={`${item.ko_name}(${item.en_name})`}>{item.ko_name}({item.en_name})</option>
+                                    )) }
                                 </select>
                             </li>
                             <li> {/* 삭제 고민해볼 것 */}
@@ -78,7 +76,7 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
             : (
                 <div className='booking-passenger-form'>
                     <div className='booking-passenger-form-top'>
-                        <span>{type} {num + 1}</span>
+                        <span>{type} {type === '성인' ? index + 1 : num + 1}</span>
                     </div>
                     <div className='booking-passenger-info'>
                         <ul className='booking-passenger-info-left'>
@@ -129,7 +127,7 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
                                 <input type="text"
                                     name='birth'
                                     defaultValue={index === 0 && type === '성인' ? userInfo.birth : ''}
-                                    placeholder='YYYYMMDD (예, 20000101)'
+                                    placeholder='YYYY.MM.DD (예, 2000.01.01)'
                                     onChange={(e) => {
                                         onChange(index, 'birth', e.target.value);
                                         if (msgRefs.birthMsgRef.current && e.target.value !== '') {
@@ -193,8 +191,12 @@ export default function BookingPassengerForm({ type, num, index, onChange, refs,
                             </li>
                             <li>
                                 <label>국적<span>*</span></label>
-                                <select name="country" id="">
-                                    <option value="default">한국(REPUBLIC OF KOREA)</option>
+                                <select name="country" id=""
+                                    onChange={(e) => onChange(index, 'country', e.target.value)}
+                                >
+                                    { countryList && countryList.map((item) => (
+                                        <option value={`${item.ko_name}(${item.en_name})`}>{item.ko_name}({item.en_name})</option>
+                                    )) }
                                 </select>
                             </li>
                             <li> {/* 삭제 고민해볼 것 */}

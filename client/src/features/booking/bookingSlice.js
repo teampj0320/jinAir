@@ -11,14 +11,17 @@ const initialState = {
     ticketPrice: 0, // 편도 좌석 가격
     oneWayBseats: [], // 편도 베이직석 리스트
     oneWayPseats: [], // 편도 프리미엄석 리스트
+    oneWaySeats: [], // 편도 선택 좌석 리스트
 
     goFlightNum: '', // 왕복 가는 비행편 번호(fNUM)
     goSeatType: '', // 왕복 가는 비행편 좌석 타입
     goTicketPrice: 0, // 왕복 가는 비행편 가격
-
+    goSeats: [], // 왕복 가는 비행편 좌석 리스트
+    
     backFlightNum: '', // 왕복 오는 비행편 번호
     backSeatType: '', // 왕복 오는 비행편 좌석 타입
     backTicketPrice: 0, // 왕복 오는 비행편 가격
+    backSeats: [], // 왕복 dh는 비행편 좌석 리스트
 
     passengers : [], // 탑승객 정보 배열
 
@@ -70,6 +73,11 @@ const bookingSlice = createSlice({
             state.oneWayPseats = action.payload.premiumList;
         },
 
+        // 편도 선택 좌석 리스트
+        setOneWaySeats(state, action) {
+            state.oneWaySeats = action.payload;
+        },
+
         // 왕복 가는 비행편 번호(fNUM)
         setGoFlightNum(state, action) {
             state.goFlightNum = action.payload;
@@ -85,6 +93,11 @@ const bookingSlice = createSlice({
             state.goTicketPrice = action.payload;
         },
 
+        // 왕복 가는 비행편 선택 좌석 리스트
+        setGoSeats(state, action) {
+            state.goSeats = action.payload;
+        },
+
         // 왕복 오는 비행편 번호(fNUM)
         setBackFlightNum(state, action) {
             state.backFlightNum = action.payload;
@@ -98,6 +111,11 @@ const bookingSlice = createSlice({
         // 왕복 오는 비행편 좌석 가격
         setBackTicketPrice(state, action) {
             state.backTicketPrice = action.payload;
+        },
+
+        // 왕복 오는 비행편 선택 좌석 리스트
+        setBackSeats(state, action) {
+            state.backSeats = action.payload;
         },
 
         // 출발 공항 코드
@@ -138,9 +156,9 @@ export const {
     setUserInfo,
     setTicketList,
     setResevationType,
-    setFlightNum, setSeatType, setTicketPrice, setOneWayBseats, setOneWayPseats, // 편도 관련
-    setGoFlightNum, setGoSeatType, setGoTicketPrice, // 왕복 가는 편 관련
-    setBackFlightNum, setBackSeatType, setBackTicketPrice, // 왕복 오는 편 관련
+    setFlightNum, setSeatType, setTicketPrice, setOneWayBseats, setOneWayPseats, setOneWaySeats, // 편도 관련
+    setGoFlightNum, setGoSeatType, setGoTicketPrice, setGoSeats, // 왕복 가는 편 관련
+    setBackFlightNum, setBackSeatType, setBackTicketPrice, setBackSeats, // 왕복 오는 편 관련
     setPassengers,
     setDcode, setAcode,
     clearReservation // 결제 후 예약 정보 초기화

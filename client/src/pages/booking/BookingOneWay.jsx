@@ -24,8 +24,6 @@ export default function BookingOneWay() {
     const arrive = useSelector(state => state.search.arrive); // 도착지
     const startDate = useSelector(state => state.search.startDate); // 출발일
     const ticketList = useSelector(state => state.booking.ticketList); // 예약 가능 항공권 리스트
-    const dcode = useSelector(state => state.booking.dcode);
-    const acode = useSelector(state => state.booking.acode);
 
     const [sortSelect, setSortSelect] = useState('early');
     const [flightNum, setFlightNum] = useState(''); // 비행편
@@ -47,13 +45,13 @@ export default function BookingOneWay() {
         }
     }
 
-    // console.log("출발 공항코드 확인 --> ", dcode);
-    // console.log("도착 공항코드 확인 --> ", acode);
+    console.log("가격 확인 --> ", seatPrice);
 
     return (
         <div className='booking-avaliability-wrap'>
             <BookingStep text={'avaliability'}
                         type={'oneWay'}
+                        seatPrice={seatPrice}
             /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
 
             <div className='booking-avaliability-contents'>
