@@ -114,3 +114,15 @@ export const customArea = async(req, res) => {
   res.json(result);
   res.end();
 };
+
+
+/************************************
+ *    나의 qna 불러오기
+************************************/
+
+
+export const getMyQna = async(req, res) => {
+  const result = await repository.getMyQna(req.body); 
+  res.json(result);
+  res.end();
+};
