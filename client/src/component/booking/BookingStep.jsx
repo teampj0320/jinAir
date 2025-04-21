@@ -78,8 +78,8 @@ export default function BookingStep({ text, type, seatPrice }) {
                                 <b>{text === 'avaliability' ? `${totalPrice.toLocaleString()}원` : text === 'avaliability' && '0원'}</b>
                                 <b>{text === 'passenger' && resevationType === 'oneWay' ? `${ticketPrice.toLocaleString()}원` : text === 'passenger' && resevationType === 'oneWay' && '0원'}</b>
                                 <b>{text === 'selectSeat' && resevationType === 'oneWay' ? `${ticketPrice.toLocaleString()}원` : text === 'selectSeat' && resevationType === 'oneWay' && '0원'}</b>
-                                <b>{text === 'passenger' && resevationType !== 'oneWay' ? `${(goTicketPrice + backTicketPrice).toLocaleString()}원` : text === 'passenger' && resevationType !== 'oneWay' && '0원'}</b>
-                                <b>{text === 'selectSeat' && resevationType !== 'oneWay' ? `${(goTicketPrice + backTicketPrice).toLocaleString()}원` : text === 'selectSeat' && resevationType !== 'oneWay' && '0원'}</b>
+                                <b>{text === 'passenger' && resevationType !== 'oneWay' ? `${((goTicketPrice + backTicketPrice) * total).toLocaleString()}원` : text === 'passenger' && resevationType !== 'oneWay' && '0원'}</b>
+                                <b>{text === 'selectSeat' && resevationType !== 'oneWay' ? `${((goTicketPrice + backTicketPrice) * total).toLocaleString()}원` : text === 'selectSeat' && resevationType !== 'oneWay' && '0원'}</b>
                                 <b>{text === 'payment' ? `${totalPaymentPrice.toLocaleString()}원` : text === 'payment' && '0원'}</b>
                             </span>
                         </div>
