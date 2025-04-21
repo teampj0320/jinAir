@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { getOnewayList, setFlightInfo } from '../../service/bookingApi.js';
+import { getUserInfo, getOnewayList, setFlightInfo } from '../../service/bookingApi.js';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingDates from '../../component/booking/BookingDates.jsx';
 import BookingTicketList from '../../component/booking/BookingTicketList.jsx';
@@ -38,6 +38,7 @@ export default function BookingOneWay() {
     // 클릭시 필요 정보들 전역에 저장하기
     const clickNextBtn = () => {
         if (seatSelect !== '') {
+            dispatch(getUserInfo());
             dispatch(setFlightInfo('oneWay', flightNum, seatSelect, seatPrice));
             navigate("/booking/passenger");
         } else {

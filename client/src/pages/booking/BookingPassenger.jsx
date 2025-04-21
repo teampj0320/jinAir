@@ -171,7 +171,7 @@ export default function BookingPassenger() {
         }
     }
 
-    // console.log("한명일때 : ", initForm);
+    console.log("탑승객 정보 확인 : ", passengers);
 
     let refIndex = 0; // input 필드가 있는 폼만 추적
     let formRenderIndex = 0; // ref index용 (로그인 유저 제외한 탑승객 수만큼)
