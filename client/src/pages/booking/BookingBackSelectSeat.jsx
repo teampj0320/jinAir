@@ -7,7 +7,7 @@ import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingSeatDesc from '../../component/booking/BookingSeatDesc.jsx';
 import BookingSelectPremiumSeat from '../../component/booking/BookingSelectPremiumSeat.jsx';
 import BookingSelectBasicSeat from '../../component/booking/BookingSelectBasicSeat.jsx';
-import { setBackSeatList } from '../../service/bookingApi.js';
+import { setBackSeatList, getSeats } from '../../service/bookingApi.js';
 import { IoIosAirplane } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
@@ -19,6 +19,7 @@ export default function BookingBackSelectSeat() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const flightNum = useSelector(state => state.booking.flightNum);
     const ticketPrice = useSelector(state => state.booking.ticketPrice);
     const passengers = useSelector((state) => state.booking.passengers);
     const backSeatType = useSelector(state => state.booking.backSeatType); // 왕복 오는 편 좌석 타입
@@ -36,6 +37,10 @@ export default function BookingBackSelectSeat() {
         axios.get('/data/booking.json')
             .then((res) => setSeatGrade(res.data))
             .catch((error) => console.log(error));
+    }, []);
+
+    useEffect(() => {
+        dispatch(getSeats(flightNum)); // 편도일 때
     }, []);
 
     /* 모달창 스타일 */

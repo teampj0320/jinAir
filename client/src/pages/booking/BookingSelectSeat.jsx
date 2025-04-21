@@ -7,7 +7,7 @@ import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingSeatDesc from '../../component/booking/BookingSeatDesc.jsx';
 import BookingSelectPremiumSeat from '../../component/booking/BookingSelectPremiumSeat.jsx';
 import BookingSelectBasicSeat from '../../component/booking/BookingSelectBasicSeat.jsx';
-import { setOnewaySeatList } from '../../service/bookingApi.js';
+import { setOnewaySeatList, getSeats } from '../../service/bookingApi.js';
 import { IoIosAirplane } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
@@ -19,7 +19,7 @@ export default function BookingSelectSeat() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // const total = useSelector(state => state.search.total);
+    const flightNum = useSelector(state => state.booking.flightNum);
     const ticketPrice = useSelector(state => state.booking.ticketPrice);
     const passengers = useSelector((state) => state.booking.passengers);
     const seatType = useSelector(state => state.booking.seatType); // 편도 예약 시 좌석 타입
@@ -33,6 +33,10 @@ export default function BookingSelectSeat() {
         axios.get('/data/booking.json')
             .then((res) => setSeatGrade(res.data))
             .catch((error) => console.log(error));
+    }, []);
+
+    useEffect(() => {
+        dispatch(getSeats(flightNum)); // 편도일 때
     }, []);
 
     console.log("좌석 배열 : ", selectSeatNum);

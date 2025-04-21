@@ -138,8 +138,8 @@ const bookingSlice = createSlice({
             state.flightNum = '';  // 편도 비행편 번호 초기화
             state.seatType = '';   // 편도 좌석 타입 초기화
             state.ticketPrice = 0; // 편도 좌석 가격 초기화
-            state.oneWayBseats = []; // 편도 베이직석 리스트 초기화
-            state.oneWayPseats = []; // 편도 프리미엄석 리스트 초기화
+            // state.oneWayBseats = []; // 편도 베이직석 리스트 초기화
+            // state.oneWayPseats = []; // 편도 프리미엄석 리스트 초기화
 
             state.goFlightNum = ''; // 왕복 가는 비행편 번호 초기화
             state.goSeatType = '';  // 왕복 가는 비행편 좌석 타입 초기화
