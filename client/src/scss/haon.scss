@@ -2961,8 +2961,14 @@ h2.react-datepicker__current-month {
 // *******************************
 .admin-qna-comment-all-box{
     // border: 1px solid red;
-    >div{
-        // border: 1px solid red;
+    >div:last-child{
+        form{
+            input:last-child{
+            background-color: var(--color-nav-main);
+            color: white;
+            padding: 7px 13px;
+        }
+    }
     }
     >div:first-child{
         margin-bottom: 30px;

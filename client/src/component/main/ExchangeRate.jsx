@@ -51,7 +51,7 @@ export default function ExchangeRate({ handleLeave, setIsHover }) {
 
   return (
     <div className='header_exchange' onMouseLeave={handleLeave}>
-      <h2 className="">{rates?.date} KRW 1,000원 기준 환율</h2>
+      <h2 className="">{rates?.date} <br />KRW 1,000원 기준 환율</h2>
       {rates ? (
         <>
           <ul className="">
