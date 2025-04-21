@@ -23,10 +23,11 @@ import BookingBack from './pages/booking/BookingBack.jsx';
 import BookingCheckout from './pages/booking/BookingCheckout.jsx';
 import AdminLayout from'./pages/AdminLayout.jsx';
 import AdminLogin from'./component/admin/AdminLogin.jsx';
-import Admin from'./component/admin/Admin.jsx';
 import AdminFlightList from'./component/admin/AdminFlightList.jsx';
 import AdminFlightAdd from'./component/admin/AdminFlightAdd.jsx';
 import AdminNotice from'./component/admin/AdminNotice.jsx';
+import AdminNoticeInfo from'./component/admin/AdminNoticeInfo.jsx';
+import AdminNoticeAdd from'./component/admin/AdminNoticeAdd.jsx';
 import AdminQna from'./component/admin/AdminQna.jsx';
 import ScrollToTop from './pages/ScrollToTop.jsx'
 import QnaUpload from './pages/Mypage/QnaUpload.jsx';
@@ -73,11 +74,12 @@ export default function App() {
         <Route path='/join/:part' element={<SignupFunnel />} />
       </Route>
       <Route element={<AdminLayout />}>
-        {/* <Route index element={<AdminLogin />} /> */}
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/flight' element={<AdminFlightList />} />
         <Route path='/admin/flight/add' element={<AdminFlightAdd />} />
         <Route path='/admin/notice' element={<AdminNotice />} />
+        <Route path='/admin/notice/:num' element={<AdminNoticeInfo />} />
+        <Route path='/admin/notice/add' element={<AdminNoticeAdd />} />
         <Route path='/admin/qna' element={<AdminQna />} />
         <Route path='/admin/qnaComment/:qid' element={<AdminQnaComment />} />
       </Route>

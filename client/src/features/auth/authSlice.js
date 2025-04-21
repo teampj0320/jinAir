@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoggedIn : false,
   isError : false,
+  adminIsLoggedIn : false,
+  adminIsError : false
 }
 
 export const authSlice = createSlice({
@@ -10,7 +12,6 @@ export const authSlice = createSlice({
   initialState,
   reducers:{
     setIsLoggedIn(state, action){
-      console.log('action -->>', action.payload.cnt);
       if(action.payload.cnt){
         state.isLoggedIn = true;  
       }else{
@@ -22,11 +23,30 @@ export const authSlice = createSlice({
     }, 
     setIsLogout(state){
       state.isLoggedIn = false;
+    },
+    setAdminIsLoggedIn(state, action){
+      if(action.payload.cnt){
+        state.adminIsLoggedIn = true;  
+      }else{
+        state.isError =true;
+      }
+    },
+    setAdminLoginResest(state){
+      state.adminIsError = false;
+    },
+    setAdminLogout(state){
+      state.adminIsLoggedIn = false;
+    },
+    resetAll(state){
+      state.isLoggedIn = false;
+      state.isError = false;
+      state.adminIsLoggedIn = false;
+      state.adminIsError = false;
     }
   },
 });
 
-export const { setIsLoggedIn, setLoginReset, setIsLogout} = authSlice.actions
+export const { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout, resetAll} = authSlice.actions
 
 export default authSlice.reducer
 /* 

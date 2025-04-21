@@ -84,11 +84,10 @@ export const validateFindUseInfo = (refs, msgRefs, item, gender, active, cactive
  * 회원가입 회원정보 입력 유효성 체크
 *****************************/
 export const validateUserSignup = (refs, msgRefs, item, gender, active, cactive) =>{
-  const validateArr = [];
   const pwd = refs.pwdRef.current.value.trim();
   const cpwd = refs.cpwdRef.current.value.trim();
 
-  validateArr.push(
+  const validateArr = [
     {key: 'id', 
      ref:refs.idRef.current, 
      msgSty:msgRefs.idMsgRef.current,
@@ -109,7 +108,7 @@ export const validateUserSignup = (refs, msgRefs, item, gender, active, cactive)
       msgSty:msgRefs.genderMsgRef.current,
       msg:'성별을 입력해주세요',
       value:gender},
-     { key: 'ename_firtst', 
+     { key: 'ename_first', 
       ref:refs.enameFirtstRef.current, 
       msgSty:msgRefs.enameFirstMsgRef.current,
       msg:'성(영문)을 입력해주세요',
@@ -144,7 +143,7 @@ export const validateUserSignup = (refs, msgRefs, item, gender, active, cactive)
       msgSty: msgRefs.cpwdMsgRef.current,
       msg: '비밀번호 확인을 입력해주세요',
       value: refs.cpwdRef.current.value}
-  )
+  ];
 
   for(let arr of validateArr){
     if(!arr.value || arr.value.trim() === ''){
