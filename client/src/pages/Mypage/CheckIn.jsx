@@ -14,20 +14,22 @@ export default function CheckIn() {
     const [sendTarget, setSendTarget] = useState(null); // 탑승권 발송 정보
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
 
-    // 예약정보 불러오기
+    // 예약정보 불러오기 (오늘 포함 이후 예약만 필터링 )
     useEffect(() => {
-
-        if (isLoggedIn) {
-            const id = localStorage.getItem('user_id');
-
-            axios.post('http://localhost:9000/mypage/getMyRes', { id })
-                .then((res) => {
-                    console.log('서버 응답 데이터:', res.data);
-                    setResData(res.data);
-                })
-                .catch((err) => console.log(err))
-        }
-    }, [])
+        if (!isLoggedIn) return;
+      
+        const id = localStorage.getItem('user_id');
+        const today = dayjs().startOf('day');
+        
+        axios.post('http://localhost:9000/mypage/getMyRes', { id })
+          .then(({ data }) => {
+            const filtered = data.filter(group =>
+              group.some(item => dayjs(item.departure_date).isSameOrAfter(today, 'day'))
+            );
+            setResData(filtered);
+          })
+          .catch(console.error);
+      }, [isLoggedIn]);
 
 
 
