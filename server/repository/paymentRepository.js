@@ -54,10 +54,7 @@ export const active = async (data) => {
   const [result] = await db.execute(sql, [data.d_acode]); // 데이터의 d_acode 값에 맞춰서 "tak" 같은 값을 전달
   return result;
 };
-
-/*************************
- * 비행기 정보 조회
- *************************/
+ 
 /*************************
  * 비행기 정보 조회 (Repository)
  *************************/

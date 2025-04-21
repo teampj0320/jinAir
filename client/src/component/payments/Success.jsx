@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
+import { resetPayment } from "../../features/booking/paymentSlice.js"
+import { clearReservation } from '../../features/booking/bookingSlice';
 
 export default function SuccessPage() {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [searchParams] = useSearchParams();
   const paymentKey = searchParams.get("paymentKey");
@@ -46,6 +50,8 @@ export default function SuccessPage() {
             if (success && affected) {
               alert("예약이 완료되었습니다.");
               nav("/mypage/getReservation");
+              dispatch(resetPayment());
+              dispatch(clearReservation());
             } else {
               alert("예약 실패");
             }

@@ -113,6 +113,23 @@ const bookingSlice = createSlice({
         // 탑승자 정보 배열
         setPassengers(state, action) {
             state.passengers = action.payload;
+        },
+
+        // 결제 후 예약 정보 초기화
+        clearReservation(state) {
+            state.flightNum = '';  // 편도 비행편 번호 초기화
+            state.seatType = '';   // 편도 좌석 타입 초기화
+            state.ticketPrice = 0; // 편도 좌석 가격 초기화
+            state.oneWayBseats = []; // 편도 베이직석 리스트 초기화
+            state.oneWayPseats = []; // 편도 프리미엄석 리스트 초기화
+
+            state.goFlightNum = ''; // 왕복 가는 비행편 번호 초기화
+            state.goSeatType = '';  // 왕복 가는 비행편 좌석 타입 초기화
+            state.goTicketPrice = 0; // 왕복 가는 비행편 가격 초기화
+
+            state.backFlightNum = ''; // 왕복 오는 비행편 번호 초기화
+            state.backSeatType = '';  // 왕복 오는 비행편 좌석 타입 초기화
+            state.backTicketPrice = 0; // 왕복 오는 비행편 가격 초기화
         }
     },
 });
@@ -125,7 +142,8 @@ export const {
     setGoFlightNum, setGoSeatType, setGoTicketPrice, // 왕복 가는 편 관련
     setBackFlightNum, setBackSeatType, setBackTicketPrice, // 왕복 오는 편 관련
     setPassengers,
-    setDcode, setAcode
+    setDcode, setAcode,
+    clearReservation // 결제 후 예약 정보 초기화
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
