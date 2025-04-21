@@ -8,7 +8,6 @@ import { CheckoutPage } from "../../component/payments/Checkout.jsx";
 export default function BookingCheckout() {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const [radio, setRadio] = useState("coupon");
   const [selectedCouponCode, setSelectedCouponCode] = useState("default");
   const [appliedCoupon, setAppliedCoupon] = useState(null);
 
@@ -23,7 +22,6 @@ export default function BookingCheckout() {
     }
   }, [isLoggedIn]);
 
-  // 사용 가능한 쿠폰 불러오기
   useEffect(() => {
     dispatch(getMyCoupon());
   }, []);
@@ -33,7 +31,7 @@ export default function BookingCheckout() {
     if (!coupon) return;
 
     dispatch(applyCoupon(couponCode));
-    setAppliedCoupon(coupon); // 실제 쿠폰 객체 저장
+    setAppliedCoupon(coupon);
   };
 
   const getDiscountAmount = () => {
@@ -53,63 +51,36 @@ export default function BookingCheckout() {
 
       <div className="booking-passenger-contents">
         <p className="booking-page-title">4. 결제</p>
-
-        {/* 할인 영역 */}
         <section className="noneExtras">
-          <h3><span>쿠폰/카드 제휴 할인</span></h3>
+          <h3><span>쿠폰 할인</span></h3>
           <div className="check-out-page">
-            <div className="radio-wrapper">
-              <span>
-                <input
-                  type="radio"
-                  name="discount"
-                  value="coupon"
-                  checked={radio === "coupon"}
-                  onChange={(e) => setRadio(e.target.value)}
-                />
-                <label>쿠폰할인</label>
-              </span>
-              <span>
-                <input
-                  type="radio"
-                  name="discount"
-                  value="card"
-                  checked={radio === "card"}
-                  onChange={(e) => setRadio(e.target.value)}
-                />
-                <label>카드 제휴 할인</label>
-              </span>
-            </div>
-
-            {radio === "coupon" && (
-              <div className="check-out-coupon">
-                <div className="select-warpper">
-                  <select
-                    value={selectedCouponCode}
-                    onChange={(e) => setSelectedCouponCode(e.target.value)}
+            <div className="check-out-coupon">
+              <div className="select-warpper">
+                <select
+                  value={selectedCouponCode}
+                  onChange={(e) => setSelectedCouponCode(e.target.value)}
+                >
+                  <option value="default">선택</option>
+                  {myCouponList &&
+                    myCouponList
+                      .filter(coupon => coupon.used === 0)
+                      .map((coupon) => (
+                        <option key={coupon.coupon_code} value={coupon.coupon_code}>
+                          {coupon.coupon_name} (₩{Number(coupon.discount_price).toLocaleString()})
+                        </option>
+                      ))}
+                </select>
+                <div>
+                  <button
+                    className="sale-button"
+                    onClick={() => handleUseCoupon(selectedCouponCode)}
+                    disabled={selectedCouponCode === "default"}
                   >
-                    <option value="default">선택</option>
-                    {myCouponList &&
-                      myCouponList
-                        .filter(coupon => coupon.used === 0)
-                        .map((coupon) => (
-                          <option key={coupon.coupon_code} value={coupon.coupon_code}>
-                            {coupon.coupon_name} (₩{Number(coupon.discount_price).toLocaleString()})
-                          </option>
-                        ))}
-                  </select>
-                  <div>
-                    <button
-                      className="sale-button"
-                      onClick={() => handleUseCoupon(selectedCouponCode)}
-                      disabled={selectedCouponCode === "default"}
-                    >
-                      선택
-                    </button>
-                  </div>
+                    선택
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </section>
 
