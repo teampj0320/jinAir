@@ -36,11 +36,17 @@ export const authSlice = createSlice({
     },
     setAdminLogout(state){
       state.adminIsLoggedIn = false;
+    },
+    resetAll(state){
+      state.isLoggedIn = false;
+      state.isError = false;
+      state.adminIsLoggedIn = false;
+      state.adminIsError = false;
     }
   },
 });
 
-export const { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout} = authSlice.actions
+export const { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout, resetAll} = authSlice.actions
 
 export default authSlice.reducer
 /* 

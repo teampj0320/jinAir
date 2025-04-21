@@ -3,7 +3,7 @@ import { db } from "./db.js";
 
 
 /***************************
- * 어드민 로그인
+ * 1. 어드민 로그인
  ***************************/
 export const getAdminLogin = async(formData) => {
   const sql =`
@@ -19,7 +19,7 @@ export const getAdminLogin = async(formData) => {
 };
 
 /***************************
- * 비행 리스트 조회
+ * 2. 비행 리스트 조회
  ***************************/
 export const getFlightList = async() =>{
   const sql=`
@@ -39,7 +39,7 @@ export const getFlightList = async() =>{
 };
 
 /***************************
- * 항공권 등록 fnum 조회
+ * 3. 항공권 등록 fnum 조회
  ***************************/
 export const getFnum = async() =>{
   const sql =`
@@ -52,7 +52,7 @@ export const getFnum = async() =>{
 
 
 /***************************
- * 항공권 등록
+ * 4. 항공권 등록
  ***************************/
 export const setFlightRegister = async(formData) =>{
   const sql =`
@@ -79,7 +79,7 @@ export const setFlightRegister = async(formData) =>{
 
 
 /***************************
- * 항공권 삭제
+ * 5. 항공권 삭제
  ***************************/
 export const deleteFlight = async({fnums}) =>{
   const list = fnums.map(()=>'?').join(',');
@@ -91,7 +91,7 @@ export const deleteFlight = async({fnums}) =>{
 
 
 /***************************
- * 항공권 검색
+ * 6. 항공권 검색
  ***************************/
 export const getsearchflightlist = async({type, keyword}) =>{
   const sql =`
@@ -115,7 +115,7 @@ export const getsearchflightlist = async({type, keyword}) =>{
 
 
 /***************************
- * 공지사항 리스트 조회
+ * 7. 공지사항 리스트 조회
  ***************************/
 export const getNoticeList = async() =>{
   const sql =` 
@@ -131,7 +131,7 @@ export const getNoticeList = async() =>{
 }; 
 
 /***************************
- * 공지사항 삭제 로직
+ * 8. 공지사항 삭제 로직
  ***************************/
 export const deleteNoticeList = async({nums})=>{
   const list = nums.map(()=>'?').join(',');
@@ -142,7 +142,7 @@ export const deleteNoticeList = async({nums})=>{
 } 
 
 /***************************
- * 공지사항 검색 로직
+ * 9. 공지사항 검색 로직
  ***************************/
 export const getSearchNoticeList = async({keyword})=>{
   
@@ -159,3 +159,19 @@ export const getSearchNoticeList = async({keyword})=>{
   const [result] = await db.execute(sql, [`%${keyword}%`]);
   return result;
 } 
+
+/***************************
+ * 10. 공지사항 등록 로직
+ ***************************/
+export const setNoticeRegister = async({data}) =>{
+  console.log('레파지토리',data);
+  
+  const sql =`
+    insert into notice
+    values('N', ?,?, NOW());  
+ `;
+  const values = [data.title, data.content];
+  const [result] = await db.execute(sql, values);
+  console.log('레파지토리',result.affectedRows);
+  return result.affectedRows;
+};

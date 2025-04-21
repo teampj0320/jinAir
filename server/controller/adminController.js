@@ -2,7 +2,7 @@ import * as repository from '../repository/adminRepository.js';
 import jwt from 'jsonwebtoken';
 
 /***************************
- * 어드민 로그인
+ * 1. 어드민 로그인
  ***************************/
 export const getAdminLogin = async(req, res) => {
     let result = await repository.getAdminLogin(req.body);
@@ -16,7 +16,7 @@ export const getAdminLogin = async(req, res) => {
 
 
 /***************************
- * 비행 리스트 조회
+ * 2. 비행 리스트 조회
  ***************************/
 export const getFlightList = async(req, res) =>{
   const result = await repository.getFlightList(req.body);
@@ -25,7 +25,7 @@ export const getFlightList = async(req, res) =>{
 };
 
 /***************************
- * 항공권 등록 fnum 조회
+ * 3. 항공권 등록 fnum 조회
  ***************************/
 export const getFnum = async(req, res) =>{
   const result = await repository.getFnum(req.body);
@@ -36,7 +36,7 @@ export const getFnum = async(req, res) =>{
 };
 
 /***************************
- * 항공권 등록
+ * 4. 항공권 등록
  ***************************/
 export const setFlightRegister = async(req, res) =>{
   const {Departure_location, Arrive_location, Departure_date,Departure_time, 
@@ -73,7 +73,7 @@ export const setFlightRegister = async(req, res) =>{
 
 
 /***************************
- * 항공권 삭제
+ * 5. 항공권 삭제
  ***************************/
 export const deleteFlight = async(req, res) =>{
   const result = await repository.deleteFlight(req.body);
@@ -82,7 +82,7 @@ export const deleteFlight = async(req, res) =>{
 };
 
 /***************************
- * 항공권 검색
+ * 6. 항공권 검색
  ***************************/
 export const getSearchFlightList = async(req, res) =>{
   const result = await repository.getsearchflightlist(req.body);
@@ -93,7 +93,7 @@ export const getSearchFlightList = async(req, res) =>{
 
 
 /***************************
- * 공지사항 리스트 조회
+ * 7. 공지사항 리스트 조회
  ***************************/
 export const getNoticeList = async(req, res) =>{
   const result = await repository.getNoticeList(req.body);
@@ -102,7 +102,7 @@ export const getNoticeList = async(req, res) =>{
 }
 
 /***************************
- * 공지사항 삭제 로직
+ * 8. 공지사항 삭제 로직
  ***************************/
 export const deleteNoticeList = async(req, res)=>{
   const result = await repository.deleteNoticeList(req.body);
@@ -112,10 +112,21 @@ export const deleteNoticeList = async(req, res)=>{
 
 
 /***************************
- * 공지사항 검색 로직
+ * 9. 공지사항 검색 로직
  ***************************/
 export const getSearchNoticeList = async(req, res)=>{
   const result = await repository.getSearchNoticeList(req.body);
   res.json(result);
   res.end();
-}
+};
+
+/***************************
+ * 10. 공지사항 등록 로직
+ ***************************/
+export const setNoticeRegister = async(req,res) =>{
+  console.log('컨틀롤러 1>>', req.body);
+  const result = await repository.setNoticeRegister(req.body);
+  console.log('컨틀롤러 2>>', result);
+  res.json(result);
+  res.end();
+};

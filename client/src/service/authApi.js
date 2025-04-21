@@ -1,4 +1,4 @@
-import { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout } from '../features/auth/authSlice.js';
+import { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout, resetAll } from '../features/auth/authSlice.js';
 import { axiosPost } from'./api.js';
 
 /***************************** 
@@ -34,6 +34,7 @@ export const getLoginResest = () => async(dispatch) =>{
 export const getLogout = () => async(dispatch) =>{
   localStorage.clear();
   dispatch(setIsLogout());
+  dispatch(resetAll());
 };
 
 

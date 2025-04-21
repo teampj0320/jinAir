@@ -183,7 +183,8 @@
   margin-top: 15px;
 }
 .admin-delete-btn button,
-.admin-back-btn button{
+.admin-back-btn button,
+.admin-noticeUpload-btn button:first-child{
   padding: 7px 15px;
   background-color: #fff;
   border: 2px solid purple;
@@ -192,7 +193,8 @@
   font-weight: 500;
   cursor: pointer;
 }
-.admin-insert-btn button{
+.admin-insert-btn button,
+.admin-noticeUpload-btn button:nth-child(2){
   padding: 8px 15px;
   border: 1px solid purple;
   border-radius: 3px;
@@ -584,3 +586,46 @@
 /********************************
 어드민 공지사항 등록 
 *********************************/
+.admin-noticeUpload-all-box{
+  margin-top: 50px;
+}
+.admin-noticeUpload-all-box > table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.admin-noticeUpload-all-box table td{
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  vertical-align: top;
+}
+.admin-noticeUpload-all-box table tr:nth-child(2) td {
+  border-bottom: 1px solid #ddd;
+}
+.admin-noticeUpload-all-box table td:first-child {
+  width: 120px;
+  font-weight: bold;
+  color: #222;
+  white-space: nowrap;
+}
+.admin-noticeUpload-all-box table td span {
+  color: red;
+  margin-left: 4px;
+}
+.admin-noticeUpload-all-box input[type="text"],
+.admin-noticeUpload-all-box textarea {
+  width: 100%;
+  border: 1px solid #afafaf;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
+.admin-noticeUpload-btn{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
