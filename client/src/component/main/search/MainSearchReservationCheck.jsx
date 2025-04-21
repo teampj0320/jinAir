@@ -4,6 +4,7 @@ import OnewaySearchCalendar from './OnewaySearchCalendar.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalendar3,getCheckinDate ,getCheckinFirstNm,getCheckinResnum,getCheckinLastNm } from '../../../service/searchApi.js';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function MainSearchReservationCheck() {
     const dispatch = useDispatch();
@@ -64,7 +65,16 @@ export default function MainSearchReservationCheck() {
         e.preventDefault();
         if (validate()) {
             setErr('');
-            navigate('/mypage/getReservation');
+            const id = localStorage.getItem('user_id');
+            axios.post('http://localhost:9000/chatbot/checkCheckIn',{'id':id, 'rnum' :form.rnum})
+                .then(res => {
+                    if(res.data.result === 1){
+                        navigate('/mypage/getReservation');
+                    }else{
+                        alert('예약번호로 일치하는 예약이 없습니다. 확인 후 다시 시도해주세요.')
+                    }
+                })
+                .catch(err => console.log(err));
         }
     }
     return (
