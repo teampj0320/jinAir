@@ -21,7 +21,7 @@ export default function AdminFlightAdd() {
   const [ planeN , setPlaneN ] = useState('default');
   const [ fnum , setFnum ] = useState('default');
   const [ msgResult, setMsgResult] = useState('');
-  const [ msgCheck, setMsgCheck ] = useState('');
+  // const [ msgCheck, setMsgCheck ] = useState('');
   const adModalOpen = useSelector(state => state.adSearch.adModalOpen);
   const adDeparture = useSelector(state => state.adSearch.adDeparture);
   const adArrive = useSelector(state => state.adSearch.adArrive);

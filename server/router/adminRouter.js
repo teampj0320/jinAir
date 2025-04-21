@@ -9,6 +9,8 @@ router.post('/flight', controller.getFlightList)
       .post('/flightRegister', controller.setFlightRegister)
       .post('/deleteFlightList', controller.deleteFlight)
       .post('/flight/search', controller.getSearchFlightList)
-      .post('/noticeList', controller.getNoticeList);
+      .post('/noticeList', controller.getNoticeList)
+      .post('/notice/delete', controller.deleteNoticeList)
+      .post('/noticeSearch', controller.getSearchNoticeList);
 
 export default router;

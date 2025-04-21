@@ -3,7 +3,6 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import { validateLogin } from '../../utils/authValidate.js';
 import { getAdminLogin, getLoginResest } from '../../service/authApi.js';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -16,8 +15,6 @@ export default function AdminLogin() {
 
   const adminIsLoggedIn = useSelector(state => state.login.adminIsLoggedIn);
   const adminIsError = useSelector(state => state.login.adminIsError);
-
-  
 
   useEffect(()=>{
     if(adminIsError){

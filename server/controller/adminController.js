@@ -100,3 +100,22 @@ export const getNoticeList = async(req, res) =>{
   res.json(result);
   res.end();
 }
+
+/***************************
+ * 공지사항 삭제 로직
+ ***************************/
+export const deleteNoticeList = async(req, res)=>{
+  const result = await repository.deleteNoticeList(req.body);
+  res.json(result);
+  res.end();
+};
+
+
+/***************************
+ * 공지사항 검색 로직
+ ***************************/
+export const getSearchNoticeList = async(req, res)=>{
+  const result = await repository.getSearchNoticeList(req.body);
+  res.json(result);
+  res.end();
+}

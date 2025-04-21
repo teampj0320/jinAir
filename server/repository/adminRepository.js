@@ -110,7 +110,6 @@ export const getsearchflightlist = async({type, keyword}) =>{
   const value = `%${keyword}%`;
 
   const [result] = await db.execute(sql, [value]);
-  console.log('레파지토리2',result);
   return result;
 };
 
@@ -121,11 +120,42 @@ export const getsearchflightlist = async({type, keyword}) =>{
 export const getNoticeList = async() =>{
   const sql =` 
       select  ROW_NUMBER() OVER (ORDER BY reg_date desc) AS no
+              , num
               , title 
               , date_format(reg_date, '%Y-%m-%d %H-%I:%S') AS  reg_date 
-      from qna 
-      where type = 'n';    `;
+      from notice 
+      where type = 'n'  `;
 
   const [result] = await db.execute(sql);
   return result;
 }; 
+
+/***************************
+ * 공지사항 삭제 로직
+ ***************************/
+export const deleteNoticeList = async({nums})=>{
+  const list = nums.map(()=>'?').join(',');
+  const sql =`delete from notice where num in (${list})`;
+ 
+  const [result] = await db.execute(sql, nums);
+  return result.affectedRows;
+} 
+
+/***************************
+ * 공지사항 검색 로직
+ ***************************/
+export const getSearchNoticeList = async({keyword})=>{
+  
+ const sql =`
+  select  ROW_NUMBER() OVER (ORDER BY reg_date desc) AS no
+          , num
+          , title 
+          , date_format(reg_date, '%Y-%m-%d %H-%I:%S') AS  reg_date 
+  from   notice 
+  where  type = 'n'
+    and  title like ?; 
+ `;
+ 
+  const [result] = await db.execute(sql, [`%${keyword}%`]);
+  return result;
+} 

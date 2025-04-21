@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import axios from 'axios';
-import ReactPaginate  from 'react-paginate';
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
 
