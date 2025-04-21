@@ -1,8 +1,8 @@
 import { axiosPost } from './api.js';
 import { setTicketList, setResevationType, setFlightNum, setSeatType, setTicketPrice, setDcode, setAcode,
-        setOneWayBseats, setOneWayPseats,
-        setGoFlightNum, setGoSeatType, setGoTicketPrice,
-        setBackFlightNum, setBackSeatType, setBackTicketPrice,
+        setOneWayBseats, setOneWayPseats, setOneWaySeats,
+        setGoFlightNum, setGoSeatType, setGoTicketPrice, setGoSeats,
+        setBackFlightNum, setBackSeatType, setBackTicketPrice, setBackSeats,
         setUserInfo, setPassengers
     } from '../features/booking/bookingSlice.js';
 
@@ -97,4 +97,28 @@ export const getSeats = (fnum) => async(dispatch) => {
 *****************************/
 export const setPassengerInfo = (arr) => async(dispatch) => {
     dispatch(setPassengers(arr));
+}
+
+/***************************** 
+ * 선택 좌석 저장(편도)
+ * BookingSelectSeat
+*****************************/
+export const setOnewaySeatList = (arr) => async(dispatch) => {
+    dispatch(setOneWaySeats(arr));
+}
+
+/***************************** 
+ * 선택 좌석 저장(왕복 가는 편)
+ * BookingGoSelectSeat
+*****************************/
+export const setGoSeatList = (arr) => async(dispatch) => {
+    dispatch(setGoSeats(arr));
+}
+
+/***************************** 
+ * 선택 좌석 저장(왕복 가는 편)
+ * BookingBackSelectSeat
+*****************************/
+export const setBackSeatList = (arr) => async(dispatch) => {
+    dispatch(setBackSeats(arr));
 }

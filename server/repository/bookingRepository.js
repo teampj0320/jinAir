@@ -33,36 +33,6 @@ export const getOnewayList = async({departure, arrive, startDate}) => {
     return result;
 }
 
-
-/***************************** 
- * 항공권 선택 페이지
- * 선택한 날짜 기준 전후 +3일 날짜 리스트 호출
-*****************************/
-export const getLowPrice = async({start, end, departure, arrive}) => {
-    // console.log("시작일 --> ", start);
-    // console.log("종료일 --> ", end);
-    // console.log("출발지 --> ", departure);
-    // console.log("도착지 --> ", arrive);
-
-    // const sql = `
-    //     select fNUM,
-    //             pnum,
-    //             Arrive_location,
-    //             left(Arrive_date, 10) as Arrive_date,
-    //             Departure_location
-    //     from flight
-    //     where left(Arrive_date, 10) between ? and ?
-    //         and Arrive_location = ?
-    //         and Departure_location = ?
-    // `;
-
-    // const values = [start, end, departure, arrive];
-
-    // const [result] = await db.execute(sql, values);
-
-    // console.log("결과 확인 --> ", result);
-}
-
 /***************************** 
  * 탑승객 정보 입력 페이지
  * 예매자 정보 호출

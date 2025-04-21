@@ -270,3 +270,17 @@ export const customArea = async ({ id }) => {
   const [result] = await db.execute(sql, acodeList);
   return result;
 };
+
+
+
+/************************************
+ *        나의 사용가능 쿠폰 조회
+************************************/
+
+
+export const getMyQna = async ({ id }) => {
+  const sql = `select * from qna where id = ?`;
+  const [result] = await db.execute(sql, [id]);
+
+  return result;
+};

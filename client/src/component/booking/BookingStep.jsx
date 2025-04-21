@@ -5,7 +5,7 @@ import { IoIosAirplane } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import '../../scss/yuna.scss';
 
-export default function BookingStep({ text, type }) {
+export default function BookingStep({ text, type, seatPrice }) {
     const navigate = useNavigate();
 
     const totalPaymentPrice = useSelector((state) => state.payment.total_payment_price); //예상 가격
@@ -18,9 +18,16 @@ export default function BookingStep({ text, type }) {
     const adultNum = useSelector(state => state.search.adultNum); // 성인 수
     const pediatricNum = useSelector(state => state.search.pediatricNum); // 소아 수
     const babyNum = useSelector(state => state.search.babyNum); // 유아 수
-
     const ticketList = useSelector(state => state.booking.ticketList); // 예약 가능 항공권 리스트
-    // const resevationType = useSelector(state => state.booking.resevationType); // 예매 타입(편도/왕복)
+    const resevationType = useSelector(state => state.booking.resevationType);
+    const ticketPrice = useSelector(state => state.booking.ticketPrice);
+    const goTicketPrice = useSelector(state => state.booking.goTicketPrice);
+    const backTicketPrice = useSelector(state => state.booking.backTicketPrice);
+
+    // 항공권 선택 페이지 전용
+    const total = adultNum + pediatricNum + babyNum;
+    const totalPrice = seatPrice * total;
+
 
     /* 이전단계 클릭 이벤트 */
     const clickBackBtn = () => {
@@ -67,7 +74,13 @@ export default function BookingStep({ text, type }) {
                         <div>
                             <p className='thin'>예상 결제 총액</p>
                             <span className='thin'>
-                                KRW <b>{text === 'payment' ? `${totalPaymentPrice.toLocaleString()}원` : '0원'}</b>
+                                KRW
+                                <b>{text === 'avaliability' ? `${totalPrice.toLocaleString()}원` : text === 'avaliability' && '0원'}</b>
+                                <b>{text === 'passenger' && resevationType === 'oneWay' ? `${ticketPrice.toLocaleString()}원` : text === 'passenger' && resevationType === 'oneWay' && '0원'}</b>
+                                <b>{text === 'selectSeat' && resevationType === 'oneWay' ? `${ticketPrice.toLocaleString()}원` : text === 'selectSeat' && resevationType === 'oneWay' && '0원'}</b>
+                                <b>{text === 'passenger' && resevationType !== 'oneWay' ? `${(goTicketPrice + backTicketPrice).toLocaleString()}원` : text === 'passenger' && resevationType !== 'oneWay' && '0원'}</b>
+                                <b>{text === 'selectSeat' && resevationType !== 'oneWay' ? `${(goTicketPrice + backTicketPrice).toLocaleString()}원` : text === 'selectSeat' && resevationType !== 'oneWay' && '0원'}</b>
+                                <b>{text === 'payment' ? `${totalPaymentPrice.toLocaleString()}원` : text === 'payment' && '0원'}</b>
                             </span>
                         </div>
                         <button><IoIosArrowBack /></button>
