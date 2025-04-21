@@ -6,56 +6,81 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BookingPassengerForm from '../../component/booking/BookingPassengerForm';
 import { getUserInfo, setPassengerInfo } from '../../service/bookingApi.js';
+import axios from 'axios';
 
 export default function BookingPassenger() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const resevationType = useSelector(state => state.booking.resevationType); // 편도/왕복 중 선택 타입
     const adultNum = useSelector(state => state.search.adultNum); // 성인 수
     const pediatricNum = useSelector(state => state.search.pediatricNum); // 소아 수
     const babyNum = useSelector(state => state.search.babyNum); // 유아 수
-    const total = useSelector(state => state.search.total); // 전체 인원수
+
+    const total = adultNum + pediatricNum + babyNum;
+
     const userInfo = useSelector(state => state.booking.userInfo);
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const hasCheckedLogin = useRef(false);
 
-    const [genders, setGenders] = useState([]); // 탑승객 여러 명일 때 성별 관리
+    const [countryList, setCountryList] = useState([]);
 
     useEffect(() => {
         if (hasCheckedLogin.current) return;
         hasCheckedLogin.current = true;
-    
+
         if (isLoggedIn) {
             dispatch(getUserInfo());
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-            select ? navigate('/login') : navigate('/'); 
+            select ? navigate('/login') : navigate('/');
         }
     }, [isLoggedIn]);
 
-    const [passengers, setPassengers] = useState(
-        Array.from({ length: total }, (_, i) => {
-            if (userInfo && i === 0) {
-                return {
+    useEffect(() => {
+        axios.get('/data/countryInfo.json')
+            .then((res) => setCountryList(res.data))
+            .catch((error) => console.log(error));
+    }, []);
+
+    const [passengers, setPassengers] = useState(() => {
+        if (userInfo && total === 1) {
+            return [
+                {
                     kname_first: userInfo.kname_first,
                     kname_last: userInfo.kname_last,
                     birth: userInfo.birth,
                     id: userInfo.id,
-                    gender: userInfo.gender
-                };
-            } else {
-                return {
-                    kname_first: '',
-                    kname_last: '',
-                    birth: '',
-                    id: '',
-                    gender: '',
-                };
-            }
-        })
-    );
-
-    console.log("탑승객 정보 --> ", passengers);
+                    gender: userInfo.gender,
+                    country: "한국(REPUBLIC OF KOREA"
+                },
+            ];
+        } else if (userInfo && total > 1) {
+            return Array.from({ length: total }, (_, i) => {
+                if (i === 0) {
+                    return {
+                        kname_first: userInfo.kname_first,
+                        kname_last: userInfo.kname_last,
+                        birth: userInfo.birth,
+                        id: userInfo.id,
+                        gender: userInfo.gender,
+                        country: "한국(REPUBLIC OF KOREA"
+                    };
+                } else {
+                    return {
+                        kname_first: '',
+                        kname_last: '',
+                        birth: '',
+                        id: '',
+                        gender: '',
+                        country: "한국(REPUBLIC OF KOREA"
+                    };
+                }
+            });
+        } else {
+            return [];
+        }
+    });
 
     /* 탑승객 정보 입력 이벤트 */
     const handlePassengerChange = (index, field, value) => {
@@ -84,7 +109,7 @@ export default function BookingPassenger() {
             birthRef: React.createRef(),
             genderRef: React.createRef()
         }));
-
+        
         msgRefsList.current = Array.from({ length: actualInputFormCount }, () => ({
             firstNameMsgRef: React.createRef(),
             lastNameMsgRef: React.createRef(),
@@ -140,9 +165,8 @@ export default function BookingPassenger() {
     /* 버튼 클릭 이벤트 */
     const clickNextBtn = () => {
         if (validate()) {
-            console.log("전체 탑승객 정보 -> ", passengers);
             dispatch(setPassengerInfo(passengers));
-            navigate('/booking/selectSeat');
+            resevationType === 'oneWay' ? navigate('/booking/selectSeat') : navigate('/booking/selectGoSeat');
         }
     }
 
@@ -296,7 +320,9 @@ export default function BookingPassenger() {
                         <li>
                             <label>휴대전화번호<span>*</span></label>
                             <select name="country-num" id="">
-                                <option value="default">한국 (+82)</option>
+                                { countryList && countryList.map((item) => (
+                                    <option value={item.dial_code}>{item.ko_name} ({item.dial_code})</option>
+                                )) }
                             </select>
                             <input type="text" defaultValue={userInfo.phone} />
                         </li>

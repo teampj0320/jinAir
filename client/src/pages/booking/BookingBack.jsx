@@ -26,18 +26,12 @@ export default function BookingBack() {
     const [seatSelect, setSeatSelect] = useState(''); // 좌석 타입
     const [seatPrice, setSeatPrice] = useState(0); // 선택 좌석 가격
     const [sortSelect, setSortSelect] = useState('early');
+
+    const totalPrice = goTicketPrice + seatPrice;
     
     useEffect(() => {
         dispatch(getOnewayList(arrive, departure, endDate));
     }, []);
-    
-    // 확인용
-    // const goTicketPrice = useSelector(state => state.booking.goTicketPrice); // 가는 티켓값
-    // const goFlightNum = useSelector(state => state.booking.goFlightNum); // 가는 비행편
-    // const goSeatType = useSelector(state => state.booking.goSeatType); // 가는 좌석 타입
-    // console.log("출발 비행편 --> ", goFlightNum);
-    // console.log("출발 좌석타입 --> ", goSeatType);
-    // console.log("출발 티켓가격 --> ", goTicketPrice);
 
     /* 구간1 다시 선택 버튼 클릭 이벤트 */
     const clickReSelect = () => {
@@ -45,10 +39,6 @@ export default function BookingBack() {
         select && navigate('/booking/availabilityList/go');
     }
 
-    /* 탑승객 정보 입력 버튼 클릭 이벤트 */
-    // const clickNextBtn = () => {
-    //     seatSelect !== '' ? navigate("/booking/passenger") : alert("좌석을 선택해주세요.");
-    // }
     const clickNextBtn = () => {
         if (seatSelect !== '') {
             dispatch(setBackFlightInfo('roundTrip', flightNum, seatSelect, seatPrice));
@@ -60,7 +50,7 @@ export default function BookingBack() {
 
     return (
         <div className='booking-avaliability-wrap'>
-            <BookingStep text={'avaliability'} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
+            <BookingStep text={'avaliability'} seatPrice={totalPrice} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
 
             <div className='booking-avaliability-contents'>
                 <p className='booking-page-title'>1. 항공편 선택</p>

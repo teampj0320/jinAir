@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { getOnewayList, setFlightInfo } from '../../service/bookingApi.js';
+import { getUserInfo, getOnewayList, setFlightInfo } from '../../service/bookingApi.js';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingDates from '../../component/booking/BookingDates.jsx';
 import BookingTicketList from '../../component/booking/BookingTicketList.jsx';
@@ -24,8 +24,6 @@ export default function BookingOneWay() {
     const arrive = useSelector(state => state.search.arrive); // 도착지
     const startDate = useSelector(state => state.search.startDate); // 출발일
     const ticketList = useSelector(state => state.booking.ticketList); // 예약 가능 항공권 리스트
-    const dcode = useSelector(state => state.booking.dcode);
-    const acode = useSelector(state => state.booking.acode);
 
     const [sortSelect, setSortSelect] = useState('early');
     const [flightNum, setFlightNum] = useState(''); // 비행편
@@ -40,6 +38,7 @@ export default function BookingOneWay() {
     // 클릭시 필요 정보들 전역에 저장하기
     const clickNextBtn = () => {
         if (seatSelect !== '') {
+            dispatch(getUserInfo());
             dispatch(setFlightInfo('oneWay', flightNum, seatSelect, seatPrice));
             navigate("/booking/passenger");
         } else {
@@ -47,13 +46,11 @@ export default function BookingOneWay() {
         }
     }
 
-    // console.log("출발 공항코드 확인 --> ", dcode);
-    // console.log("도착 공항코드 확인 --> ", acode);
-
     return (
         <div className='booking-avaliability-wrap'>
             <BookingStep text={'avaliability'}
                         type={'oneWay'}
+                        seatPrice={seatPrice}
             /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
 
             <div className='booking-avaliability-contents'>

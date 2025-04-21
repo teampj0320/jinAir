@@ -32,7 +32,9 @@ import ScrollToTop from './pages/ScrollToTop.jsx'
 import QnaUpload from './pages/Mypage/QnaUpload.jsx';
 import AdminQnaComment from './component/admin/AdminQnaComment.jsx';
 import SuccessPage from './component/payments/Success.jsx';
-import FailPage from './component/payments/Fail.jsx'; 
+import FailPage from './component/payments/Fail.jsx';
+import BookingGoSelectSeat from './pages/booking/BookingGoSelectSeat.jsx';
+import BookingBackSelectSeat from './pages/booking/BookingBackSelectSeat.jsx';
 
 export default function App() {
   return (
@@ -55,6 +57,8 @@ export default function App() {
         <Route path='/booking/availabilityList/back' element={<BookingBack />} />
         <Route path='/booking/passenger' element={<BookingPassenger />} />
         <Route path='/booking/selectSeat' element={<BookingSelectSeat />} />
+        <Route path='/booking/selectGoSeat' element={<BookingGoSelectSeat />} />
+        <Route path='/booking/selectBackSeat' element={<BookingBackSelectSeat />} />
         <Route path='/booking/beforePayment' element={<BookingPayment />} />
         <Route path='/booking/afterPayment' element={<BookingCheckout />} />
         <Route path='/payment/res' element={<SuccessPage />} />

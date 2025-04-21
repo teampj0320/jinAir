@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tooltip } from 'react-tooltip';
 import Modal from 'react-modal';
+import { Tooltip } from 'react-tooltip';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingSeatDesc from '../../component/booking/BookingSeatDesc.jsx';
 import BookingSelectPremiumSeat from '../../component/booking/BookingSelectPremiumSeat.jsx';
 import BookingSelectBasicSeat from '../../component/booking/BookingSelectBasicSeat.jsx';
-import { setOnewaySeatList, getSeats } from '../../service/bookingApi.js';
+import { setGoSeatList, getSeats } from '../../service/bookingApi.js';
 import { IoIosAirplane } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
@@ -15,16 +15,19 @@ import { MdArrowOutward } from "react-icons/md";
 import 'react-tooltip/dist/react-tooltip.css';
 import axios from 'axios';
 
-export default function BookingSelectSeat() {
+export default function BookingGoSelectSeat() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const flightNum = useSelector(state => state.booking.flightNum);
     const ticketPrice = useSelector(state => state.booking.ticketPrice);
     const passengers = useSelector((state) => state.booking.passengers);
-    const seatType = useSelector(state => state.booking.seatType); // 편도 예약 시 좌석 타입
+    const goSeatType = useSelector(state => state.booking.goSeatType); // 왕복 가는 편 좌석 타입
+    const goTicketPrice = useSelector(state => state.booking.goTicketPrice);
+    const backTicketPrice = useSelector(state => state.booking.backTicketPrice);
+    const totalPrice = goTicketPrice + backTicketPrice;
 
-    const [selectSeatNum, setSelectSeatNum] = useState([]); // 선택 좌석
+    const [selectSeatNum, setSelectSeatNum] = useState(''); // 선택 좌석
     const [seatGrade, setSeatGrade] = useState([]);
     
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -67,6 +70,11 @@ export default function BookingSelectSeat() {
         }
     };
 
+    /* 좌석 선택 이벤트 */
+    const setSeatNum = (seat) => {
+        console.log("좌석 : ", seat);
+    }
+
     /* 신청하기 버튼 클릭 이벤트 */
     const clickNext = (type) => {
         if (type === 'later') {
@@ -75,16 +83,15 @@ export default function BookingSelectSeat() {
             if (selectSeatNum.length === 0) {
                 alert("좌석을 선택해주세요.");
             } else {
-                // 좌석 배열 전역 저장 함수
-                dispatch(setOnewaySeatList(selectSeatNum));
-                navigate('/booking/beforePayment');
+                dispatch(setGoSeatList(selectSeatNum));
+                navigate('/booking/selectBackSeat');
             }
         }
     }
 
     return (
         <div className='booking-selectSeat-wrap'>
-            <BookingStep text={'selectSeat'} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
+            <BookingStep text={'selectSeat'} seatPrice={totalPrice} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
 
             <div className='booking-selectSeat-contents'>
                 <p className='booking-page-title'>3. 좌석 선택</p>
@@ -128,7 +135,6 @@ export default function BookingSelectSeat() {
                         <span className='thin'>(통화 : KRW)</span>
                     </div>
                     <div className='booking-selectSeat-detail-bottom'>
-
                         <div>
                             { passengers.map((item, i) => (
                                 <div className='selectSeat-detail-bottom-left'>
@@ -150,7 +156,6 @@ export default function BookingSelectSeat() {
                                 </div>
                             )) }
                         </div>
-
                         <div className='selectSeat-detail-bottom-right'>
                             <ul className='selectSeact-seat-info'>
                                 { seatGrade.map((item) => 
@@ -176,7 +181,7 @@ export default function BookingSelectSeat() {
                         </div>
                     </div>
                     <div className='selectSeat-select-seat'>
-                        { seatType === 'basic'
+                        { goSeatType === 'basic'
                             ? <BookingSelectBasicSeat
                                 selectSeatNum={selectSeatNum}
                                 setSelectSeatNum={setSelectSeatNum}

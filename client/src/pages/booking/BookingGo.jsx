@@ -17,7 +17,6 @@ export default function BookingGo() {
     const arrive = useSelector(state => state.search.arrive); // 도착지
     const startDate = useSelector(state => state.search.startDate); // 출발일
 
-    // const [seatSelect, setSeatSelect] = useState('');
     const [flightNum, setFlightNum] = useState(''); // 비행편
     const [seatSelect, setSeatSelect] = useState(''); // 좌석 타입
     const [seatPrice, setSeatPrice] = useState(0); // 선택 좌석 가격
@@ -37,14 +36,9 @@ export default function BookingGo() {
         }
     }
     
-    // 확인
-    // console.log("출발 비행편 --> ", flightNum);
-    // console.log("출발 좌석타입 --> ", seatSelect);
-    // console.log("출발 티켓가격 --> ", seatPrice);
-    
     return (
         <div className='booking-avaliability-wrap'>
-            <BookingStep text={'avaliability'} type={'roundTrip'} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
+            <BookingStep text={'avaliability'} type={'roundTrip'} seatPrice={seatPrice} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
 
             <div className='booking-avaliability-contents'>
                 <p className='booking-page-title'>1. 항공편 선택</p>
