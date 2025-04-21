@@ -46,8 +46,6 @@ export default function BookingOneWay() {
         }
     }
 
-    console.log("가격 확인 --> ", seatPrice);
-
     return (
         <div className='booking-avaliability-wrap'>
             <BookingStep text={'avaliability'}

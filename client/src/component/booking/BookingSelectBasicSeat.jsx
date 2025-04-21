@@ -25,10 +25,6 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
         dispatch(getSeats(flightNum)); // 편도일 때
     }, []);
 
-    console.log("비행편 확인 --> ", flightNum);
-    console.log("좌석 확인 --> ", oneWayBseats);
-    console.log("좌석 확인2 --> ", oneWayPseats);
-
     /* 좌석 선택 이벤트 */
     const setSeatNum = (seat) => {
         if (selectSeatNum.includes(seat)) {

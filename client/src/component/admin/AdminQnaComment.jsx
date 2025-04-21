@@ -12,7 +12,8 @@ export default function AdminQnaComment() {
     const [customerData, setCustomerData] = useState(); //db 에서 가져온 qna 리스트    
     const [inputData, setInputData] = useState({});
     const navigate = useNavigate();
-
+    const adminRef = useRef(null);
+    const adminContentRef = useRef(null);
     const id = localStorage.getItem('user_id');
     useEffect(() => {
         axios.post('http://localhost:9000/chatbot/detail', { "qid": qid })
@@ -33,8 +34,20 @@ export default function AdminQnaComment() {
         setInputData({ ...inputData, [name]: value });
     }
 
+    const validate = () => {
+        if(adminRef.current.value ===''){
+            adminRef.current.focus();
+            return false;
+        }else if(adminContentRef.current.value === ''){
+            adminContentRef.current.focus();
+            return false;
+        }
+        return true;
+    }
+
     const handleComment = () => {
-        axios.post('http://localhost:9000/chatbot/updateComment', { "no": formData.no, inputData })
+        if(validate()){
+            axios.post('http://localhost:9000/chatbot/updateComment', { "no": formData.no, inputData })
             .then(res => {
                 if (res.data.result_rows === 1) {
                     navigate('/admin/qna');
@@ -43,6 +56,7 @@ export default function AdminQnaComment() {
                 }
             })
             .catch(err => console.log(err));
+        }
     }
     // console.log(formData.image);
     const form = useRef();
@@ -107,13 +121,13 @@ export default function AdminQnaComment() {
                         <>
                             <tr>
                                 <td>제목</td>
-                                <td><input name='title' type="text" onChange={handleInput}
+                                <td><input name='title' type="text" onChange={handleInput} ref={adminRef}
                                     value={formData.adminTitle ? formData.adminTitle : inputData.title} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>내용</td>
-                                <td><input name='content' type="text" onChange={handleInput}
+                                <td><input name='content' type="text" onChange={handleInput} ref={adminContentRef}
                                     value={formData.adminContent ? formData.adminContent : inputData.content} />
                                 </td>
                             </tr>

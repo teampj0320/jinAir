@@ -135,19 +135,31 @@ const bookingSlice = createSlice({
 
         // 결제 후 예약 정보 초기화
         clearReservation(state) {
-            state.flightNum = '';  // 편도 비행편 번호 초기화
-            state.seatType = '';   // 편도 좌석 타입 초기화
-            state.ticketPrice = 0; // 편도 좌석 가격 초기화
-            // state.oneWayBseats = []; // 편도 베이직석 리스트 초기화
-            // state.oneWayPseats = []; // 편도 프리미엄석 리스트 초기화
-
-            state.goFlightNum = ''; // 왕복 가는 비행편 번호 초기화
-            state.goSeatType = '';  // 왕복 가는 비행편 좌석 타입 초기화
-            state.goTicketPrice = 0; // 왕복 가는 비행편 가격 초기화
-
-            state.backFlightNum = ''; // 왕복 오는 비행편 번호 초기화
-            state.backSeatType = '';  // 왕복 오는 비행편 좌석 타입 초기화
-            state.backTicketPrice = 0; // 왕복 오는 비행편 가격 초기화
+            //공통 초기화
+            state.passengers = [];
+            state.resevationType = '';
+            state.ticketList = [];
+            state.dcode = '';
+            state.acode = '';
+        
+            // 편도 초기화
+            state.flightNum = '';
+            state.seatType = '';
+            state.ticketPrice = 0;
+            state.oneWaySeats = [];
+            state.oneWayBseats = [];
+            state.oneWayPseats = [];
+        
+            // 왕복 초기화
+            state.goFlightNum = '';
+            state.goSeatType = '';
+            state.goTicketPrice = 0;
+            state.goSeats = [];
+        
+            state.backFlightNum = '';
+            state.backSeatType = '';
+            state.backTicketPrice = 0;
+            state.backSeats = []; 
         }
     },
 });
