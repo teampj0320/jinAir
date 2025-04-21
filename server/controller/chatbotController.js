@@ -139,6 +139,12 @@ export const getQna = async(req,res) => {
   res.json(result); 
   res.end();
 }
+// qna 상세 정보 조회
+export const detailNotImg = async(req,res) => {  
+  const result = await repository.detailNotImg(req.body.qid);  
+  res.json(result); 
+  res.end();
+}
 
 
 // qna 답변여부 업데이트
@@ -154,6 +160,14 @@ export const updateComment = async(req,res) => {
 export const checkCheckIn = async(req, res) =>{
   // console.log('하온테스트',req.body);  
   let result = await repository.checkCheckIn(req.body);
+  res.json(result);
+  res.end();
+};
+
+// 고객정보가져오기
+export const getCustomerInfo = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.getCustomerInfo(req.body);
   res.json(result);
   res.end();
 };
