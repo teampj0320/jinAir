@@ -64,7 +64,8 @@ CREATE TABLE `reservation` (
 
 INSERT INTO reservation (id, fnum, res_num, passenger_name , res_date)
 VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희') , now()),
-      ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now());
+      ('test1', 'LJ278', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영희'), now()),
+      ('test1', 'LJ255', 'A11222', JSON_ARRAY('홍길순', '김철수'), now());
 
 
 -- coupon 테이블 (신규)
