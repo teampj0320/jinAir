@@ -151,7 +151,7 @@ export default function AdminNotice() {
                        onChange={()=> handleSelectRow(data.num)} />
               </td>
               <td>{data.no}</td>
-              <td>{data.title}</td>
+              <td onClick={()=>navigate(`/admin/notice/:${data.num}`)}>{data.title}</td>
               <td>{data.reg_date}</td>
             </tr>
           ))}

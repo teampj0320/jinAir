@@ -207,7 +207,7 @@ CREATE TABLE `qna` (
   `NO` int NOT NULL AUTO_INCREMENT,
   `TYPE` char(1) NOT NULL,
   `TITLE` varchar(30) NOT NULL,
-  `CONTENT` varchar(1000) NOT NULL,
+  `CONTENT` varchar(100) NOT NULL,
   `REG_DATE` datetime NOT NULL,
   PRIMARY KEY (`NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

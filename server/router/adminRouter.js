@@ -12,6 +12,8 @@ router.post('/flight', controller.getFlightList)
       .post('/noticeList', controller.getNoticeList)
       .post('/notice/delete', controller.deleteNoticeList)
       .post('/noticeSearch', controller.getSearchNoticeList)
-      .post('/noticeRegister', controller.setNoticeRegister);
+      .post('/noticeRegister', controller.setNoticeRegister)
+      .post('/noticeInfo', controller.getNoticeInfo)
+      .post('/noticeUpdate', controller.updateNoticeInfo);
 
 export default router;

@@ -163,15 +163,23 @@ export const getSearchNoticeList = async({keyword})=>{
 /***************************
  * 10. 공지사항 등록 로직
  ***************************/
-export const setNoticeRegister = async({data}) =>{
-  console.log('레파지토리',data);
-  
+export const setNoticeRegister = async(inputData) =>{
   const sql =`
-    insert into notice
-    values('N', ?,?, NOW());  
+    insert into notice(type, title, content, reg_date)
+    values(?,?,?, NOW());
  `;
-  const values = [data.title, data.content];
+  const values = ['N',inputData.title, inputData.content];
   const [result] = await db.execute(sql, values);
-  console.log('레파지토리',result.affectedRows);
   return result.affectedRows;
+};
+
+/***************************
+ * 11. 공지사항 상세페이지 조회 로직
+ ***************************/
+export const getNoticeInfo = async({num}) =>{
+  const sql =`select title, content from notice where num =?`;
+
+  const value = Number(String(num).replace(/^:/, ''));
+  const [result] = await db.execute(sql, [value]);
+  return result;
 };

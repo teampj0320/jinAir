@@ -124,9 +124,16 @@ export const getSearchNoticeList = async(req, res)=>{
  * 10. 공지사항 등록 로직
  ***************************/
 export const setNoticeRegister = async(req,res) =>{
-  console.log('컨틀롤러 1>>', req.body);
   const result = await repository.setNoticeRegister(req.body);
-  console.log('컨틀롤러 2>>', result);
+  res.json(result);
+  res.end();
+};
+
+/***************************
+ * 11. 공지사항 상세페이지 조회 로직
+ ***************************/
+export const getNoticeInfo = async(req,res) =>{
+  const result = await repository.getNoticeInfo(req.body);
   res.json(result);
   res.end();
 };

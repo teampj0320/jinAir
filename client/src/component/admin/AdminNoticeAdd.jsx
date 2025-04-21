@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminNoticeAdd() {
-  const [ inputData, setInputData ] = useState([]);
+  const [ inputData, setInputData ] = useState({});
   const navigate = useNavigate();
 
   const refs = {
@@ -14,16 +14,30 @@ export default function AdminNoticeAdd() {
     const { name, value } = e.target;
     setInputData({ ...inputData, [name]: value });
   };
-
+  
   const handleSubmit = (e) =>{
     e.preventDefault();
-
-    axios.post('http://localhost:9000/admin/noticeRegister', inputData)
-         .then((res)=>{
-          console.log('res.data',res.data);
-          
-         })
-         .catch((error)=>console.log(error))
+    if(inputData.title === '' || inputData.title === undefined){
+      alert('제목을 입력해주세요');
+      return;
+    }else if(inputData.content ==='' || inputData.content ===undefined){
+      alert('내용을 입력해주세요');
+      return;
+    }else{
+      axios.post('http://localhost:9000/admin/noticeRegister', inputData)
+           .then((res)=>{
+            if(res.data ===1 ){
+              alert('공지사항이 정상적으로 등록되었습니다.');
+              navigate('/admin/notice');
+            }else{
+              alert('공지사항 등록에 실패했습니다. 다시 시도해주세요.');
+            }
+           })
+           .catch((error)=>{
+            console.log(error)
+            alert('공지사항 등록중 에러가 발생했습니다.');
+          })
+    }
   };
 
   return (
