@@ -96,7 +96,6 @@ export default function BookingPassenger() {
         });
     };
 
-    console.log("타입 체크 --> ", resevationType);
     /* 유효성 체크 */
     const actualInputFormCount = (adultNum > 0 ? adultNum - 1 : 0) + pediatricNum + babyNum;
     // 탑승객별 ref 목록 생성
@@ -170,8 +169,6 @@ export default function BookingPassenger() {
             resevationType === 'oneWay' ? navigate('/booking/selectSeat') : navigate('/booking/selectGoSeat');
         }
     }
-
-    console.log("탑승객 정보 확인 : ", passengers);
 
     let refIndex = 0; // input 필드가 있는 폼만 추적
     let formRenderIndex = 0; // ref index용 (로그인 유저 제외한 탑승객 수만큼)

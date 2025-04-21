@@ -39,9 +39,6 @@ export default function BookingSelectSeat() {
         dispatch(getSeats(flightNum)); // 편도일 때
     }, []);
 
-    console.log("좌석 배열 : ", selectSeatNum);
-    console.log("탑승객 정보 : ", passengers);
-
     /* 모달창 스타일 */
     const customModalStyles = {
         overlay: {
