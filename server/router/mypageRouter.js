@@ -13,6 +13,7 @@ router
     .post('/couponCount', controller.couponCount )
     .post('/applyCoupon', controller.applyCoupon )
     .post('/customTheme', controller.customTheme )
-    .post('/customArea', controller.customArea );
+    .post('/customArea', controller.customArea )
+    .post('/getMyQna', controller.getMyQna );
 
 export default router;
