@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MainSearch from '../component/main/search/MainSearch.jsx';
 import MainBoon from '../component/main/MainBoon.jsx';
 import MainPromotions from '../component/main/MainPromotions.jsx';
@@ -9,23 +9,27 @@ import '../scss/haon.scss';
 import Chatbots from '../component/main/chatbot/Chatbots.jsx';
 import { BsRobot } from "react-icons/bs";
 import { FaArrowUp } from "react-icons/fa";
-import {resetSearch} from '../features/search/searchSlice.js';
-import { useDispatch,useSelector } from 'react-redux';
-import {getChatbotModalOpen} from '../service/searchApi.js';
+import { resetSearch } from '../features/search/searchSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { getChatbotModalOpen } from '../service/searchApi.js';
+import ExchangeRate from '../component/main/ExchangeRate.jsx';
+import { BsCurrencyExchange } from "react-icons/bs";
 
-export default function Home() { 
+export default function Home() {
     const dispatch = useDispatch();
     const chatbotModalOpen = useSelector(state => state.search.chatbotModalOpen);
-    const scrollToTop = ()=>{
-        window.scrollTo({ 
+    const [isHover, setIsHover] = useState(true);
+    const handleEnter = () => { setIsHover(false) }
+    const handleLeave = () => { setIsHover(true) }
+    const scrollToTop = () => {
+        window.scrollTo({
             top: 0,
-            behavior : 'smooth'
+            behavior: 'smooth'
         })
     }
     useEffect(() => {
         dispatch(resetSearch());
     }, []);
-
     return (
         <>
             <div className='content'>
@@ -33,17 +37,26 @@ export default function Home() {
                     <MainSearch />
                 </div>
                 <div className='chatbot'>
-                    <button onClick={() => {dispatch(getChatbotModalOpen(true))}}>
+                    <button onClick={() => { dispatch(getChatbotModalOpen(true)) }}>
                         <BsRobot className='chatbot-icon' />
                         <span>JAID</span>
                     </button>
                 </div>
-                {chatbotModalOpen && <Chatbots/>}
+               {isHover && <div className='exchange' onMouseEnter={handleEnter}>
+                    <button>
+                        <BsCurrencyExchange className='exchange-icon' />
+                        <span>환율</span>
+                    </button>
+                </div>}
+                {!isHover && <div className='exchange-box' onMouseLeave={handleLeave}>
+                   <ExchangeRate />
+                </div>}
+                {chatbotModalOpen && <Chatbots />}
                 <div className='totop'>
-                <button onClick={()=>{scrollToTop()}}>
-                <FaArrowUp className='totop-icon' size={20}/>
-                </button>
-            </div>
+                    <button onClick={() => { scrollToTop() }}>
+                        <FaArrowUp className='totop-icon' size={20} />
+                    </button>
+                </div>
                 <div className='main_home'>
                     <div className='main_home_content'>
                         <div className='main_home_content_top'>

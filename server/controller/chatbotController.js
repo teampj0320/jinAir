@@ -150,3 +150,10 @@ export const updateComment = async(req,res) => {
   res.end();
 }
 
+// 체크인 정보있는지 조회
+export const checkCheckIn = async(req, res) =>{
+  // console.log('하온테스트',req.body);  
+  let result = await repository.checkCheckIn(req.body);
+  res.json(result);
+  res.end();
+};

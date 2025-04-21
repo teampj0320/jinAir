@@ -233,3 +233,19 @@ export const updateComment = async ({ no, inputData }) => {
   const [result] = await db.execute(sql, [inputData.title, inputData.content, no]);
   return { 'result_rows': result.affectedRows };
 }
+
+/***************************** 
+ * 체크인 정보있는지 조회
+*****************************/
+export const checkCheckIn = async ({rnum,id}) => {
+  const sql = `
+    select count(*) as result_rows 
+    from reservation
+     where  
+          RES_NUM = ? and
+          ID = ?
+         
+  `;
+  const [result] = await db.execute(sql, [rnum,id]);
+  return { "result": result[0].result_rows };
+};
