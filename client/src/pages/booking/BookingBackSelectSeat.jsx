@@ -90,7 +90,7 @@ export default function BookingBackSelectSeat() {
             <BookingStep text={'selectSeat'} seatPrice={totalPrice} /> {/* 항공권 예약 ~ 결제 페이지 상단탭 */}
 
             <div className='booking-selectSeat-contents'>
-                <p className='booking-page-title'>3. 부가서비스 (사전좌석)</p>
+                <p className='booking-page-title'>3. 좌석 선택</p>
                 <div className='booking-selectSeat-section'>
                     <span>구간1</span>
                     <div>
