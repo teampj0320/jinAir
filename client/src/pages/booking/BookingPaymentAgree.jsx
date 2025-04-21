@@ -8,16 +8,16 @@ import {
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
 
 export default function BookingPaymentAgree() {
-    // 열려있는 동의란 관리
+    // 모든 동의 항목을 초기값 true로 설정
     const [openStates, setOpenStates] = useState({
         more1: false,
         more2: true,
         more3: false,
-        additionall: false,
-        addition1: false,
-        addition2: false,
-        addition3: false,
-        addition4: false,
+        additionall: true,  // 전체 선택 초기값 true
+        addition1: true,    // 개별 선택 초기값 true
+        addition2: true,    // 개별 선택 초기값 true
+        addition3: true,    // 개별 선택 초기값 true
+        addition4: true,    // 개별 선택 초기값 true
     });
 
     // 이용약관 중 위험 물질 관리
@@ -30,9 +30,16 @@ export default function BookingPaymentAgree() {
             .catch((error) => console.error("Error loading the JSON file", error));
     }, []);
 
-    //전체선택
+    // 전체 선택
     const handleCheckAll = () => {
         const newValue = !openStates.additionall;
+    
+        // 전체 선택 해제 시도 시 막기
+        if (!newValue) {
+            alert("해당 항목들은 필수 동의 항목입니다.");
+            return; // 해제 막기
+        }
+    
         setOpenStates((prev) => ({
             ...prev,
             additionall: newValue,
@@ -42,7 +49,9 @@ export default function BookingPaymentAgree() {
             addition4: newValue,
         }));
     };
-    // 개별선택 => 전체선택 관여
+    
+
+    // 개별 선택 => 전체 선택 관여
     const updateAllCheckStatus = (updatedStates) => {
         const allChecked =
             updatedStates.addition1 &&
@@ -58,15 +67,23 @@ export default function BookingPaymentAgree() {
     };
 
     const toggleList = (key) => {
+        const isRequiredKey = ["addition1", "addition2", "addition3", "addition4"].includes(key);
         const newValue = !openStates[key];
+    
+        // 필수 항목을 체크 해제하려는 경우 막기
+        if (isRequiredKey && !newValue) {
+            alert("해당 항목은 필수 동의 항목입니다. 해제시 구매가 제한됩니다.");
+            return; // 상태 변경 없이 종료
+        }
+    
         const updatedStates = {
             ...openStates,
             [key]: newValue,
         };
-
+    
         updateAllCheckStatus(updatedStates);
     };
-
+    
 
     return (
         <section className="booking-payment-section payment-bottom">
@@ -129,15 +146,13 @@ export default function BookingPaymentAgree() {
                     </div>
 
                     <div
-                        className={
-                            openStates.more1 ? "agree-notic-block" : "agree-notic-hide"
-                        }
+                        className={openStates.more1 ? "agree-notic-block" : "agree-notic-hide"}
                     >
                         <ul className="bottom-agree-notic-list">
                             <li>
                                 <ul>
                                     <li>
-                                        항공권 구매 이후에도, [예약상세]–[부가서비스 관리] 에서 부가서비스
+                                        항공권 구매 이후에도, [예약상세]–[부가서비스 관리]에서 부가서비스
                                         구매 가능합니다.
                                     </li>
                                     <li>
@@ -152,8 +167,7 @@ export default function BookingPaymentAgree() {
                                             </li>
                                             <li>
                                                 <span>✓</span>
-                                                항공기 출발 24시간 이후 ~ 항공기 출발 1시간 전까지 : [마이페이지]-
-                                                [여행보험 취소] 클릭
+                                                항공기 출발 24시간 이후 ~ 항공기 출발 1시간 전까지 : [마이페이지]- [여행보험 취소] 클릭
                                             </li>
                                             <li>
                                                 <span>✓</span>
@@ -207,9 +221,7 @@ export default function BookingPaymentAgree() {
                     </div>
 
                     <div
-                        className={
-                            openStates.more2 ? "agree-notic-block" : "agree-notic-hide"
-                        }
+                        className={openStates.more2 ? "agree-notic-block" : "agree-notic-hide"}
                     >
                         <ul>
                             <li>
@@ -269,9 +281,7 @@ export default function BookingPaymentAgree() {
                     </div>
 
                     <div
-                        className={
-                            openStates.more3 ? "agree-notic-block" : "agree-notic-hide"
-                        }
+                        className={openStates.more3 ? "agree-notic-block" : "agree-notic-hide"}
                     >
                         <p>B737-800은 일반석만 운영하며, B737-900은 지니 비즈 좌석과 일반석을 운영합니다.</p>
                         <p>B777은 지니플러스시트와 일반석을 운영합니다.</p>

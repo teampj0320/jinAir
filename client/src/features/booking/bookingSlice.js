@@ -146,9 +146,7 @@ const bookingSlice = createSlice({
             state.flightNum = '';
             state.seatType = '';
             state.ticketPrice = 0;
-            state.oneWaySeats = [];
-            state.oneWayBseats = [];
-            state.oneWayPseats = [];
+            state.oneWaySeats = []; 
         
             // 왕복 초기화
             state.goFlightNum = '';
