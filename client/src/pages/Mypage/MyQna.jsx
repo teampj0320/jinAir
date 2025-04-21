@@ -40,7 +40,7 @@ export default function MyQna() {
                         <span className='mp-common-title'>1:1문의</span>
                         <div className='flex gap5'>
                             <button className='g-btn' onClick={() => { navigate('../mypage/qnaUpload') }}>문의 등록(Q&A)</button>
-                            <button className='g-btn'>자주묻는질문(FAQ)</button>
+                            <button className='g-btn' onClick={()=>{alert('준비중입니다.')}}>자주묻는질문(FAQ)</button>
                         </div>
                     </div>
                     <div className='mp-table-wrap'>
@@ -49,7 +49,7 @@ export default function MyQna() {
                             <li style={{ flex: '6' }}>제목</li>
                             <li style={{ flex: '1' }}>아이디</li>
                             <li style={{ flex: '2' }}>작성일</li>
-                            <li style={{ flex: '1' }}>조회수</li>
+                            <li style={{ flex: '1' }}>상태</li>
                         </ul>
                         {
                             qnaData ? qnaData.map((item) =>
@@ -70,7 +70,7 @@ export default function MyQna() {
                                         {dayjs(item.REG_DATE).format('YYYY.MM.DD HH:mm')}
                                         </div>
                                         <div>
-                                            0
+                                        {item.comment || '확인중'}
                                         </div>
                                     </div>
                                     <div className='myQna-content'>
@@ -86,6 +86,7 @@ export default function MyQna() {
                                             <p> <b className='f20'>A.</b>
                                             {item.adminTitle}
                                             </p>
+                                            <p>{item.adminContent}</p>
                                         </div>
                                     </div>
                                     
