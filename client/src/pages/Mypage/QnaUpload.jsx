@@ -10,13 +10,14 @@ import { getCountry } from '../../service/searchApi.js';
 import QnaImgMulti from '../../component/QnaImgMulti.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SendEmail from '../../component/order/SendEmail.jsx';
 
 export default function QnaUpload() {
     const navigate = useNavigate();
-    const [fnames, setFnames] = useState({}); //여기에 데이터가 들어온댕{[],[]}
+    const [fnames, setFnames] = useState({});
     let [formData, setFormData] = useState({});
-    const [inputData, setInputData] = useState({});    
-    const [all, setAll] = useState({});    
+    const [inputData, setInputData] = useState({});
+    const [all, setAll] = useState({});
     const [previewList, setPreviewList] = useState([]);
 
     const getFileName = (filesNames) => {
@@ -57,8 +58,19 @@ export default function QnaUpload() {
     }
     const handleForm = (e) => {
         const { name, value } = e.target;
-        setInputData({ ...inputData, [name]: value });
-    }
+        // 문의유형이 수하물 신고(파손/분실)일 때 문의분야 강제 세팅
+        if (name === 'type' && value === '수하물 신고(파손/분실)') {
+            refs.fieldRef.current.value = '수하물';
+            setInputData({
+                ...inputData,
+                [name]: value,
+                field: '수하물'
+            });
+        } else {
+            setInputData({ ...inputData, [name]: value });
+        }
+    };
+
     const validate = () => {
         if (refs.typeRef.current.value === 'default') {
             refs.typeRef.current.focus();
@@ -90,20 +102,19 @@ export default function QnaUpload() {
             formData = ({
                 ...formData,
                 'upload_file': fnames.uploadFileName,
-                'id':id,
+                'id': id,
                 inputData
             });
             // console.log('fdfd',formData);
-            
-            axios.post('http://localhost:9000/chatbot/dbQnaupload',formData )
+
+            axios.post('http://localhost:9000/chatbot/dbQnaupload', formData)
                 .then(res => {
                     if (res.data.result_rows === 1) {
-                        alert('질문등록완료');
-                        navigate('/');
+                        const select = window.confirm("질문등록이 완료되었습니다. 마이페이지로 이동하시겠습니까?");
+                        select ? navigate('/mypage/index') : navigate('/');
                     } else {
-                        alert('질문등록실패');
+                        alert('질문등록에 실패하였습니다. 다시 시도해주세요.');
                     }
-                    console.log('res===', res.data);
                 })
                 .catch(error => {
                     alert('질문등록실패');

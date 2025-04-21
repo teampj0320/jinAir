@@ -27,9 +27,7 @@ export default function Header() {
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const [menuData, setMenuData] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null); // activeMenu 상태로 각 메뉴 hover를 관리합니다.
-  const [isHover, setIsHover] = useState(true);
-  const handleEnter = () => { setIsHover(false) }
-  const handleLeave = () => { setIsHover(true) }
+
 
   const handleLoginToggle = () => {
     if (isLoggedIn) {
@@ -64,30 +62,8 @@ export default function Header() {
               <button>
                 <span>고객센터</span>
               </button>
-              {isHover &&
-              <button className="test">
-                <span>
-                  <FaEarthAmericas />
-                </span>
-                 <span style={{ paddingLeft: "5px" }}
-                  onMouseEnter={handleEnter} > 환율
-                </span>               
-              </button>              
-                }
-                {!isHover && 
-                   <button className="test">
-                   <span>
-                     <FaEarthAmericas />
-                   </span>
-                    <span style={{ paddingLeft: "5px" }}
-                     onMouseEnter={handleEnter} > 환율
-                   </span>               
-                 </button>
-                }
             </div>
-           {!isHover && <div onMouseLeave={handleLeave}>
-              <ExchangeRate />
-            </div>}
+
             <div className="header_top_menu">
               <div className="home_main_logo" onClick={() => handleNav("/")}>
                 <img

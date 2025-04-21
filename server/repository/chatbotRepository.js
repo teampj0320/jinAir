@@ -197,25 +197,38 @@ export const getQnaAll = async () => {
 }
 
 export const getQna = async (qid) => {
-  // console.log('qid===>',qid);
   const sql = `
-         select NO as no, TYPE as type, category, customer_id as id,comment,adminTitle,adminContent,
-           CONCAT('http://localhost:9000/', jt.img) AS image,
-    TITLE as title, CONTENT as content, left(REG_DATE,10) as reg_date
-          from qna ,
-          JSON_TABLE(
-  JSON_UNQUOTE(qna.qnaImg->>'$[0]'),
-  '$[*]' COLUMNS (
-    img VARCHAR(255) PATH '$'
-  )
-) AS jt
- where no = ?
-              `;
-  const [result, field] = await db.execute(sql, [qid]);
+ SELECT 
+  q.NO AS no,
+  q.TYPE AS type,
+  q.category,
+  q.customer_id AS id,
+  q.comment,
+  q.adminTitle,
+  q.adminContent,
+  q.TITLE AS title,
+  q.CONTENT AS content,
+  LEFT(q.REG_DATE, 10) AS reg_date,
+  (
+    SELECT CONCAT('http://localhost:9000/', jt.img)
+    FROM JSON_TABLE(
+      JSON_UNQUOTE(q.qnaImg->>'$[0]'),
+      '$[*]' COLUMNS (
+        img VARCHAR(255) PATH '$'
+      )
+    ) AS jt
+    LIMIT 1
+  ) AS image
 
+FROM qna q
+WHERE q.NO = ?
+  `;
+
+  const [result] = await db.execute(sql, [qid]);
+  // console.log('wq',result[0]);
+  
   return result[0];
 }
-
 
 // qna 답변여부 업데이트
 
@@ -233,3 +246,31 @@ export const updateComment = async ({ no, inputData }) => {
   const [result] = await db.execute(sql, [inputData.title, inputData.content, no]);
   return { 'result_rows': result.affectedRows };
 }
+
+/***************************** 
+ * 체크인 정보있는지 조회
+*****************************/
+export const checkCheckIn = async ({rnum,id}) => {
+  const sql = `
+    select count(*) as result_rows 
+    from reservation
+     where  
+          RES_NUM = ? and
+          ID = ?
+         
+  `;
+  const [result] = await db.execute(sql, [rnum,id]);
+  return { "result": result[0].result_rows };
+};
+/***************************** 
+ * 고객정보 조회
+*****************************/
+export const getCustomerInfo = async ({id}) => {
+  const sql = `
+    select kname_first,kname_last, email
+      from customer
+      where id = ?
+  `;
+  const [result] = await db.execute(sql, [id]);
+  return { "result": result[0]};
+};

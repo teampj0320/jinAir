@@ -31,32 +31,40 @@ export default function CustomTicket() {
 
 
 
-
+    /* 카테고리 : 해변, 도시 , 산림, 쇼핑, hot 클릭시 해당 카테고리 항공권 리스트 노출 */
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
         setSelectedArea(null);
         setAreaFlightList([]);
-        dispatch(customTheme(category)); // ✅ 이 방식 유지
+        dispatch(customTheme(category));
     };
 
+    /* 관심지역 클릭시 유저 설정 지역 항공권 리스트 노출 */
     const handleInterestArea = async () => {
         if (!isLoggedIn) {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
             select ? navigate('../login') : navigate('/');
             return;
         }
-
+    
         const result = await customArea();
         setSelectedCategory(null);     // 테마 선택 해제
         setSelectedArea('interest');   // 관심지역 active 표시
-        // setThemeFlightList([]);        // 테마 항공권 비우기
-
+        
+        // 오늘날짜부터 리스트 20개까지만 노출
         if (result?.length) {
-            setAreaFlightList(result);
+            const today = new Date();
+            const filtered = result
+                .filter(f => new Date(f.Departure_date) >= today)
+                .sort((a, b) => new Date(a.Departure_date) - new Date(b.Departure_date))
+                .slice(0, 20); 
+    
+            setAreaFlightList(filtered);
         } else {
             setAreaFlightList([]);
         }
     };
+    
 
 
 
@@ -111,7 +119,19 @@ export default function CustomTicket() {
                 <div className="go-to-fit-air-btn"><p>관심 지역/테마를 등록하고, 맞춤형 정보와 다양한 혜택을 받아보세요.</p><span onClick={() => { navigate('../mypage/myInterest') }}>등록/수정하기</span></div>
                 <section className="customticket-list-wrap">
                     <div className='customticket-list-title'>
-                        <p><b>{myinfo.kname_first}{myinfo.kname_last || '고객'}</b>님에게 딱 맞는 맞춤항공권이 총 <b>{themeFlightList.length || areaFlightList.length}건</b>이 있습니다. </p>
+                        <p>
+                            <b>{myinfo.kname_first}{myinfo.kname_last || '고객'}</b>님에게 딱 맞는 맞춤항공권이 총&nbsp;
+                            <b>
+                                {
+                                    selectedArea === 'interest'
+                                        ? areaFlightList.length
+                                        : selectedCategory
+                                            ? themeFlightList.length
+                                            : 0
+                                }
+                            </b>
+                            건이 있습니다.
+                        </p>
                     </div>
                     <ul className='customticket-list'>
                         {/* 테마별 맞춤 항공권 리스트 */}

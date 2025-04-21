@@ -11,9 +11,12 @@ const paymentSlice = createSlice({
     setTotalPaymentPrice(state, action) {
       state.total_payment_price = action.payload;
     },
+    resetPayment(state) {
+      state.total_payment_price = 0;
+    },
   },
 });
 
-export const { setTotalPaymentPrice } = paymentSlice.actions;
+export const { setTotalPaymentPrice, resetPayment } = paymentSlice.actions; 
 
 export default paymentSlice.reducer;

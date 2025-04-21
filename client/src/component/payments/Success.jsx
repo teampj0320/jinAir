@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
+import { resetPayment } from "../../features/booking/paymentSlice.js"
+import { clearReservation } from '../../features/booking/bookingSlice';
 
 export default function SuccessPage() {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [searchParams] = useSearchParams();
   const paymentKey = searchParams.get("paymentKey");
@@ -26,28 +30,38 @@ export default function SuccessPage() {
         )
       : []; // 공백 없이 첫 이름과 마지막 이름 결합
 
-  const handlePayment = () => {
-    const id = userInfo.id;
-
-    axios
-      .post("http://localhost:9000/payment/res", {
-        id,
-        passenger_names,
-        fnum: [goFlightNum, backFlightNum],
-      })
-      .then((res) => {
-        const success = res.data?.success;
-        const affected = res.data?.data?.[0]?.affectedRows >= 1;
-
-        if (success && affected) {
-          alert("예약이 완료되었습니다.");
-          nav("/mypage/getReservation");
-        } else {
-          alert("예약 실패");
-        }
-      })
-      .catch(() => alert("예약 중 오류 발생"));
-  };
+      const handlePayment = () => {
+        const id = userInfo.id;
+      
+        const payload = {
+          id,
+          passenger_names,
+          fnum: [goFlightNum, backFlightNum],
+        };
+      
+        console.log("📦 요청 데이터 확인:", payload); // ✅ 여기에 로그 삽입
+      
+        axios
+          .post("http://localhost:9000/payment/res", payload)
+          .then((res) => {
+            const success = res.data?.success;
+            const affected = res.data?.data?.[0]?.affectedRows >= 1;
+      
+            if (success && affected) {
+              alert("예약이 완료되었습니다.");
+              nav("/mypage/getReservation");
+              dispatch(resetPayment());
+              dispatch(clearReservation());
+            } else {
+              alert("예약 실패");
+            }
+          })
+          .catch((err) => {
+            console.error("❌ 예약 중 에러:", err); // ✅ catch 안에서도 상세 에러 출력
+            alert("예약 중 오류 발생");
+          });
+      };
+      
 
   return (
     <div className="content">

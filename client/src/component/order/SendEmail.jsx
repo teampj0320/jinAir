@@ -31,10 +31,10 @@ const email = 'deodo@naver.com';
     return (
         <div className="App" style={{ padding: "5em" }}>
             <form ref={form} onSubmit={onSendForm}>
-                <input name="name" value={name} placeholder="이름을 적으세요" /> <br /><br />
-                <input name="date" value={date} placeholder="출발날짜" /> <br /><br />
-                <input name="order_number" value={order_number} placeholder="예약번호" /> <br /><br />
-                <input name="email" value={email} placeholder="이메일" /> <br /><br />
+                <input name="name" value={name} /> <br /><br />
+                <input name="date" value={date} /> <br /><br />
+                <input name="order_number" value={order_number} /> <br /><br />
+                <input name="email" value={email} /> <br /><br />
                 <button type="submit">이메일 보내기</button>
             </form>
         </div>
