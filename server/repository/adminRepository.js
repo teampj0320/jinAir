@@ -181,5 +181,16 @@ export const getNoticeInfo = async({num}) =>{
 
   const value = Number(String(num).replace(/^:/, ''));
   const [result] = await db.execute(sql, [value]);
-  return result;
+  return result[0];
 };
+
+/***************************
+ * 12. 공지사항 상세페이지 업데이트 로직
+ ***************************/
+export const updateNoticeInfo = async(dataToSend) =>{
+  const sql =`update notice set title=?, content=? where num=?`;
+  const values= [dataToSend.title, dataToSend.content, Number(String(dataToSend.num).replace(/^:/, ''))];
+
+  const [result] = await db.execute(sql, values);
+  return result.affectedRows;
+}

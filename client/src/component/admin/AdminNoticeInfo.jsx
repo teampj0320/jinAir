@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function AdminNoticeAdd() {
-  const [ formData, setFormData ] = useState([]);
+  const [ formData, setFormData ] = useState({});
   const navigate = useNavigate();
   const { num } = useParams();
   const refs = {
@@ -25,13 +25,23 @@ export default function AdminNoticeAdd() {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-
-    axios.post('http://localhost:9000/admin/noticeUpdate', formData)
-         .then((res)=>setFormData(res.data[0]))
-         .catch((error)=>console.log(error))
+    const dataToSend = {...formData, "num":num};
+    axios.post('http://localhost:9000/admin/noticeUpdate', dataToSend)
+         .then((res)=>{
+          if(res.data ===1){
+            setFormData(res.data)
+            alert('정상적으로 수정되었습니다.');
+            navigate('/admin/notice');
+          }else{
+            alert('수정되지 않았습니다. 다시 시도해주세요');
+          }
+        })
+         .catch((error)=>{
+          console.log(error)
+          alert('수정 중 에러가 발생했습니다.');
+        })
   };
 
-  
   return (
     <div className='admin-notice-content'>
        <form onSubmit={handleSubmit}>
@@ -42,18 +52,16 @@ export default function AdminNoticeAdd() {
         </div>
         <div className='admin-noticeUpload-all-box'>
           <table>
-            {formData && formData.map((data, idx)=> (
-              <tbody key={idx}>
+              <tbody >
                 <tr>
                     <td>제목<span style={{ color: 'red' }}>*</span></td>
-                    <td><input ref={refs.titleRef} name='title' type="text" value={data.title} onChange={handleForm} /></td>
+                    <td><input ref={refs.titleRef} name='title' type="text" value={formData.title} onChange={handleForm} /></td>
                 </tr>
                 <tr>
                     <td>내용<span style={{ color: 'red' }}>*</span></td>
-                    <td><textarea ref={refs.contentRef} name='content' rows={10}  value={data.content} onChange={handleForm} /></td>
+                    <td><textarea ref={refs.contentRef} name='content' rows={10}  value={formData.content} onChange={handleForm} /></td>
                 </tr>
               </tbody>
-            ))}
           </table>
         </div>
         <div className='admin-noticeUpload-btn'>

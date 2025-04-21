@@ -137,3 +137,13 @@ export const getNoticeInfo = async(req,res) =>{
   res.json(result);
   res.end();
 };
+
+
+/***************************
+ * 12. 공지사항 상세페이지 업데이트트 로직
+ ***************************/
+export const updateNoticeInfo = async(req,res) =>{
+  const result = await repository.updateNoticeInfo(req.body);
+  res.json(result);
+  res.end();
+};
