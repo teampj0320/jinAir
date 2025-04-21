@@ -12,7 +12,7 @@ export default function AuthUser({item, onNext}) {
       case 'pwd' :
         return {'id':'','name':'', 'gender':'', 'birth':'', 'email':'', 'authCode':''};
       case 'userInfo' :
-        return {'id':'', 'name':'', 'kname_first':'', 'kname_last':'', 'ename_firtst':'', 'ename_last':'',   'gender':'', 'birth':'', 'phone':'', 'email':'', 'password':'', 'cpassword':''};   
+        return {'id':'', 'name':'', 'kname_first':'', 'kname_last':'', 'ename_first':'', 'ename_last':'',   'gender':'', 'birth':'', 'phone':'', 'email':'', 'password':'', 'cpassword':''};   
       default: return {};  
     }
   };
@@ -284,9 +284,9 @@ export default function AuthUser({item, onNext}) {
             <li className='info-engname'>
               <div className='find-basic-info2'>
                   <input type="text" 
-                        name='ename_firtst'
-                        className='ename_firtst'
-                        value={formData.ename_firtst}
+                        name='ename_first'
+                        className='ename_first'
+                        value={formData.ename_first}
                         ref={refs.enameFirtstRef}
                         onChange={handleChange}
                         placeholder='성(영문)'/>
@@ -298,9 +298,9 @@ export default function AuthUser({item, onNext}) {
                         onChange={handleChange}
                         placeholder='이름(영문)'/>
                 </div>
-                <div className={`validate-text ${(msgCheck === 'ename_firtst') ? 'error' : (msgCheck === 'ename_last')? 'error':''}`}
-                  ref={(msgCheck === 'ename_firtst') ? msgRefs.enameFirstMsgRef : msgRefs.enameLastMsgRef }>
-                {(msgCheck === 'ename_firtst' || msgCheck === 'ename_last' ) &&  msgResult}
+                <div className={`validate-text ${(msgCheck === 'ename_first') ? 'error' : (msgCheck === 'ename_last')? 'error':''}`}
+                  ref={(msgCheck === 'ename_first') ? msgRefs.enameFirstMsgRef : msgRefs.enameLastMsgRef }>
+                {(msgCheck === 'ename_first' || msgCheck === 'ename_last' ) &&  msgResult}
               </div>
             </li>
             <li>
