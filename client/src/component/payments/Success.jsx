@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { resetPayment } from "../../features/booking/paymentSlice.js"
 import { clearReservation } from '../../features/booking/bookingSlice';
 
@@ -16,8 +16,12 @@ export default function SuccessPage() {
   const orderId = searchParams.get("orderId");
   const amount = searchParams.get("amount");
   const userInfo = useSelector((state) => state.booking.userInfo);
+  const resevationType = useSelector((state) => state.booking.resevationType);
   const backFlightNum = useSelector((state) => state.booking.backFlightNum);
   const goFlightNum = useSelector((state) => state.booking.goFlightNum);
+  const flightNum = useSelector((state) => state.booking.flightNum);
+
+
 
   // 승객 정보 가져오기
   const passengers = useSelector((state) => state.booking.passengers);
@@ -26,42 +30,46 @@ export default function SuccessPage() {
   const passenger_names =
     passengers && passengers.length > 0
       ? passengers.map(
-          (passenger) => `${passenger.kname_first}${passenger.kname_last}`
-        )
+        (passenger) => `${passenger.kname_first}${passenger.kname_last}`
+      )
       : []; // 공백 없이 첫 이름과 마지막 이름 결합
 
-      const handlePayment = () => {
-        const id = userInfo.id;
-      
-        const payload = {
-          id,
-          passenger_names,
-          fnum: [goFlightNum, backFlightNum],
-        };
-      
-        console.log("📦 요청 데이터 확인:", payload); // ✅ 여기에 로그 삽입
-      
-        axios
-          .post("http://localhost:9000/payment/res", payload)
-          .then((res) => {
-            const success = res.data?.success;
-            const affected = res.data?.data?.[0]?.affectedRows >= 1;
-      
-            if (success && affected) {
-              alert("예약이 완료되었습니다.");
-              nav("/mypage/getReservation");
-              dispatch(resetPayment());
-              dispatch(clearReservation());
-            } else {
-              alert("예약 실패");
-            }
-          })
-          .catch((err) => {
-            console.error("❌ 예약 중 에러:", err); // ✅ catch 안에서도 상세 에러 출력
-            alert("예약 중 오류 발생");
-          });
-      };
-      
+  const handlePayment = () => {
+    const id = userInfo.id;
+
+    const fnum = resevationType === "roundTrip"
+      ? [goFlightNum, backFlightNum].filter(Boolean)
+      : [flightNum];
+
+    const payload = {
+      id,
+      passenger_names,
+      fnum,
+    };
+
+    console.log("📦 요청 데이터 확인:", payload);
+
+    axios
+      .post("http://localhost:9000/payment/res", payload)
+      .then((res) => {
+        const success = res.data?.success;
+        const affected = res.data?.data?.[0]?.affectedRows >= 1;
+
+        if (success && affected) {
+          alert("예약이 완료되었습니다.");
+          nav("/mypage/getReservation");
+          dispatch(resetPayment());
+          dispatch(clearReservation());
+        } else {
+          alert("예약 실패");
+        }
+      })
+      .catch((err) => {
+        console.error("❌ 예약 중 에러:", err);
+        alert("예약 중 오류 발생");
+      });
+  };
+
 
   return (
     <div className="content">

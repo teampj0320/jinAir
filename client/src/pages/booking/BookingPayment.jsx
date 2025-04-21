@@ -5,8 +5,8 @@ import { FaArrowRightArrowLeft, FaEquals, FaAngleUp, FaAngleDown, FaRegSquareChe
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
 import { setTotalPaymentPrice } from "../../features/booking/paymentSlice.js";
 import { BiSolidPlaneTakeOff } from "react-icons/bi";
-import BookingStep from "../../component/booking/BookingStep.jsx"; 
-import BookingPaymentAgree from "./BookingPaymentAgree.jsx"; 
+import BookingStep from "../../component/booking/BookingStep.jsx";
+import BookingPaymentAgree from "./BookingPaymentAgree.jsx";
 import axios from "axios";
 
 export default function BookingPayment() {
@@ -17,9 +17,8 @@ export default function BookingPayment() {
   const { resevationType } = useSelector(state => state.booking);
   const backFlightNum = useSelector((state) => state.booking.backFlightNum);
   const goFlightNum = useSelector((state) => state.booking.goFlightNum);
-  const {
-    goTicketPrice,
-    backTicketPrice,
+  const ticketPrice = useSelector(state => state.booking.ticketPrice); // 편도 
+  const { goTicketPrice, backTicketPrice,
     // goSeatType, 
     // backSeatType 좌석번호 생기면 변경 예정
   } = useSelector((state) => state.booking);
@@ -32,13 +31,16 @@ export default function BookingPayment() {
   //토탈 프라이스 관련
   // total_payment_price 계산
   useEffect(() => {
-    const total_payment_price =
-      (goTicketPrice * passengers.length) + (backTicketPrice * passengers.length);
+    const total_payment_price = resevationType === "oneWay"
+      ? ticketPrice * passengers.length // 편도 예약 시 ticketPrice 사용
+      : (goTicketPrice * passengers.length) + (backTicketPrice * passengers.length); // 왕복 예약 시 기존 방식 사용
+
     console.log(passengers);
 
-    // 리덕스에 total_payment_price 저장
+    // 계산된 금액을 Redux에 저장
     dispatch(setTotalPaymentPrice(total_payment_price));
-  }, [goTicketPrice, backTicketPrice, passengers.length, dispatch]);
+  }, [goTicketPrice, backTicketPrice, passengers.length, ticketPrice, resevationType, dispatch]);
+
 
   // 리덕스에서 값 가져오기
   const totalPaymentPrice = useSelector((state) => state.payment.total_payment_price);
@@ -51,7 +53,7 @@ export default function BookingPayment() {
 
   const [openStates, setOpenStates] = useState({
     segment1: true,
-    segment2: true, 
+    segment2: true,
   });
 
   // 로그인 체크
@@ -227,6 +229,7 @@ export default function BookingPayment() {
             </div>
 
             <ul>
+              {/* 편도일 경우 ticketPrice 사용, 왕복일 경우 goTicketPrice, backTicketPrice 사용 */}
               <li>
                 <button
                   type="button"
@@ -234,82 +237,156 @@ export default function BookingPayment() {
                   onClick={() => toggleList("segment1")}
                 >
                   <span>구간1</span>
-                  <span>KRW&nbsp;{(goTicketPrice * 0.75 * passengers.length).toLocaleString()}</span>
-                  <span>KRW&nbsp;{(goTicketPrice * 0.15 * passengers.length).toLocaleString()}</span>
-                  <span>KRW&nbsp;{(goTicketPrice * 0.1 * passengers.length).toLocaleString()}</span>
                   <span>
-                    KRW&nbsp;{(goTicketPrice * passengers.length).toLocaleString()}
+                    KRW&nbsp;
+                    {(resevationType === "oneWay"
+                      ? ticketPrice * 0.75 * passengers.length
+                      : goTicketPrice * 0.75 * passengers.length
+                    ).toLocaleString()}
+                  </span>
+                  <span>
+                    KRW&nbsp;
+                    {(resevationType === "oneWay"
+                      ? ticketPrice * 0.15 * passengers.length
+                      : goTicketPrice * 0.15 * passengers.length
+                    ).toLocaleString()}
+                  </span>
+                  <span>
+                    KRW&nbsp;
+                    {(resevationType === "oneWay"
+                      ? ticketPrice * 0.1 * passengers.length
+                      : goTicketPrice * 0.1 * passengers.length
+                    ).toLocaleString()}
+                  </span>
+                  <span>
+                    KRW&nbsp;
+                    {(resevationType === "oneWay"
+                      ? ticketPrice * passengers.length
+                      : goTicketPrice * passengers.length
+                    ).toLocaleString()}
                     {openStates.segment1 ? <FaAngleDown /> : <FaAngleUp />}
                   </span>
                 </button>
                 <ul>
-                  {passengers && passengers.map((passenger, index) => (
-                    <li
-                      key={index}
-                      className={
-                        openStates.segment1
-                          ? "payment-table-text"
-                          : "payment-table-hide"
-                      }
-                    >
-                      <span>구간1</span>
-                      <span>KRW {(goTicketPrice * 0.75).toLocaleString()}</span>
-                      <span>KRW {(goTicketPrice * 0.15).toLocaleString()}</span>
-                      <span>KRW {(goTicketPrice * 0.1).toLocaleString()}</span>
-                      <span>KRW {goTicketPrice.toLocaleString()}</span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-
-            {/* 구간2 - 왕복인 경우에만 렌더링 */}
-            {resevationType === "roundTrip" && (
-              <ul>
-                <li>
-                  <button
-                    type="button"
-                    className="payment-table-button"
-                    onClick={() => toggleList("segment2")}
-                  >
-                    <span>구간2</span>
-                    <span>KRW&nbsp;{(backTicketPrice * 0.75 * passengers.length).toLocaleString()}</span>
-                    <span>KRW&nbsp;{(backTicketPrice * 0.15 * passengers.length).toLocaleString()}</span>
-                    <span>KRW&nbsp;{(backTicketPrice * 0.1 * passengers.length).toLocaleString()}</span>
-                    <span>
-                      KRW&nbsp;{(backTicketPrice * passengers.length).toLocaleString()}
-                      {openStates.segment2 ? <FaAngleDown /> : <FaAngleUp />}
-                    </span>
-                  </button>
-                  <ul>
-                    {passengers && passengers.map((passenger, index) => (
+                  {passengers &&
+                    passengers.map((passenger, index) => (
                       <li
                         key={index}
                         className={
-                          openStates.segment2
-                            ? "payment-table-text"
-                            : "payment-table-hide"
+                          openStates.segment1 ? "payment-table-text" : "payment-table-hide"
                         }
                       >
-                        <span>구간2</span>
-                        <span>KRW {(backTicketPrice * 0.75).toLocaleString()}</span>
-                        <span>KRW {(backTicketPrice * 0.15).toLocaleString()}</span>
-                        <span>KRW {(backTicketPrice * 0.1).toLocaleString()}</span>
-                        <span>KRW {backTicketPrice.toLocaleString()}</span>
+                        <span>구간1</span>
+                        <span>
+                          KRW{" "}
+                          {(resevationType === "oneWay"
+                            ? ticketPrice * 0.75
+                            : goTicketPrice * 0.75
+                          ).toLocaleString()}
+                        </span>
+                        <span>
+                          KRW{" "}
+                          {(resevationType === "oneWay"
+                            ? ticketPrice * 0.15
+                            : goTicketPrice * 0.15
+                          ).toLocaleString()}
+                        </span>
+                        <span>
+                          KRW{" "}
+                          {(resevationType === "oneWay"
+                            ? ticketPrice * 0.1
+                            : goTicketPrice * 0.1
+                          ).toLocaleString()}
+                        </span>
+                        <span>
+                          KRW{" "}
+                          {(resevationType === "oneWay"
+                            ? ticketPrice
+                            : goTicketPrice
+                          ).toLocaleString()}
+                        </span>
                       </li>
                     ))}
-                    <li className="payment-table-total">
-                      <div>
-                        <strong>항공요금 합계</strong>
-                      </div>
-                      <span>KRW&nbsp;{((goTicketPrice * passengers.length) + (backTicketPrice * passengers.length)).toLocaleString()} </span>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            )}
+                </ul>
+              </li>
+
+              {/* 왕복일 경우 구간2 */}
+              {resevationType === "roundTrip" && (
+                <ul>
+                  <li>
+                    <button
+                      type="button"
+                      className="payment-table-button"
+                      onClick={() => toggleList("segment2")}
+                    >
+                      <span>구간2</span>
+                      <span>
+                        KRW&nbsp;
+                        {(backTicketPrice * 0.75 * passengers.length).toLocaleString()}
+                      </span>
+                      <span>
+                        KRW&nbsp;
+                        {(backTicketPrice * 0.15 * passengers.length).toLocaleString()}
+                      </span>
+                      <span>
+                        KRW&nbsp;
+                        {(backTicketPrice * 0.1 * passengers.length).toLocaleString()}
+                      </span>
+                      <span>
+                        KRW&nbsp;
+                        {(backTicketPrice * passengers.length).toLocaleString()}
+                        {openStates.segment2 ? <FaAngleDown /> : <FaAngleUp />}
+                      </span>
+                    </button>
+                    <ul>
+                      {passengers &&
+                        passengers.map((passenger, index) => (
+                          <li
+                            key={index}
+                            className={
+                              openStates.segment2
+                                ? "payment-table-text"
+                                : "payment-table-hide"
+                            }
+                          >
+                            <span>구간2</span>
+                            <span>
+                              KRW {(backTicketPrice * 0.75).toLocaleString()}
+                            </span>
+                            <span>
+                              KRW {(backTicketPrice * 0.15).toLocaleString()}
+                            </span>
+                            <span>
+                              KRW {(backTicketPrice * 0.1).toLocaleString()}
+                            </span>
+                            <span>
+                              KRW {backTicketPrice.toLocaleString()}
+                            </span>
+                          </li>
+                        ))}
+                    </ul>
+                  </li>
+                </ul>
+              )}
+
+              {/* 항공운임 합계: 왕복/편도 관계 없이 항상 보이게 */}
+              <li className="payment-table-total">
+                <div>
+                  <strong>항공요금 합계</strong>
+                </div>
+                <span>
+                  KRW&nbsp;
+                  {(
+                    (resevationType === "oneWay" ? ticketPrice : goTicketPrice) *
+                    passengers.length +
+                    (resevationType === "roundTrip" ? backTicketPrice * passengers.length : 0)
+                  ).toLocaleString()}
+                </span>
+              </li>
+            </ul>
           </article>
         </section>
+
         {/* 부가서비스 정보 */}
         <section className="booking-payment-section">
           <article>
@@ -384,10 +461,11 @@ export default function BookingPayment() {
           </article>
         </section>
 
+
         {/* 이용약관 규정 */}
         <section className="booking-payment-section payment-bottom">
-        <BookingPaymentAgree openStates={openStates} setOpenStates={setOpenStates} />
-</section>
+          <BookingPaymentAgree openStates={openStates} setOpenStates={setOpenStates} />
+        </section>
         {/* 결제하기  */}
         <div className="order-button" onClick={orderClick}>
           <button>결제진행</button>
