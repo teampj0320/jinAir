@@ -4,10 +4,10 @@ import { FaCalendarCheck } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { IoAirplane } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
-import { getModalOpen, getPeopleModal, getCalendar, getCalendar2 ,getType} from '../../../service/searchApi.js';
-import {useNavigate} from 'react-router-dom';
+import { getModalOpen, getPeopleModal, getCalendar, getCalendar2, getType,getTab,getSearchTab } from '../../../service/searchApi.js';
+import { useNavigate } from 'react-router-dom';
 
-export default function MultiCity({ startDate2,  multiArr,multiDepart }) {  
+export default function MultiCity({ startDate2, multiArr, multiDepart }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const adultNum = useSelector(state => state.search.adultNum);
@@ -69,10 +69,12 @@ export default function MultiCity({ startDate2,  multiArr,multiDepart }) {
         return isValid;
     }
     const handleCheck = () => {
-        if (validate()) {
-            // alert('조회하기');
-            navigate('/booking/availabilityList/go');
-        }
+        // if (validate()) {
+        alert('준비중입니다. 다른 예약수단을 사용해주세요.');
+        dispatch(getTab('main'));
+        dispatch(getSearchTab('roundTrip'));
+        // navigate('/booking/availabilityList/go');
+        // }
     }
 
     return (
