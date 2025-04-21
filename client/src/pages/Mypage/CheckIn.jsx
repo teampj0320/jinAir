@@ -5,11 +5,13 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+import BoardingPassEmail from '../../component/mypage/BordingPassEmail.jsx';
 
 
 export default function CheckIn() {
     dayjs.locale('ko');  // 날짜 포맷
     const [resData, setResData] = useState(null);
+    const [sendTarget, setSendTarget] = useState(null); // 탑승권 발송 정보
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
 
     // 예약정보 불러오기
@@ -84,7 +86,9 @@ export default function CheckIn() {
                                             ))}
                                         </ul>
                                     </div>
-                                    <div>{dayjs(itemGroup[0].res_date).format('YYYY.MM.DD (ddd)')}</div>
+                                    <div>
+                                        {dayjs(itemGroup[0].res_date).format('YYYY.MM.DD (ddd) HH:mm')}
+                                    </div>
                                     <div>{itemGroup[0].fnum}</div>
                                     <div> {itemGroup[0].passenger_name ? itemGroup[0].passenger_name.length : 0}명</div>
                                     {/* 여정 출발일 기준 디데이 계산 */}
@@ -92,15 +96,14 @@ export default function CheckIn() {
                                         {dayjs(itemGroup[0].departure_date).isSame(dayjs(), 'day') ? (
                                             <>
                                                 가능
-                                                <p className='f12 w300 text-center'>항공기 출발 24시간 <br />
-                                                    전부터 가능</p>
-                                                b
+                                                <p className='f12 w300 text-center'>당일에만 체크인 가능</p>
+                                                <button className='w-btn' onClick={() => setSendTarget(itemGroup[0])}>탑승권 발행</button>
                                             </>
                                         ) : (
                                             <>불가능
                                                 <p className='f12 w300 text-center'>항공기 출발 24시간 <br />
                                                     전부터 가능</p>
-                                                <button className='w600'>탑승권 발행</button>
+                                                
                                             </>
                                         )}
                                     </div>
@@ -114,6 +117,8 @@ export default function CheckIn() {
                                 </div>
                             )
                         }
+                        {/* 탑승권 전송 */}
+                        {sendTarget && <BoardingPassEmail segment={sendTarget} onSent={() => setSendTarget(null)} />}
                     </div>
                 </section>
             </div> {/* 해당 컴포넌트 가운데 정렬*/}

@@ -113,7 +113,7 @@ export const applyCoupon = (couponCode) => async (dispatch) => {
     if (result && result[0]) {
       dispatch(setCouponCount(result[0].coupon_count));
   
-      // ✅ 쿠폰 다시 불러오기
+      // 쿠폰 다시 불러오기
       const refreshUrl = 'http://localhost:9000/mypage/getMyCoupon';
       const refreshResult = await axiosPost({ url: refreshUrl, data: { id } });
   

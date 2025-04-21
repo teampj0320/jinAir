@@ -133,7 +133,7 @@ export default function ModifyInfo() {
             password: formData.password || myinfo.password
         };
 
-        console.log('최종 업데이트 데이터 👉', updatedData); // ✅ 여기!
+        console.log('최종 업뎃 회원 정보', updatedData); 
         dispatch(updateMyInfo(updatedData)).then(() => {
             dispatch(getMyInfo());
             alert('회원 정보가 수정되었습니다.');
@@ -306,15 +306,15 @@ export default function ModifyInfo() {
                                 <label className='info-field-title'>마케팅 광고 활용 수신 동의</label>
                                 <div className='flex gap10'>
                                     <div className='checkbox-wrap'>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" defaultChecked  />
                                         <label htmlFor="" className='f14 w300'>이메일</label>
                                     </div>
                                     <div className='checkbox-wrap'>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" defaultChecked  />
                                         <label htmlFor="" className='f14 w300'>SMS</label>
                                     </div>
                                     <div className='checkbox-wrap'>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" defaultChecked  />
                                         <label htmlFor="" className='f14 w300'>App푸시</label>
                                     </div>
                                 </div>
@@ -325,9 +325,9 @@ export default function ModifyInfo() {
                                 <p className='f14 w300'>- SNS 계정을 통해서 간편하게 로그인 하세요.</p>
                                 <div className='sns-btn-wrap'>
                                     <button>
-                                        <img src="/images/icon_kakao2.webp" alt="" />
+                                        <img src="/images/icon_kakao2.webp" alt="" onClick={()=>{alert('준비중 입니다.')}} />
                                         카카오 로그인 연동하기</button>
-                                    <button>
+                                    <button onClick={()=>{alert('준비중 입니다.')}}>
                                         <img src="/images/icon_naver.webp" alt="" />
                                         네이버 로그인 연동하기</button>
                                 </div>
@@ -341,10 +341,6 @@ export default function ModifyInfo() {
                                 <button className='gray-btn'>취소</button>
                                 <button className='navy-btn2' onClick={handleSubmit}>수정</button>
                             </div>
-
-
-
-
                         </div>
                     </div>
 

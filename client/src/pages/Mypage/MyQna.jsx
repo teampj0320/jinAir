@@ -12,6 +12,7 @@ export default function MyQna() {
     const navigate = useNavigate();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     const [qnaData, setQnaData] = useState(null);
+    const [isOpen, setIsOpen] = useState([]);
 
     // qna 테이블 불러오기
     useEffect(() => {
@@ -29,7 +30,12 @@ export default function MyQna() {
     }, [])
 
 
-
+    // 나의 문의 내용 확인 토글
+    const toggleContent = (index) => {
+        setIsOpen(prev =>
+            prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+        );
+    };
 
     return (
         <div className='r-common mp-container'>
@@ -40,7 +46,7 @@ export default function MyQna() {
                         <span className='mp-common-title'>1:1문의</span>
                         <div className='flex gap5'>
                             <button className='g-btn' onClick={() => { navigate('../mypage/qnaUpload') }}>문의 등록(Q&A)</button>
-                            <button className='g-btn' onClick={()=>{alert('준비중입니다.')}}>자주묻는질문(FAQ)</button>
+                            <button className='g-btn' onClick={() => { alert('준비중입니다.') }}>자주묻는질문(FAQ)</button>
                         </div>
                     </div>
                     <div className='mp-table-wrap'>
@@ -52,11 +58,11 @@ export default function MyQna() {
                             <li style={{ flex: '1' }}>상태</li>
                         </ul>
                         {
-                            qnaData ? qnaData.map((item) =>
+                            qnaData && qnaData.length > 0 ? qnaData.map((item, i) =>
                             (
 
-                                <section className='myQna-tbody'>
-                                    <div className='myQna-title-wrap'>
+                                <section className='myQna-tbody' key={item.qid || i}>
+                                    <div className='myQna-title-wrap cursor-pointer' onClick={() => toggleContent(i)}>
                                         <div>
                                             {item.category}
                                         </div>
@@ -67,37 +73,34 @@ export default function MyQna() {
                                             {item.id}
                                         </div>
                                         <div>
-                                        {dayjs(item.REG_DATE).format('YYYY.MM.DD HH:mm')}
+                                            {dayjs(item.REG_DATE).format('YYYY.MM.DD HH:mm')}
                                         </div>
                                         <div>
-                                        {item.comment || '확인중'}
+                                            {item.comment || '확인중'}
                                         </div>
                                     </div>
-                                    <div className='myQna-content'>
-                                        <div className='myQna-content-user'>
-                                        <p> <b className='f20'>Q.</b>
-                                            {item.TITLE}</p>
-                                        <p>{item.CONTENT}</p>
-                                            
-                                            <img src={item.image} alt="" />
+                                    {isOpen.includes(i) && (
+                                        <div className='myQna-content'>
+                                            <div className='myQna-content-user'>
+                                                <p><b>Q.</b>{item.TITLE}</p>
+                                                <p>{item.CONTENT}</p>
+                                                <img src={item.image} alt="" />
+                                            </div>
+                                            <div className='myQna-content-admin'>
+                                                <p><b>A.</b>{item.adminTitle}</p>
+                                                <p>{item.adminContent}</p>
+                                            </div>
+                                        </div>
+                                    )}
 
-                                        </div>
-                                        <div className='myQna-content-admin'> 
-                                            <p> <b className='f20'>A.</b>
-                                            {item.adminTitle}
-                                            </p>
-                                            <p>{item.adminContent}</p>
-                                        </div>
-                                    </div>
-                                    
 
                                 </section>
 
                             )) : (
-                        <div className='res-list-none'>
-                            <span></span>
-                            <p>문의내역이 없습니다.</p>
-                        </div>
+                                <div className='res-list-none'>
+                                    <span></span>
+                                    <p>문의내역이 없습니다.</p>
+                                </div>
                             )
                         }
 

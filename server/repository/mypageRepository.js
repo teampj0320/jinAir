@@ -52,7 +52,7 @@ export const updateMyInfo = async (data) => {
     data.phone ?? null,
     data.nationality ?? null,
     data.residence ?? null,
-    data.zipcode ?? null,
+    data.zipcode || null, // int라 없을경우 null로 변환
     data.address ?? null,
     data.detail_address ?? null,
     data.password ?? null,
