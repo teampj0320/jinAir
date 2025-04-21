@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ExchangeRate () {
+export default function ExchangeRate ({handleLeave,setIsHover}) {
   const [rates, setRates] = useState(null);
+  // const handleLeave = () => { setIsHover(true) }
 
   useEffect(() => {
     fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/krw.json')
@@ -22,7 +23,7 @@ export default function ExchangeRate () {
   }, []);
 
   return (
-    <div className="exchange-all-box">
+    <div className='header_exchange'  onMouseLeave={handleLeave}>
       <h2 className="">{rates?.date} KRW 1,000원 기준 환율</h2>
       {rates ? (
         <ul className="">
