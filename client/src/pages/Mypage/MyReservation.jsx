@@ -14,24 +14,20 @@ export default function MyReservation() {
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
     dayjs.locale('ko');  // 날짜 포맷
 
-    // view_my_reservation 불러오기
+    // 예약정보 불러오기
     useEffect(() => {
 
         if (isLoggedIn) {
             const id = localStorage.getItem('user_id');
-
+            
             axios.post('http://localhost:9000/mypage/getMyRes', { id })
                 .then((res) => {
                     console.log('서버 응답 데이터:', res.data);
                     setResData(res.data);
-
                 })
                 .catch((err) => console.log(err))
         }
     }, [])
-
-
-
 
 
 
