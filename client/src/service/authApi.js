@@ -1,4 +1,5 @@
 import { setIsLoggedIn, setLoginReset, setIsLogout, setAdminIsLoggedIn, setAdminLoginResest, setAdminLogout, resetAll } from '../features/auth/authSlice.js';
+import { getUserInfo } from './bookingApi.js';
 import { axiosPost } from'./api.js';
 
 /***************************** 
@@ -15,7 +16,8 @@ export const getLogin = (formData) =>async(dispatch) =>{
   if(cnt){
     localStorage.setItem("token",loginResult.token);
     localStorage.setItem("user_id",formData.id);
-    dispatch(setIsLoggedIn({cnt}))
+    dispatch(setIsLoggedIn({cnt}));
+    dispatch(getUserInfo());
   }else{
     dispatch(setIsLoggedIn({cnt}))
   }

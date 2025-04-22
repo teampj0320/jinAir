@@ -579,7 +579,7 @@
 
     .booking-payment-section {
         //여행정보
-        padding: 30px;
+        padding: 5px 30px 30px 30px;
         margin-top: 60px;
         border-radius: 10px;
         background: #fff;
@@ -773,7 +773,8 @@
             thead {
                 display: none;
             }
-            td{ 
+
+            td {
                 text-align: center;
             }
         }
@@ -888,13 +889,15 @@
 
         .bottom-agree-title {
             margin-top: 18px;
+            position: relative;
+            padding-right: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
             div {
-                position: relative;
-                padding-right: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+
+                border: solid 1px tomato;
             }
 
             .bottom-agree-notic {
@@ -997,6 +1000,10 @@
 
 .agree-notic-block {
     padding: 20px 0;
+
+    p {
+        padding-bottom: 5px;
+    }
 }
 
 /********************************
@@ -1008,11 +1015,13 @@
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06);
+
     select {
         cursor: pointer;
     }
-    option{ 
-    cursor: pointer;
+
+    option {
+        cursor: pointer;
     }
 
     ul {
@@ -1042,9 +1051,10 @@
             gap: 6px;
             flex-flow: column;
             padding: 20px 30px;
-            width: 100%; 
+            width: 100%;
         }
-        .total-calc{
+
+        .total-calc {
             background-color: #d3e92e;
         }
 

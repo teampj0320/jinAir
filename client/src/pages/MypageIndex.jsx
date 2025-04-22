@@ -168,7 +168,7 @@ export default function MypageIndex() {
                                 <b className='f20'>고객 문의</b>
                                 <ul>
                                     <li className='cursor-pointer' onClick={() => { navigate('../mypage/myQna') }}>나의 문의 확인</li>
-                                    <li className='disable-link'>고객의 말씀(Q&A)</li>
+                                    <li className='disable-link' onClick={()=>{navigate('/mypage/qnaUpload')}}>고객의 말씀(Q&A)</li>
                                     <li className='disable-link'>자주 묻는 질문(FAQ)</li>
                                 </ul>
                             </div>

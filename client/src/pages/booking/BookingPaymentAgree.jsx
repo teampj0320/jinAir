@@ -106,8 +106,8 @@ export default function BookingPaymentAgree() {
             </div>
 
             <ul>
-                <li className="bottom-agree-title">
-                    <div>
+                <li>
+                    <div className="bottom-agree-title">
                         <strong>항공권 운임 규정</strong>
                         <span className="agree-toggleB">
                             <span className="check-icon-warp">
@@ -124,8 +124,8 @@ export default function BookingPaymentAgree() {
                     </div>
                 </li>
 
-                <li className="bottom-agree-title">
-                    <div>
+                <li>
+                    <div className="bottom-agree-title">
                         <strong>부가서비스별 유의사항</strong>
                         <span className="check-icon-warp">
                             <label onClick={() => toggleList("addition2")}>
@@ -140,7 +140,7 @@ export default function BookingPaymentAgree() {
                                 className="agree-toggleA"
                                 onClick={() => toggleList("more1")}
                             >
-                                {openStates.more1 ? <FaAngleDown /> : <FaAngleUp />}
+                                {openStates.more1 ? <FaAngleUp /> : <FaAngleDown /> }
                             </button>
                         </span>
                     </div>
@@ -190,8 +190,8 @@ export default function BookingPaymentAgree() {
                     </div>
                 </li>
 
-                <li className="bottom-agree-title">
-                    <div>
+                <li>
+                    <div className="bottom-agree-title">
                         <button>
                             국내선 여객운송 약관
                             <BsArrowUpRightCircleFill />
@@ -199,8 +199,8 @@ export default function BookingPaymentAgree() {
                     </div>
                 </li>
 
-                <li className="bottom-agree-title">
-                    <div>
+                <li>
+                    <div className="bottom-agree-title">
                         <strong>항공기 위험물 안내</strong>
                         <span className="check-icon-warp">
                             <label onClick={() => toggleList("addition3")}>
@@ -215,7 +215,7 @@ export default function BookingPaymentAgree() {
                                 className="agree-toggleA"
                                 onClick={() => toggleList("more2")}
                             >
-                                {openStates.more2 ? <FaAngleDown /> : <FaAngleUp />}
+                                {openStates.more2 ? <FaAngleUp /> : <FaAngleDown /> }
                             </button>
                         </span>
                     </div>
@@ -259,8 +259,8 @@ export default function BookingPaymentAgree() {
                     </div>
                 )}
 
-                <li className="bottom-agree-title">
-                    <div>
+                <li>
+                    <div className="bottom-agree-title">
                         <strong>기타 유의사항</strong>
                         <span className="check-icon-warp">
                             <label onClick={() => toggleList("addition4")}>
@@ -275,7 +275,7 @@ export default function BookingPaymentAgree() {
                                 className="agree-toggleA"
                                 onClick={() => toggleList("more3")}
                             >
-                                {openStates.more3 ? <FaAngleDown /> : <FaAngleUp />}
+                                {openStates.more3 ? <FaAngleUp /> : <FaAngleDown /> }
                             </button>
                         </span>
                     </div>

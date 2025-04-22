@@ -5,54 +5,46 @@ import { db } from './db.js'
  *************************/  
 
 export const payment = ({ id, fnum, passenger_names }) => {
-
   const setResNum = `
-      SET @res_num = CONCAT(
-          CHAR(FLOOR(RAND() * 26) + 65),
-          LPAD(FLOOR(RAND() * 100), 2, '0'),
-          CHAR(FLOOR(RAND() * 26) + 65),
-          LPAD(FLOOR(RAND() * 10), 1, '0'),
-          CHAR(FLOOR(RAND() * 26) + 65)
-      );
+    SET @res_num = CONCAT(
+      CHAR(FLOOR(RAND() * 26) + 65),
+      LPAD(FLOOR(RAND() * 100), 2, '0'),
+      CHAR(FLOOR(RAND() * 26) + 65),
+      LPAD(FLOOR(RAND() * 10), 1, '0'),
+      CHAR(FLOOR(RAND() * 26) + 65)
+    );
   `;
 
-  // 승객 이름을 공백 제거 후, 배열로 변환
-  const cleanedPassengerNames = passenger_names
-      .map(name => name.trim().replace(/\s+/g, ''));  // 공백 제거 후 배열로 변환
+  const cleanedPassengerNames = passenger_names.map(name =>
+    name.trim().replace(/\s+/g, '')
+  );
 
-  console.log(cleanedPassengerNames);  // 결과 확인
+  const passengerJSON = JSON.stringify(cleanedPassengerNames);
 
-  // fnum 배열의 길이에 따라 쿼리를 다르게 작성
   let insertQuery;
   let insertParams;
 
   if (fnum.length === 1) {
-    // 편도일 경우: 한 줄만 삽입
     insertQuery = `
       INSERT INTO reservation (id, fnum, passenger_name, res_num, res_date)
-      VALUES (?, ?, JSON_ARRAY(?), @res_num, NOW());
+      VALUES (?, ?, CAST(? AS JSON), @res_num, NOW());
     `;
-    insertParams = [
-      id, fnum[0], ...cleanedPassengerNames,  // 승객 이름을 배열로 전개해서 전달
-    ];
+    insertParams = [id, fnum[0], passengerJSON];
   } else if (fnum.length === 2) {
-    // 왕복일 경우: 두 줄을 삽입
     insertQuery = `
       INSERT INTO reservation (id, fnum, passenger_name, res_num, res_date)
       VALUES 
-        (?, ?, JSON_ARRAY(?), @res_num, NOW()),
-        (?, ?, JSON_ARRAY(?), @res_num, NOW());
+        (?, ?, CAST(? AS JSON), @res_num, NOW()),
+        (?, ?, CAST(? AS JSON), @res_num, NOW());
     `;
     insertParams = [
-      id, fnum[0], ...cleanedPassengerNames,  // 승객 이름을 배열로 전개해서 전달
-      id, fnum[1], ...cleanedPassengerNames,  // 승객 이름을 배열로 전개해서 전달
+      id, fnum[0], passengerJSON,
+      id, fnum[1], passengerJSON
     ];
   } else {
-    // fnum이 올바른 값이 아닐 경우
     return Promise.reject(new Error('fnum 배열의 길이가 유효하지 않습니다.'));
   }
 
-  // 쿼리 실행
   return db.execute(setResNum)
     .then(() => db.execute(insertQuery, insertParams));
 };

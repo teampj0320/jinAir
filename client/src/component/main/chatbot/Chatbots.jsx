@@ -5,18 +5,12 @@ import Reservation from './Reservation.jsx';
 import Airplane from './Airplane.jsx';
 import Cheap from './Cheap.jsx';
 import Question from './Question.jsx';
-import Ticket from './Ticket.jsx';
-import Check from './Check.jsx';
 import BuyTicket from './BuyTicket.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     getChatbotModalOpen, getMessage, getReserMessage, getReserMessage1,
 } from '../../../service/searchApi.js';
-import config from "./config.js";
-import MessageParser from "./MessageParser.jsx";
-import ActionProvider from "./ActionProvider.jsx";
-import Chatbot from "react-chatbot-kit";
 import 'react-chatbot-kit/build/main.css';
 
 export default function Chatbots() {
@@ -136,21 +130,16 @@ export default function Chatbots() {
                         {chatTab === 'schedule' && <Schedule />}
                         {chatTab === 'airplane' && <Airplane />}
                         {chatTab === 'reservation' && <Reservation />}
-                        {chatTab === 'food' && goFood()}
+                        {/* {chatTab === 'food' && goFood()} */}
+                        {chatTab === 'food' && alert('준비중 입니다')}
                         {chatTab === 'cheap' && <Cheap />}
                         {chatTab === 'question' && <Question />}
                         {chatTab === 'ticket' && alert('준비중 입니다')}
                         {chatTab === 'check' && alert('준비중 입니다')}
-                        {chatTab === 'notice' && goNotice()}
+                        {/* {chatTab === 'notice' && goNotice()} */}
+                        {chatTab === 'notice' && alert('준비중 입니다')}
                         {chatTab === 'buyTicket' && <BuyTicket />}
                     </div>
-                    {/* <div className='real-chatbot-box'>
-                    <Chatbot
-                        config={config}
-                        messageParser={MessageParser}
-                        actionProvider={ActionProvider}
-                    />
-                </div> */}
                 </div>
                 <div className='chatbot-main-bottom-box'>
                     <ul>

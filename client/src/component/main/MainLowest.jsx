@@ -91,7 +91,7 @@ export default function Mainlowests() {
                     <div className='lowest_anytime_warp'>
                         <div className='lowset_pin'>
                             <p><IoMdPin /></p>
-                            <span>다카마쓰</span>
+                            <span>일자별 최저가 항공권</span>
                         </div>
                         <div className='lowest_anytime'>
                             <BarChart />

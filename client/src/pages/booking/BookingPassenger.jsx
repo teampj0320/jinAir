@@ -5,7 +5,8 @@ import '../../scss/yuna.scss';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BookingPassengerForm from '../../component/booking/BookingPassengerForm';
-import { getUserInfo, setPassengerInfo } from '../../service/bookingApi.js';
+import { setPassengerInfo } from '../../service/bookingApi.js';
+import { validate } from '../../utils/bookingValidate.js';
 import axios from 'axios';
 
 export default function BookingPassenger() {
@@ -24,25 +25,6 @@ export default function BookingPassenger() {
     const hasCheckedLogin = useRef(false);
 
     const [countryList, setCountryList] = useState([]);
-
-    useEffect(() => {
-        if (hasCheckedLogin.current) return;
-        hasCheckedLogin.current = true;
-
-        if (isLoggedIn) {
-            dispatch(getUserInfo());
-        } else {
-            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-            select ? navigate('/login') : navigate('/');
-        }
-    }, [isLoggedIn]);
-
-    useEffect(() => {
-        axios.get('/data/countryInfo.json')
-            .then((res) => setCountryList(res.data))
-            .catch((error) => console.log(error));
-    }, []);
-
     const [passengers, setPassengers] = useState(() => {
         if (userInfo && total === 1) {
             return [
@@ -52,7 +34,7 @@ export default function BookingPassenger() {
                     birth: userInfo.birth,
                     id: userInfo.id,
                     gender: userInfo.gender,
-                    country: "한국(REPUBLIC OF KOREA"
+                    country: "한국(REPUBLIC OF KOREA)"
                 },
             ];
         } else if (userInfo && total > 1) {
@@ -64,7 +46,7 @@ export default function BookingPassenger() {
                         birth: userInfo.birth,
                         id: userInfo.id,
                         gender: userInfo.gender,
-                        country: "한국(REPUBLIC OF KOREA"
+                        country: "한국(REPUBLIC OF KOREA)"
                     };
                 } else {
                     return {
@@ -73,7 +55,7 @@ export default function BookingPassenger() {
                         birth: '',
                         id: '',
                         gender: '',
-                        country: "한국(REPUBLIC OF KOREA"
+                        country: "한국(REPUBLIC OF KOREA)"
                     };
                 }
             });
@@ -82,10 +64,26 @@ export default function BookingPassenger() {
         }
     });
 
+    useEffect(() => {
+        if (hasCheckedLogin.current) return;
+        hasCheckedLogin.current = true;
+
+        if (!isLoggedIn) {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ? navigate('/login') : navigate('/');
+        }
+    }, [isLoggedIn]);
+
+    useEffect(() => {
+        axios.get('/data/countryInfo.json')
+            .then((res) => setCountryList(res.data))
+            .catch((error) => console.log(error));
+    }, []);
+
+    
+
     /* 탑승객 정보 입력 이벤트 */
     const handlePassengerChange = (index, field, value) => {
-        // const realIndex = index + 1;
-
         setPassengers(prev => {
             const updated = [...prev];
             updated[index] = {
@@ -118,60 +116,16 @@ export default function BookingPassenger() {
         }));
     }
 
-    // 유효성 검사 함수
-    const validate = () => {
-        let result = true;
-        for (let i = 0; i < actualInputFormCount; i++) {
-            const refs = refsList.current[i];
-            const msgRefs = msgRefsList.current[i];
-            const passengerIndex = i + 1; // 0번은 로그인 유저라 제외
-
-
-            if (refs.firstNameRef.current.value.trim() === '') {
-                msgRefs.firstNameMsgRef.current.style.display = 'block';
-                refs.firstNameRef.current.focus();
-                result = false;
-            } else {
-                msgRefs.firstNameMsgRef.current.style.display = 'none';
-            }
-
-            if (refs.lastNameRef.current.value.trim() === '') {
-                msgRefs.lastNameMsgRef.current.style.display = 'block';
-                if (result) refs.lastNameRef.current.focus();
-                result = false;
-            } else {
-                msgRefs.lastNameMsgRef.current.style.display = 'none';
-            }
-
-            if (refs.birthRef.current.value.trim() === '') {
-                msgRefs.birthMsgRef.current.style.display = 'block';
-                if (result) refs.birthRef.current.focus();
-                result = false;
-            } else {
-                msgRefs.birthMsgRef.current.style.display = 'none';
-            }
-
-            if (!passengers[passengerIndex].gender || passengers[passengerIndex].gender.trim() === '') {
-                msgRefs.genderMsgRef.current.style.display = 'block';
-                result = false;
-            } else {
-                msgRefs.genderMsgRef.current.style.display = 'none';
-            }
-        }
-
-        return result;
-    }
-
     /* 버튼 클릭 이벤트 */
     const clickNextBtn = () => {
-        if (validate()) {
+        if (validate(actualInputFormCount, refsList, msgRefsList, passengers)) {
             dispatch(setPassengerInfo(passengers));
             resevationType === 'oneWay' ? navigate('/booking/selectSeat') : navigate('/booking/selectGoSeat');
         }
     }
 
     let refIndex = 0; // input 필드가 있는 폼만 추적
-    let formRenderIndex = 0; // ref index용 (로그인 유저 제외한 탑승객 수만큼)
+    let formRenderIndex = 0; // ref index용(로그인 유저 제외한 탑승객 수만큼)
 
     return (
         <div className='booking-passenger-wrap'>

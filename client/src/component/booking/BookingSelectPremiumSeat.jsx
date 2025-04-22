@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSeats } from '../../service/bookingApi.js';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { TbRectangleVertical } from "react-icons/tb";
 import { TbRectangleVerticalFilled } from "react-icons/tb";
 import { FaSquare } from "react-icons/fa6";
 import BookingSeatAlert from '../../component/booking/BookingSeatAlert.jsx';
+import BookingSeatAlert2 from '../../component/booking/BookingSeatAlert2.jsx';
 import Modal from 'react-modal';
 
 export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNum}) {
@@ -17,6 +17,7 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
     const total = adultNum + pediatricNum + babyNum;
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
 
     /* 좌석 선택 이벤트 */
     const setSeatNum = (seat) => {
@@ -24,14 +25,14 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
             setSelectSeatNum(selectSeatNum.filter((item) => item !== seat));
         } else {
             if (selectSeatNum.length >= total) {
-                alert("더 이상 좌석을 선택할 수 없습니다.");
+                setAlertOpen(true);
             } else {
                 setSelectSeatNum([...selectSeatNum, seat]);
             }
         }
     }
 
-    /* 모달창 스타일 */
+    /* 알림 모달창 스타일 */
     const customModalStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
@@ -138,14 +139,25 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
                     ))}
                 </ul>
             </div>
+            {/* 선택 불가 좌석 알림창 */}
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 style={customModalStyles}
                 ariaHideApp={false}
                 contentLabel="Booking Seat Deac Modal"
-            >
+                >
                 <BookingSeatAlert setModalIsOpen={setModalIsOpen} />
+            </Modal>
+            {/* 예매 매수 초과 알림창 */}
+            <Modal
+                isOpen={alertOpen}
+                onRequestClose={() => setAlertOpen(false)}
+                style={customModalStyles}
+                ariaHideApp={false}
+                contentLabel="Booking Seat Deac Modal"
+            >
+                <BookingSeatAlert2 setAlertOpen={setAlertOpen} />
             </Modal>
         </div>
     );
