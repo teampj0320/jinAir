@@ -4,6 +4,8 @@ import Layout from './pages/Layout.jsx';
 import Home from './pages/Home.jsx';
 import MobileLayout from './pages/MobileLayout.jsx';
 import Login from './pages/Login.jsx';
+import NaverRedirectPage from './pages/NaverRedirectPage.jsx';
+import KakaoRedirectPage from './pages/KakaoRedirectPage.jsx';
 import FingdUserInfo from '../src/component/member/FingdUserInfo.jsx';
 import SignupFunnel from './pages/SignupFunnel.jsx';
 //mypage
@@ -70,6 +72,8 @@ export default function App() {
 
       <Route element={<MobileLayout />}>
         <Route path='/login' element={<Login />} />
+        <Route path="/naver-redirect" element={<NaverRedirectPage />} />
+        <Route path="/kakao-redirect" element={<KakaoRedirectPage />} />
         <Route path='/find/:finfo' element={<FingdUserInfo />} />
         <Route path='/join/:part' element={<SignupFunnel />} />
       </Route>
