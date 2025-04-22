@@ -2,6 +2,7 @@ import React from 'react';
 import * as repository from '../repository/loginRepository.js';
 import jwt from 'jsonwebtoken';
 import {sendMail} from'../utils/sendMail.js';
+import axios from 'axios';
 
 /***************************** 
  * 로그인 
@@ -97,10 +98,113 @@ export const getIdCheck = async(req, res)=>{
  * 회원가입
 *****************************/
 export const setSignup = async(req, res)=>{
-  const phone = `${req.body.phone.slice(0,3)}-${req.body.phone.slice(3,7)}-${req.body.phone.slice(7,11)}`
+  const phone = `${req.body.phone.slice(0,3)}-${req.body.phone.slice(3,7)}-${req.body.phone.slice(7,12)}`
   const formData = {...req.body, phone}
   
   const result = await repository.setSignup(formData);
   res.json(result);
   res.end();
 };
+
+
+/***************************** 
+ * sns 네이버 로그인 토큰 받기
+*****************************/
+export const getNaverToken = async (req, res) => {
+  const { code, state } = req.body;
+
+  const client_id = 'CLQEVWVzvGWP5Smx7Vgn';
+  const client_secret = '_TXhJET9_C';
+  const redirect_uri = 'http://localhost:3000/naver-redirect'; 
+
+  try {// 1. access_token 요청
+    const tokenResponse = await axios.get('https://nid.naver.com/oauth2.0/token', {
+      params: {grant_type: 'authorization_code', client_id,  client_secret, code, state,}
+    });
+
+    const tokenData = tokenResponse.data;
+
+    if (!tokenData.access_token) {
+      return res.status(400).json({ error: '토큰 발급 실패', details: tokenData });
+    }
+
+    // 2. 유저 정보 요청
+    const userResponse = await axios.get('https://openapi.naver.com/v1/nid/me', {
+      headers: {
+        Authorization: `Bearer ${tokenData.access_token}`
+      }
+    });
+
+    const userInfo = userResponse.data;
+
+    if (!userInfo?.response?.email) {
+      return res.status(400).json({ error: '유저 정보 없음', details: userInfo });
+    }
+
+    return res.json({ user: userInfo.response });
+  } catch (err) {
+    console.error('네이버 로그인 오류:', err.response?.data || err.message);
+    return res.status(500).json({ error: '네이버 로그인 처리 실패', details: err.response?.data || err.message });
+  }
+};
+
+/***************************** 
+ * sns 카카오톡 로그인 토큰 받기
+*****************************/
+export const getKakaoToken = async (req, res) => {
+  const { code } = req.body;
+
+  const REST_API_KEY = '3f5c49e05800584ba496c54e74152ab3'; 
+  const REDIRECT_URI = 'http://localhost:3000/kakao-redirect'; 
+
+  try {
+    // 1. access_token 요청
+    const tokenRes = await axios.post(
+      'https://kauth.kakao.com/oauth/token',
+      new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: REST_API_KEY,
+        redirect_uri: REDIRECT_URI,
+        code,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+
+    const access_token = tokenRes.data.access_token;
+
+    if (!access_token) {
+      return res.status(400).json({ error: '카카오 access_token 발급 실패' });
+    }
+
+    // 2. 유저 정보 요청
+    const userRes = await axios.get('https://kapi.kakao.com/v2/user/me', {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    const userInfo = userRes.data;
+    return res.json({ user: userInfo }); // 프론트에서 postMessage로 받음
+
+  } catch (err) {
+    console.error('카카오 로그인 처리 오류:', err.response?.data || err.message);
+    return res.status(500).json({
+      error: '카카오 로그인 처리 중 오류',
+      details: err.response?.data || err.message,
+    });
+  }
+};
+
+/***************************** 
+ * sns 간편 로그인 
+*****************************/
+export const getSnsSignup = async(req, res) =>{
+  const result = await repository.getSnsSignup(req.body);
+  res.json(result);
+  res.end();
+};
+

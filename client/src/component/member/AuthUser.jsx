@@ -415,7 +415,7 @@ export default function AuthUser({item, onNext}) {
                        ref={refs.phoneRef}
                        value={formData.phone}
                        onChange={handleChange}
-                       placeholder='휴대폰번호 (ex)_010-1234-1234'/>
+                       placeholder='휴대폰번호 (ex)_01012341234'/>
               </div>
               <div className={`validate-text ${msgCheck === 'phone' ? 'error' : ''}`} ref={msgRefs.phoneMsgRef}>
                 {msgCheck === 'phone'  && msgResult}

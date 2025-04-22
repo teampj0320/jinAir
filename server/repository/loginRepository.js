@@ -103,6 +103,7 @@ export const getIdCheck = async({id})=>{
  * 회원가입
 *****************************/
 export const setSignup = async(formData)=>{
+  console.log('레파지토리1',formData);
   const sql =`
     insert into customer (id, password, kname_first, kname_last, ename_first, ename_last
                         , phone, email, gender, birth, reg_date)
@@ -114,14 +115,34 @@ export const setSignup = async(formData)=>{
     formData.password,
     formData.kname_first,
     formData.kname_last,
-    formData.ename_firtst,
+    formData.ename_first,
     formData.ename_last,
     formData.phone,
     formData.email,
     formData.gender,
     formData.birth
   ];
-
   const [result] = await db.execute(sql, values);
   return result.affectedRows;
 }  
+
+
+/***************************** 
+ * sns 간편 로그인 
+*****************************/
+export const getSnsSignup = async(formData) =>{
+  let data =[];
+  const sql =`select count(*) as cnt from customer where email = ?`;
+  
+  const [result] = await db.execute(sql, [formData.email]);
+  const cnt = result[0].cnt;
+
+  if(cnt === 1){
+    const sql =`select id, password from customer where email = ?`;
+    const [userRes] = await db.execute(sql, [formData.email]);
+
+    const { id, password } = userRes[0];
+    return {cnt, id, password};
+  }
+  return {cnt};
+};  
