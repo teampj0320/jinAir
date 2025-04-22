@@ -27,6 +27,8 @@ export default function BookingGoSelectSeat() {
     const backTicketPrice = useSelector(state => state.booking.backTicketPrice);
     const totalPrice = goTicketPrice + backTicketPrice;
 
+    console.log("탑승객 정보 확인 --> ", passengers);
+
     const [selectSeatNum, setSelectSeatNum] = useState(''); // 선택 좌석
     const [seatGrade, setSeatGrade] = useState([]);
     
@@ -69,11 +71,6 @@ export default function BookingGoSelectSeat() {
             padding: "0"
         }
     };
-
-    /* 좌석 선택 이벤트 */
-    const setSeatNum = (seat) => {
-        console.log("좌석 : ", seat);
-    }
 
     /* 신청하기 버튼 클릭 이벤트 */
     const clickNext = (type) => {

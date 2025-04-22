@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { getUserInfo, getOnewayList, setFlightInfo } from '../../service/bookingApi.js';
+import { getOnewayList, setFlightInfo } from '../../service/bookingApi.js';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingDates from '../../component/booking/BookingDates.jsx';
 import BookingTicketList from '../../component/booking/BookingTicketList.jsx';
 import { IoIosAirplane } from 'react-icons/io';
 import { RxDividerVertical } from "react-icons/rx";
 import '../../scss/yuna.scss';
-
-/* 해당 페이지에서 넘겨줄 정보
-    1. 왕복, 편도 타입
-    2. 출발 공항, 도착 공학
-    3. 출발 시간, 도착 시간
-    4. 가격
- */
 
 export default function BookingOneWay() {
     const navigate = useNavigate();
@@ -38,7 +31,6 @@ export default function BookingOneWay() {
     // 클릭시 필요 정보들 전역에 저장하기
     const clickNextBtn = () => {
         if (seatSelect !== '') {
-            dispatch(getUserInfo());
             dispatch(setFlightInfo('oneWay', flightNum, seatSelect, seatPrice));
             navigate("/booking/passenger");
         } else {

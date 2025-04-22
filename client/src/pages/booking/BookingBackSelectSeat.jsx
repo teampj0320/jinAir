@@ -71,11 +71,6 @@ export default function BookingBackSelectSeat() {
         }
     };
 
-    /* 좌석 선택 이벤트 */
-    const setSeatNum = (seat) => {
-        console.log("좌석 : ", seat);
-    }
-
     /* 신청하기 버튼 클릭 이벤트 */
     const clickNext = (type) => {
         if (type === 'later') {

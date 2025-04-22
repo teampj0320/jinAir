@@ -5,7 +5,7 @@ import '../../scss/yuna.scss';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BookingPassengerForm from '../../component/booking/BookingPassengerForm';
-import { getUserInfo, setPassengerInfo } from '../../service/bookingApi.js';
+import { setPassengerInfo } from '../../service/bookingApi.js';
 import axios from 'axios';
 
 export default function BookingPassenger() {
@@ -24,25 +24,6 @@ export default function BookingPassenger() {
     const hasCheckedLogin = useRef(false);
 
     const [countryList, setCountryList] = useState([]);
-
-    useEffect(() => {
-        if (hasCheckedLogin.current) return;
-        hasCheckedLogin.current = true;
-
-        if (isLoggedIn) {
-            dispatch(getUserInfo());
-        } else {
-            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
-            select ? navigate('/login') : navigate('/');
-        }
-    }, [isLoggedIn]);
-
-    useEffect(() => {
-        axios.get('/data/countryInfo.json')
-            .then((res) => setCountryList(res.data))
-            .catch((error) => console.log(error));
-    }, []);
-
     const [passengers, setPassengers] = useState(() => {
         if (userInfo && total === 1) {
             return [
@@ -81,6 +62,27 @@ export default function BookingPassenger() {
             return [];
         }
     });
+
+    console.log("유저 정보 확인 --> ", userInfo);
+    console.log("탑승객 정보 확인 --> ", passengers);
+
+    useEffect(() => {
+        if (hasCheckedLogin.current) return;
+        hasCheckedLogin.current = true;
+
+        if (!isLoggedIn) {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
+            select ? navigate('/login') : navigate('/');
+        }
+    }, [isLoggedIn]);
+
+    useEffect(() => {
+        axios.get('/data/countryInfo.json')
+            .then((res) => setCountryList(res.data))
+            .catch((error) => console.log(error));
+    }, []);
+
+    
 
     /* 탑승객 정보 입력 이벤트 */
     const handlePassengerChange = (index, field, value) => {

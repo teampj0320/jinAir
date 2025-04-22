@@ -5,6 +5,7 @@ import { TbRectangleVertical } from "react-icons/tb";
 import { TbRectangleVerticalFilled } from "react-icons/tb";
 import { FaSquare } from "react-icons/fa6";
 import BookingSeatAlert from '../../component/booking/BookingSeatAlert.jsx';
+import BookingSeatAlert2 from '../../component/booking/BookingSeatAlert2.jsx';
 import Modal from 'react-modal';
 
 export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNum}) {
@@ -17,6 +18,7 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
     const total = adultNum + pediatricNum + babyNum;
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
 
     /* 좌석 선택 이벤트 */
     const setSeatNum = (seat) => {
@@ -24,15 +26,43 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
             setSelectSeatNum(selectSeatNum.filter((item) => item !== seat));
         } else {
             if (selectSeatNum.length >= total) {
-                alert("더 이상 좌석을 선택할 수 없습니다.");
+                setAlertOpen(true);
             } else {
                 setSelectSeatNum([...selectSeatNum, seat]);
             }
         }
     }
 
-    /* 모달창 스타일 */
+    /* 선택 불가능 좌석 알림 모달창 스타일 */
     const customModalStyles = {
+        overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+        },
+        content: {
+            width: "350px",
+            height: "80px",
+            zIndex: "150",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            padding: "30px"
+        }
+    };
+
+    /* 예매 가능 매수 초과 알림 모달창 스타일 */
+    const customAlertStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
             width: "100%",
@@ -138,14 +168,25 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
                     ))}
                 </ul>
             </div>
+            {/* 선택 불가 좌석 알림창 */}
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 style={customModalStyles}
                 ariaHideApp={false}
                 contentLabel="Booking Seat Deac Modal"
-            >
+                >
                 <BookingSeatAlert setModalIsOpen={setModalIsOpen} />
+            </Modal>
+            {/* 예매 매수 초과 알림창 */}
+            <Modal
+                isOpen={alertOpen}
+                onRequestClose={() => setAlertOpen(false)}
+                style={customAlertStyles}
+                ariaHideApp={false}
+                contentLabel="Booking Seat Deac Modal"
+            >
+                <BookingSeatAlert2 setAlertOpen={setAlertOpen} />
             </Modal>
         </div>
     );
