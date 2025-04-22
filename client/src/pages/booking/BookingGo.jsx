@@ -5,6 +5,8 @@ import { getOnewayList, setGoFlightInfo } from '../../service/bookingApi.js';
 import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingDates from '../../component/booking/BookingDates.jsx';
 import BookingTicketList from '../../component/booking/BookingTicketList.jsx';
+import BookingReserveAlert from '../../component/booking/BookingReserveAlert.jsx';
+import Modal from 'react-modal';
 import { IoIosAirplane } from 'react-icons/io';
 import { RxDividerVertical } from "react-icons/rx";
 
@@ -21,6 +23,7 @@ export default function BookingGo() {
     const [seatSelect, setSeatSelect] = useState(''); // 좌석 타입
     const [seatPrice, setSeatPrice] = useState(0); // 선택 좌석 가격
     const [sortSelect, setSortSelect] = useState('early');
+    const [alertOpen, setAlertOpen] = useState(false);
 
     useEffect(() => {
         dispatch(getOnewayList(departure, arrive, startDate));
@@ -32,9 +35,37 @@ export default function BookingGo() {
             dispatch(setGoFlightInfo('roundTrip', flightNum, seatSelect, seatPrice));
             navigate('/booking/availabilityList/back');
         } else {
-            alert('좌석을 선택해주세요.');
+            setAlertOpen(true);
         }
     }
+
+    /* 알림 모달창 스타일 */
+    const customAlertStyles = {
+        overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+        },
+        content: {
+            width: "350px",
+            height: "80px",
+            zIndex: "150",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            padding: "30px"
+        }
+    };
     
     return (
         <div className='booking-avaliability-wrap'>
@@ -95,6 +126,18 @@ export default function BookingGo() {
                     오는 편 선택
                 </button>
             </div>
+            <Modal
+                isOpen={alertOpen}
+                onRequestClose={() => setAlertOpen(false)}
+                style={customAlertStyles}
+                ariaHideApp={false}
+                contentLabel="Booking Seat Deac Modal"
+                >
+                <BookingReserveAlert
+                    text='항공편을 선택해주세요.'
+                    setAlertOpen={setAlertOpen}
+                />
+            </Modal>
         </div>
     );
 }

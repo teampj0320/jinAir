@@ -64,9 +64,6 @@ export default function BookingPassenger() {
         }
     });
 
-    console.log("유저 정보 확인 --> ", userInfo);
-    console.log("탑승객 정보 확인 --> ", passengers);
-
     useEffect(() => {
         if (hasCheckedLogin.current) return;
         hasCheckedLogin.current = true;
@@ -87,8 +84,6 @@ export default function BookingPassenger() {
 
     /* 탑승객 정보 입력 이벤트 */
     const handlePassengerChange = (index, field, value) => {
-        // const realIndex = index + 1;
-
         setPassengers(prev => {
             const updated = [...prev];
             updated[index] = {

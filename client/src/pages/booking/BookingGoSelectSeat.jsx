@@ -7,6 +7,7 @@ import BookingStep from '../../component/booking/BookingStep.jsx';
 import BookingSeatDesc from '../../component/booking/BookingSeatDesc.jsx';
 import BookingSelectPremiumSeat from '../../component/booking/BookingSelectPremiumSeat.jsx';
 import BookingSelectBasicSeat from '../../component/booking/BookingSelectBasicSeat.jsx';
+import BookingReserveAlert from '../../component/booking/BookingReserveAlert.jsx';
 import { setGoSeatList, getSeats } from '../../service/bookingApi.js';
 import { IoIosAirplane } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
@@ -33,6 +34,7 @@ export default function BookingGoSelectSeat() {
     const [seatGrade, setSeatGrade] = useState([]);
     
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
 
     useEffect(() => {
         axios.get('/data/booking.json')
@@ -44,7 +46,7 @@ export default function BookingGoSelectSeat() {
         dispatch(getSeats(goFlightNum));
     }, []);
 
-    /* 모달창 스타일 */
+    /* 좌석 안내 모달창 스타일 */
     const customModalStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
@@ -72,13 +74,41 @@ export default function BookingGoSelectSeat() {
         }
     };
 
+    /* 신청불가 알림 모달창 스타일 */
+    const customAlertStyles = {
+        overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+        },
+        content: {
+            width: "350px",
+            height: "80px",
+            zIndex: "150",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            padding: "30px"
+        }
+    };
+
     /* 신청하기 버튼 클릭 이벤트 */
     const clickNext = (type) => {
         if (type === 'later') {
             navigate('/booking/beforePayment');
         } else {
             if (selectSeatNum.length === 0) {
-                alert("좌석을 선택해주세요.");
+                setAlertOpen(true);
             } else {
                 dispatch(setGoSeatList(selectSeatNum));
                 navigate('/booking/selectBackSeat');
@@ -195,6 +225,18 @@ export default function BookingGoSelectSeat() {
                 <button onClick={() => clickNext('later')}>나중에 선택</button>
                 <button onClick={() => clickNext('reserve')}>신청하기</button>
             </div>
+            <Modal
+                isOpen={alertOpen}
+                onRequestClose={() => setAlertOpen(false)}
+                style={customAlertStyles}
+                ariaHideApp={false}
+                contentLabel="Booking Seat Deac Modal"
+                >
+                <BookingReserveAlert
+                    text='좌석을 선택해주세요.'
+                    setAlertOpen={setAlertOpen}
+                />
+            </Modal>
         </div>
     );
 }

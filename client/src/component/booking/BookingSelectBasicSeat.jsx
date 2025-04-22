@@ -33,36 +33,8 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
         }
     }
 
-    /* 선택 불가능 좌석 알림 모달창 스타일 */
+    /* 알림 모달창 스타일 */
     const customModalStyles = {
-        overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-        },
-        content: {
-            width: "350px",
-            height: "80px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            padding: "30px"
-        }
-    };
-
-    /* 예매 가능 매수 초과 알림 모달창 스타일 */
-    const customAlertStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
             width: "100%",
@@ -202,7 +174,7 @@ export default function BookingSelectPremiumSeat({selectSeatNum, setSelectSeatNu
             <Modal
                 isOpen={alertOpen}
                 onRequestClose={() => setAlertOpen(false)}
-                style={customAlertStyles}
+                style={customModalStyles}
                 ariaHideApp={false}
                 contentLabel="Booking Seat Deac Modal"
             >
