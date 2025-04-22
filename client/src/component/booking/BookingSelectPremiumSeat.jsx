@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSeats } from '../../service/bookingApi.js';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { TbRectangleVertical } from "react-icons/tb";
 import { TbRectangleVerticalFilled } from "react-icons/tb";
 import { FaSquare } from "react-icons/fa6";

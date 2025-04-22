@@ -28,8 +28,6 @@ export default function BookingGoSelectSeat() {
     const backTicketPrice = useSelector(state => state.booking.backTicketPrice);
     const totalPrice = goTicketPrice + backTicketPrice;
 
-    console.log("탑승객 정보 확인 --> ", passengers);
-
     const [selectSeatNum, setSelectSeatNum] = useState(''); // 선택 좌석
     const [seatGrade, setSeatGrade] = useState([]);
     

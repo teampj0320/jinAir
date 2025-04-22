@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function BookingReserveAlert({text, setAlertOpen}) {
+export default function BookingReserveAlert({text, setModalIsOpen}) {
     return (
         <div className='booking-seat-alert'>
             <p>{text}</p>
-            <button onClick={() => {setAlertOpen(false)}}>확인</button>
+            <button onClick={() => {setModalIsOpen(false)}}>확인</button>
         </div>
     );
 }
