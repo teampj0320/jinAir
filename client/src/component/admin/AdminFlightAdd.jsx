@@ -290,6 +290,7 @@ export default function AdminFlightAdd() {
               </div>
               <div className='add-input-wrapper'>
                 <span className="prefix-label" >비행기번호</span>
+                <span className='admin-check' style={{ color: 'red' }}>*</span>
                 <select name='pnum' className='add-fnum' onChange={handleChange} ref={refs.pnumRef}>
                   <option value="default" >선택</option>
                   <option value="B737-800">B737-800</option>
@@ -330,6 +331,7 @@ export default function AdminFlightAdd() {
             <div className='add-info2'>
               <div className='add-input-wrapper'>
                 <span className="prefix-label">Basic Price</span>
+                <span className='admin-check' style={{ color: 'red' }}>*</span>
                 <input type="text" 
                        className='add-fnum' 
                        name='basic_price'  
@@ -342,6 +344,7 @@ export default function AdminFlightAdd() {
                : <div className="validate-text"></div>}
               <div className='add-input-wrapper'>
                 <span className="prefix-label prem">Premium Price</span>
+                <span className='admin-check2' style={{ color: 'red' }}>*</span>
                 <input type="text" 
                        name='premium_price'  
                        className='add-fnum'  

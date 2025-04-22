@@ -336,6 +336,19 @@
 .validate-text.error {
   color: red;
 }
+.add-input-wrapper{
+  position: relative;
+}
+.add-input-wrapper .admin-check{
+  position: absolute;
+  left: 85px;
+  top: 5px;
+}
+.add-input-wrapper .admin-check2{
+  position: absolute;
+  left: 110px;
+  top: 5px;
+}
 .main-top-search-bottom-main-middle2 {
   margin-top: 10px;
   display: flex;
@@ -582,6 +595,9 @@
   margin-left:  60px;
   font-size: 13px;
   color: #666;
+}
+.admin-notice-title{
+  cursor: pointer;
 }
 /********************************
 어드민 공지사항 등록 
