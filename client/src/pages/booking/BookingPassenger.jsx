@@ -34,7 +34,7 @@ export default function BookingPassenger() {
                     birth: userInfo.birth,
                     id: userInfo.id,
                     gender: userInfo.gender,
-                    country: "한국(REPUBLIC OF KOREA"
+                    country: "한국(REPUBLIC OF KOREA)"
                 },
             ];
         } else if (userInfo && total > 1) {
@@ -46,7 +46,7 @@ export default function BookingPassenger() {
                         birth: userInfo.birth,
                         id: userInfo.id,
                         gender: userInfo.gender,
-                        country: "한국(REPUBLIC OF KOREA"
+                        country: "한국(REPUBLIC OF KOREA)"
                     };
                 } else {
                     return {
@@ -55,7 +55,7 @@ export default function BookingPassenger() {
                         birth: '',
                         id: '',
                         gender: '',
-                        country: "한국(REPUBLIC OF KOREA"
+                        country: "한국(REPUBLIC OF KOREA)"
                     };
                 }
             });
