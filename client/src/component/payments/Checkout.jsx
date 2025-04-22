@@ -70,6 +70,7 @@ export function CheckoutPage() {
         <div className="btn-wrapper w-100 payment-button">
           <button
             className="btn primary w-100"
+            style={{cursor:"pointer"}}
             onClick={async () => {
               try {
                 /**

@@ -52,9 +52,10 @@ export default function BookingCheckout() {
       <div className="booking-passenger-contents">
         <p className="booking-page-title">4. 결제</p>
         <section className="noneExtras">
-          <h3><span>쿠폰 할인</span></h3>
+          <h3><span>할인 선택</span></h3>
           <div className="check-out-page">
             <div className="check-out-coupon">
+              <h3><span>쿠폰 할인</span></h3>
               <div className="select-warpper">
                 <select
                   value={selectedCouponCode}
@@ -98,7 +99,7 @@ export default function BookingCheckout() {
               <strong>KRW <span>{discountAmount.toLocaleString()}</span></strong>
             </div>
             <div className="operation"><FaEquals /></div>
-            <div className="calc-item">
+            <div className="calc-item total-calc">
               <span>최종 결제 금액</span>
               <strong>KRW <span>{finalAmount.toLocaleString()}</span></strong>
             </div>

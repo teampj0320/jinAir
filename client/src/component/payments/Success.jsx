@@ -139,7 +139,9 @@ export default function SuccessPage() {
               </h4>
             </div>
             <div className="w-100 payment-button">
-              <button className="btn primary w-100" onClick={handlePayment}>
+              <button className="btn primary w-100" 
+              style={{cursor:"pointer"}}
+              onClick={handlePayment}>
                 결제 승인
               </button>
             </div>
