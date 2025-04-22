@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-// import { getUserInfo } from '../../service/bookingApi.js';
+import { useSelector } from 'react-redux';
 import { FaCircleCheck } from "react-icons/fa6";
 import axios from 'axios';
 
 export default function BookingPassengerForm({ type, num, index, onChange, refs, msgRefs }) {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const userInfo = useSelector(state => state.booking.userInfo);
     const [countryList, setCountryList] = useState([]);
     const [gender, setGender] = useState('');

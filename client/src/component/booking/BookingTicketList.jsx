@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from "react-redux";
-import { getOnewayList } from '../../service/bookingApi.js';
 import { IoIosAirplane } from 'react-icons/io';
 
 export default function BookingTicketList({type, seatSelect, setSeatSelect, setFlightNum, setSeatPrice}) {

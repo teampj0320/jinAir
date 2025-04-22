@@ -13,7 +13,7 @@ export default function BookingDates() {
     const arrive = useSelector(state => state.search.arrive); // 도착지
     const formatStartDate = startDate.replace(/\(.*\)/g, '').trim().replace(/\./g, '-');
     const [selectedDate, setSelectedDate] = useState(formatStartDate);
-    const [alertOpen, setAlertOpen] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
         dispatch(getOnewayList(departure, arrive, selectedDate));
@@ -44,7 +44,7 @@ export default function BookingDates() {
         const newDate = new Date(selectedDate);
         
         if (newDate < minDate) {
-            alert("운항 정보가 없습니다.");
+            setModalIsOpen(true);
         } else {
             newDate.setDate(newDate.getDate() - 7);
             const formateDate = newDate.toISOString().split('T')[0];
@@ -66,7 +66,7 @@ export default function BookingDates() {
     /* 날짜 목록 클릭 이벤트 :: 현재 편도 기준으로 작업중 */
     const handleDate = (list) => {
         if (list.substring(5, 7) === '03') {
-            setAlertOpen(true);
+            setModalIsOpen(true);
             setSelectedDate(formatStartDate);
         } else {
             setSelectedDate(list);
@@ -122,15 +122,15 @@ export default function BookingDates() {
                 ) }
             </ul>
             <Modal
-                isOpen={alertOpen}
-                onRequestClose={() => setAlertOpen(false)}
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
                 style={customAlertStyles}
                 ariaHideApp={false}
                 contentLabel="Booking Seat Deac Modal"
                 >
                 <BookingReserveAlert
                     text='운항 정보가 없습니다.'
-                    setAlertOpen={setAlertOpen}
+                    setModalIsOpen={setModalIsOpen}
                 />
             </Modal>
             <button className='booking-list-next'
