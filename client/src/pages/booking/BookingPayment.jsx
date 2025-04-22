@@ -106,6 +106,21 @@ export default function BookingPayment() {
     }));
   };
 
+  // 성인/소아 여부 확인 함수
+  const calculateAge = (birth) => {
+    const birthDate = new Date(birth.replace(/\./g, '-'));
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  };
+
   const orderClick = () => {
     if (Object.values(openStates).slice(-4).includes(false)) {
       alert("이용약관을 모두 동의해주셔야 결제가 가능합니다.");
@@ -199,13 +214,14 @@ export default function BookingPayment() {
               </thead>
               <tbody>
                 {passengers && passengers.map((passenger, index) => {
+                  const age = calculateAge(passenger.birth);
                   return (
                     <tr key={index}>
                       <td>{passenger.kname_first}{passenger.kname_last}</td>
-                      <td>성인</td>
+                      <td>{age >= 19 ? "성인" : "소아"}</td>
                       <td>{passenger.gender}</td>
                       <td>{passenger.birth}</td>
-                      <td>한국(REPUBLIC OF KOREA)</td>
+                      <td>{passenger.country}</td>
                     </tr>
                   );
                 })}
