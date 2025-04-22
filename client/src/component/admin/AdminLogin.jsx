@@ -47,6 +47,10 @@ export default function AdminLogin() {
     setMsgResult('');
   };
 
+  const handleClick = () =>{
+    alert('운영팀에 문의주세요.');
+  }
+
   const handleSubmit = (e) =>{
     e.preventDefault();
     const { result, msg } = validateLogin(refs, msgRefs.msgRef);
@@ -86,7 +90,7 @@ export default function AdminLogin() {
           <span style={{fontSize:'0.7em', color:'white'}} ref={msgRefs.msgRef}>{msgResult}</span>
         </div>
         <button type='submit' className='admin-login-btn'>로그인</button>
-        <button type='button' className='admin-signup-btn'>회원가입</button>
+        <button type='button' className='admin-signup-btn' onClick={handleClick}>회원가입</button>
         <span className='admin-find-userinfo'>🍀아이디/ 비밀번호 찾기는 운영팀으로 문의해주세요. 🍀</span>
       </form>
     </div>

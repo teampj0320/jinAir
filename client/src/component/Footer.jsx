@@ -8,7 +8,6 @@ import { FaPhone } from "react-icons/fa6";
 export default function Footer() {
 
     const handleClick = () =>{
-        alert('두둥');
         window.open('/admin/login', '_blank')
     };
 
