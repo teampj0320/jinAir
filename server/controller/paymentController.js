@@ -1,5 +1,6 @@
 
 import * as repository from '../repository/paymentRepository.js';
+import { getConnection } from '../repository/db.js';
 
 /***************************** 
  * Reservation 
@@ -43,3 +44,21 @@ export const flight = (req, res) => {
         res.status(500).json({ success: false, message: error.message });
       });
   };
+
+/******************
+ * 최저가 조회
+ *****************/   
+export const lowest = (req, res) => {
+  getConnection()
+    .then((connection) => {
+      // 날짜별 최저가를 구하는 쿼리 실행
+      return repository.getLowestPricesByDate(connection);
+    })
+    .then((rows) => {
+      res.json(rows);  // 날짜별 최저가 정보 전달
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    });
+};

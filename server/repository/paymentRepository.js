@@ -84,3 +84,32 @@ export const flight = async (flightNumber) => {
     throw new Error('항공편 조회 중 오류가 발생했습니다.');
   }
 };
+/***************************
+ * lowest 조회
+ ***************************/
+export const getLowestPricesByDate = async (conn) => {
+  const sql = `
+    WITH RankedFlights AS (
+  SELECT 
+    DATE(Departure_date) AS flight_date, 
+    Departure_location AS name,
+    basic_price AS min_basic_price,
+    ROW_NUMBER() OVER (PARTITION BY DATE(Departure_date) ORDER BY basic_price ASC) AS rn
+  FROM 
+    flight
+)
+SELECT 
+  flight_date,
+  name,
+  min_basic_price
+FROM 
+  RankedFlights
+WHERE 
+  rn = 1
+ORDER BY 
+  flight_date ASC;
+
+  `;
+  const [rows] = await conn.query(sql);
+  return rows;
+};
