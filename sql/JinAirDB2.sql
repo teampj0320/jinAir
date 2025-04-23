@@ -46,28 +46,6 @@ INSERT INTO `admin` VALUES ('ADMIN1','1111','관리자1','010-0000-0000','ADMIN1
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `country`
---
-
-DROP TABLE IF EXISTS `country`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `country` (
-  `area` varchar(10) NOT NULL,
-  `city` varchar(40) NOT NULL,
-  PRIMARY KEY (`city`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `country`
---
-
-LOCK TABLES `country` WRITE;
-/*!40000 ALTER TABLE `country` DISABLE KEYS */;
-/*!40000 ALTER TABLE `country` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `customer`
@@ -154,29 +132,6 @@ INSERT INTO `flight` VALUES ('LJ100','B737-900','마카오','MFM','대구','TAE'
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `main_menu_category`
---
-
-DROP TABLE IF EXISTS `main_menu_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `main_menu_category` (
-  `mid` char(3) NOT NULL,
-  `title` varchar(20) NOT NULL,
-  PRIMARY KEY (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `main_menu_category`
---
-
-LOCK TABLES `main_menu_category` WRITE;
-/*!40000 ALTER TABLE `main_menu_category` DISABLE KEYS */;
-INSERT INTO `main_menu_category` VALUES ('101','예약'),('102','프로모션/제휴'),('103','부가서비스'),('104','운항정보'),('105', '전체메뉴');
-/*!40000 ALTER TABLE `main_menu_category` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `promotion`
@@ -273,59 +228,7 @@ VALUES ('test1', 'LJ279', 'A11111', JSON_ARRAY('홍길순', '김철수', '이영
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `sub_category`
---
 
-DROP TABLE IF EXISTS `sub_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sub_category` (
-  `sid` char(3) NOT NULL,
-  `title` varchar(20) NOT NULL,
-  `mid` char(3) NOT NULL,
-  `image` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`mid`,`sid`),
-  CONSTRAINT `SUB_CATEGORY_FK_SID` FOREIGN KEY (`mid`) REFERENCES `main_menu_category` (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sub_category`
---
-
-LOCK TABLES `sub_category` WRITE;
-/*!40000 ALTER TABLE `sub_category` DISABLE KEYS */;
-INSERT INTO `sub_category` VALUES ('aa1','예약안내','101','<IoMdAirplane />'),('aa2','항공권 예약','101',NULL),('aa3','예약/결제안내','101',NULL),('aa4','예약변경/취소/환불','101',NULL),
-('bb1','추천 항공권','101','<MdAirplaneTicket />'),('bb2','최저가항공권','101',NULL),('bb3','맞춤항공권','101',NULL),
-('cc1','운임 및 수수료','101','<IoIosPricetags />'),('cc2','국내선','101',NULL),('cc3','국제선','101',NULL),
-('dd1','할인','101','<RiDiscountPercentFill />'),('dd2','할인코드','101',NULL),('dd4','프로모션코드','101',NULL),('dd5','신분할인제도','101',NULL),('dd6','상용우대 프로그램','101',NULL),
-('ee1','이벤트','102','<PiCalendarStarFill />'),('ee2','진행중','102',NULL),('ee3','종료','102',NULL),('ee4','당첨자 발표','102',NULL),
-('ff1','제휴','102','<LuHeartHandshake />'),('ff2','차량','102',NULL),('ff3','호텔','102',NULL),('ff4','여행보험','102',NULL),('ff5','현지투어/통신','102',NULL),('ff6','카드/환전','102',NULL),('ff7','지니 보딩패스','102',NULL),
-('gg1','부가서비스 안내','103','<LuPackagePlus />'),
-('hh1','묶음 할인','103','<IoIosGift />'),
-('ii1','좌석','103','<PiSeatFill />'),
-('jj1','수하물','103','<BsSuitcase2Fill />'),
-('kk1','기내식','103','<FaUtensils />'),
-('ll1','여행보험','103','<AiFillSafetyCertificate />'),
-('mm1','JINI PET','103','<MdOutlinePets />'),
-('nn1','출도착 안내','104','<PiAirplaneInFlightFill />'),('nn2','구간 조회','104',NULL),('nn3','편명 조회','104',NULL),
-('oo1','스케줄 조회','104','<FaCalendarCheck />'),('oo2','왕복','104',NULL),('oo3','편도','104',NULL),
-('pp1','취항 노선 안내','104','<FaEarthAsia />'),('pp2','국내선','104',NULL),('pp3','국제선','104',NULL);
-
-/*!40000 ALTER TABLE `sub_category` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2025-03-26 18:16:45
 
 
 --     -- notice 테이블 추가 ---------------
