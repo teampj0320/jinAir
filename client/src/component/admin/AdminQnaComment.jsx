@@ -61,7 +61,7 @@ export default function AdminQnaComment() {
     // console.log(formData.image);
     const form = useRef();
     const YOUR_SERVICE_ID = 'service_017dgfp';
-    const YOUR_TEMPLATE_ID = 'template_fc4sbhb';
+    const YOUR_TEMPLATE_ID = 'template_xisu213';
     const YOUR_PUBLIC_KEY = 'EnIoNRO6eo5uhtOnt';
     const sendEmail = (e) => {
         e.preventDefault();
