@@ -22,7 +22,7 @@ export default function Footer() {
                             <div>
                                 <ul>
                                     <span>회사 안내</span>
-                                    <li onClick={()=>navigate('/user/notice')}>공지사항</li>
+                                    <li onClick={()=>navigate('/user/notice')} style={{cursor:'pointer'}}>공지사항</li>
                                     <li>기업개요</li>
                                     <li>ESG 경영</li>
                                     <li>소비자중심경영</li>
