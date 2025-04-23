@@ -14,6 +14,8 @@ import MyReservation from './pages/Mypage/MyReservation.jsx';
 import CheckIn from './pages/Mypage/CheckIn.jsx';
 import MyInterest from './pages/Mypage/MyInterest.jsx';
 import MyQna from './pages/Mypage/MyQna.jsx';
+import Notice from './component/member/Notice.jsx';
+import NoticeInfo from './component/member/NoticeInfo.jsx';
 import ModifyInfo from './pages/Mypage/ModifyInfo.jsx';
 import CustomTicket from './pages/CustomTicket.jsx';
 import BookingOneWay from './pages/booking/BookingOneWay.jsx';
@@ -55,6 +57,8 @@ export default function App() {
         <Route path='/mypage/modifyInfo' element={<ModifyInfo />} />
         <Route path='/mypage/qnaUpload' element={<QnaUpload />} />
         <Route path='/CustomTicket' element={<CustomTicket />} />
+        <Route path='/user/notice' element={<Notice />} />
+        <Route path='/user/noticeInfo/:num' element={<NoticeInfo />} />
         <Route path='/booking/availabilityList/oneWay' element={<BookingOneWay />} />
         <Route path='/booking/availabilityList/go' element={<BookingGo />} />
         <Route path='/booking/availabilityList/back' element={<BookingBack />} />

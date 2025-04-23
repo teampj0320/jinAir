@@ -137,7 +137,7 @@ export default function Chatbots() {
                         {chatTab === 'ticket' && alert('준비중 입니다')}
                         {chatTab === 'check' && alert('준비중 입니다')}
                         {/* {chatTab === 'notice' && goNotice()} */}
-                        {chatTab === 'notice' && alert('준비중 입니다')}
+                        {chatTab === 'notice' && navigate('/user/notice')}
                         {chatTab === 'buyTicket' && <BuyTicket />}
                     </div>
                 </div>
