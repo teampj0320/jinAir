@@ -26,8 +26,12 @@ export default function Header() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const [menuData, setMenuData] = useState([]);
-  const [activeMenu, setActiveMenu] = useState(null); // activeMenu 상태로 각 메뉴 hover를 관리합니다.
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [isAllMenuOpen, setIsAllMenuOpen] = useState(false);
 
+  const handleAllMenuToggle = () => {
+    setIsAllMenuOpen((prev) => !prev);
+  };
 
   const handleLoginToggle = () => {
     if (isLoggedIn) {
@@ -101,9 +105,6 @@ export default function Header() {
                   >
                     운항정보
                   </li>
-                  <li>
-                    <HiOutlineBars3 /> 전체메뉴
-                  </li>
                 </ul>
               </div>
 
@@ -122,8 +123,9 @@ export default function Header() {
 
           {/* 각 메뉴의 hover 상태에 따라 메뉴를 보이게 설정 */}
           <div
-            className={`header_bottom_menu_warp1 ${activeMenu === "menu1" ? "show" : ""
-              }`}
+            className={`header_bottom_menu_warp1 ${
+              activeMenu === "menu1" ? "show" : ""
+            }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu1">
@@ -165,8 +167,9 @@ export default function Header() {
           </div>
 
           <div
-            className={`header_bottom_menu_warp2 ${activeMenu === "menu2" ? "show" : ""
-              }`}
+            className={`header_bottom_menu_warp2 ${
+              activeMenu === "menu2" ? "show" : ""
+            }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu2">
@@ -194,8 +197,9 @@ export default function Header() {
           </div>
 
           <div
-            className={`header_bottom_menu_warp3 ${activeMenu === "menu3" ? "show" : ""
-              }`}
+            className={`header_bottom_menu_warp3 ${
+              activeMenu === "menu3" ? "show" : ""
+            }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu3">
@@ -241,8 +245,9 @@ export default function Header() {
           </div>
 
           <div
-            className={`header_bottom_menu_warp4 ${activeMenu === "menu4" ? "show" : ""
-              }`}
+            className={`header_bottom_menu_warp4 ${
+              activeMenu === "menu4" ? "show" : ""
+            }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="header_bottom_menu4">

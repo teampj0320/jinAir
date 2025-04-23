@@ -279,8 +279,24 @@ video {
     gap: 30px;
     margin: 20;
     color: var(--color-nav-main);
-}
+    ul{
+        li{
+            margin-bottom: 10px;
+        }
+    }
+} 
 
+.menu_list li {
+    padding-bottom: 6px;
+    border-bottom: 4px solid transparent;
+    transition: border-bottom 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .menu_list li:hover {
+    border-bottom: 2px solid #000;
+  }
+  
 
 /**************************************
 ** main
