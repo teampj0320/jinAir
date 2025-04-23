@@ -4,8 +4,10 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FaSquareYoutube } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
+    const navigate = useNavigate();
 
     const handleClick = () =>{
         window.open('/admin/login', '_blank')
@@ -20,7 +22,7 @@ export default function Footer() {
                             <div>
                                 <ul>
                                     <span>회사 안내</span>
-                                    <li>공지사항</li>
+                                    <li onClick={()=>navigate('/user/notice')}>공지사항</li>
                                     <li>기업개요</li>
                                     <li>ESG 경영</li>
                                     <li>소비자중심경영</li>

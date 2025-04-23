@@ -80,38 +80,7 @@ export default function Login() {
     }
   };
 
-  // useEffect(() => {
-  //   const handleMessage = async (event) => {
-  //     if (event.data.type === 'NAVER_LOGIN') {
-  //       const user = event.data.user;
-  
-  //       try {
-  //         const result = await axios.post('http://localhost:9000/member/social-login', {
-  //           email: user.email, // 서버에서 email 기준으로 유저 조회
-  //           name: user.name,   // 필요한 정보 추가로 전달
-  //         });
-  //         console.log('res',result);
-  //         console.log('res',result.data.cnt);
-          
-  //         if (result.data.cnt === 1) {
-  //           alert('네이버 계정으로 로그인되었습니다!');
-  //           const loginData ={'id': result.data.id, 'password': result.data.password };
-  //           dispatch(getLogin(loginData));
-  //           navigate('/');
-  //         } else {
-  //           alert('가입된 계정이 없습니다. 회원가입 페이지로 이동합니다!');
-  //           navigate('/join/terms', { state: { naverUser: user } });
-  //         }
-  //       } catch (err) {
-  //         console.error('네이버 로그인 에러', err);
-  //         alert('네이버 로그인 실패. 다시 시도해주세요.');
-  //       }
-  //     }
-  //   };
-  
-  //   window.addEventListener('message', handleMessage);
-  //   return () => window.removeEventListener('message', handleMessage);
-  // }, []);
+
   useEffect(() => {
     const handleMessage = async (event) => {
       const { type, user } = event.data;

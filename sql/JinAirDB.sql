@@ -200,16 +200,16 @@ UNLOCK TABLES;
 -- Table structure for table `qna`
 --
 
-DROP TABLE IF EXISTS `qna`;
+DROP TABLE IF EXISTS `notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `qna` (
-  `NO` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `notice` (
+  `NUM` int NOT NULL AUTO_INCREMENT,
   `TYPE` char(1) NOT NULL,
   `TITLE` varchar(30) NOT NULL,
-  `CONTENT` varchar(100) NOT NULL,
+  `CONTENT` varchar(1000) NOT NULL,
   `REG_DATE` datetime NOT NULL,
-  PRIMARY KEY (`NO`)
+  PRIMARY KEY (`NUM`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
