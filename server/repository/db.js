@@ -1,6 +1,4 @@
-
 import mysql from 'mysql2';
-
 
 const pool = mysql.createPool({
     host: 'localhost', 
@@ -8,7 +6,10 @@ const pool = mysql.createPool({
     user: 'root',
     password: 'mysql1234',
     database: 'jinairdb',
-    })
+});
 
+const getConnection = () => pool.promise().getConnection();
+
+export { getConnection };
 
 export const db = pool.promise();
