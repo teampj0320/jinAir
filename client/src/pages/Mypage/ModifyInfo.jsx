@@ -320,23 +320,23 @@ export default function ModifyInfo() {
                                 </div>
                             </div>
                             {/* SNS 계정연동 */}
-                            <div className='field-wrapper'>
+                            {/* <div className='field-wrapper disable-link'>
                                 <b className='f16'>SNS 계정연동</b>
                                 <p className='f14 w300'>- SNS 계정을 통해서 간편하게 로그인 하세요.</p>
                                 <div className='sns-btn-wrap'>
-                                    <button>
+                                    <button  >
                                         <img src="/images/icon_kakao2.webp" alt="" onClick={()=>{alert('준비중 입니다.')}} />
                                         카카오 로그인 연동하기</button>
                                     <button onClick={()=>{alert('준비중 입니다.')}}>
                                         <img src="/images/icon_naver.webp" alt="" />
                                         네이버 로그인 연동하기</button>
                                 </div>
-                            </div>
-                            <div className='field-wrapper' >
+                            </div> */}
+                            {/* <div className='field-wrapper disable-link' >
                                 <b className='f16'>회원탈퇴</b>
                                 <p className='f14 w300'>탈퇴 후 14일 이내에 가입이 불가능합니다.</p>
-                                <button className='withdraw-btn'>회원 탈퇴하기</button>
-                            </div>
+                                <button className='withdraw-btn disable-link'>회원 탈퇴하기</button>
+                            </div> */}
                             <div className='btn-group'>
                                 <button className='gray-btn'>취소</button>
                                 <button className='navy-btn2' onClick={handleSubmit}>수정</button>

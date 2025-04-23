@@ -6,30 +6,37 @@ import { useDispatch, useSelector } from "react-redux";
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import BoardingPassEmail from '../../component/mypage/BordingPassEmail.jsx';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CheckIn() {
     dayjs.locale('ko');  // 날짜 포맷
+    dayjs.extend(isSameOrAfter); // 날짜 비교
     const [resData, setResData] = useState(null);
     const [sendTarget, setSendTarget] = useState(null); // 탑승권 발송 정보
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
 
+    const navigate = useNavigate();
+
     // 예약정보 불러오기 (오늘 포함 이후 예약만 필터링 )
     useEffect(() => {
         if (!isLoggedIn) return;
-      
+
         const id = localStorage.getItem('user_id');
         const today = dayjs().startOf('day');
-        
+
         axios.post('http://localhost:9000/mypage/getMyRes', { id })
-          .then(({ data }) => {
-            const filtered = data.filter(group =>
-              group.some(item => dayjs(item.departure_date).isSameOrAfter(today, 'day'))
-            );
-            setResData(filtered);
-          })
-          .catch(console.error);
-      }, [isLoggedIn]);
+            .then(({ data }) => {
+                console.log("🔍 받은 예약 데이터:", data);
+                const filtered = data.filter(group =>
+                    group.some(item => dayjs(item.departure_date).isSameOrAfter(today, 'day'))
+                );
+                console.log("📌 필터링된 데이터:", filtered);
+                setResData(filtered);
+            })
+            .catch(console.error);
+    }, [isLoggedIn]);
 
 
 
@@ -103,7 +110,7 @@ export default function CheckIn() {
                                         ) : (
                                             <>불가능
                                                 <p className='f12 w300 text-center'>당일 체크인 가능</p>
-                                                
+
                                             </>
                                         )}
                                     </div>
@@ -118,7 +125,10 @@ export default function CheckIn() {
                             )
                         }
                         {/* 탑승권 전송 */}
-                        {sendTarget && <BoardingPassEmail segment={sendTarget} onSent={() => setSendTarget(null)} />}
+                        {sendTarget && <BoardingPassEmail segment={sendTarget} onSent={() => {
+                            setSendTarget(null);
+                            navigate('/mypage/index');  // 발행 완료 후 마이페이지 이동
+                        }} />}
                     </div>
                 </section>
             </div> {/* 해당 컴포넌트 가운데 정렬*/}
