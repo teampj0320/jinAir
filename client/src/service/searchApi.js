@@ -69,7 +69,7 @@ export const getCalendarType = (type) => (dispatch) => {
  * 나라데이터 가져오기
  */
 export const getCountry = () => async(dispatch) => {
-    const url = 'http://localhost:9000/chatbot';
+    const url = 'http://15.164.224.39:9000/chatbot';
 
     const result = await axiosPost({url}); 
     if(result) {

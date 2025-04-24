@@ -12,7 +12,7 @@ export default function AdminQna() {
   const [formData, setFormData] = useState([]); //db 에서 가져온 qna 리스트들
 
   useEffect(() => {
-    axios.post('http://localhost:9000/chatbot/getQnaAll')
+    axios.post('http://15.164.224.39:9000/chatbot/getQnaAll')
       .then(res => {
         console.log(res.data.result);
         setFormData(res.data.result);

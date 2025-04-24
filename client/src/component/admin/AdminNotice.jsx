@@ -21,7 +21,7 @@ export default function AdminNotice() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   useEffect(()=>{
-    axios.post('http://localhost:9000/admin/noticeList')
+    axios.post('http://15.164.224.39:9000/admin/noticeList')
          .then((res)=>setFormData(res.data))
          .catch((error)=>console.log(error))
   },[]);
@@ -79,7 +79,7 @@ export default function AdminNotice() {
   /* 검색 이벤트 */
   const handleSearch = async() =>{
     try {
-      const result = await axios.post('http://localhost:9000/admin/noticeSearch', {keyword:searchKeyword.trim()});
+      const result = await axios.post('http://15.164.224.39:9000/admin/noticeSearch', {keyword:searchKeyword.trim()});
       setFormData(result.data);
       setPage(1);
       setBlock(0);
@@ -97,10 +97,10 @@ export default function AdminNotice() {
       return;
     }
     try {
-      const result = await axios.post('http://localhost:9000/admin/notice/delete',{nums:selectedRows});
+      const result = await axios.post('http://15.164.224.39:9000/admin/notice/delete',{nums:selectedRows});
       if(result.data !== 0){
         alert('삭제가 완료되었습니다.');
-        const res = await axios.post('http://localhost:9000/admin/noticeList');
+        const res = await axios.post('http://15.164.224.39:9000/admin/noticeList');
         setFormData(res.data);       
         setSelectedRows([]);   
       } else {

@@ -77,7 +77,7 @@ export default function BookingPayment() {
           : [flightNum];
 
         const responses = await Promise.all(
-          nums.map(num => axios.post('http://localhost:9000/payment/flight', { flightNum: num }))
+          nums.map(num => axios.post('http://15.164.224.39:9000/payment/flight', { flightNum: num }))
         );
 
         const flights = responses.map(res => res.data.flight[0]);

@@ -24,7 +24,7 @@ export default function AdminNoticeAdd() {
       alert('내용을 입력해주세요');
       return;
     }else{
-      axios.post('http://localhost:9000/admin/noticeRegister', inputData)
+      axios.post('http://15.164.224.39:9000/admin/noticeRegister', inputData)
            .then((res)=>{
             if(res.data ===1 ){
               alert('공지사항이 정상적으로 등록되었습니다.');

@@ -72,7 +72,7 @@ export default function BuyTicket() {
     }
     const ScheduleCheckOneway = () => { // 왕복
         if (validate()) {
-            axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+            axios.post('http://15.164.224.39:9000/chatbot/searchMonthCheap', { start, end, date })
                 .then(res => {
                     if (res.data.result) {
                         setGetFlightList(res.data.result);
@@ -103,14 +103,14 @@ export default function BuyTicket() {
     }
     const ScheduleCheckRound = () => { // 왕복
         if (vali()) {
-            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date, endDate })
+            axios.post('http://15.164.224.39:9000/chatbot/searchSchedule', { start, end, date, endDate })
                 .then(res => {
                     if (res.data.result === 1) {
                         setRoundtripClick(true);
                     }
                 })
                 .catch(err => console.log(err));
-            axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+            axios.post('http://15.164.224.39:9000/chatbot/searchMonthCheap', { start, end, date })
                 .then(res => {
                     // if (res.data.result === 1) {
                     setGetFlightList(res.data.result);

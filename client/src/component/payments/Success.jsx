@@ -50,7 +50,7 @@ export default function SuccessPage() {
     console.log("📦 요청 데이터 확인:", payload);
 
     axios
-      .post("http://localhost:9000/payment/res", payload)
+      .post("http://15.164.224.39:9000/payment/res", payload)
       .then((res) => {
         const success = res.data?.success;
         const affected = res.data?.data?.[0]?.affectedRows >= 1;

@@ -42,11 +42,11 @@ export default function Schedule() {
     const changeCountry = () => {
         setStart(end);
         setEnd(start);
-        axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+        axios.post('http://15.164.224.39:9000/chatbot/searchSchedule', { start, end, date })
             .then(res => {
                 if (res.data.result === 1) {
                     setClick(true);
-                    axios.post('http://localhost:9000/chatbot/getSchedule', { start, end, date })
+                    axios.post('http://15.164.224.39:9000/chatbot/getSchedule', { start, end, date })
                             .then(res => 
                                 setGetFlightList(res.data.result)
                                 )
@@ -91,11 +91,11 @@ export default function Schedule() {
     
     const ScheduleCheck = () => {
         if (validate()) { // 스케쥴이 잇으면
-            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+            axios.post('http://15.164.224.39:9000/chatbot/searchSchedule', { start, end, date })
             .then(res => {
                 if (res.data.result === 1) {
                     setClick(true);
-                    axios.post('http://localhost:9000/chatbot/getSchedule', { start, end, date })
+                    axios.post('http://15.164.224.39:9000/chatbot/getSchedule', { start, end, date })
                             .then(res => 
                                 setGetFlightList(res.data.result)
                                 )

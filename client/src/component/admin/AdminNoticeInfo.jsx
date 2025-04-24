@@ -12,7 +12,7 @@ export default function AdminNoticeAdd() {
   }
 
   useEffect(()=>{
-    axios.post('http://localhost:9000/admin/noticeInfo', {"num":num})
+    axios.post('http://15.164.224.39:9000/admin/noticeInfo', {"num":num})
          .then((res)=>setFormData(res.data))
          .catch((error)=>console.log(error))
   },[]);
@@ -26,7 +26,7 @@ export default function AdminNoticeAdd() {
   const handleSubmit = (e) =>{
     e.preventDefault();
     const dataToSend = {...formData, "num":num};
-    axios.post('http://localhost:9000/admin/noticeUpdate', dataToSend)
+    axios.post('http://15.164.224.39:9000/admin/noticeUpdate', dataToSend)
          .then((res)=>{
           if(res.data ===1){
             setFormData(res.data)

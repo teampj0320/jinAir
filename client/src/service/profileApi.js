@@ -7,10 +7,10 @@ export const uploadProfileImage = async ({ file, oldFile, id }) => {
   formData.append('oldFile', oldFile);
   formData.append('id', id);
 
-  return await axiosPost({ url: 'http://localhost:9000/uploads', data: formData });
+  return await axiosPost({ url: 'http://15.164.224.39:9000/uploads', data: formData });
 };
 
 // 프로필 이미지 삭제
 export const deleteProfileImage = async (filename, id) => {
-  return await axiosDelete({ url: 'http://localhost:9000/uploads', data: { filename, id } });
+  return await axiosDelete({ url: 'http://15.164.224.39:9000/uploads', data: { filename, id } });
 };

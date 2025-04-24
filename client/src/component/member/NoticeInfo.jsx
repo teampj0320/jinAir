@@ -11,7 +11,7 @@ export default function NoticeInfo() {
   const [formData, setFormData] = useState([]);
 
   useEffect(()=>{
-      axios.post('http://localhost:9000/admin/noticeInfo', {"num":num})
+      axios.post('http://15.164.224.39:9000/admin/noticeInfo', {"num":num})
            .then((res)=>setFormData(res.data))
            .catch((error)=>console.log(error))
   },[]);

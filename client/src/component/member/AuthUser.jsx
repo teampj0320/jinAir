@@ -97,7 +97,7 @@ export default function AuthUser({item, onNext}) {
   const handleReqAuthCode = async() =>{
     try {
       if(refs.emailRef.current.value !== ''){
-        const res = await axios.post('http://localhost:9000/member/authcode'
+        const res = await axios.post('http://15.164.224.39:9000/member/authcode'
           ,{ name:refs.nameRef.current.value
             , email:refs.emailRef.current.value});
             if(res.data.success){
@@ -130,7 +130,7 @@ export default function AuthUser({item, onNext}) {
   
   /* 아이디 중복확인 */  
   const handleIdCheck = () =>{
-    axios.post('http://localhost:9000/member/idcheck', {id: formData.id})
+    axios.post('http://15.164.224.39:9000/member/idcheck', {id: formData.id})
          .then((res)=>{
             if(res.data[0].cnt){
               alert('이미 사용중인 아이디입니다.');
@@ -165,7 +165,7 @@ export default function AuthUser({item, onNext}) {
 
     try {
       if (item === 'id') {
-        const { data } = await axios.post('http://localhost:9000/member/findId', formData);
+        const { data } = await axios.post('http://15.164.224.39:9000/member/findId', formData);
         if (data[0]?.cnt) {
           navigate('/find/findUserId', { state: { userId: data[0].id } });
         } else {
@@ -175,7 +175,7 @@ export default function AuthUser({item, onNext}) {
       }
 
       if (item === 'pwd') {
-        const { data } = await axios.post('http://localhost:9000/member/findPwd', formData);
+        const { data } = await axios.post('http://15.164.224.39:9000/member/findPwd', formData);
   
         if (data.success) {
           navigate('/find/findUserPwd', { state: { userPwd: data.data.password } });
@@ -196,7 +196,7 @@ export default function AuthUser({item, onNext}) {
 
       if( item === 'userInfo') {
         if(idCheckState){
-          const { data } = await axios.post('http://localhost:9000/member/signup', formData);
+          const { data } = await axios.post('http://15.164.224.39:9000/member/signup', formData);
           
           if(data){
             onNext(true);

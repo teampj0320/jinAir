@@ -95,7 +95,7 @@ export default function Cheap() {
     }
     const ScheduleCheck = () => {
         if (validate()) {
-            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+            axios.post('http://15.164.224.39:9000/chatbot/searchSchedule', { start, end, date })
                 .then(res => {
                     if (res.data.result === 1) {
                         setOnewayClick(true);
@@ -108,7 +108,7 @@ export default function Cheap() {
     }
     const ScheduleCheckRound = () => { // 왕복
         if (vali()) {
-            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date, endDate })
+            axios.post('http://15.164.224.39:9000/chatbot/searchSchedule', { start, end, date, endDate })
                 .then(res => {
                     if (res.data.result === 1) {
                         setRoundtripClick(true);
@@ -124,7 +124,7 @@ export default function Cheap() {
     const exchangeCountryOneWay = () => {
         setStart(end);
         setEnd(start);
-        axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+        axios.post('http://15.164.224.39:9000/chatbot/searchMonthCheap', { start, end, date })
             .then(res => {
                 // if (res.data.result === 1) {
                 setGetFlightList(res.data.result);
@@ -159,7 +159,7 @@ export default function Cheap() {
     ];
 
     const handleOneway = () => {
-        axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+        axios.post('http://15.164.224.39:9000/chatbot/searchMonthCheap', { start, end, date })
             .then(res => {
                 // if (res.data.result === 1) {
                 setGetFlightList(res.data.result);
@@ -169,7 +169,7 @@ export default function Cheap() {
             .catch(error => console.log(error));
     }
     const handleRoundTrip = () => {
-        axios.post('http://localhost:9000/chatbot/searchMonthCheap', { start, end, date })
+        axios.post('http://15.164.224.39:9000/chatbot/searchMonthCheap', { start, end, date })
             .then(res => {
                 // if (res.data.result === 1) {
                 setGetFlightList(res.data.result);

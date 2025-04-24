@@ -34,7 +34,7 @@ export default function MyReservation() {
   useEffect(() => {
     if (isLoggedIn) {
       const id = localStorage.getItem('user_id');
-      axios.post('http://localhost:9000/mypage/getMyRes', { id })
+      axios.post('http://15.164.224.39:9000/mypage/getMyRes', { id })
         .then((res) => {
           console.log('서버 응답 데이터:', res.data);
           setResData(res.data || []);
