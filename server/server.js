@@ -19,7 +19,8 @@ const server = express();
 const port = 9000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-dotenv.config({ path: path.resolve(__dirname, '../.env') }); // 루트에 .env가 있을 경우
+// dotenv.config({ path: path.resolve(__dirname, '../.env') }); // 루트에 .env가 있을 경우
+dotenv.config();
 
 //common
 server.use(express.json());

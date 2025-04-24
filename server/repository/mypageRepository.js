@@ -282,7 +282,7 @@ export const getMyQna = async ({ id }) => {
   const sql = `SELECT TITLE, CONTENT, REG_DATE, 
     category, comment, adminTitle, adminContent, customer_id AS id,
      (
-    SELECT CONCAT('http://13.209.74.163:9000/', jt.img)
+    SELECT CONCAT('http://localhost:9000/', jt.img)
     FROM JSON_TABLE(
       JSON_UNQUOTE(qnaImg->>'$[0]'),
       '$[*]' COLUMNS (
