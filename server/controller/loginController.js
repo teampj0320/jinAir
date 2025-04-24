@@ -5,7 +5,7 @@ import {sendMail} from'../utils/sendMail.js';
 import axios from 'axios';
 
 /***************************** 
- * 로그인 
+ * 1.로그인 
 *****************************/
 export const checkLogin = async(req, res) =>{
   let result = await repository.checkLogin(req.body);
