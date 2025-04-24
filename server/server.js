@@ -35,7 +35,7 @@ server.use('/member', loginRouter);
 server.use('/admin', adminRouter);
 
 // middle ware
-server.use('/mypage', mypageRouter)
+server.use('/mypage', mypageRouter);
 server.use('/uploads', uploadRouter);
 server.use('/booking', bookingRouter);
 
