@@ -26,7 +26,7 @@ export default function CheckIn() {
         const id = localStorage.getItem('user_id');
         const today = dayjs().startOf('day');
 
-        axios.post('http://localhost:9000/mypage/getMyRes', { id })
+        axios.post('http://15.164.224.39:9000/mypage/getMyRes', { id })
             .then(({ data }) => {
                 console.log("🔍 받은 예약 데이터:", data);
                 const filtered = data.filter(group =>

@@ -107,7 +107,7 @@ export default function QnaUpload() {
             });
             // console.log('fdfd',formData);
 
-            axios.post('http://localhost:9000/chatbot/dbQnaupload', formData)
+            axios.post('http://15.164.224.39:9000/chatbot/dbQnaupload', formData)
                 .then(res => {
                     if (res.data.result_rows === 1) {
                         const select = window.confirm("질문등록이 완료되었습니다. 마이페이지로 이동하시겠습니까?");
@@ -199,7 +199,7 @@ export default function QnaUpload() {
                                         <div>
                                             <QnaImgMulti getFileName={getFileName} />
                                             {previewList && previewList.map((preview) =>
-                                                <img src={`http://localhost:9000/${preview}`} alt="미리보기" style={{ 'width': '200px' }} />
+                                                <img src={`http://15.164.224.39:9000/${preview}`} alt="미리보기" style={{ 'width': '200px' }} />
                                             )}
                                             <li>
                                                 <input type="hidden" name='uploadFile' value={fnames.uploadFileName} />

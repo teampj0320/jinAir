@@ -11,7 +11,7 @@ import { setTicketList, setResevationType, setFlightNum, setSeatType, setTicketP
  * 예약 가능 항공권 조회
 *****************************/
 export const getOnewayList = (departure, arrive, startDate) => async(dispatch) => {
-    const url = 'http://localhost:9000/booking/availability';
+    const url = 'http://15.164.224.39:9000/booking/availability';
     const data = { "departure": departure, "arrive": arrive, "startDate": startDate };
     
     const result = await axiosPost({url, data});
@@ -66,7 +66,7 @@ export const setBackFlightInfo = (resevationType, fnum, seatType, seatPrice) => 
 *****************************/
 export const getUserInfo = () => async(dispatch) => {
     const id = localStorage.getItem('user_id');
-    const url = 'http://localhost:9000/booking/user';
+    const url = 'http://15.164.224.39:9000/booking/user';
     const data = { 'id': id };
 
     const result = await axiosPost({url, data});
@@ -80,7 +80,7 @@ export const getUserInfo = () => async(dispatch) => {
  * BookingSelectSeat
 *****************************/
 export const getSeats = (fnum) => async(dispatch) => {
-    const url = 'http://localhost:9000/booking/seats';
+    const url = 'http://15.164.224.39:9000/booking/seats';
     const data = { 'fnum': fnum };
 
     const result = await axiosPost({url, data});

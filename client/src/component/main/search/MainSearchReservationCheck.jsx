@@ -66,7 +66,7 @@ export default function MainSearchReservationCheck() {
         if (validate()) {
             setErr('');
             const id = localStorage.getItem('user_id');
-            axios.post('http://localhost:9000/chatbot/checkCheckIn',{'id':id, 'rnum' :form.rnum})
+            axios.post('http://15.164.224.39:9000/chatbot/checkCheckIn',{'id':id, 'rnum' :form.rnum})
                 .then(res => {
                     if(res.data.result === 1){
                         navigate('/mypage/getReservation');

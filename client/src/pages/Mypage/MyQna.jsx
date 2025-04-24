@@ -20,7 +20,7 @@ export default function MyQna() {
         if (isLoggedIn) {
             const id = localStorage.getItem('user_id');
 
-            axios.post('http://localhost:9000/mypage/getMyQna', { id })
+            axios.post('http://15.164.224.39:9000/mypage/getMyQna', { id })
                 .then((res) => {
                     console.log('서버 응답 데이터:', res.data);
                     setQnaData(res.data);

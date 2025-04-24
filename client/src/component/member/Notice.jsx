@@ -22,7 +22,7 @@ export default function Notice() {
     const totalPages = Math.ceil(noticeData.length / itemsPerPage);
     // qna 테이블 불러오기
     useEffect(() => {
-        axios.post('http://localhost:9000/admin/noticeList')
+        axios.post('http://15.164.224.39:9000/admin/noticeList')
             .then((res) => {
                 setNoticeData(res.data);
             })

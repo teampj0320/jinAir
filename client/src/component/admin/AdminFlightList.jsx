@@ -25,7 +25,7 @@ export default function AdminAirRegister() {
   },[page, formData]);
 
   useEffect(()=>{
-    axios.post('http://localhost:9000/admin/flight')
+    axios.post('http://15.164.224.39:9000/admin/flight')
          .then((res)=>setFormData(res.data))
          .catch((error)=>console.log(error))
   },[]);
@@ -74,7 +74,7 @@ export default function AdminAirRegister() {
   const handleSearch = async() => {
     if (searchType === 'default' || !searchKeyword.trim()) {
       try {
-        const res = await axios.post('http://localhost:9000/admin/flight');
+        const res = await axios.post('http://15.164.224.39:9000/admin/flight');
         setFormData(res.data);
         setPage(1);
         setBlock(0);
@@ -87,7 +87,7 @@ export default function AdminAirRegister() {
     }
 
     try {
-      const res = await axios.post('http://localhost:9000/admin/flight/search', {
+      const res = await axios.post('http://15.164.224.39:9000/admin/flight/search', {
         type: searchType,
         keyword: searchKeyword.trim()
       });
@@ -108,10 +108,10 @@ export default function AdminAirRegister() {
       return;
     }
     try {
-      const result = await axios.post('http://localhost:9000/admin/deleteFlightList', {fnums:selectedRows});
+      const result = await axios.post('http://15.164.224.39:9000/admin/deleteFlightList', {fnums:selectedRows});
       if(result.data !== 0){
         alert('삭제가 완료되었습니다.');
-        const res = await axios.post('http://localhost:9000/admin/flight');
+        const res = await axios.post('http://15.164.224.39:9000/admin/flight');
         setFormData(res.data);       
         setSelectedRows([]);   
       } else {

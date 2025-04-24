@@ -16,13 +16,13 @@ export default function AdminQnaComment() {
     const adminContentRef = useRef(null);
     const id = localStorage.getItem('user_id');
     useEffect(() => {
-        axios.post('http://localhost:9000/chatbot/detail', { "qid": qid })
+        axios.post('http://15.164.224.39:9000/chatbot/detail', { "qid": qid })
             .then(res => {
                 setFormData(res.data);
 
             })
             .catch(err => console.log(err));
-        axios.post('http://localhost:9000/chatbot/getCustomerInfo', { id })
+        axios.post('http://15.164.224.39:9000/chatbot/getCustomerInfo', { id })
             .then(res => {
                 setCustomerData(res.data.result);
             })
@@ -47,7 +47,7 @@ export default function AdminQnaComment() {
 
     const handleComment = () => {
         if(validate()){
-            axios.post('http://localhost:9000/chatbot/updateComment', { "no": formData.no, inputData })
+            axios.post('http://15.164.224.39:9000/chatbot/updateComment', { "no": formData.no, inputData })
             .then(res => {
                 if (res.data.result_rows === 1) {
                     navigate('/admin/qna');

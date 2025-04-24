@@ -89,7 +89,7 @@ export default function Login() {
   
       const handleSocialLogin = async (provider) => {
         try {
-          const result = await axios.post('http://localhost:9000/member/social-login', {
+          const result = await axios.post('http://15.164.224.39:9000/member/social-login', {
             email: user.kakao_account?.email || user.email,
             name: user.properties?.nickname || user.name,
           });

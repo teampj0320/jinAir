@@ -28,13 +28,13 @@ export default function Reservation() {
             setReservationExist(false);
             setReservationNo(false);
 
-            axios.post('http://localhost:9000/chatbot/searchReservation', {
+            axios.post('http://15.164.224.39:9000/chatbot/searchReservation', {
                 reserMessage1,
                 reserMessage,
             })
                 .then(res => {
                     if (res.data.result === 1) {
-                        axios.post('http://localhost:9000/chatbot/getReservation', { reserMessage1, reserMessage })
+                        axios.post('http://15.164.224.39:9000/chatbot/getReservation', { reserMessage1, reserMessage })
                             .then(res => {
                                 const resultData = res.data.result;
                                 setData(resultData);

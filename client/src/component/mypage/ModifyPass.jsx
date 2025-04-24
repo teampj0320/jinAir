@@ -10,7 +10,7 @@ export default function ModifyPass({ userId, onConfirm }) {
   const handleSubmit = async () => {
     // 기존 비밀번호 확인
     const result = await axiosPost({
-      url: 'http://localhost:9000/mypage/checkPwd',
+      url: 'http://15.164.224.39:9000/mypage/checkPwd',
       data: { id: userId, password: currentPwd },
     });
 

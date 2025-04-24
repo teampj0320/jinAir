@@ -6,7 +6,7 @@ import { axiosPost } from'./api.js';
  * 로그인 
 *****************************/
 export const getLogin = (formData) =>async(dispatch) =>{
-  const url = `http://localhost:9000/member/login`;
+  const url = `http://15.164.224.39:9000/member/login`;
   const data = formData;
 
   const loginResult = await axiosPost({url, data});
@@ -44,7 +44,7 @@ export const getLogout = () => async(dispatch) =>{
  * 어드민 로그인 
 *****************************/
 export const getAdminLogin = (formData) => async(dispatch) => {
-  const url = `http://localhost:9000/admin/login`;
+  const url = `http://15.164.224.39:9000/admin/login`;
   const data = formData; 
 
   const loginResult = await axiosPost({url, data});

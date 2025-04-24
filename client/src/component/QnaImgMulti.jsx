@@ -14,7 +14,7 @@ export default function QnaImaMulti({getFileName}) {
                 formData.append('files', file);
             }
             formData.append ( 'oldFiles',oldFile ) ;  // 
-            axios.post(`http://localhost:9000/chatbot/QnaUpload?maxFiles=${files.length}`, formData, {
+            axios.post(`http://15.164.224.39:9000/chatbot/QnaUpload?maxFiles=${files.length}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             })
                 .then(res => {

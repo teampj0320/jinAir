@@ -76,12 +76,12 @@ export default function Airplane() {
     const handleAirNum = () => {
         if (validateAirnum()) {
             // 서버에서 있는지 조회
-            axios.post('http://localhost:9000/chatbot/searchAirplane', { airNumber, airNumStartDate })
+            axios.post('http://15.164.224.39:9000/chatbot/searchAirplane', { airNumber, airNumStartDate })
                 .then((res) => {
                     if (res.data.result === 1) {
                         setAirNumClick(true);
                         setNoneAirNumClick(false);
-                        axios.post('http://localhost:9000/chatbot/getSchedule', { airNumber, airNumStartDate })
+                        axios.post('http://15.164.224.39:9000/chatbot/getSchedule', { airNumber, airNumStartDate })
                             .then(res => setGetFlightList(res.data.result))
                             .catch(error => console.log(error));
                     } else {
@@ -95,12 +95,12 @@ export default function Airplane() {
 
     const handleCountry = () => {
         if (validateCountry()) {
-            axios.post('http://localhost:9000/chatbot/searchSchedule', { start, end, date })
+            axios.post('http://15.164.224.39:9000/chatbot/searchSchedule', { start, end, date })
                 .then(res => {
                     if (res.data.result === 1) {
                         setCountryClick(true);
                         setNoneCountryClick(false);
-                        axios.post('http://localhost:9000/chatbot/getSchedule', { start, end, date })
+                        axios.post('http://15.164.224.39:9000/chatbot/getSchedule', { start, end, date })
                             .then(res =>
                                 setGetFlightList(res.data.result)
                             )
@@ -116,12 +116,12 @@ export default function Airplane() {
     const exchangeCountry = () => {
         setStart(end);
         setEnd(start);
-        axios.post('http://localhost:9000/chatbot/searchAirplane', { airNumber, airNumStartDate })
+        axios.post('http://15.164.224.39:9000/chatbot/searchAirplane', { airNumber, airNumStartDate })
             .then((res) => {
                 if (res.data.result === 1) {
                     setAirNumClick(true);
                     setNoneAirNumClick(false);
-                    axios.post('http://localhost:9000/chatbot/getSchedule', { airNumber, airNumStartDate })
+                    axios.post('http://15.164.224.39:9000/chatbot/getSchedule', { airNumber, airNumStartDate })
                         .then(res => setGetFlightList(res.data.result))
                         .catch(error => console.log(error));
                 } else {
