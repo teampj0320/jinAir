@@ -55,12 +55,12 @@ export const getFnum = async() =>{
  * 4. 항공권 등록
  ***************************/
 export const setFlightRegister = async(formData) =>{
-  const sql =`
+  const flightSql =`
   insert into flight
   values(?,?, ?,?,?,?, ?,?, 188,180,8, ?,?)
   `;
 
-  const values = [
+  const flightValues = [
     formData.fnum ,
     formData.pnum ,
     formData.departure_location ,
@@ -73,9 +73,52 @@ export const setFlightRegister = async(formData) =>{
     formData.premium_price 
   ];
 
-  const [result] = await db.execute(sql, values);
-  return result.affectedRows;
-};  
+  const seatList = [
+    "28A", "28B", "28C", "28D", "28E", "28F",
+    "29A", "29B", "29C", "29D", "29E", "29F",
+    "30A", "30B", "30C", "30D", "30E", "30F",
+    "31A", "31B", "31C", "31D", "31E", "31F",
+    "32A", "32B", "32C", "32D", "32E", "32F",
+    "33A", "33B", "33C", "33D", "33E", "33F",
+    "34A", "34B", "34C", "34D", "34E", "34F",
+    "35A", "35B", "35C", "35D", "35E", "35F",
+    "36A", "36B", "36C", "36D", "36E", "36F",
+    "37A", "37B", "37C", "37D", "37E", "37F",
+    "38A", "38B", "38C", "38D", "38E", "38F",
+    "39A", "39B", "39C", "39D", "39E", "39F",
+    "40A", "40B", "40C", "40D", "40E", "40F",
+    "41A", "41B", "41C", "41D", "41E", "41F",
+    "42A", "42B", "42C", "42D", "42E", "42F",
+    "43A", "43B", "43C", "43D", "43E", "43F",
+    "44A", "44B", "44C", "44D", "44E", "44F",
+    "45A", "45B", "45C", "45D", "45E", "45F",
+    "46A", "46B", "46C", "46D", "46E", "46F",
+    "47A", "47B", "47C", "47D", "47E", "47F",
+    "48A", "48B", "48C", "48D", "48E", "48F",
+    "49A", "49B", "49C", "49D", "49E", "49F",
+    "50A", "50B", "50C", "50D", "50E", "50F",
+    "51A", "51B", "51C", "51D", "51E", "51F",
+    "52A", "52B", "52C", "52D", "52E", "52F",
+    "53A", "53B", "53C", "53D", "53E", "53F",
+    "54A", "54B", "54C", "54D", "54E", "54F",
+    "55A", "55B", "55C", "55D", "55E", "55F",
+    "56A", "56B", "56C", "56D", "56E", "56F",
+    "57A", "57B", "57C", "57D", "57E", "57F"
+  ];
+  const premiumList = ["7A", "7B", "7D", "7E", "8A", "8B", "8D", "8E"];
+
+  const seatSql = `
+    INSERT INTO seats (fNUM, basic_seats, reserved_basic, premium_seat, reserved_premium)
+    VALUES (?, ?, NULL, ?, NULL)
+  `;
+
+  const [result] = await db.execute(flightSql, flightValues);
+  if(result.affectedRows ===1 ){
+    const result = await db.execute(seatSql, [ formData.fnum, JSON.stringify(seatList), JSON.stringify(premiumList) ]);
+    return result[0].affectedRows;
+  }
+   return result.affectedRows;
+  };  
 
 
 /***************************

@@ -113,9 +113,11 @@ export default function AdminFlightAdd() {
       console.log('formData>>> ',formData);
       axios.post('http://localhost:9000/admin/flightRegister', formData)
            .then((res)=>{
+            console.log('gddgfdgd',res.data);
+            
             if(res.data === 1){
               alert('항공권 등록이 완료되었습니다.');
-              navigate('/admin/fligh');
+              navigate('/admin/flight');
             }else{
               alert('항공권 등록에 실패했습니다. 다시 입력하세요.');
             }

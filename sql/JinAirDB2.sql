@@ -1,4 +1,4 @@
-drop database jinairdb;
+-- drop database jinairdb;
 CREATE DATABASE  IF NOT EXISTS `jinairdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `jinairdb`;
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
@@ -86,7 +86,7 @@ CREATE TABLE `customer` (
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` VALUES 
-('test1','1111','홍','길동','HONG','GILLDONG','01012345678','gilldong@gmail.com','F','2099.01.01','2025-03-26 18:14:27',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL),
+('test1','1111','홍','길동','HONG','GILLDONG','01012345678','kimdahee42@gmail.com','F','2099.01.01','2025-03-26 18:14:27',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL),
 ('test2','2222','김','다희','BANA','PRESSO','01012345678','rabbit0523@naver.com','M','2000.05.23','2025-03-26 18:14:27',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL),
 ('test3','3333','이','하온','BANA','PRESSO','01012345678','haoony@naver.com ','M','2000.05.23','2025-03-26 18:14:27',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL),
 ('test4','4444','황','수현','BANA','PRESSO','01012345678','hwangsu94@naver.com','M','2000.05.23','2025-03-26 18:14:27',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL),

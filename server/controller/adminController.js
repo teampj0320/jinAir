@@ -67,6 +67,7 @@ export const setFlightRegister = async(req, res) =>{
     departure_date, arrive_date, basic_price, premium_price};
 
   const result = await repository.setFlightRegister(data);
+  
   res.json(result);
   res.end();
 };
