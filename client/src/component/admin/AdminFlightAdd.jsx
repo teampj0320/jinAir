@@ -52,7 +52,7 @@ export default function AdminFlightAdd() {
   }, []);
 
   useEffect(()=> {
-    axios.post('http://localhost:9000/admin/Fnum')
+    axios.post('http://13.209.74.163:9000/admin/Fnum')
          .then((res)=>{
           setFnum(res.data)
           setFormData(prev =>({...prev, fnum:res.data}))
@@ -111,7 +111,7 @@ export default function AdminFlightAdd() {
     if (result) {
       setMsgResult('');
       console.log('formData>>> ',formData);
-      axios.post('http://localhost:9000/admin/flightRegister', formData)
+      axios.post('http://13.209.74.163:9000/admin/flightRegister', formData)
            .then((res)=>{
             if(res.data === 1){
               alert('항공권 등록이 완료되었습니다.');
