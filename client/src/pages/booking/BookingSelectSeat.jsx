@@ -24,10 +24,14 @@ export default function BookingSelectSeat() {
     const ticketPrice = useSelector(state => state.booking.ticketPrice);
     const passengers = useSelector((state) => state.booking.passengers);
     const seatType = useSelector(state => state.booking.seatType); // 편도 예약 시 좌석 타입
+    const departure = useSelector(state => state.search.departure); // 출발지
+    const arrive = useSelector(state => state.search.arrive); // 도착지
+    const startDate = useSelector(state => state.search.startDate); // 출발일
+    const ticketList = useSelector(state => state.booking.ticketList); // 예약 가능 항공권 리스트
 
     const [selectSeatNum, setSelectSeatNum] = useState([]); // 선택 좌석
     const [seatGrade, setSeatGrade] = useState([]);
-    
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
 
@@ -122,17 +126,13 @@ export default function BookingSelectSeat() {
                 <div className='booking-selectSeat-section'>
                     <span>구간1</span>
                     <div>
-                        <span>서울/김포 <span className='thin'>GMP</span></span>
+                        <span>{departure} <span className='thin'>{ticketList.length > 0 && ticketList[0].A_acode}</span></span>
                         <span><IoIosAirplane /></span>
-                        <span>제주 <span className='thin'>CJU</span></span>
+                        <span>{arrive} <span className='thin'>{ticketList.length > 0 && ticketList[0].D_acode}</span></span>
                     </div>
                     <div>|</div>
                     <div>
-                        <span>2025.04.08(화)</span>
-                        <span>19:10</span>
-                        <span>~</span>
-                        <span>2025.04.08(화)</span>
-                        <span>20:25</span>
+                        <span>{startDate}</span>
                     </div>
                 </div>
                 <div className='booking-selectSeat-detail'>
@@ -148,11 +148,11 @@ export default function BookingSelectSeat() {
                                 >
                                     !
                                 </span>
-                                <Tooltip 
-                                    id='my-tooltip' 
+                                <Tooltip
+                                    id='my-tooltip'
                                     place='top'
                                     className='thin'
-                                    style={{backgroundColor: "#192547"}}
+                                    style={{ backgroundColor: "#192547" }}
                                 />
                             </span>
                         </div>
@@ -161,7 +161,7 @@ export default function BookingSelectSeat() {
                     <div className='booking-selectSeat-detail-bottom'>
 
                         <div>
-                            { passengers.map((item, i) => (
+                            {passengers.map((item, i) => (
                                 <div className='selectSeat-detail-bottom-left'>
                                     <div className='selectSeat-detail-passenger-info'>
                                         <div className='selectSeat-passenger-info-num'>{i + 1}</div>
@@ -179,17 +179,17 @@ export default function BookingSelectSeat() {
                                         <div><IoIosClose /></div>
                                     </div>
                                 </div>
-                            )) }
+                            ))}
                         </div>
 
                         <div className='selectSeat-detail-bottom-right'>
                             <ul className='selectSeact-seat-info'>
-                                { seatGrade.map((item) => 
+                                {seatGrade.map((item) =>
                                     <li>
-                                        <div style={{border: `2px solid ${item.color}`, borderRadius: "2px", width: "12px", height: "12px"}}></div>
-                                        <span style={{color: item.color}}>{item.name}</span>
+                                        <div style={{ border: `2px solid ${item.color}`, borderRadius: "2px", width: "12px", height: "12px" }}></div>
+                                        <span style={{ color: item.color }}>{item.name}</span>
                                     </li>
-                                ) }
+                                )}
                             </ul>
                             <div onClick={() => setModalIsOpen(true)}>
                                 <span><MdArrowOutward /></span>
@@ -207,7 +207,7 @@ export default function BookingSelectSeat() {
                         </div>
                     </div>
                     <div className='selectSeat-select-seat'>
-                        { seatType === 'basic'
+                        {seatType === 'basic'
                             ? <BookingSelectBasicSeat
                                 selectSeatNum={selectSeatNum}
                                 setSelectSeatNum={setSelectSeatNum}
@@ -230,7 +230,7 @@ export default function BookingSelectSeat() {
                 style={customAlertStyles}
                 ariaHideApp={false}
                 contentLabel="Booking Seat Deac Modal"
-                >
+            >
                 <BookingReserveAlert
                     text='좌석을 선택해주세요.'
                     setAlertOpen={setAlertOpen}

@@ -28,6 +28,11 @@ export default function BookingBackSelectSeat() {
     const backTicketPrice = useSelector(state => state.booking.backTicketPrice);
     const totalPrice = goTicketPrice + backTicketPrice;
 
+    const departure = useSelector(state => state.search.departure); // 출발지
+    const arrive = useSelector(state => state.search.arrive); // 도착지
+    const startDate = useSelector(state => state.search.startDate); // 출발일
+    const endDate = useSelector(state => state.search.endDate); // 도착일
+    const ticketList = useSelector(state => state.booking.ticketList); // 예약 가능 항공권 리스트
 
     const [seatGrade, setSeatGrade] = useState([]);
     const [selectSeatNum, setSelectSeatNum] = useState(''); // 선택 좌석
@@ -122,19 +127,15 @@ export default function BookingBackSelectSeat() {
             <div className='booking-selectSeat-contents'>
                 <p className='booking-page-title'>3. 좌석 선택</p>
                 <div className='booking-selectSeat-section'>
-                    <span>구간1</span>
+                    <span>구간2</span>
                     <div>
-                        <span>서울/김포 <span className='thin'>GMP</span></span>
+                        <span>{arrive} <span className='thin'>{ticketList.length > 0 && ticketList[0].D_acode}</span></span>
                         <span><IoIosAirplane /></span>
-                        <span>제주 <span className='thin'>CJU</span></span>
+                        <span>{departure} <span className='thin'>{ticketList.length > 0 && ticketList[0].A_acode}</span></span>
                     </div>
                     <div>|</div>
                     <div>
-                        <span>2025.04.08(화)</span>
-                        <span>19:10</span>
-                        <span>~</span>
-                        <span>2025.04.08(화)</span>
-                        <span>20:25</span>
+                        <span>{startDate} ~ {endDate}</span>
                     </div>
                 </div>
                 <div className='booking-selectSeat-detail'>
