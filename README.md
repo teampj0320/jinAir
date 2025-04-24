@@ -1,8 +1,8 @@
-### <div align=center>![header](https://capsule-render.vercel.app/api?type=blur&color=0:D3DC2E,100:D3DC2E&width=1000&height=200&section=header&text=JINAIR%20Clone%20Cording%20Team%20Project&fontSize=30&fontColor=FFFFFF&fontAlignX=50&fontAlignY=50&stroke=BFBFBF)</div>
+### <div align=center>![header](https://capsule-render.vercel.app/api?type=blur&color=0:D3DC2E,100:D3DC2E&width=1000&height=200&section=header&text=JINAIR%20Team%20Project&fontSize=30&fontColor=FFFFFF&fontAlignX=50&fontAlignY=50&stroke=BFBFBF)</div>
 
 
 ## 프로젝트 소개
-- 진에어 클론 코딩 팀 프로젝트
+- 진에어 코딩 팀 프로젝트
 
 ### 📄 개요
 - 준비중
