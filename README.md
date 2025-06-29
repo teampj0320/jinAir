@@ -11,6 +11,8 @@
 
 <br>
 
+
+
 ### 📆 프로젝트 기간
 - 2025.03.24 ~ 2025.04.28
 
@@ -23,6 +25,22 @@
 <br>
 
 ## 프로젝트 설명
+
+### 설치 및 실행 (로컬환경)
+- 프로젝트폴더/client 
+```bash
+npm i 
+npm start
+```
+- 프로젝트폴더/server 
+```bash
+npm i 
+nodemon server.js  #nodemon 설치 선행
+```
+- db <br>
+  mysql workbench에서 sql 폴더의 `jinairdb2.sql` 설치
+
+
 ### 설계단계 - ERD 
 ![image](https://github.com/user-attachments/assets/9ad5db3e-592b-49f2-9686-63a549a3d0c0)
 
