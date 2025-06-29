@@ -1,4 +1,6 @@
-### <div align=center>![header](https://capsule-render.vercel.app/api?type=blur&color=0:D3DC2E,100:D3DC2E&width=1000&height=200&section=header&text=JINAIR%20Team%20Project&fontSize=30&fontColor=FFFFFF&fontAlignX=50&fontAlignY=50&stroke=BFBFBF)</div>
+<p align="center">
+  <img src="https://github.com/2eo2yeo/jinAir/blob/main/client/public/images/readmetitle.png?raw=true">
+</p>
 
 
 ## 프로젝트 소개
@@ -14,6 +16,8 @@
 <br>
 
 ### 🙋‍♀️ 팀구성
+![image](https://github.com/user-attachments/assets/35e53052-3316-4f53-aee8-b5738a94ed3c)
+
 
 <br>
 
