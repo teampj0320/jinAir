@@ -41,12 +41,15 @@ nodemon server.js  #nodemon 설치 선행
   mysql workbench에서 sql 폴더의 `jinairdb2.sql` 설치
 
 
+<br>
+
 ### 설계단계 - ERD 
 ![image](https://github.com/user-attachments/assets/9ad5db3e-592b-49f2-9686-63a549a3d0c0)
 
-항공편, 좌석, 예약, 고객, 쿠폰, 프로모션, 관리자, QnA, 공지사항 테이블이 있으며,
-기능별 테이블을 관리하고 필요한 경우 외래키로 연결하였습니다.
-
+- 항공편, 좌석, 예약, 고객, 쿠폰, 프로모션, 관리자, QnA, 공지사항 테이블로 구성
+- 기능별 테이블을 관리하고 필요한 경우 외래키로 연결
+  
+<br>
 
 ### 📚기술 스택
 
@@ -69,12 +72,18 @@ nodemon server.js  #nodemon 설치 선행
 
 <br>
 
-사용한 라이브러리
 
 
 ## 프로젝트 시연 영상
 
-- 준비중
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=M7Z2InRdMh0" target="_blank">
+    <img src="https://github.com/user-attachments/assets/a9ff6647-b12e-4b5c-b42e-c002f4b6face" width="700" />
+  </a>
+</p>
+
+<p align="center"> 이미지 클릭시 유튜브로 이동합니다 </p>
+<br>
 
 ## 🖥구현기능 
 
