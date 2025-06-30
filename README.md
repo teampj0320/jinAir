@@ -77,6 +77,12 @@ nodemon server.js  #nodemon 설치 선행
 - 준비중
 
 ## 🖥구현기능 
+
+
+<details>
+<summary><strong>📌 상세 내용 펼치기!</strong></summary>
+<div markdown="1">
+
 📁 회원가입
 - 회원가입 유효성 체크(필요 정보 입력, 약관 동의)
 - 이메일 인증 기능 활용
@@ -132,6 +138,10 @@ nodemon server.js  #nodemon 설치 선행
 
 📁 고객 문의 작성 폼
 - multer를 통한 사진 첨부 기능 제공
+
+
+</div>
+</details>
 
 <br>
 
