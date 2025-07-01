@@ -6,8 +6,8 @@
 ## 📄개요
 - 항공권 예매 사이트인 <B>진에어</B>를 벤치마킹하여 구현한 팀 프로젝트입니다.
 - 항공권 예매 시스템의 구조와 동작 원리에 흥미를 느껴 주제로 선정하게 되었습니다
-- React, Node.js(Express), MySQL을 사용하였으며, 모든 팀원이 프론트엔드와 백엔드를 함께 개발하였습니다.
-- 날짜 선택용 캘린더, 좌석 선택 시각화, 항공편 최저가 시각화 차트, 관리자용 항공편 등록 시스템 등을 구현하여 사용자 및 운영자의 편의성을 강화하였습니다.
+- <B>React, Node.js(Express), MySQL</B>을 사용하였으며, 모든 팀원이 프론트엔드와 백엔드를 함께 개발하였습니다.
+- <B>날짜 선택용 캘린더, 좌석 선택 시각화, 항공편 최저가 시각화 차트, 관리자용 항공편 등록 시스템</B> 등을 구현하여 사용자 및 운영자의 편의성을 강화하였습니다.
 
 <br>
 
@@ -21,35 +21,6 @@
 ### 🙋‍♀️ 팀구성
 ![image](https://github.com/user-attachments/assets/35e53052-3316-4f53-aee8-b5738a94ed3c)
 
-
-<br>
-
-## 프로젝트 설명
-
-### 설치 및 실행 (로컬환경)
-- 프로젝트폴더/client 
-```bash
-npm i 
-npm start
-```
-- 프로젝트폴더/server 
-```bash
-npm i 
-nodemon server.js  #nodemon 설치 선행
-```
-- db <br>
-  mysql workbench에서 sql 폴더의 `jinairdb2.sql` 설치
-
-
-<br>
-
-### 설계단계 - ERD 
-![image](https://github.com/user-attachments/assets/9ad5db3e-592b-49f2-9686-63a549a3d0c0)
-
-- 항공편, 좌석, 예약, 고객, 쿠폰, 프로모션, 관리자, QnA, 공지사항 테이블로 구성
-- 기능별 테이블을 관리하고 필요한 경우 외래키로 연결
-  
-<br>
 
 ### 📚기술 스택
 
@@ -71,10 +42,9 @@ nodemon server.js  #nodemon 설치 선행
 </div>
 
 <br>
+<br>
 
-
-
-## 프로젝트 시연 영상
+## 🖥️ 프로젝트 시연 영상
 
 <p align="center">
   <a href="https://youtu.be/fy4xuwWGOhA?si=SuaqVev9tDgIny9Y" target="_blank">
@@ -83,7 +53,44 @@ nodemon server.js  #nodemon 설치 선행
 </p>
 
 <p align="center"> 이미지 클릭시 유튜브로 이동합니다 </p>
+
 <br>
+<br>
+
+## 프로젝트 설명
+
+### ⚙️ 설치 및 실행 (로컬환경)
+<B>프로젝트폴더/client</B>
+```bash
+npm i 
+npm start
+```
+<B>프로젝트폴더/server</B> 
+```bash
+npm i 
+nodemon server.js  #nodemon 설치 선행
+```
+<B>DB</B>
+- mysql workbench에서 sql 폴더의 `jinairdb2.sql` 설치
+
+<br>
+
+
+
+
+### ✏️ 설계단계 - ERD 
+![image](https://github.com/user-attachments/assets/9ad5db3e-592b-49f2-9686-63a549a3d0c0)
+
+- 항공편, 좌석, 예약, 고객, 쿠폰, 프로모션, 관리자, QnA, 공지사항 테이블로 구성
+- 기능별 테이블을 관리하고 필요한 경우 외래키로 연결
+  
+<br>
+
+
+
+
+
+
 
 ## 🖥구현기능 
 
