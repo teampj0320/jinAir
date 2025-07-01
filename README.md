@@ -77,7 +77,7 @@ nodemon server.js  #nodemon 설치 선행
 ## 프로젝트 시연 영상
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=M7Z2InRdMh0" target="_blank">
+  <a href="https://youtu.be/fy4xuwWGOhA?si=SuaqVev9tDgIny9Y" target="_blank">
     <img src="https://github.com/user-attachments/assets/a9ff6647-b12e-4b5c-b42e-c002f4b6face" width="700" />
   </a>
 </p>
